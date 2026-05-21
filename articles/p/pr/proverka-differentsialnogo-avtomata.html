@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Проверка дифференциального автомата: методы и нормы — Электро Гид</title>
+    <meta name="description" content="Полная инструкция по проверке дифференциального автомата. Как тестировать УЗО и защиту от токов КЗ мультиметром и кнопкой.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/pr/proverka-differentsialnogo-avtomata.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Проверка дифференциального автомата: методы и нормы">
+    <meta property="og:description" content="Полная инструкция по проверке дифференциального автомата. Как тестировать УЗО и защиту от токов КЗ мультиметром и кнопкой.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Проверка дифференциального автомата: методы и нормы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Проверка дифференциального автомата: методы и приборы</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#принцип-работы-и-устройство-дифавтомата">Принцип работы и устройство дифавтомата</a></li><li><a href="#визуальный-осмотр-и-механическая-проверка">Визуальный осмотр и механическая проверка</a></li><li><a href="#тестирование-кнопкойтест">Тестирование кнопкой"Тест"</a></li><li><a href="#проверка-мультиметром-измерение-сопротивления">Проверка мультиметром: измерение сопротивления</a></li><li><a href="#профессиональная-проверка-токоизмерительными-клещами">Профессиональная проверка токоизмерительными клещами</a></li><li><a href="#типичные-неисправности-и-причины-отказа">Типичные неисправности и причины отказа</a></li><li><a href="#частые-вопросы-по-проверке-дифавтоматов">Частые вопросы по проверке дифавтоматов</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Электробезопасность в жилом или коммерческом помещении напрямую зависит от исправности защитной автоматики. <strong>Дифференциальный автомат</strong> совмещает в себе функции УЗО и автоматического выключателя, реагируя на утечки тока и перегрузки сети. Регулярная проверка этого устройства позволяет предотвратить поражение электрическим током и возгорание проводки. Игнорирование профилактики может привести к тому, что в критический момент механизм просто не сработает.</p>
+
+<p>Процесс тестирования включает в себя несколько этапов: от визуального осмотра до сложных измерений с использованием специализированного оборудования. Важно понимать, что даже если рычаг включается, это не гарантирует исправность внутренних цепей защиты. <em>Владельцам недвижимости</em> следует знать базовые методы контроля, чтобы убедиться в работоспособности системы электроснабжения. Далее мы подробно разберем, как проводится диагностика в бытовых и профессиональных условиях.</p>
+
+<h2 id="принцип-работы-и-устройство-дифавтомата">Принцип работы и устройство дифавтомата</h2>
+
+<p>Для правильной диагностики необходимо понимать внутреннюю конструкцию прибора. <strong>Дифференциальный автомат</strong> состоит из двух основных модулей: теплового расцепителя, реагирующего на длительные перегрузки, и электромагнитного, срабатывающего при коротких замыканиях. Отдельным блоком идет дифференциальная защита, основанная на работе <em>трансформатора тока</em>. Именно этот узел сравнивает токи входящего и выходящего потоков.</p>
+
+<p>Если возникает утечка, например, при пробое изоляции или касании человеком токоведущих частей, баланс токов нарушается. Трансформатор фиксирует эту разницу и передает сигнал на исполнительный механизм, который мгновенно размыкает контакты. Время срабатывания качественных устройств составляет доли секунды, что критически важно для сохранения жизни человека.</p>
+
+<p>Существуют различные типы дифавтоматов, обозначаемые маркировкой <code>A</code>, <code>AC</code> или <code>B</code>. Устройства типа <code>AC</code> реагируют только на синусоидальный переменный ток, тогда как тип <code>A</code> способен улавливать и пульсирующий постоянный ток, что актуально для современной бытовой техники с электронными блоками управления. Понимание типа вашего устройства необходимо для выбора корректного метода проверки.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Внутри дифавтомата находятся токоведущие части под высоким напряжением. Любые манипуляции по вскрытию корпуса или подключению щупов к клеммам должны проводиться только при полностью отключенном вводном рубильнике.</p>
+</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Дифавтомат защищает одновременно от утечек на землю, перегрузок по току и коротких замыканий, объединяя функции двух устройств в одном корпусе.</p></div>
+
+<h2 id="визуальный-осмотр-и-механическая-проверка">Визуальный осмотр и механическая проверка</h2>
+
+<p>Первичная диагностика начинается задолго до подключения измерительных приборов. В первую очередь необходимо провести тщательный <strong>визуальный осмотр</strong> корпуса устройства. На пластике не должно быть трещин, сколов или следов термического воздействия, таких как оплавление или копоть. Наличие таких дефектов свидетельствует о том, что устройство эксплуатировалось в аварийном режиме или было повреждено механически.</p>
+
+<p>Особое внимание уделите маркировке и индикаторам. На лицевой панели должна читаться схема подключения и основные технические характеристики: номинальный ток, ток утечки и время срабатывания. Многие модели оснащены цветовым индикатором состояния контактов (зеленый — выключено, красный — включено). Проверьте, соответствует ли положение рычага цвету индикатора.</p>
+
+<ul>
+<li>🔍 Осмотрите места соединения проводов на предмет почернения изоляции.</li>
+<li>🔍 Убедитесь, что рычаг переключения движется плавно, без заеданий.</li>
+<li>🔍 Проверьте четкость работы механического указателя положения контактов.</li>
+</ul>
+
+<p>Механическая часть также требует проверки. Рычаг включения должен фиксироваться в положении"Вкл" с характерным щелчком. Если переключатель ходит слишком туго или, наоборот, болтается, это признак износа внутреннего механизма взвода пружины. В таких случаях дальнейшая эксплуатация устройства становится рискованной.</p>
+
+<h2 id="тестирование-кнопкойтест">Тестирование кнопкой"Тест"</h2>
+
+<p>Самый простой и доступный способ быстрой проверки — использование штатной кнопки <code>Test</code> (или <code>T</code>), расположенной на корпусе устройства. Эта кнопка искусственно создает ток утечки внутри самого автомата, имитируя аварийную ситуацию. При нажатии исправный дифавтомат обязан мгновенно отключиться, разорвав цепь.</p>
+
+<p>Процедура проверки кнопкой элементарна: при включенном напряжении в сети нажмите на кнопку <code>Test</code>. Рычаг должен перейти в положение"Выкл". Если этого не произошло, защитная функция дифференциала не работает, и устройство требует немедленной замены. Важно проводить такую проверку регулярно, например, раз в месяц, чтобы убедиться, что механизм не закис.</p>
+
+<div class="poll-widget" id="poll-3a5df065"><div class="poll-widget-question">📊 Как часто вы проверяете автоматику в щитке?</div><div class="poll-widget-option" data-poll="3a5df065" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Раз в месяц</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3a5df065" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Раз в полгода</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3a5df065" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Только при сбоях</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3a5df065" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда не проверял</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Существует распространенное заблуждение, что кнопка"Тест" проверяет всю цепь защиты, включая реакцию на перегрузку. Это не так. Кнопка проверяет исключительно работоспособность <strong>дифференциального модуля</strong> и механики расцепления. Она не дает информации о состоянии теплового и электромагнитного расцепителей, которые защищают от короткого замыкания и перегрева проводов.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если после нажатия кнопки"Тест" автомат не отключился, не пытайтесь ремонтировать его самостоятельно. Устройства с нарушенной герметичностью корпуса или неисправной защитой подлежат утилизации.</p>
+</blockquote>
+
+<h2 id="проверка-мультиметром-измерение-сопротивления">Проверка мультиметром: измерение сопротивления</h2>
+
+<p>Более глубокий анализ состояния устройства можно провести с помощью обычного <strong>мультиметра</strong>, переведенного в режим измерения сопротивления (Ом). Этот метод позволяет оценить целостность внутренних цепей и контактов. Перед началом измерений обязательно обесточьте щиток и отключите дифавтомат от сети.</p>
+
+<p>Подключите щупы мультиметра к входному и выходному контактам устройства в выключенном состоянии. Прибор должен показывать бесконечность или очень высокое сопротивление, так как цепь разомкнута. Затем включите автомат и повторите измерение. Теперь сопротивление должно быть близко к нулю, что указывает на замкнутые контакты.</p>
+
+<table>
+<thead>
+<tr>
+<th>Состояние автомата</th>
+<th>Положение щупов</th>
+<th>Ожидаемое показание</th>
+<th>Диагноз</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Выключен</td>
+<td>Вход - Выход</td>
+<td>∞ (Бесконечность)</td>
+<td>Норма</td>
+</tr>
+<tr>
+<td>Включен</td>
+<td>Вход - Выход</td>
+<td>0 - 10 Ом</td>
+<td>Норма</td>
+</tr>
+<tr>
+<td>Включен</td>
+<td>Вход - Выход</td>
+<td>∞ (Бесконечность)</td>
+<td>Обрыв контактов</td>
+</tr>
+<tr>
+<td>Выключен</td>
+<td>Вход - Выход</td>
+<td>0 Ом</td>
+<td>Залипание контактов</td>
+</tr>
+</tbody>
+</table>
+
+<p>Если в выключенном состоянии мультиметр показывает низкое сопротивление, значит, контакты <strong>залипли</strong> или сварились. Эксплуатация такого дифавтомата запрещена, так как он не сможет отключить аварийный участок. Также стоит проверить сопротивление между полюсами, оно также должно быть высоким в любом положении рычага.</p>
+
+<details class="faq-item"><summary>Почему сопротивление контактов растет со временем?</summary><div class="faq-answer"><p>При частых коммутациях или прохождении токов короткого замыкания на поверхности контактов образуются микроскопические неровности и окислы. Это увеличивает переходное сопротивление, нагрев и дальнейшую деградацию узла.</p></div></details>
+
+<h2 id="профессиональная-проверка-токоизмерительными-клещами">Профессиональная проверка токоизмерительными клещами</h2>
+
+<p>Для точной оценки параметров срабатывания используется специализированный прибор — <em>устройство для проверки УЗО и дифавтоматов</em> (например, MRP-200 или аналоги). Такие приборы позволяют плавно повышать ток утечки и фиксировать точное значение, при котором происходит отключение. Это единственный способ убедиться, что автомат срабатывает в заявленном диапазоне (обычно 50-100% от номинала).</p>
+
+<p>Процесс проверки выглядит следующим образом: прибор подключается к сети через дифавтомат. С помощью регулятора тока утечки значение плавно увеличивается до момента срабатывания защиты. На дисплее фиксируется реальный ток отключения. Для домашнего использования нормальным считается разброс от 50% до 100% от номинального тока утечки (например, для 30 мА — срабатывание в диапазоне 15-30 мА).</p>
+
+<div class="checklist-block"><h4>☑️ Алгоритм проверки клещами</h4><label class="check-item"><input type="checkbox"><span>Подключить прибор к розетке</span></label><label class="check-item"><input type="checkbox"><span>Выбрать режим проверки УЗО</span></label><label class="check-item"><input type="checkbox"><span>Нажать кнопку старт</span></label><label class="check-item"><input type="checkbox"><span>Зафиксировать ток отключения</span></label><label class="check-item"><input type="checkbox"><span>Сравнить с паспортом</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Также профессиональные тестеры измеряют <strong>время срабатывания</strong>. При подаче номинального тока утечки (100%) автомат должен отключиться быстрее, чем за 0.3 секунды (для класса S — селективные, время больше). Если время реакции превышает нормативы, защита может оказаться неэффективной при прямом контакте человека с током.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Технические характеристики и допустимые нормы могут отличаться в зависимости от производителя и серии оборудования. Всегда сверяйтесь с технической документацией (паспортом) на конкретную модель дифавтомата перед заключением о его неисправности.</p>
+</blockquote>
+
+<h2 id="типичные-неисправности-и-причины-отказа">Типичные неисправности и причины отказа</h2>
+
+<p>Даже качественное оборудование может выйти из строя. Одной из самых частых причин является <strong>износ механических частей</strong>. Пружины со временем теряют упругость, а пластиковые детали механизма расцепления могут деформироваться от нагрева. В результате автомат либо перестает включаться, либо не отключается при аварии.</p>
+
+<p>Второй распространенной проблемой является загрязнение внутренних контактов. Пыль, влажный воздух и металлическая стружка (в производственных условиях) оседают на контактах, создавая токопроводящие мостики. Это может приводить к ложным срабатываниям или, наоборот, к невозможности разрыва цепи. Также часто встречается выход из строя электронной платы в дифавтоматах с электронным расцепителем.</p>
+
+<ul>
+<li>⚡ Перегрев из-за плохого контакта в месте подключения проводов.</li>
+<li>⚡ Воздействие грозовых перенапряжений на чувствительную электронику.</li>
+<li>⚡ Естественное старение материалов корпуса и изоляции.</li>
+</ul>
+
+<p>Если дифавтомат выбивает без видимой нагрузки, возможно, проблема не в самом автомате, а в проводке или подключенных приборах. Однако, если отключение происходит мгновенно при включении даже без нагрузки, это верный признак внутренней неисправности защитного устройства. В такой ситуации требуется замена модуля.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При замене дифавтомата обращайте внимание не только на номинал тока, но и на тип характеристики расцепления (B, C, D) и габаритные размеры, чтобы устройство поместилось в щиток.</p></div>
+
+<h2 id="частые-вопросы-по-проверке-дифавтоматов">Частые вопросы по проверке дифавтоматов</h2>
+
+<details>
+<summary>Можно ли проверить дифавтомат без специальных приборов?</summary>
+<p>Полноценную проверку с измерением токов и времени срабатывания без приборов не провести. Однако базовую функциональность (механику и реакцию на кнопку"Тест") можно проверить визуально и кнопкой. Для домашней безопасности этого часто бывает достаточно, если нет подозрений на скрытые дефекты.</p>
+</details>
+
+<details>
+<summary>Как часто нужно проводить проверку дифференциального автомата?</summary>
+<p>Производители рекомендуют нажимать кнопку"Тест" раз в месяц. Полную инструментальную проверку с замерами в бытовых условиях достаточно проводить раз в 1-2 года, либо после каждого аварийного срабатывания, если есть сомнения в исправности сети.</p>
+</details>
+
+<details>
+<summary>Что делать, если дифавтомат не отключается при нажатии кнопки"Тест"?</summary>
+<p>Если при нажатии кнопки автомат не выбивает, это означает, что дифференциальная защита не работает. Эксплуатировать такое устройство опасно. Необходимо немедленно заменить его на новое, исправное устройство с аналогичными характеристиками.</p>
+</details>
+
+<details>
+<summary>В чем разница между проверкой УЗО и дифавтомата?</summary>
+<p>Методика проверки дифференциальной части идентична. Однако дифавтомат дополнительно требует проверки теплового и электромагнитного расцепителей (защита от КЗ и перегрузки), для чего нужны специальные нагрузочные тестеры, создающие токи выше номинальных.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#принцип-работы-и-устройство-дифавтомата">Принцип работы и устройство дифавтомата</a></li><li><a href="#визуальный-осмотр-и-механическая-проверка">Визуальный осмотр и механическая проверка</a></li><li><a href="#тестирование-кнопкойтест">Тестирование кнопкой"Тест"</a></li><li><a href="#проверка-мультиметром-измерение-сопротивления">Проверка мультиметром: измерение сопротивления</a></li><li><a href="#профессиональная-проверка-токоизмерительными-клещами">Профессиональная проверка токоизмерительными клещами</a></li><li><a href="#типичные-неисправности-и-причины-отказа">Типичные неисправности и причины отказа</a></li><li><a href="#частые-вопросы-по-проверке-дифавтоматов">Частые вопросы по проверке дифавтоматов</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/a/av/avtomaty-elektricheskie-vidy.html" class="related-card">Электрические автоматы: виды, назначение и выбор для дома (2026)</a></li><li><a href="/articles/r/ra/raspredelitelnyj-shchit-v-dome.html" class="related-card">Распределительный щит в доме: монтаж, схема и выбор оборудования</a></li><li><a href="/articles/1/16/16-amper-avtomat-skolko-vyderzhit-kilovatt.html" class="related-card">16 ампер автомат: сколько киловатт выдержит сеть?</a></li><li><a href="/articles/g/gd/gde-raspolozhit-elektroshchit-v-kvartire.html" class="related-card">Где установить электрощит в квартире: нормы, схемы и ошибки 2026</a></li><li><a href="/articles/k/ka/kakoj-dolzhen-byt-vvodnoj-avtomat.html" class="related-card">Какой должен быть вводной автомат: расчет и выбор</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/a/av/avtomaty-elektricheskie-vidy.html" class="related-bottom-card"><span class="related-bottom-title">Электрические автоматы: виды, назначение и выбор для дома (2026)</span><span class="related-bottom-desc">Подробный обзор всех типов электрических автоматов: модульные, воздушные, дифференциальные. Как выбр</span></a><a href="/articles/r/ra/raspredelitelnyj-shchit-v-dome.html" class="related-bottom-card"><span class="related-bottom-title">Распределительный щит в доме: монтаж, схема и выбор оборудования</span><span class="related-bottom-desc">Как правильно собрать и подключить распределительный щит в частном доме или квартире? Схемы, выбор а</span></a><a href="/articles/1/16/16-amper-avtomat-skolko-vyderzhit-kilovatt.html" class="related-bottom-card"><span class="related-bottom-title">16 ампер автомат: сколько киловатт выдержит сеть?</span><span class="related-bottom-desc">Узнайте, сколько киловатт выдержит автомат 16 ампер. Расчет мощности для однофазной и трехфазной сет</span></a><a href="/articles/g/gd/gde-raspolozhit-elektroshchit-v-kvartire.html" class="related-bottom-card"><span class="related-bottom-title">Где установить электрощит в квартире: нормы, схемы и ошибки 2026</span><span class="related-bottom-desc">Правила размещения электрощита в квартире: оптимальные места, требования ПУЭ и ГОСТ, запрещённые зон</span></a><a href="/articles/k/ka/kakoj-dolzhen-byt-vvodnoj-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Какой должен быть вводной автомат: расчет и выбор</span><span class="related-bottom-desc">Как выбрать вводной автоматический выключатель. Расчет номинала, схемы подключения, правила ПУЭ и ош</span></a><a href="/articles/m/ma/magnitnoe-rele-220v-s-upravlyayushchej-fazoj.html" class="related-bottom-card"><span class="related-bottom-title">Магнитное реле 220В с управляющей фазой: схема, подключение, выбор</span><span class="related-bottom-desc">Как работает магнитное реле 220В с управляющей фазой? Схемы подключения, выбор модели и нюансы монта</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

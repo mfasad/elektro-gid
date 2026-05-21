@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Автоматы по сечению провода: таблица подбора и расчет — Электро Гид</title>
+    <meta name="description" content="Как подобрать автомат по сечению кабеля? Таблица соответствий, расчет токовой нагрузки, правила ПУЭ и защита проводки от перегрузок.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/a/av/avtomaty-po-secheniyu-provoda.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Автоматы по сечению провода: таблица подбора и расчет">
+    <meta property="og:description" content="Как подобрать автомат по сечению кабеля? Таблица соответствий, расчет токовой нагрузки, правила ПУЭ и защита проводки от перегрузок.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Автоматы по сечению провода: таблица подбора и расчет</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Правильный подбор автомата по сечению провода</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#принцип-работы-защиты-и-токовые-нагрузки">Принцип работы защиты и токовые нагрузки</a></li><li><a href="#таблица-соответствия-сечения-кабеля-и-автомата">Таблица соответствия сечения кабеля и автомата</a></li><li><a href="#особенности-подбора-для-розеточных-групп-и-освещения">Особенности подбора для розеточных групп и освещения</a></li><li><a href="#влияние-способа-прокладки-на-выбор-защиты">Влияние способа прокладки на выбор защиты</a></li><li><a href="#характеристики-расцепления-b-c-и-d">Характеристики расцепления: B, C и D</a></li><li><a href="#типичные-ошибки-и-важные-предупреждения">Типичные ошибки и важные предупреждения</a></li><li><a href="#итоговый-расчет-и-выбор-оборудования">Итоговый расчет и выбор оборудования</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Ошибочный выбор защитного устройства в электрическом щите — это одна из самых распространенных причин пожаров в жилых зданиях. Многие неопытные мастера совершают фатальную ошибку, выбирая номинал автоматического выключателя исключительно по мощности подключаемых приборов, забывая о пропускной способности кабеля. Проводка может не выдержать возросшей нагрузки задолго до того, как сработает автомат, что приведет к нагреву изоляции и возгоранию.</p>
+<p>В этой статье мы разберем, как корректно соотносить <strong>сечение провода</strong> и номинальный ток автомата, чтобы обеспечить надежную защиту вашей электросети. Вы узнаете о табличных значениях, коэффициентах запаса и нюансах, которые часто упускаются при монтаже.</p>
+
+<h2 id="принцип-работы-защиты-и-токовые-нагрузки">Принцип работы защиты и токовые нагрузки</h2>
+<p>Автоматический выключатель предназначен для защиты кабеля, а не подключенного оборудования. Это фундаментальное правило электромонтажа. Если вы установите автомат на 25 Ампер на провод сечением 1.5 мм², то при токе 20 Ампер провод начнет греться и плавиться, а автомат будет "молчать", так как этот ток ниже его порога отсечки. <strong>Номинальный ток</strong> автомата должен быть всегда меньше или равен максимально допустимому току для данного сечения жилы.</p>
+<p>Существует два типа защиты, встроенных в автомат: тепловая и электромагнитная. Тепловой расцепитель срабатывает при длительном, незначительном превышении тока (перегрузка), защищая от перегрева. Электромагнитный реагирует мгновенно на короткое замыкание. Для подбора по сечению нас в первую очередь интересует тепловая защита и длительная пропускная способность.</p>
+<p>Пропускная способность кабеля зависит от материала (медь или алюминий), количества жил в кабеле и способа прокладки (открытая или в штробе). Медь проводит ток лучше, чем алюминий, поэтому при одинаковом сечении медный кабель выдерживает большие токи. Важно также учитывать, что при плотной укладке нескольких кабелей в одном канале их нагрев усиливается, что требует снижения допустимой нагрузки.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Всегда выбирайте автомат с запасом по току примерно 10-15% меньше предельной пропускной способности кабеля, чтобы исключить работу на пределе возможностей.</p></div>
+
+<h2 id="таблица-соответствия-сечения-кабеля-и-автомата">Таблица соответствия сечения кабеля и автомата</h2>
+<p>Для бытового применения чаще всего используются медные кабели марки <em>ВВГнг-LS</em> или <em>NYM</em>. Ниже приведена таблица, которая является основным ориентиром при проектировании и сборке щита. Данные актуальны для однофазной сети 220В и прокладки кабеля в воздухе или коробе.</p>
+
+<table>
+<thead>
+<tr>
+<th>Сечение медной жилы (мм²)</th>
+<th>Допустимый ток (А)</th>
+<th>Рекомендуемый автомат (А)</th>
+<th>Максимальная мощность (кВт)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.5</td>
+<td>19</td>
+<td>10 (макс. 13)</td>
+<td>2.2 - 2.9</td>
+</tr>
+<tr>
+<td>2.5</td>
+<td>25-27</td>
+<td>16</td>
+<td>3.5 - 5.5</td>
+</tr>
+<tr>
+<td>4.0</td>
+<td>35-38</td>
+<td>25</td>
+<td>5.5 - 7.0</td>
+</tr>
+<tr>
+<td>6.0</td>
+<td>45-50</td>
+<td>32</td>
+<td>7.0 - 8.8</td>
+</tr>
+<tr>
+<td>10.0</td>
+<td>65-70</td>
+<td>50</td>
+<td>11.0 - 15.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>Обратите внимание на колонку с рекомендуемым автоматом. Например, для кабеля 2.5 мм², который выдерживает до 27 Ампер, стандартным решением является автомат на 16 Ампер. Установка автомата на 20 или 25 Ампер на такой провод недопустима, так как длительная нагрузка в 20 Ампер приведет к деградации изоляции.</p>
+<p>Если вы используете алюминиевые кабели (например, <em>АВВГ</em>), их пропускная способность ниже. Алюминиевый провод 2.5 мм² выдержит примерно те же 20-22 Ампера, что и медный 1.5 мм². Поэтому при замене старой алюминиевой проводки на новую медную обязательно меняйте и автоматы на более мощные, соответствующие новому сечению.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Никогда не ставьте автомат большего номинала, чем позволяет сечение провода, даже если вам не хватает мощности для приборов. Это прямая угроза пожарной безопасности.</p></div>
+
+<h2 id="особенности-подбора-для-розеточных-групп-и-освещения">Особенности подбора для розеточных групп и освещения</h2>
+<p>В современной квартире электрическая сеть делится на группы. Стандартное решение для групп освещения — использование кабеля сечением 1.5 мм² и автоматов номиналом 10 Ампер. Светодиодные лампы потребляют минимум энергии, поэтому запаса в 10 Ампер (более 2 кВт) более чем достаточно даже для больших люстр и бра.</p>
+<p>Для розеточных групп стандартом де-факто стал кабель 2.5 мм². На такую линию обычно ставится автомат на 16 Ампер. Это позволяет подключать мощную бытовую технику: пылесосы, обогреватели, фены. Однако, если вы планируете запитать от одной розетки мощный электрокотел или проточный водонагреватель, одной линии 2.5 мм² будет недостаточно — потребуется отдельный вывод кабелем 4 или 6 мм².</p>
+<ul>
+<li>💡 <strong>Кухня:</strong> Здесь концентрация приборов максимальна. Розетки на фартуке лучше разбить на две линии по 16А, а для варочной панели вести отдельный кабель 4-6 мм² с автоматом 25-32А.</li>
+<li>🛁 <strong>Ванная:</strong> Обязательно использование УЗО или дифавтомата. Сечение провода для стиральной машины — 2.5 мм², автомат 16А. Для бойлера лучше выделить отдельную линию.</li>
+<li>❄️ <strong>Кондиционер:</strong> Сплит-системы часто требуют отдельного кабеля 2.5 мм², особенно если это мощные модели, работающие на обогрев зимой.</li>
+</ul>
+<p>При планировании розеточных групп учитывайте сценарии использования. Если в комнате предполагается одновременная работа компьютера, телевизора и обогревателя, обычная линия на 16А может быть перегружена. В таких случаях лучше заложить кабель 4 мм², но автомат все равно оставить 16А или 20А (если проводка позволяет), чтобы защитить розетки, которые редко рассчитаны на токи выше 16А.</p>
+
+<div class="poll-widget" id="poll-bf19dd85"><div class="poll-widget-question">📊 Какое сечение кабеля вы чаще всего используете для розеток?</div><div class="poll-widget-option" data-poll="bf19dd85" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">1.5 мм²</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="bf19dd85" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">2.5 мм²</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="bf19dd85" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">4.0 мм²</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="bf19dd85" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю / Смотрю по ситуации</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="влияние-способа-прокладки-на-выбор-защиты">Влияние способа прокладки на выбор защиты</h2>
+<p>Способ укладки кабеля существенно влияет на его способность отводить тепло. Кабель, лежащий открыто в воздухе, охлаждается лучше, чем кабель, замурованный в стене под штукатуркой или уложенный пучком в кабель-канале. В ПУЭ (Правила Устройства Электроустановок) существуют поправочные коэффициенты, учитывающие эти условия.</p>
+<p>Если кабель прокладывается в трубе или закрытом коробе, его токовая нагрузка снижается. Например, кабель 2.5 мм² в открытой прокладке выдерживает около 30А, а в трубе — уже около 24-25А. Именно поэтому для скрытой проводки в квартирах рекомендуется быть более консервативным в выборе номинала автомата.</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если вы укладываете несколько кабелей вплотную друг к другу (более 4 штук в пучке), их нагрев суммируется. В таких случаях необходимо либо увеличивать сечение кабеля, либо снижать номинал автомата, либо использовать специальные разделители.</p>
+</blockquote>
+<p>Также стоит учитывать длину трассы. На очень длинных участках (более 50-80 метров) может возникать значительное падение напряжения. Хотя для квартирной проводки это редко бывает критичным, в частных домах или гаражах при длине линии 100+ метров даже медный кабель 2.5 мм² может не обеспечить нужный ток на конце линии, и автомат может не сработать при коротком замыкании из-за высокого сопротивления петли.</p>
+
+<details class="faq-item"><summary>Что такое падение напряжения?</summary><div class="faq-answer"><p>Падение напряжения — это потеря части электрического потенциала при прохождении тока через проводник. На длинных линиях это может привести к тому, что на конце кабеля напряжение будет ниже 220В, что вредно для двигателей насосов и компрессоров.</p></div></details>
+
+<h2 id="характеристики-расцепления-b-c-и-d">Характеристики расцепления: B, C и D</h2>
+<p>При выборе автомата важно обращать внимание не только на номинал (цифру), но и на букву перед ним (B, C, D). Это время-токовая характеристика, показывающая, как быстро автомат среагирует на превышение тока.</p>
+<p>Для бытовой сети чаще всего используются автоматы с характеристикой <strong>"C"</strong>. Они срабатывают при кратковременном превышении тока в 5-10 раз. Это позволяет пережить пусковые токи холодильников, насосов и блоков питания без ложного выбивания.</p>
+<ul>
+<li>🔌 <strong>Характеристика B:</strong> Срабатывает при превышении в 3-5 раз. Используется для активных нагрузок без пусковых токов (освещение, ТЭНы, длинные линии). В быту ставится редко, в основном на свет.</li>
+<li>⚙️ <strong>Характеристика C:</strong> Стандарт для розеток и большинства бытовых приборов. Оптимальный баланс между защитой и отсутствием ложных срабатываний.</li>
+<li>🏭 <strong>Характеристика D:</strong> Срабатывает при превышении в 10-20 раз. Предназначена для мощных двигателей, трансформаторов, сварочных аппаратов. В обычных квартирных щитах практически не применяется.</li>
+</ul>
+<p>Использование автомата с характеристикой D на обычной розетке опасно: при коротком замыкании он может сработать слишком медленно, и проводка успеет пострадать. И наоборот, установка автомата "B" на линию с холодильником приведет к постоянным отключениям света при запуске компрессора.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка перед установкой автомата</h4><label class="check-item"><input type="checkbox"><span>Проверить маркировку кабеля</span></label><label class="check-item"><input type="checkbox"><span>Убедиться в затяжке клемм</span></label><label class="check-item"><input type="checkbox"><span>Проверить соответствие буквы (B/C/D)</span></label><label class="check-item"><input type="checkbox"><span>Убедиться, что номинал автомата <= току кабеля</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="типичные-ошибки-и-важные-предупреждения">Типичные ошибки и важные предупреждения</h2>
+<p>Одной из самых грубых ошибок является установка автомата "с запасом", чтобы его не выбивало. Если у вас постоянно выключается автомат на 16А, это сигнал о том, что проводка работает на пределе. Замена его на 25А не решит проблему, а лишь создаст бомбу замедленного действия: проводка будет греться, пока не случится пожар, а автомат будет считать, что все в порядке.</p>
+<p>Еще одна распространенная ошибка — соединение проводов разных сечений под одним автоматом. Например, от автомата 25А идет кабель 4 мм², а к нему в распределительной коробке подключается участок 1.5 мм². В этом случае тонкий участок сгорит при нагрузке 20А, так как автомат сработает только при больших значениях. Каждая линия должна быть защищена по своему weakest link (слабому звену).</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Никогда не используйте самодельные "жучки" или проволоку вместо перегоревшего предохранителя и не заклинивайте рычаг автомата в положении "включено". Это лишает сеть всякой защиты.</p>
+</blockquote>
+<p>Также стоит помнить о качестве самих автоматов. Дешевые китайские модели могут не держать заявленный ток и греться сами, или наоборот, не отключаться при перегрузке. Используйте продукцию проверенных брендов: <em>ABB</em>, <em>Legrand</em>, <em>Schneider Electric</em>, <em>IEK</em> (серии повыше), <em>EKF</em>.</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Нормативные документы (ПУЭ, ГОСТ) и требования энергоснабжающих организаций могут обновляться. Перед монтажом сложного оборудования сверяйтесь с актуальными техническими условиями.</p>
+</blockquote>
+
+<h2 id="итоговый-расчет-и-выбор-оборудования">Итоговый расчет и выбор оборудования</h2>
+<p>Для правильного подбора вам нужно выполнить простую последовательность действий. Сначала определите суммарную мощность приборов, которые могут работать одновременно. Разделите мощность (в Ваттах) на 220, чтобы получить ток в Амперах. Затем выберите кабель, который выдерживает этот ток с запасом 20-30%. И только после этого подбирайте автомат, номинал которого меньше или равен токовой нагрузке кабеля.</p>
+<p>Например, для кухни: суммарная мощность приборов 4 кВт. Ток = 4000 / 220 ≈ 18.1 А. Кабель нужен минимум 2.5 мм² (держит 25А). Автомат выбираем 16А (стандартный ряд: 10, 13, 16, 20, 25). Автомат 20А уже будет работать на пределе для кабеля 2.5 мм² в закрытой проводке, поэтому 16А — безопасный выбор. Если 16А мало и выбивает, значит, нужно менять кабель на 4 мм² и ставить автомат 25А.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При покупке автоматов обращайте внимание на отключающую способность (цифра в рамке, например 4500 или 6000). Для квартиры лучше брать не менее 6000А (6кА), особенно если вы живете near трансформаторной подстанции.</p></div>
+
+<details>
+<summary>Можно ли поставить автомат большего номинала, если проводка старая?</summary>
+<p>Нет, это категорически запрещено. Старая проводка (особенно алюминиевая) имеет изношенную изоляцию и меньшую пропускную способность. Увеличение номинала автомата приведет к нагреву и пожару. Если не хватает мощности, нужно менять проводку целиком.</p>
+</details>
+
+<details>
+<summary>Какой автомат ставить на ввод в квартиру?</summary>
+<p>Номинал вводного автомата зависит от выделенной мощности и сечения вводного кабеля. Обычно для квартир это 32А, 40А или 50А. Он должен быть меньше или равен току, который выдерживает вводной кабель, идущий от счетчика.</p>
+</details>
+
+<details>
+<summary>Почему греется автомат в щитке?</summary>
+<p>Грек может быть вызван плохим контактом (слабо зажат провод), перегрузкой сети (ток близок к номиналу автомата) или неисправностью самого устройства. Если автомат горячий на ощупь при нормальной нагрузке — его лучше заменить.</p>
+</details>
+
+<details>
+<summary>В чем разница между однополюсным и двухполюсным автоматом?</summary>
+<p>Однополюсный разрывает только фазу. Двухполюсный разрывает одновременно и фазу, и ноль. На вводе в квартиру и на мощных потребителях (электроплиты, бойлеры) рекомендуется ставить двухполюсные для полной безопасности при ремонте.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#принцип-работы-защиты-и-токовые-нагрузки">Принцип работы защиты и токовые нагрузки</a></li><li><a href="#таблица-соответствия-сечения-кабеля-и-автомата">Таблица соответствия сечения кабеля и автомата</a></li><li><a href="#особенности-подбора-для-розеточных-групп-и-освещения">Особенности подбора для розеточных групп и освещения</a></li><li><a href="#влияние-способа-прокладки-на-выбор-защиты">Влияние способа прокладки на выбор защиты</a></li><li><a href="#характеристики-расцепления-b-c-и-d">Характеристики расцепления: B, C и D</a></li><li><a href="#типичные-ошибки-и-важные-предупреждения">Типичные ошибки и важные предупреждения</a></li><li><a href="#итоговый-расчет-и-выбор-оборудования">Итоговый расчет и выбор оборудования</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-sobrat-boks-s-avtomatami-elektricheskij.html" class="related-card">Сборка электрического щита с автоматами: пошаговое руководство 2026</a></li><li><a href="/articles/k/ka/kak-ustanovit-difavtomat-samostoyatelno-v-shchitok.html" class="related-card">Как установить дифавтомат в щиток своими руками: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sk/skhema-shchita-s-rele-napryazheniya.html" class="related-card">Схема щита с реле напряжения: сборка и защита</a></li><li><a href="/articles/k/ka/kak-sobrat-prostoj-elektroshchitok.html" class="related-card">Как собрать электрощиток своими руками: пошаговое руководство 2026</a></li><li><a href="/articles/m/me/med-v-avtomatakh.html" class="related-card">Медь в автоматах: зачем нужна и как выбрать правильно</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-sobrat-boks-s-avtomatami-elektricheskij.html" class="related-bottom-card"><span class="related-bottom-title">Сборка электрического щита с автоматами: пошаговое руководство 2026</span><span class="related-bottom-desc">Как правильно собрать бокс с автоматами: схема, инструменты, подключение УЗО и дифавтоматов. Пошагов</span></a><a href="/articles/k/ka/kak-ustanovit-difavtomat-samostoyatelno-v-shchitok.html" class="related-bottom-card"><span class="related-bottom-title">Как установить дифавтомат в щиток своими руками: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по монтажу дифавтомата в электрощит: схемы подключения, выбор номинала, ошибки</span></a><a href="/articles/s/sk/skhema-shchita-s-rele-napryazheniya.html" class="related-bottom-card"><span class="related-bottom-title">Схема щита с реле напряжения: сборка и защита</span><span class="related-bottom-desc">Подробная схема щита с реле напряжения. Как выбрать, подключить и настроить защиту от скачков напряж</span></a><a href="/articles/k/ka/kak-sobrat-prostoj-elektroshchitok.html" class="related-bottom-card"><span class="related-bottom-title">Как собрать электрощиток своими руками: пошаговое руководство 2026</span><span class="related-bottom-desc">Подробная инструкция по сборке простого электрощитка для дома или квартиры: схемы, комплектующие, пр</span></a><a href="/articles/m/me/med-v-avtomatakh.html" class="related-bottom-card"><span class="related-bottom-title">Медь в автоматах: зачем нужна и как выбрать правильно</span><span class="related-bottom-desc">Разбираемся, почему медь используется в автоматических выключателях, как отличить качественные конта</span></a><a href="/articles/t/to/tok-srabatyvaniya-avtomaticheskogo-vyklyuchatelya.html" class="related-bottom-card"><span class="related-bottom-title">Ток срабатывания автомата: как выбрать и не ошибиться</span><span class="related-bottom-desc">Разбираемся, что такое ток срабатывания автоматического выключателя, как его рассчитать и почему это</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

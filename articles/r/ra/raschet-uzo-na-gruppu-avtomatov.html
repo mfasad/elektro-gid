@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Расчет УЗО на группу автоматов: формулы, таблицы, ошибки — Электро Гид</title>
+    <meta name="description" content="Как правильно подобрать УЗО для группы автоматов: пошаговый расчет с учетом тока утечки, мощности и селективности. Таблицы, примеры и типичные ошибки монтажа.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/r/ra/raschet-uzo-na-gruppu-avtomatov.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Расчет УЗО на группу автоматов: формулы, таблицы, ошибки">
+    <meta property="og:description" content="Как правильно подобрать УЗО для группы автоматов: пошаговый расчет с учетом тока утечки, мощности и селективности. Таблицы, примеры и типичные ошибки монтажа.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Расчет УЗО на группу автоматов: формулы, таблицы, ошибки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Расчёт УЗО для группы автоматов: пошаговая инструкция с примерами</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-основные-параметры-узо-что-учитывать-при-расчёте">1. Основные параметры УЗО: что учитывать при расчёте</a></li><li><a href="#2-формула-расчёта-номинального-тока-узо">2. Формула расчёта номинального тока УЗО</a></li><li><a href="#3-расчёт-дифференциального-тока-отключения">3. Расчёт дифференциального тока отключения</a></li><li><a href="#4-селективность-как-избежать-ложных-срабатываний">4. Селективность: как избежать ложных срабатываний</a></li><li><a href="#5-типичные-ошибки-при-расчёте-и-монтаже">5. Типичные ошибки при расчёте и монтаже</a></li><li><a href="#6-практические-примеры-расчёта">6. Практические примеры расчёта</a></li><li><a href="#faq-частые-вопросы-по-расчёту-узо">FAQ: Частые вопросы по расчёту УЗО</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Устройство защитного отключения (УЗО) — критически важный элемент безопасности в любом электрощите, но его неправильный подбор для группы автоматов может привести к ложным срабатываниям или, что хуже, отсутствию защиты. Многие электрики-любители ошибочно считают, что достаточно установить УЗО с номиналом выше суммарного тока автоматов, но это лишь вершина айсберга. На практике требуется учитывать <strong>ток утечки</strong>, <em>селективность</em>, тип нагрузки и даже длину кабельных линий.</p>
+
+<p>В этой статье мы разберём не только базовые формулы расчёта, но и нюансы, которые производители редко упоминают в инструкциях. Например, почему УЗО на 30 мА может не подойти для группы из 5 автоматов по 16А, даже если их суммарный ток 80А, или как избежать ситуации, когда защита срабатывает при включении стиральной машины. Особое внимание уделим <mark>скрытым токам утечки современных импульсных блоков питания (компьютеров, LED-телевизоров), которые часто становятся причиной ложных отключений</mark>.</p>
+
+<h2 id="1-основные-параметры-узо-что-учитывать-при-расчёте">1. Основные параметры УЗО: что учитывать при расчёте</h2>
+
+<p>Прежде чем приступать к расчётам, необходимо чётко понимать, какие характеристики УЗО влияют на его работу в группе автоматов. Главные из них:</p>
+
+<ul>
+  <li>🔹 <strong>Номинальный ток</strong> (<em>I<sub>n</sub></em>) — максимальный ток, который УЗО может пропускать длительно без повреждений. Важно: это <strong>не</strong> ток срабатывания, а лишь "пропускная способность" устройства.</li>
+  <li>🔹 <strong>Дифференциальный ток отключения</strong> (<em>I<sub>Δn</sub></em>) — порог утечки, при котором УЗО сработает (30 мА, 100 мА и т.д.).</li>
+  <li>🔹 <strong>Тип УЗО</strong> — <em>AC</em> (только переменный ток утечки), <em>A</em> (переменный + пульсирующий), <em>B</em> (все типы токов, включая постоянный).</li>
+  <li>🔹 <strong>Класс селективности</strong> — <em>S</em> или <em>G</em> (задержка срабатывания для каскадных схем).</li>
+</ul>
+
+<p>Ключевая ошибка — игнорировать <strong>суммарный ток утечки</strong> защищаемой группы. Согласно ПУЭ 7.1.83, если УЗО установлено на несколько линий, его порог должен быть не менее чем в 3 раза выше суммарного естественного тока утечки этих линий. Для современных домов с большим количеством электроники это значение может достигать <em>10–15 мА на группу</em>, что делает неэффективными стандартные УЗО на 30 мА.</p>
+
+<blockquote>⚠️ Внимание: Если в группе автоматов присутствуют устройства с импульсными блоками питания (компьютеры, зарядные устройства, LED-освещение), их ток утечки может превышать паспортные значения в 2–3 раза из-за высокочастотных помех. В таких случаях рекомендуется использовать УЗО типа <em>A</em> или <em>B</em>.</blockquote>
+
+<h2 id="2-формула-расчёта-номинального-тока-узо">2. Формула расчёта номинального тока УЗО</h2>
+
+<p>Номинальный ток УЗО (<em>I<sub>n</sub></em>) должен быть <strong>равен или больше</strong> суммарного тока автоматических выключателей в группе. Однако здесь есть нюанс: если автоматы имеют разные номиналы, расчёт ведётся не по арифметической сумме, а с учётом <strong>коэффициента одновременности</strong>.</p>
+
+<p>Базовая формула:</p>
+<p><strong>I<sub>n</sub> ≥ K<sub>одн</sub> × (I<sub>1</sub> + I<sub>2</sub> + ... + I<sub>n</sub>)</strong>, где:</p>
+<ul>
+  <li>🔢 <em>K<sub>одн</sub></em> — коэффициент одновременности (0.7–0.8 для жилых помещений, 0.9–1 для производственных).</li>
+  <li>🔢 <em>I<sub>1</sub>, I<sub>2</sub>, ... I<sub>n</sub></em> — номиналы автоматов в группе.</li>
+</ul>
+
+<p>Пример: В групповой линии установлены автоматы на 16А, 10А и 6А. Суммарный ток — 32А, но с учётом <em>K<sub>одн</sub> = 0.75</em>:</p>
+<p><strong>I<sub>n</sub> ≥ 0.75 × 32А = 24А</strong></p>
+<p>Таким образом, минимальный номинал УЗО для этой группы — <em>25А</em> (ближайшее стандартное значение).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Количество автоматов в группе</th>
+      <th>Суммарный ток (А)</th>
+      <th>Рекомендуемый номинал УЗО (А)</th>
+      <th>Примечание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2–3 (16А каждый)</td>
+      <td>32–48</td>
+      <td>40</td>
+      <td>Подходит для кухни с плитой и розетками</td>
+    </tr>
+    <tr>
+      <td>4–5 (10А каждый)</td>
+      <td>40–50</td>
+      <td>63</td>
+      <td>Оптимально для освещения + розетки в комнате</td>
+    </tr>
+    <tr>
+      <td>1 (25А) + 2 (16А)</td>
+      <td>57</td>
+      <td>63</td>
+      <td>Типично для группы "стиральная машина + розетки ванной"</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Важно: Если суммарный ток превышает 63А, вместо одного УЗО на группу целесообразно использовать <strong>несколько УЗО меньшего номинала</strong> или перейти на схему с <em>селективным УЗО</em> на вводе.</p>
+
+<div class="poll-widget" id="poll-f5f7177c"><div class="poll-widget-question">📊 Какой номинал УЗО вы чаще используете для групповых линий?</div><div class="poll-widget-option" data-poll="f5f7177c" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">25А</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f5f7177c" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">40А</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f5f7177c" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">63А</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f5f7177c" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">100А</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f5f7177c" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="3-расчёт-дифференциального-тока-отключения">3. Расчёт дифференциального тока отключения</h2>
+
+<p>Это самый сложный этап, так как требует учёта <strong>естественных токов утечки</strong> всех подключённых устройств. Согласно ПУЭ, суммарный ток утечки линии не должен превышать <em>1/3</em> от порога срабатывания УЗО. Формула:</p>
+
+<p><strong>I<sub>Δn</sub> ≥ 3 × (I<sub>ут.линии</sub> + ΣI<sub>ут.приборов</sub>)</strong>, где:</p>
+<ul>
+  <li>🔌 <em>I<sub>ут.линии</sub></em> — ток утечки кабеля (0.01 мА на 1 м длины).</li>
+  <li>🔌 <em>ΣI<sub>ут.приборов</sub></em> — сумма токов утечки всех устройств (см. таблицу ниже).</li>
+</ul>
+
+<p>Пример: В группе 3 автомата (16А + 10А + 6А), общая длина кабеля — 50 м, подключены холодильник (3.5 мА), стиральная машина (10 мА) и микроволновка (5 мА).</p>
+<p><strong>I<sub>ут.линии</sub> = 50 м × 0.01 мА/м = 0.5 мА</strong></p>
+<p><strong>ΣI<sub>ут.приборов</sub> = 3.5 + 10 + 5 = 18.5 мА</strong></p>
+<p><strong>I<sub>Δn</sub> ≥ 3 × (0.5 + 18.5) = 57 мА</strong></p>
+<p>Ближайшее стандартное значение — <em>100 мА</em>. УЗО на 30 мА в этом случае будет срабатывать ложно.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Бытовое устройство</th>
+      <th>Ток утечки (мА)</th>
+      <th>Примечание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Стиральная машина</td>
+      <td>10–15</td>
+      <td>Максимальный ток при нагреве ТЭНа</td>
+    </tr>
+    <tr>
+      <td>Холодильник</td>
+      <td>3–5</td>
+      <td>Зависит от модели компрессора</td>
+    </tr>
+    <tr>
+      <td>Компьютер (системный блок)</td>
+      <td>0.5–1.5</td>
+      <td>Без учёта монитора</td>
+    </tr>
+    <tr>
+      <td>LED-телевизор</td>
+      <td>1–3</td>
+      <td>Импульсные блоки питания дают высокочастотную утечку</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>⚠️ Внимание: Для групп с <em>теплыми полами</em> или <em>проточными водонагревателями</em> ток утечки может достигать 20–30 мА на одно устройство. В таких случаях требуется УЗО с порогом <strong>не менее 100 мА</strong> или разделение нагрузки на несколько УЗО.</blockquote>
+
+
+<p>Учесть количество и номиналы автоматов в группе|</p>
+<p>Рассчитать суммарный ток утечки приборов|</p>
+<p>Проверить длину кабельных линий (ток утечки кабеля)|</p>
+<p>Определить тип нагрузки (импульсная/активная)|</p>
+<p>Выбрать УЗО с запасом по номинальному току--></p>
+
+<h2 id="4-селективность-как-избежать-ложных-срабатываний">4. Селективность: как избежать ложных срабатываний</h2>
+
+<p>Селективность — это свойство УЗО срабатывать <strong>только на своей линии</strong>, не отключая вышестоящие устройства. Для групповых линий это критично, так как позволяет локализовать неисправность. Достигается двумя способами:</p>
+
+<ol>
+  <li>🔄 <strong>По току утечки</strong>: УЗО на вводе — 100–300 мА, на группах — 30 мА.</li>
+  <li>⏱️ <strong>По времени</strong>: Селективные УЗО (<em>тип S</em>) имеют задержку срабатывания 200–500 мс.</li>
+</ol>
+
+<p>Пример селективной схемы:</p>
+<ul>
+  <li>🔹 Вводное УЗО: <em>100 мА, тип S</em> (задержка 300 мс).</li>
+  <li>🔹 Групповые УЗО: <em>30 мА, тип A</em> (мгновенное срабатывание).</li>
+</ul>
+
+<p>Если утечка возникает в одной из групп, сработает только её УЗО. Если неисправность на вводе (например, пробой изоляции в щите), сработает вводное УЗО с задержкой, давая шанс групповым устройствам отключиться первыми.</p>
+
+<p>Важно: Селективность по току работает только если соотношение порогов срабатывания не менее <strong>1:3</strong>. Например, групповые УЗО на 30 мА требуют вводного УЗО на <em>минимум 100 мА</em>.</p>
+
+<details class="faq-item"><summary>Что будет если установить неселективное УЗО на вводе?</summary><div class="faq-answer"><p>
+<p>При утечке в любой группе сработает <strong>все УЗО одновременно</strong>, включая вводное. Это приведёт к полному обесточиванию дома, даже если неисправность локальна (например, в одной розетке). Кроме того, частые ложные срабатывания вводного УЗО могут вывести его из строя из-за механического износа расцепителя.</p></div></details></p>
+
+<h2 id="5-типичные-ошибки-при-расчёте-и-монтаже">5. Типичные ошибки при расчёте и монтаже</h2>
+
+<p>Даже опытные электрики допускают ошибки, которые сводят на нет всю защиту. Вот самые распространённые:</p>
+
+<ul>
+  <li>❌ <strong>УЗО с номиналом равным сумме автоматов</strong> (например, 50А для группы 16А + 16А + 16А). Это приводит к перегреву УЗО, так как автоматы могут долго работать на пределе своего номинала.</li>
+  <li>❌ <strong>Игнорирование токов утечки</strong> современных приборов. УЗО на 30 мА будет срабатывать при включении стиральной машины или компьютера.</li>
+  <li>❌ <strong>Отсутствие запаса по току</strong>. Если суммарный ток группы 40А, УЗО на 40А — это <strong>недопустимо</strong>. Нужно брать минимум 50А.</li>
+  <li>❌ <strong>Неправильный тип УЗО</strong>. Для групп с импульсными нагрузками (LED-освещение, блоки питания) обязательно использовать тип <em>A</em> или <em>B</em>.</li>
+</ul>
+
+<p>Ещё одна частая проблема — <strong>неверное подключение нуля</strong>. Если после УЗО ноль садится на общую шину с другими группами, устройство будет ложно срабатывать. Правильное подключение: ноль каждой группы должен идти <strong>только к своему УЗО</strong>.</p>
+
+<p>Пример ошибки на схеме:</p>
+<pre><code>
+<p>Л1 → Автомат → УЗО → Нагрузка</p>
+<p>N → Общая шина (ОШИБКА!)</p>
+</code></pre>
+<p>Правильно:</p>
+<pre><code>
+<p>Л1 → Автомат → УЗО → Нагрузка</p>
+<p>N → УЗО → Нагрузка (отдельный провод!)</p>
+</code></pre>
+
+<blockquote>⚠️ Внимание: Если в щите установлены <em>дифференциальные автоматы</em> (АВДТ), их нельзя комбинировать с обычными УЗО на тех же линиях. Это приведёт к <strong>конфликту защит</strong> и непредсказуемым отключениям.</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При покупке УЗО проверяйте его <strong>максимальную коммутационную способность</strong> (например, 6000А). Если она ниже возможного тока КЗ в вашей сети, устройство может сгореть при аварии.</p></div>
+
+<h2 id="6-практические-примеры-расчёта">6. Практические примеры расчёта</h2>
+
+<p>Рассмотрим два реальных сценария: квартиру и частный дом.</p>
+
+<h3>Пример 1: Квартира (группа "кухня")</h3>
+<p><strong>Состав группы:</strong></p>
+<ul>
+  <li>🔌 Автомат 25А — варочная панель (ток утечки 10 мА).</li>
+  <li>🔌 Автомат 16А — розетки (стиральная машина 15 мА + холодильник 4 мА).</li>
+  <li>🔌 Автомат 10А — освещение (LED-лампы, суммарно 3 мА).</li>
+</ul>
+<p><strong>Расчёт:</strong></p>
+<ol>
+  <li>Суммарный ток автоматов: 25 + 16 + 10 = 51А → УЗО <em>63А</em>.</li>
+  <li>Ток утечки: 10 + 15 + 4 + 3 + (длина кабеля 30 м × 0.01 мА) = 32.3 мА → УЗО <em>100 мА</em>.</li>
+  <li>Тип: <em>A</em> (из-за стиральной машины и LED-освещения).</li>
+</ol>
+<p><strong>Итог:</strong> УЗО <em>ABB F204 A-63/0.1</em> или <em>Schneider Electric 40A 100мА тип A</em>.</p>
+
+<h3>Пример 2: Частный дом (группа "ванная + котельная")</h3>
+<p><strong>Состав группы:</strong></p>
+<ul>
+  <li>🔌 Автомат 20А — бойлер (ток утечки 25 мА).</li>
+  <li>🔌 Автомат 16А — розетки (фен 2 мА + вытяжка 1 мА).</li>
+  <li>🔌 Автомат 10А — тёплый пол (ток утечки 20 мА).</li>
+</ul>
+<p><strong>Расчёт:</strong></p>
+<ol>
+  <li>Суммарный ток: 20 + 16 + 10 = 46А → УЗО <em>63А</em>.</li>
+  <li>Ток утечки: 25 + 2 + 1 + 20 + (длина кабеля 40 м × 0.01 мА) = 48.4 мА → УЗО <em>100 мА</em>.</li>
+  <li>Тип: <em>B</em> (из-за тёплого пола с электронным терморегулятором).</li>
+</ol>
+<p><strong>Итог:</strong> УЗО <em>Legrand DX³ 63A 100мА тип B</em> + селективное УЗО на вводе <em>300мА тип S</em>.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для групп с нагрузками более 5 кВт (бойлеры, варочные панели) обязательно используйте УЗО типа <em>B</em> или <em>A</em> с повышенной устойчивостью к импульсным токам.</p></div>
+
+<h2 id="faq-частые-вопросы-по-расчёту-узо">FAQ: Частые вопросы по расчёту УЗО</h2>
+
+<details>
+  <summary>Можно ли ставить одно УЗО на 30 мА для всей квартиры?</summary>
+  <p>Технически можно, но <strong>не рекомендуется</strong>. Суммарный ток утечки современной квартиры часто превышает 10 мА (из-за количества электроники), что приведёт к ложным срабатываниям. Оптимально разбивать на группы (розетки, освещение, мощные приборы) с отдельными УЗО на 30 мА и селективным УЗО на вводе 100–300 мА.</p>
+</details>
+
+<details>
+  <summary>Что будет, если номинал УЗО меньше суммы автоматов?</summary>
+  <p>УЗО начнёт перегреваться и может выйти из строя, так как не рассчитано на длительную работу с перегрузкой. Например, если сумма автоматов 50А, а УЗО на 40А, при нагрузке 45А оно начнёт отключаться от тепловой защиты (если она есть) или просто сгорит.</p>
+</details>
+
+<details>
+  <summary>Как рассчитать ток утечки для кабеля?</summary>
+  <p>Согласно ГОСТ Р 50571.3, ток утечки кабеля принимается из расчёта <strong>0.01 мА на 1 метр длины фазного провода</strong>. Для трёхфазной линии умножайте на 3. Пример: кабель NYM 3×2.5 длиной 20 м даст утечку <em>0.01 × 20 × 1 = 0.2 мА</em> (однофазная сеть).</p>
+</details>
+
+<details>
+  <summary>Нужно ли УЗО для группы освещения?</summary>
+  <p>Для традиционных ламп накаливания — нет (ток утечки минимален). Для LED-освещения — <strong>обязательно</strong>, так как драйверы LED-ламп создают высокочастотные токи утечки (1–3 мА на лампу). Используйте УЗО типа <em>A</em> с порогом 30 мА.</p>
+</details>
+
+<details>
+  <summary>Можно ли подключать к одному УЗО автоматы с разными характеристиками (B, C, D)?</summary>
+  <p>Да, <strong>характеристика автоматов (B, C, D)</strong> не влияет на работу УЗО, так как оно реагирует только на дифференциальный ток. Однако убедитесь, что номинал УЗО покрывает суммарный ток <strong>самых мощных автоматов</strong> в группе (например, если есть автомат <em>D25А</em>, УЗО должно быть не менее 40А).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-основные-параметры-узо-что-учитывать-при-расчёте">1. Основные параметры УЗО: что учитывать при расчёте</a></li><li><a href="#2-формула-расчёта-номинального-тока-узо">2. Формула расчёта номинального тока УЗО</a></li><li><a href="#3-расчёт-дифференциального-тока-отключения">3. Расчёт дифференциального тока отключения</a></li><li><a href="#4-селективность-как-избежать-ложных-срабатываний">4. Селективность: как избежать ложных срабатываний</a></li><li><a href="#5-типичные-ошибки-при-расчёте-и-монтаже">5. Типичные ошибки при расчёте и монтаже</a></li><li><a href="#6-практические-примеры-расчёта">6. Практические примеры расчёта</a></li><li><a href="#faq-частые-вопросы-по-расчёту-узо">FAQ: Частые вопросы по расчёту УЗО</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/v/v-/v-chem-raznitsa-mezhdu-uzo-i-differentsialnym-avtomatom.html" class="related-card">УЗО и дифавтомат: ключевые отличия и что выбрать для дома</a></li><li><a href="/articles/g/gr/gruppy-avtomatov-a-v-s-d.html" class="related-card">Группы автоматов A, B, C, D: как выбрать и чем отличаются</a></li><li><a href="/articles/c/ch/chetyrekhtarifnyj-schetchik-elektroenergii-chto-eto-takoe.html" class="related-card">Четырёхтарифный счётчик электроэнергии: что это и как работает</a></li><li><a href="/articles/p/po/podklyuchenie-kross-modulya-v-elektroshchitke.html" class="related-card">Подключение кросс-модуля в электрощитке: схема и инструкция 2026</a></li><li><a href="/articles/k/ka/kak-nazyvaetsya-avtomat-na-elektrichestvo.html" class="related-card">Как правильно называется автомат на электричество: полный справочник</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/v/v-/v-chem-raznitsa-mezhdu-uzo-i-differentsialnym-avtomatom.html" class="related-bottom-card"><span class="related-bottom-title">УЗО и дифавтомат: ключевые отличия и что выбрать для дома</span><span class="related-bottom-desc">Чем отличается УЗО от дифференциального автомата? Сравнение принципов работы, схем подключения, стои</span></a><a href="/articles/g/gr/gruppy-avtomatov-a-v-s-d.html" class="related-bottom-card"><span class="related-bottom-title">Группы автоматов A, B, C, D: как выбрать и чем отличаются</span><span class="related-bottom-desc">Разбираемся в характеристиках автоматических выключателей групп A, B, C, D: принципы работы, сферы п</span></a><a href="/articles/c/ch/chetyrekhtarifnyj-schetchik-elektroenergii-chto-eto-takoe.html" class="related-bottom-card"><span class="related-bottom-title">Четырёхтарифный счётчик электроэнергии: что это и как работает</span><span class="related-bottom-desc">Разбираемся, что такое четырёхтарифный счётчик, как он экономит деньги, какие модели выбрать и как п</span></a><a href="/articles/p/po/podklyuchenie-kross-modulya-v-elektroshchitke.html" class="related-bottom-card"><span class="related-bottom-title">Подключение кросс-модуля в электрощитке: схема и инструкция 2026</span><span class="related-bottom-desc">Пошаговая инструкция по монтажу кросс-модуля в щитке: выбор оборудования, схемы подключения, ошибки </span></a><a href="/articles/k/ka/kak-nazyvaetsya-avtomat-na-elektrichestvo.html" class="related-bottom-card"><span class="related-bottom-title">Как правильно называется автомат на электричество: полный справочник</span><span class="related-bottom-desc">Узнайте, как называется автомат на электричество. Разбираем виды, маркировку, отличия УЗО и дифавтом</span></a><a href="/articles/k/ka/kak-pravilno-sobrat-elektroshchitok-v-kvartire-s-uzo.html" class="related-bottom-card"><span class="related-bottom-title">Сборка электрощитка в квартире с УЗО: схема и пошаговая инструкция</span><span class="related-bottom-desc">Как правильно собрать электрощиток в квартире с УЗО: выбор автоматов, схема подключения, ошибки монт</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

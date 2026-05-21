@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Группа автоматов в электрощите: схемы и расчет — Электро Гид</title>
+    <meta name="description" content="Как собрать группу автоматов в электрощите: правила подбора, схемы подключения, гребенки и распределение нагрузки по группам.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/g/gr/gruppa-avtomatov-v-elektroshchite.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Группа автоматов в электрощите: схемы и расчет">
+    <meta property="og:description" content="Как собрать группу автоматов в электрощите: правила подбора, схемы подключения, гребенки и распределение нагрузки по группам.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Группа автоматов в электрощите: схемы и расчет</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Группа автоматов в электрощите: правильное распределение</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#принципы-распределения-нагрузки-по-группам">Принципы распределения нагрузки по группам</a></li><li><a href="#выбор-автоматических-выключателей-для-групп">Выбор автоматических выключателей для групп</a></li><li><a href="#схемы-подключения-гребенки-и-перемычки">Схемы подключения: гребенки и перемычки</a></li><li><a href="#учет-коэффициента-спроса-и-запаса-мощности">Учет коэффициента спроса и запаса мощности</a></li><li><a href="#типичные-ошибки-при-сборке-щита">Типичные ошибки при сборке щита</a></li><li><a href="#обслуживание-и-проверка-групп-автоматов">Обслуживание и проверка групп автоматов</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Правильно сформированная <strong>группа автоматов</strong> в электрощите является фундаментом безопасности и стабильности всей домашней электросети. От того, как именно вы распределите нагрузку по защитным устройствам, зависит не только удобство эксплуатации бытовых приборов, но и сохранность дорогостоящей техники. Ошибки на этапе проектирования щита часто приводят к постоянным отключениям электричества или, что гораздо хуже, к перегреву проводки.</p>
+
+<p>В отличие от хаотичного набора выключателей, где каждый отвечает за свой участок без учета общей картины, системный подход позволяет создать управляемую структуру. В этой статье мы разберем принципы группировки, особенности выбора номиналов и нюансы физического подключения устройств в ряд. Вы узнаете, почему простая установка мощных автоматов не решает проблему, а лишь маскирует её до первого серьезного инцидента.</p>
+
+<p>Современные требования к электропотреблению диктуют свои правила: количество приборов растет, а старые схемы перестают справляться. Грамотная <em>коммутация</em> и логическое разделение цепей — это то, что отличает профессиональный монтаж от любительского. Давайте рассмотрим, как превратить набор модулей в единую надежную систему защиты вашего жилья.</p>
+
+<h2 id="принципы-распределения-нагрузки-по-группам">Принципы распределения нагрузки по группам</h2>
+
+<p>Основой проектирования любой <strong>электросети</strong> является разделение потребителей на логические группы. Нельзя подключать все розетки в квартире на один автомат, а свет — на другой. Такой подход приведет к тому, что включение мощного обогревателя вызовет отключение света во всей квартире. Правильная группировка обеспечивает селективность: при аварии выбивает только ветка, где произошла неисправность.</p>
+
+<p>Первым шагом всегда является составление списка всех электроприборов и определение их мощности. На основе этих данных рассчитывается токовая нагрузка. Важно учитывать пусковые токи, особенно для приборов с электродвигателями или компрессорами, такими как <em>холодильники</em> и кондиционеры. Они могут кратковременно превышать номинальное потребление в несколько раз, что должно учитываться при выборе <strong>характеристики срабатывания</strong> автоматического выключателя.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Никогда не объединяйте в одну группу розетки разных комнат, если суммарная мощность приборов может превысить 3.5 кВт. Это стандартный предел для кабеля 2.5 мм² и автомата на 16А.</blockquote>
+
+<p>Распределение по комнатам — классический метод, который часто используется в старых домах, но он не всегда эффективен. Современный подход требует выделения отдельных линий для мощных потребителей. Например, кухонная техника, водонагреватель и электроплита должны иметь собственные, независимые цепи. Это не только безопасно, но и удобно при обслуживании.</p>
+
+<div class="poll-widget" id="poll-fd15013b"><div class="poll-widget-question">📊 Как у вас распределены розетки в комнатах?</div><div class="poll-widget-option" data-poll="fd15013b" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Все на одном автомате</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="fd15013b" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">По одной линии на комнату</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="fd15013b" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Отдельно кухня, отдельно остальное</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="fd15013b" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю, не смотрел</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="выбор-автоматических-выключателей-для-групп">Выбор автоматических выключателей для групп</h2>
+
+<p>Подбор <strong>номинала автомата</strong> напрямую зависит от сечения кабеля, проложенного в стене, а не от мощности подключаемого прибора. Это золотое правило электромонтажа. Автомат защищает кабель от перегрева и возгорания, поэтому его ток отключения должен быть меньше или равен максимально допустимому току для данного сечения провода. Использование более мощного автомата"на всякий случай" недопустимо.</p>
+
+<p>Для стандартных розеточных групп, где предполагается подключение бытовой техники, обычно используется кабель сечением 2.5 мм². Для такой линии идеальным выбором станет автоматический выключатель номиналом 16 А. Если же речь идет о линиях освещения, где токи минимальны, достаточно сечения 1.5 мм² и автомата на 6 А или 10 А. Превышение этих номиналов может привести к тому, что проводка начнет греться задолго до срабатывания защиты.</p>
+
+<p>Особое внимание следует уделить <em>характеристике расцепителя</em>. Для активной нагрузки, такой как лампы накаливания или нагреватели, подходит характеристика"B". Однако для групп, где есть двигатели (стиральные машины, насосы, пылесосы), лучше выбирать характеристику"C", которая допускает кратковременные пусковые перегрузки без ложного отключения.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При покупке автоматов для группы старайтесь использовать устройства одного производителя. Это обеспечит одинаковую скорость срабатывания и упростит монтаж дополнительных аксессуаров, таких как гребенки.</p></div>
+
+<p>Ниже приведена таблица соответствия сечения кабеля, номинала автомата и допустимой мощности для медной проводки:</p>
+
+<table>
+<thead>
+<tr>
+<th>Сечение кабеля (мм²)</th>
+<th>Номинал автомата (А)</th>
+<th>Макс. мощность (кВт)</th>
+<th>Типичное применение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.5</td>
+<td>10</td>
+<td>2.2</td>
+<td>Освещение</td>
+</tr>
+<tr>
+<td>2.5</td>
+<td>16</td>
+<td>3.5</td>
+<td>Розетки в комнатах</td>
+</tr>
+<tr>
+<td>4.0</td>
+<td>25</td>
+<td>5.5</td>
+<td>Мощные приборы, кухня</td>
+</tr>
+<tr>
+<td>6.0</td>
+<td>32</td>
+<td>7.0</td>
+<td>Электроплиты, ввод</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="схемы-подключения-гребенки-и-перемычки">Схемы подключения: гребенки и перемычки</h2>
+
+<p>Качество контакта в электрощите определяет надежность всей системы. Существует два основных способа соединения группы автоматов: использование медных перемычек из провода и монтаж специальной распределительной шины, известной как <strong>гребенка</strong>. Второй вариант является предпочтительным с профессиональной точки зрения.</p>
+
+<p>Гребенка представляет собой изолированную медную пластину с отводами (зубьями), шаг которых соответствует стандартному модульному размеру. Она вставляется в верхние клеммы автоматов, обеспечивая равномерное распределение фазы или нуля по всей группе. Это исключает риск ослабления контакта, который часто возникает при использовании скрученных пучков проводов.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При использовании гребенки убедитесь, что она предназначена именно для вашей серии автоматов. Ширина зубьев у разных производителей (например, ABB, Schneider, IEK) может отличаться, что приведет к плохому контакту или невозможности установки.</blockquote>
+
+<p>Если вы используете перемычки из провода, следуйте правилу: нельзя зажимать в одну клемму более двух проводов одинакового сечения, и категорически запрещено зажимать провода разного сечения без специальных наконечников. Для создания надежной перемычки провод зачищается, скручивается (или используется монолитный кусок) и формируются кольца или используются наконечники НШВ.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка сборки щита</h4><label class="check-item"><input type="checkbox"><span>Затяжка всех клемм отверткой с усилием</span></label><label class="check-item"><input type="checkbox"><span>Проверка отсутствия оголенных частей</span></label><label class="check-item"><input type="checkbox"><span>Тест УЗО кнопкой"Тест"</span></label><label class="check-item"><input type="checkbox"><span>Визуальный осмотр гребенки</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<p>Важным моментом является разводка <strong>нулевого провода</strong>. Если в группе установлено УЗО (устройство защитного отключения) или дифавтомат, ноль должен приходить строго на свою шину или клемму этого устройства. Перепутывание нулей разных групп, защищенных разными УЗО, приведет к их постоянному отключению при включении любой нагрузки.</p>
+
+<h2 id="учет-коэффициента-спроса-и-запаса-мощности">Учет коэффициента спроса и запаса мощности</h2>
+
+<p>При формировании групп автоматов необходимо понимать, что одновременное включение всех приборов в квартире практически невозможно и не нужно. Для расчетов используется <em>коэффициент спроса</em>, который показывает вероятность одновременной работы оборудования. Для квартиры с большим количеством комнат этот коэффициент может быть меньше единицы, что позволяет не делать вводной автомат чрезмерно мощным.</p>
+
+<p>Однако, создавая запас мощности, важно не переусердствовать. Установка вводного автомата на 50А при старых алюминиевых стояках в доме — прямой путь к пожару. В таких случаях необходимо исходить из пропускной способности внутридомовых сетей. Если вы живете в новостройке с выделенной мощностью 15 кВт, у вас есть больше свободы для маневра.</p>
+
+<details class="faq-item"><summary>Как рассчитать коэффициент спроса?</summary><div class="faq-answer"><p>Для квартир с количеством групповых линий более 5, коэффициент спроса принимается равным 0.8. Это значит, что если суммарная мощность всех автоматов 20 кВт, то расчетная нагрузка будет 16 кВт. Для точных расчетов лучше использовать специализированное ПО или услуги проектировщика.</p></div></details>
+
+<p>Также стоит учитывать перспективу развития. Если сегодня вы планируете только свет и розетки, но через год собираетесь ставить электрическую плиту или кондиционер, заложите резерв в щите. Оставьте свободное место (модули) для установки дополнительных автоматов или используйте щит с запасом по количеству мест.</p>
+
+<h2 id="типичные-ошибки-при-сборке-щита">Типичные ошибки при сборке щита</h2>
+
+<p>Одной из самых распространенных ошибок является"разнобой" в компонентах. Когда в щите перемешаны автоматы разных серий, цветов и производителей, это не только некрасиво, но и затрудняет понимание схемы в экстренной ситуации. Старайтесь соблюдать единство стиля и технических характеристик.</p>
+
+<p>Вторая ошибка — игнорирование теплового режима. Плотная установка большого количества нагруженных автоматов в маленьком пластиковом щите без вентиляции может привести к их тепловому отключению даже при токах ниже номинала. Пластик плохо отводит тепло, и группа автоматов начинает греть сама себя.</p>
+
+<p>Третья ошибка — отсутствие маркировки. Даже если вы помните, какой автомат за что отвечает, через полгода эта информация может испариться, а у гостей или электрика в случае аварии возникнут серьезные трудности. <strong>Маркировка</strong> каждой группы обязательна.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Не используйте для маркировки простые бумажки, вставленные под прозрачную крышку, если они не защищены от выгорания. Со временем надпись исчезнет. Используйте специальные наклейки или лазерную гравировку.</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главная ошибка новичков — экономия на месте в щите. Всегда берите щит с запасом в 30-50% мест, это позволит легко модернизировать сеть в будущем.</p></div>
+
+<h2 id="обслуживание-и-проверка-групп-автоматов">Обслуживание и проверка групп автоматов</h2>
+
+<p>Собранный и запущенный электрощит не требует постоянного вмешательства, но периодическая проверка необходима. Раз в год рекомендуется визуально осмотреть щит на предмет оплавлений, запаха гари или изменения цвета пластика. Также следует проверять затяжку контактов, так как при циклических нагрузках (нагрев-остывание) винты могут ослабевать.</p>
+
+<p>Особое внимание нужно уделить устройствам защитного отключения (УЗО). На корпусе каждого из них есть кнопка <code>Тест</code> (или <code>Test</code>). Нажатие на неё имитирует утечку тока и должно приводить к мгновенному отключению автомата. Если этого не происходит, устройство неисправно и требует замены, так как оно не защитит от удара током.</p>
+
+<p>Если автомат начал отключаться сам по себе, не спешите менять его на более мощный. Сначала проанализируйте, что было включено в момент отключения. Возможно, вы просто превысили допустимую нагрузку на группу. В этом случае нужно перераспределить приборы или отключить один из них. Слепое увеличение номинала автомата — верный способ сжечь проводку.</p>
+
+<details>
+<summary>Можно ли объединять группы автоматов проводом разного сечения?</summary>
+<p>Технически соединить можно, но это нарушение правил. Вводной провод на гребенку или перемычку должен быть не меньше, чем сумма токов всех отходящих линий, или хотя бы соответствовать номиналу самого большого автомата в группе. Использование тонкого провода для питания группы мощных автоматов недопустимо.</p>
+</details>
+
+<details>
+<summary>Что делать, если автомат гудит или искрит?</summary>
+<p>Гудение может свидетельствовать о плохом контакте (искрение внутри) или о работе в режиме, близком к предельному. Искрение — признак очень плохого контакта или дугообразования. Необходимо немедленно обесточить щит (выключить вводной автомат) и подтянуть контакты или заменить неисправное устройство.</p>
+</details>
+
+<details>
+<summary>Нужно ли менять автоматы, если они простояли 20 лет?</summary>
+<p>Да, механические части автоматических выключателей со временем изнашиваются, пружины ослабевают, а контакты подгорают. Если автоматам более 15-20 лет, их ресурс исчерпан, и они могут не сработать в нужный момент или, наоборот, отключаться без причины. Профилактическая замена — разумное вложение в безопасность.</p>
+</details>
+
+<p>Грамотно собранная группа автоматов — это не просто набор пластиковых коробок, а интеллектуальная система защиты вашего дома. Понимание принципов её работы, правильный подбор компонентов и качественное исполнение позволят вам забыть о проблемах с электричеством на долгие годы. Помните, что электричество не терпит небрежности, но щедро вознаграждает за профессиональный подход.</p></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#принципы-распределения-нагрузки-по-группам">Принципы распределения нагрузки по группам</a></li><li><a href="#выбор-автоматических-выключателей-для-групп">Выбор автоматических выключателей для групп</a></li><li><a href="#схемы-подключения-гребенки-и-перемычки">Схемы подключения: гребенки и перемычки</a></li><li><a href="#учет-коэффициента-спроса-и-запаса-мощности">Учет коэффициента спроса и запаса мощности</a></li><li><a href="#типичные-ошибки-при-сборке-щита">Типичные ошибки при сборке щита</a></li><li><a href="#обслуживание-и-проверка-групп-автоматов">Обслуживание и проверка групп автоматов</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/m/mn/mnogozhilnyj-provod-v-avtomat.html" class="related-card">Можно ли подключать многожильный провод к автомату? Правила и ошибки</a></li><li><a href="/articles/u/uz/uzo-tip-s-chto-eto.html" class="related-card">УЗО типа S: что это, принцип работы, где применяется</a></li><li><a href="/articles/p/po/polozhenie-vklyuchennogo-avtomata.html" class="related-card">Положение включенного автомата: как определить и избежать ошибок</a></li><li><a href="/articles/p/pr/probki-elektricheskie-avtomat.html" class="related-card">Пробки электрические автомат: замена, выбор и монтаж</a></li><li><a href="/articles/k/ka/kak-pravilno-sobrat-shchitok-elektricheskij-na-220-v-dome.html" class="related-card">Сборка щитка 220В в доме: пошаговая инструкция 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/m/mn/mnogozhilnyj-provod-v-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Можно ли подключать многожильный провод к автомату? Правила и ошибки</span><span class="related-bottom-desc">Как правильно заводить гибкий многожильный кабель в автоматический выключатель: выбор наконечников, </span></a><a href="/articles/u/uz/uzo-tip-s-chto-eto.html" class="related-bottom-card"><span class="related-bottom-title">УЗО типа S: что это, принцип работы, где применяется</span><span class="related-bottom-desc">Разбираемся, что такое УЗО типа S, его особенности, отличие от других типов, схемы подключения и пра</span></a><a href="/articles/p/po/polozhenie-vklyuchennogo-avtomata.html" class="related-bottom-card"><span class="related-bottom-title">Положение включенного автомата: как определить и избежать ошибок</span><span class="related-bottom-desc">Как правильно проверить положение включенного автомата в электрощитке? Пошаговая инструкция, ошибки </span></a><a href="/articles/p/pr/probki-elektricheskie-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Пробки электрические автомат: замена, выбор и монтаж</span><span class="related-bottom-desc">Полный гид по замене старых пробок на автоматические выключатели. Расчет номинала, схемы подключения</span></a><a href="/articles/k/ka/kak-pravilno-sobrat-shchitok-elektricheskij-na-220-v-dome.html" class="related-bottom-card"><span class="related-bottom-title">Сборка щитка 220В в доме: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно собрать электрический щиток на 220В своими руками: схема, автоматы, УЗО, подключение. </span></a><a href="/articles/o/od/odnofaznyj-schetchik-i-trekhfaznyj-raznitsa.html" class="related-bottom-card"><span class="related-bottom-title">Однофазный и трехфазный счетчик: разница, выбор, монтаж</span><span class="related-bottom-desc">В чем разница между однофазным и трехфазным счетчиком? Сравнение, схемы подключения, тарифы и правил</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

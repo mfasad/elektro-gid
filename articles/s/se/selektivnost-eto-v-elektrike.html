@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Селективность в электрике: что это и как работает в автоматах — Электро Гид</title>
+    <meta name="description" content="Разбираемся, что такое селективность в электрических сетях, как она обеспечивает безопасность и как правильно настроить автоматы для селективного срабатывания.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/s/se/selektivnost-eto-v-elektrike.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Селективность в электрике: что это и как работает в автоматах">
+    <meta property="og:description" content="Разбираемся, что такое селективность в электрических сетях, как она обеспечивает безопасность и как правильно настроить автоматы для селективного срабатывания.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Селективность в электрике: что это и как работает в автоматах</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Селективность в электрике: принцип работы, виды и настройка автоматов</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-селективность-в-электрике-простыми-словами">Что такое селективность в электрике простыми словами</a></li><li><a href="#виды-селективности-временная-токовая-и-энергетическая">Виды селективности: временная, токовая и энергетическая</a></li><li><a href="#как-добиться-селективности-между-автоматами-правила-подбора">Как добиться селективности между автоматами: правила подбора</a></li><li><a href="#селективность-между-автоматами-и-узо-особенности">Селективность между автоматами и УЗО: особенности</a></li><li><a href="#практические-примеры-настройки-селективности">Практические примеры настройки селективности</a></li><li><a href="#распространённые-ошибки-и-как-их-избежать">Распространённые ошибки и как их избежать</a></li><li><a href="#нормативные-требования-к-селективности">Нормативные требования к селективности</a></li><li><a href="#faq-частые-вопросы-о-селективности-в-электрике">FAQ: Частые вопросы о селективности в электрике</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Когда речь заходит о безопасности электрических сетей, термин <strong>селективность</strong> часто остаётся в тени, хотя играет ключевую роль. Представьте ситуацию: в вашем доме произошла перегрузка на одной из линий, но вместо отключения только проблемного участка вырубило весь щиток. Или хуже — сработал вводной автомат, оставив без света весь дом. Вот тут и проявляется важность селективности: она обеспечивает <em>избирательное отключение</em> только повреждённого участка, сохраняя работоспособность остальной сети.</p>
+
+<p>Селективность — это не просто технический термин, а принципиальный подход к проектированию электроустановок. Она тесно связана с <strong>каскадным срабатыванием автоматических выключателей</strong>, когда каждый уровень защиты (от группового автомата до вводного) настроен так, чтобы реагировать только на "свои" аварийные ситуации. Без правильной настройки селективности даже самая современная электропроводка может стать источником проблем: от ложных срабатываний до невозможности быстро локализовать неисправность.</p>
+
+<p>В этой статье мы разберём, как работает селективность в электрических цепях, какие виды селективности существуют (временная, токовая, энергетическая), как правильно подобрать автоматы для её обеспечения и какие ошибки чаще всего допускают при монтаже. Особое внимание уделим практическим примерам — например, как добиться селективности между автоматами <em>ABB S200</em> и <em>Schneider Electric Acti9</em>, которые часто используются в бытовых щитках.</p>
+
+<h2 id="что-такое-селективность-в-электрике-простыми-словами">Что такое селективность в электрике простыми словами</h2>
+
+<p>Селективность (от лат. <em>selectio</em> — выбор) в контексте электротехники означает <strong>способность системы защиты отключать только повреждённый участок цепи</strong>, не затрагивая исправные. Проще говоря, если где-то в доме произошло короткое замыкание, должен сработать только тот автомат, который "отвечает" за эту линию, а не весь щиток.</p>
+
+<p>Для наглядности представьте дерево с ветками: если одна ветка сломалась, она отпадёт сама, не утянув за собой всё дерево. Так же и с электричеством: селективность гарантирует, что авария на розеточной группе в ванной не отключит свет на кухне или холодильник. Это особенно критично для объектов с высокими требованиями к бесперебойности питания — например, серверных комнат, медицинских учреждений или производственных линий.</p>
+
+<p>Важно понимать, что селективность — это не свойство одного автомата, а <strong>результат правильного подбора и настройки всей цепочки защитных устройств</strong>. Она зависит от:</p>
+<ul>
+  <li>🔹 <strong>Номинальных токов</strong> автоматов на разных уровнях (групповые, линейные, вводные).</li>
+  <li>🔹 <strong>Характеристик срабатывания</strong> (кривые B, C, D).</li>
+  <li>🔹 <strong>Временных задержек</strong> (для автоматов с регулируемой выдержкой времени).</li>
+  <li>🔹 <strong>Типа защиты</strong> (тепловая, электромагнитная, электронная).</li>
+</ul>
+
+<p>Без селективности система защиты превращается в "лотерею": при аварии может отключиться что угодно — от одной розетки до всего дома. А в худшем случае (например, при недостаточном номинале вводного автомата) защита вообще не сработает, что приведёт к пожару или повреждению оборудования.</p>
+
+<div class="poll-widget" id="poll-227b9acf"><div class="poll-widget-question">📊 Как у вас организована защита в электрощитке?</div><div class="poll-widget-option" data-poll="227b9acf" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Селективность настроена профессионально</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="227b9acf" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Автоматы подобраны "на глаз"</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="227b9acf" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю, что такое селективность</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="227b9acf" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">В щитке только вводной автомат</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="виды-селективности-временная-токовая-и-энергетическая">Виды селективности: временная, токовая и энергетическая</h2>
+
+<p>Селективность классифицируют по принципу действия. Рассмотрим три основных вида, которые применяются в современных электроустановках.</p>
+
+<h3>1. Временная селективность</h3>
+<p>Основа этого вида — <strong>разница во времени срабатывания</strong> защитных устройств. Автоматы настраиваются так, чтобы ближайший к месту аварии срабатывал первым, а вышестоящие (например, вводной) — с задержкой. Это достигается за счёт:</p>
+<ul>
+  <li>🕒 <em>Регулируемых расцепителей</em> (в автоматах премиум-класса, например, <em>Hager BLN</em>).</li>
+  <li>🕒 <em>Селективных автоматов</em> с маркировкой "S" (например, <em>Schneider Electric C120S</em>).</li>
+  <li>🕒 <em>Устройств защиты с независимой выдержкой времени</em> (УЗО, дифавтоматы).</li>
+</ul>
+<p>Пример: если на групповом автомате установлена задержка 0.2 с, а на вводном — 0.5 с, то при КЗ сначала сработает групповой, и только если он не справится (например, из-за заклинивания), через 0.3 с отключится вводной.</p>
+
+<h3>2. Токовая селективность</h3>
+<p>Здесь принцип основан на <strong>разнице номинальных токов</strong> автоматов. Каждый следующий уровень защиты (от розетки к вводу) должен иметь больший номинал. Классическое соотношение для бытовых сетей:</p>
+<ul>
+  <li>🔌 <strong>Розеточная группа</strong>: 16 А (кривая C).</li>
+  <li>🔌 <strong>Групповой автомат</strong>: 25 А (кривая C).</li>
+  <li>🔌 <strong>Вводной автомат</strong>: 40–63 А (кривая C или D).</li>
+</ul>
+<p>Важно: токовая селективность работает только при <em>коротких замыканиях</em>. При перегрузках (например, если в розетку включили слишком мощный прибор) она не гарантирует избирательное отключение, так как тепловые расцепители всех автоматов могут сработать почти одновременно.</p>
+
+<h3>3. Энергетическая селективность</h3>
+<p>Этот вид используется в сложных системах с <em>электронными расцепителями</em> (например, в автоматах <em>Siemens 5SL</em> или <em>Eaton PX</em>). Здесь селективность обеспечивается за счёт <strong>ограничения энергии КЗ</strong>: вышестоящий автомат "ждат", пока нижестоящий не погасит дугу. Преимущество — высокая надёжность, недостаток — высокая стоимость оборудования.</p>
+
+<p>На практике часто комбинируют несколько видов селективности. Например, в бытовых щитках обычно используется <strong>токовая + временная</strong>, а в промышленных установках — <strong>энергетическая + временная</strong>.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если в вашем щитке стоят автоматы одного номинала (например, все по 16 А), селективности не будет! Обязательно соблюдайте иерархию: 16 А → 25 А → 40 А.</p></div>
+
+<h2 id="как-добиться-селективности-между-автоматами-правила-подбора">Как добиться селективности между автоматами: правила подбора</h2>
+
+<p>Чтобы система защиты работала избирательно, автоматы нужно подбирать по нескольким критериям. Вот ключевые правила:</p>
+
+<ol>
+  <li><strong>Соблюдайте ступенчатость номиналов.</strong> Минимальное соотношение между выше- и нижестоящим автоматом — <mark>1.6:1</mark>. Например, если групповой автомат на 16 А, то выше него должен стоять автомат на 25 А (16 × 1.6 ≈ 25). Для вводного — 40 А (25 × 1.6 ≈ 40).</li>
+  <li><strong>Учитывайте характеристики срабатывания.</strong> Для бытовых сетей обычно используют кривую <code>C</code> (для освещения — <code>B</code>, для двигателей — <code>D</code>). Автоматы с одинаковой кривой на разных уровнях могут сработать одновременно!</li>
+  <li><strong>Проверяйте селективность по графикам.</strong> Производители (например, <em>ABB</em> или <em>Legrand</em>) публикуют таблицы селективности для своих автоматов. В них указано, какие пары автоматов будут работать избирательно при КЗ.</li>
+</ol>
+
+<p>Пример правильного подбора для квартирного щитка:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Уровень</th>
+      <th>Тип автомата</th>
+      <th>Номинал (А)</th>
+      <th>Характеристика</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Розеточная группа (кухня)</td>
+      <td><em>Schneider Acti9 iC60</em></td>
+      <td>16</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <td>Групповой автомат (кухня)</td>
+      <td><em>ABB S201</em></td>
+      <td>25</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <td>Вводной автомат</td>
+      <td><em>Hager BLN263</em></td>
+      <td>40</td>
+      <td>C</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ошибки, которые часто допускают:</p>
+<ul>
+  <li>❌ Установка автоматов с одинаковым номиналом на разных уровнях (например, 16 А и 16 А).</li>
+  <li>❌ Использование кривой <code>D</code> для бытовых розеток (приведёт к ложным срабатываниям).</li>
+  <li>❌ Игнорирование таблиц селективности производителя (не все автоматы даже с разными номиналами гарантируют селективность!).</li>
+</ul>
+
+<div class="checklist-block"><h4>☑️ Проверка селективности в щитке</h4><label class="check-item"><input type="checkbox"><span>Сравните номиналы автоматов (должны отличаться в 1.6 раза)</span></label><label class="check-item"><input type="checkbox"><span>Проверьте характеристики срабатывания (кривые B, C, D)</span></label><label class="check-item"><input type="checkbox"><span>Убедитесь, что вводной автомат имеет больший номинал, чем групповые</span></label><label class="check-item"><input type="checkbox"><span>Используйте таблицы селективности от производителя</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="селективность-между-автоматами-и-узо-особенности">Селективность между автоматами и УЗО: особенности</h2>
+
+<p>Если в щитке кроме автоматов установлены <strong>УЗО</strong> (устройства защитного отключения) или <strong>дифавтоматы</strong>, настройка селективности усложняется. Здесь нужно учитывать:</p>
+
+<ol>
+  <li><strong>Токи утечки.</strong> Селективность по дифференциальному току обеспечивается, если вышестоящее УЗО имеет уставку <em>в 3 раза больше</em>, чем нижестоящее. Например:
+    <ul>
+      <li>🔌 Групповое УЗО: 30 мА.</li>
+      <li>🔌 Вводное УЗО: 100 мА (или 300 мА).</li>
+    </ol>
+  </li>
+  <li><strong>Временную задержку.</strong> Некоторые УЗО (например, <em>ABB F202</em> или <em>Legrand DX³</em>) поддерживают селективную задержку (маркировка "S"). Они срабатывают с выдержкой 200–500 мс, давая шанс нижестоящему УЗО отключиться первым.</li>
+</ol>
+
+<p>Типичная схема для квартиры:</p>
+<ol>
+  <li>Розеточная группа → Автомат 16 А + УЗО 30 мА.</li>
+  <li>Групповой уровень → Автомат 25 А + УЗО 100 мА (селективное).</li>
+  <li>Ввод → Автомат 40 А + УЗО 300 мА (селективное).</li>
+</ol>
+
+<p>Важно: если в щитке установлено <strong>противопожарное УЗО</strong> (на 100–300 мА), оно должно быть <em>селективным</em> (с задержкой), иначе при утечке на одной линии оно отключит весь дом.</p>
+
+<details class="faq-item"><summary>Что будет, если не соблюдать селективность УЗО?</summary><div class="faq-answer"><p>При утечке тока на одной линии (например, в стиральной машине) сработает вводное УЗО, обесточив всю квартиру. Кроме того, частые ложные срабатывания приводят к износу механизма УЗО и снижению его надёжности.</p></div></details>
+
+<h2 id="практические-примеры-настройки-селективности">Практические примеры настройки селективности</h2>
+
+<p>Рассмотрим два реальных сценария: для квартиры и для частного дома.</p>
+
+<h3>Пример 1: Квартирный щиток</h3>
+<p>Задача: обеспечить селективность между:</p>
+<ul>
+  <li>🔌 Автоматом розеточной группы (16 А, кривая C).</li>
+  <li>🔌 Групповым автоматом (25 А, кривая C).</li>
+  <li>🔌 Вводным автоматом (40 А, кривая C).</li>
+</ul>
+<p>Решение: согласно таблицам селективности <em>ABB</em>, автоматы <em>S201</em> 16 А и 25 А будут селективны при токах КЗ до 500 А, а пара 25 А и 40 А — до 1000 А. Это покрывает большинство бытовых аварий.</p>
+
+<h3>Пример 2: Частный дом с трёхфазным вводом</h3>
+<p>Задача: селективность между:</p>
+<ul>
+  <li>🔌 Трехфазным автоматом на насосную станцию (10 А, кривая D).</li>
+  <li>🔌 Групповым автоматом (16 А, кривая C).</li>
+  <li>🔌 Вводным автоматом (50 А, кривая C).</li>
+</ul>
+<p>Решение: здесь важно учитывать пусковые токи насоса. Селективность между 10 А (D) и 16 А (C) будет нарушаться при пуске двигателя, поэтому лучше использовать автомат с характеристикой <code>D</code> и на групповом уровне (например, 16 А, <code>D</code>).</p>
+
+<p>Для проверки селективности можно использовать <em>программное обеспечение</em> от производителей, например, <em>ABB DocWin</em> или <em>Schneider EcoStruxure</em>. Эти инструменты позволяют смоделировать цепь и проверить, как будут срабатывать автоматы при разных токах КЗ.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Селективность между автоматами с кривыми C и D часто нарушается из-за разницы в чувствительности к пусковым токам. Для двигателей всегда выбирайте автоматы с характеристикой D на всех уровнях.</p></div>
+
+<h2 id="распространённые-ошибки-и-как-их-избежать">Распространённые ошибки и как их избежать</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки при настройке селективности. Вот самые частые:</p>
+
+<ol>
+  <li><strong>Игнорирование пусковых токов.</strong> Если на линии с двигателем (например, холодильник или насос) стоит автомат с кривой <code>C</code>, он может ложно срабатывать при запуске. Решение: используйте кривую <code>D</code> для таких нагрузок.</li>
+  <li><strong>Неправильный выбор УЗО.</strong> Установка неселективного УЗО на 30 мА на вводе приведёт к отключению всего дома при малейшей утечке. Решение: вводное УЗО должно быть селективным (с задержкой) и иметь уставку не менее 100 мА.</li>
+  <li><strong>Отсутствие резервирования.</strong> Если групповой автомат выйдет из строя (например, подгорит контакт), вводной должен его заменить. Решение: вводной автомат должен иметь <strong>номинал не более чем в 2.5 раза больше</strong>, чем групповой (например, 25 А → 63 А, а не 100 А).</li>
+</ol>
+
+<p>Ещё одна типичная проблема — <strong>несоответствие автоматов и кабелей</strong>. Например, если на линию с кабелем 2.5 мм² поставить автомат на 25 А, это приведёт к перегреву провода (максимальный ток для 2.5 мм² — 21 А). Селективность здесь не поможет: кабель будет греться, пока не расплавится изоляция.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед настройкой селективности всегда проверяйте сечение кабелей! Автомат должен защищать не только от КЗ, но и от перегрева провода.</p></div>
+
+<h2 id="нормативные-требования-к-селективности">Нормативные требования к селективности</h2>
+
+<p>Требования к селективности прописаны в нескольких нормативных документах:</p>
+<ul>
+  <li>📜 <strong>ПУЭ (Правила устройства электроустановок), п. 3.1.8:</strong> "В электроустановках должна быть предусмотрена возможность легкого распознавания участков сети, отключённых аппаратами защиты".</li>
+  <li>📜 <strong>ГОСТ Р 50345-2010:</strong> регламентирует характеристики автоматических выключателей, включая условия селективности.</li>
+  <li>📜 <strong>СП 31-110-2003:</strong> рекомендует использовать селективные автоматы в жилых и общественных зданиях.</li>
+</ul>
+
+<p>Для промышленных объектов дополнительные требования содержатся в <strong>ГОСТ 32144-2013</strong> (качество электроэнергии) и <strong>ГОСТ Р 50571.4.43-2012</strong> (защита от сверхтоков).</p>
+
+<p>Важно: в бытовых сетях селективность не является обязательным требованием ПУЭ, но <strong>сильно рекомендуется</strong> для повышения надёжности и удобства эксплуатации. В промышленных и коммерческих объектах (магазины, офисы, производства) селективность часто прописана в проектной документации как обязательное условие.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> В некоторых регионах местные энергонадзоры могут предъявлять дополнительные требования к селективности, особенно для объектов с мощностью выше 15 кВт. Уточняйте актуальные нормы в местном отделении Ростехнадзора.</blockquote>
+
+<h2 id="faq-частые-вопросы-о-селективности-в-электрике">FAQ: Частые вопросы о селективности в электрике</h2>
+
+<details>
+  <summary>Можно ли добиться селективности между автоматами одного номинала?</summary>
+  <p>Нет, селективность между автоматами с одинаковым номиналом невозможна. Даже если они разных производителей, их время-токовые характеристики будут слишком близки, и при КЗ сработают оба. Исключение — специальные селективные автоматы с задержкой (маркировка "S"), но и они требуют разницы в номиналах.</p>
+</details>
+
+<details>
+  <summary>Как проверить селективность существующего щитка?</summary>
+  <p>Есть два способа:</p>
+  <ol>
+    <li>Рассчитать по таблицам производителя. Например, для автоматов <em>Legrand</em> скачайте каталог и найдите графики селективности для ваших моделей.</li>
+    <li>Провести испытания с помощью <em>устройства проверки автоматов</em> (например, <em>Sonel MZC-300</em>). Оно имитирует КЗ и замеряет время срабатывания каждого автомата.</li>
+  </ol>
+  <p>В бытовых условиях второй способ сложно реализовать, поэтому лучше довериться расчётам.</p>
+</details>
+
+<details>
+  <summary>Что делать, если селективность нарушена и при КЗ выбивает вводной автомат?</summary>
+  <p>Причины и решения:</p>
+  <ul>
+    <li>🔹 <strong>Номиналы автоматов слишком близки.</strong> Увеличьте номинал вводного автомата (например, с 32 А до 40 А) или уменьшите групповой (с 25 А до 20 А).</li>
+    <li>🔹 <strong>Автоматы одного производителя не селективны.</strong> Замените их на модели с подтверждённой селективностью (например, <em>ABB S200</em> и <em>Schneider Acti9</em> часто совместимы).</li>
+    <li>🔹 <strong>Кривые срабатывания не совпадают.</strong> Используйте одинаковые характеристики (например, <code>C</code>) на всех уровнях.</li>
+  </ul>
+</details>
+
+<details>
+  <summary>Нужна ли селективность в небольшой квартире с 3–4 автоматами?</summary>
+  <p>Формально — нет, но практические преимущества очевидны:</p>
+  <ul>
+    <li>🔹 При аварии отключится только проблемная линия, а не вся квартира.</li>
+    <li>🔹 Упрощается поиск неисправности (не нужно проверять все розетки).</li>
+    <li>🔹 Снижается риск износа вводного автомата от частых срабатываний.</li>
+  </ul>
+  <p>Минус только один — немного более высокая стоимость автоматов (нужно покупать с запасом по номиналу).</p>
+</details>
+
+<details>
+  <summary>Можно ли использовать плавкие предохранители для селективности?</summary>
+  <p>Теоретически да, но на практике это неудобно:</p>
+  <ul>
+    <li>🔹 Предохранители не имеют регулируемой временной задержки.</li>
+    <li>🔹 После срабатывания их нужно заменять (в отличие от автоматов).</li>
+    <li>🔹 Трудно подобрать номиналы для точной селективности.</li>
+  </ul>
+  <p>В современных щитках предохранители используют редко — только в специфических случаях (например, для защиты трансформаторов).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-селективность-в-электрике-простыми-словами">Что такое селективность в электрике простыми словами</a></li><li><a href="#виды-селективности-временная-токовая-и-энергетическая">Виды селективности: временная, токовая и энергетическая</a></li><li><a href="#как-добиться-селективности-между-автоматами-правила-подбора">Как добиться селективности между автоматами: правила подбора</a></li><li><a href="#селективность-между-автоматами-и-узо-особенности">Селективность между автоматами и УЗО: особенности</a></li><li><a href="#практические-примеры-настройки-селективности">Практические примеры настройки селективности</a></li><li><a href="#распространённые-ошибки-и-как-их-избежать">Распространённые ошибки и как их избежать</a></li><li><a href="#нормативные-требования-к-селективности">Нормативные требования к селективности</a></li><li><a href="#faq-частые-вопросы-о-селективности-в-электрике">FAQ: Частые вопросы о селективности в электрике</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-vyglyadit-elektroshchitok-v-kvartire.html" class="related-card">Как выглядит электрощиток в квартире: фото, схемы, нормы 2026</a></li><li><a href="/articles/k/ka/kak-vyglyadit-dif-avtomat.html" class="related-card">Как выглядит дифавтомат: фото, схема и отличие от УЗО</a></li><li><a href="/articles/p/po/polozhenie-vklyuchennogo-avtomata.html" class="related-card">Положение включенного автомата: как определить и избежать ошибок</a></li><li><a href="/articles/s/sk/skhema-podklyucheniya-3-faznogo-shchita-v-chastnom-dome.html" class="related-card">Схема 3-х фазного щита в доме: сборка и защита</a></li><li><a href="/articles/t/ta/tablitsa-amper-i-kilovatt-dlya-avtomatov.html" class="related-card">Таблица ампер и киловатт для автоматов: расчет и выбор</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-vyglyadit-elektroshchitok-v-kvartire.html" class="related-bottom-card"><span class="related-bottom-title">Как выглядит электрощиток в квартире: фото, схемы, нормы 2026</span><span class="related-bottom-desc">Подробный разбор внешнего вида, устройства и содержимого квартирного электрощитка: от автоматов до с</span></a><a href="/articles/k/ka/kak-vyglyadit-dif-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Как выглядит дифавтомат: фото, схема и отличие от УЗО</span><span class="related-bottom-desc">Подробное описание того, как выглядит дифференциальный автомат. Разбор лицевой панели, маркировок, к</span></a><a href="/articles/p/po/polozhenie-vklyuchennogo-avtomata.html" class="related-bottom-card"><span class="related-bottom-title">Положение включенного автомата: как определить и избежать ошибок</span><span class="related-bottom-desc">Как правильно проверить положение включенного автомата в электрощитке? Пошаговая инструкция, ошибки </span></a><a href="/articles/s/sk/skhema-podklyucheniya-3-faznogo-shchita-v-chastnom-dome.html" class="related-bottom-card"><span class="related-bottom-title">Схема 3-х фазного щита в доме: сборка и защита</span><span class="related-bottom-desc">Правильная схема подключения 3 фазного щита в частном доме. Выбор автоматов, УЗО, порядок сборки и р</span></a><a href="/articles/t/ta/tablitsa-amper-i-kilovatt-dlya-avtomatov.html" class="related-bottom-card"><span class="related-bottom-title">Таблица ампер и киловатт для автоматов: расчет и выбор</span><span class="related-bottom-desc">Подробная таблица соответствия ампер и киловатт для автоматических выключателей. Расчет мощности, се</span></a><a href="/articles/s/sb/sborka-el-shchita-dlya-chastnogo-doma-na-380.html" class="related-bottom-card"><span class="related-bottom-title">Сборка электрощита на 380В для частного дома: схема, комплектующие, нюансы</span><span class="related-bottom-desc">Пошаговая инструкция по монтажу 3-фазного щита для дома: выбор автоматов, УЗО, счетчика, правила под</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

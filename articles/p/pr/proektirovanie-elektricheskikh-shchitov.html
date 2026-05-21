@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Проектирование электрических щитов: схемы, сборка и ошибки — Электро Гид</title>
+    <meta name="description" content="Полное руководство по проектированию электрощитов. Разбор схем, выбор автоматики, правила сборки и распределения групп. Советы профессионалов.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/pr/proektirovanie-elektricheskikh-shchitov.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Проектирование электрических щитов: схемы, сборка и ошибки">
+    <meta property="og:description" content="Полное руководство по проектированию электрощитов. Разбор схем, выбор автоматики, правила сборки и распределения групп. Советы профессионалов.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Проектирование электрических щитов: схемы, сборка и ошибки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Грамотное проектирование электрических щитов: от схемы до сборки</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#основные-принципы-проектирования-и-нормативная-база">Основные принципы проектирования и нормативная база</a></li><li><a href="#разработка-однолинейной-схемы-электроснабжения">Разработка однолинейной схемы электроснабжения</a></li><li><a href="#выбор-оборудования-автоматика-и-узо">Выбор оборудования: автоматика и УЗО</a></li><li><a href="#распределение-нагрузок-и-группировка-потребителей">Распределение нагрузок и группировка потребителей</a></li><li><a href="#компоновка-щита-и-правила-сборки">Компоновка щита и правила сборки</a></li><li><a href="#типичные-ошибки-при-проектировании-и-монтаже">Типичные ошибки при проектировании и монтаже</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Электрический щит — это сердце любой инженерной сети здания, будь то просторный коттедж, квартира в новостройке или производственное помещение. Именно здесь происходит распределение входящей мощности, защита линий от перегрузок и коротких замыканий, а также управление электропитанием. Ошибки на этапе <strong>проектирования электрических щитов</strong> могут привести не только к постоянным отключениям автоматов, но и к пожароопасным ситуациям, выходу дорогостоящей техники из строя.</p>
+
+<p>Грамотная сборка требует глубоких знаний нормативной документации, понимания принципов работы электротехнического оборудования и точных расчетов. В отличие от простой замены розетки, здесь нет права на ошибку"методом тыка". Каждый элемент, от вводного рубильника до УЗО конечной группы, должен быть подобран с учетом будущих нагрузок и характеристик потребителей.</p>
+
+<p>В этой статье мы разберем ключевые аспекты создания надежной системы электроснабжения. Вы узнаете, как правильно составить однолинейную схему, выбрать место установки и распределить нагрузки, чтобы система работала как швейцарские часы долгие годы.</p>
+
+<h2 id="основные-принципы-проектирования-и-нормативная-база">Основные принципы проектирования и нормативная база</h2>
+
+<p>Фундаментом любой электромонтажной работы является соблюдение нормативных документов. В России основным сводом правил, регламентирующим устройство электроустановок, является <strong>ПУЭ (Правила устройства электроустановок)</strong>. Игнорирование этих правил превращает щит в бомбу замедленного действия. Проектировщик обязан учитывать требования по селективности защиты, допустимым токовым нагрузкам на проводники и условиям окружающей среды.</p>
+
+<p>Первым шагом всегда является сбор информации о потребителях. Необходимо составить полный список всех электроприборов, которые будут подключены, с указанием их мощности и типа нагрузки (активная или индуктивная). Это позволяет рассчитать <em>расчетный ток</em> всей системы. Важно понимать, что суммарная мощность всех потребителей редко когда включается одновременно, поэтому применяется коэффициент спроса.</p>
+
+<blockquote>⚠️ Внимание: Нормативная база и требования энергоснабжающих организаций могут изменяться. Перед началом работ обязательно сверьте технические условия (ТУ) на подключение с актуальными требованиями вашего региона, так как они имеют приоритет над общими рекомендациями.</blockquote>
+
+<p>Критически важным аспектом является разделение цепей. Нельзя запитывать розетки и освещение с одной линии, а тем более — объединять в одну группу розетки разных комнат. <strong>Селективность</strong> защиты означает, что при аварии в одной комнате должен отключаться только автомат этой комнаты, а не весь дом. Это достигается правильным подбором номиналов и время-токовых характеристик аппаратов защиты.</p>
+
+<div class="poll-widget" id="poll-4f0bff75"><div class="poll-widget-question">📊 Какой тип щита вы планируете?</div><div class="poll-widget-option" data-poll="4f0bff75" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Встраиваемый в нишу</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4f0bff75" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Накладной на стену</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4f0bff75" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Уличный металлический</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4f0bff75" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Пластиковый навесной</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="разработка-однолинейной-схемы-электроснабжения">Разработка однолинейной схемы электроснабжения</h2>
+
+<p>Однолинейная схема — это главный документ, без которого невозможно начать сборку щита. Она отображает путь электрического тока от ввода до конечного потребителя, показывая номиналы автоматов, сечения кабелей и типы устройств защиты. На схеме четко видно, какая группа за что отвечает и какие <strong>автоматические выключатели</strong> установлены на вводе.</p>
+
+<p>При составлении схемы необходимо учитывать логическое разделение. Например, розетки кухни, где сосредоточены мощные приборы (духовой шкаф, посудомоечная машина), должны быть разбиты на отдельные линии с индивидуальной защитой. Освещение также выделяется в отдельные группы, часто с использованием дифференциальной защиты или отдельных автоматов, чтобы при ремонте проводки в люстре не гас свет во всей квартире.</p>
+
+<ul>
+<li>🔌 <strong>Группировка по помещениям:</strong> логичное разделение (кухня, санузел, жилые комнаты) для удобства обслуживания.</li>
+<li>⚡ <strong>Выделение мощных потребителей:</strong> отдельные линии для варочной панели, кондиционера, бойлера.</li>
+<li>🛡️ <strong>Защита от токов утечки:</strong> обязательная установка УЗО или дифавтоматов на"мокрые" зоны.</li>
+<li>🔄 <strong>Резервирование:</strong> места (резерв) под будущие нагрузки, например, электрокар или систему"умный дом".</li>
+</ul>
+
+<p>Особое внимание стоит уделить <mark>балансировке фаз</mark> в трехфазных сетях. Неравномерное распределение нагрузки по фазам может привести к перекосу напряжений, что губительно для бытовой техники. На однолинейной схеме должно быть видно, какие группы подключены к фазе L1, L2 и L3, чтобы суммарная мощность на каждой из них была примерно одинаковой.</p>
+
+<details class="faq-item"><summary>Что такое селективность и почему она важна?</summary><div class="faq-answer"><p>Селективность — это согласованность работы защитных аппаратов. При коротком замыкании в розетке на кухне должен сработать автомат кухни, а не вводной автомат всего дома. Это обеспечивается разницей во времени срабатывания и токовых характеристиках (B, C, D).</p></div></details>
+
+<h2 id="выбор-оборудования-автоматика-и-узо">Выбор оборудования: автоматика и УЗО</h2>
+
+<p>Рынок электротехники предлагает множество брендов, но при выборе оборудования для щита экономия недопустима. <strong>Автоматические выключатели</strong> должны быть проверенных производителей (ABB, Schneider Electric, Legrand, IEK, EKF). Дешевые аналоги могут не сработать в нужный момент или, наоборот, выбивать без причины. Номинальный ток автомата подбирается строго по сечению кабеля, а не по мощности прибора!</p>
+
+<p>Устройства защитного отключения (<em>УЗО</em>) защищают человека от поражения электрическим током. Они реагируют на разницу токов между фазой и нулем. Для жилых помещений стандартом является чувствительность 30 мА. Установка УЗО с током утечки 100 мА или 300 мА допустима только на вводе как противопожарная защита, но она не спасет человека при прямом контакте с током.</p>
+
+<p>При выборе дифференциальной защиты важно учитывать тип тока утечки. Обычные УЗО типа <em>AC</em> реагируют только на синусоидальный ток утечки. Однако современная техника (стиральные машины с инверторными моторами, компьютеры, LED-свет) генерирует пульсирующий постоянный ток. Для таких случаев необходимо использовать УЗО типа <em>A</em>, которые дороже, но обеспечивают реальную безопасность.</p>
+
+<table>
+<thead>
+<tr>
+<th>Тип устройства</th>
+<th>Назначение</th>
+<th>Где применять</th>
+<th>Примерная цена</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Автомат (MCB)</td>
+<td>Защита кабеля от перегрузки и КЗ</td>
+<td>На все линии (свет, розетки)</td>
+<td>Бюджетно</td>
+</tr>
+<tr>
+<td>УЗО (RCCB)</td>
+<td>Защита от утечки тока (человек)</td>
+<td>В паре с автоматом или как отдельный модуль</td>
+<td>Средне</td>
+</tr>
+<tr>
+<td>Дифавтомат (RCBO)</td>
+<td>2 в 1: автомат + УЗО</td>
+<td>Где мало места в щите или для отдельных линий</td>
+<td>Высокая</td>
+</tr>
+<tr>
+<td>Реле напряжения</td>
+<td>Защита от скачков напряжения</td>
+<td>На вводе в щит (обязательно!)</td>
+<td>Средне</td>
+</tr>
+</tbody>
+</table>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При сборке щита всегда оставляйте 15-20% свободных мест (модулей) под будущие автоматы. Жизнь меняется, и через 5 лет вам может понадобиться подключить кондиционер или зарядку для электромобиля.</p></div>
+
+<h2 id="распределение-нагрузок-и-группировка-потребителей">Распределение нагрузок и группировка потребителей</h2>
+
+<p>Правильная группировка потребителей — залог удобства эксплуатации. Классическая ошибка — вешать все розетки в комнате на один автомат. Если в этой комнате включен пылесос, фен и утюг, автомат выбьет, погаснет свет и отключится холодильник. Поэтому <strong>розеточные группы</strong> и линии освещения должны быть разделены.</p>
+
+<p>Кухня — это зона повышенного внимания. Варочная панель требует отдельного кабеля и автомата (обычно 32А или 40А). Духовой шкаф, посудомоечная машина и стиральная машина также должны иметь собственные линии. Розетки для малой бытовой техники (блендер, миксер) объединяются в одну или две группы с УЗО.</p>
+
+<ul>
+<li>🛁 <strong>Ванная комната:</strong> обязательное УЗО 10 мА (для душевых кабин с гидромассажем) или 30 мА, запрет на установку розеток внутри мокрой зоны.</li>
+<li>❄️ <strong>Холодильник:</strong> часто выделяют в отдельную группу без УЗО (или с селективным), чтобы при длительном отсутствии хозяев отключалось все, кроме холодильника.</li>
+<li>💡 <strong>Освещение:</strong> можно объединять несколько комнат на один автомат 6А или 10А, но лучше разделять по зонам (например, свет коридора и свет спальни).</li>
+<li>🌡️ <strong>Теплые полы:</strong> только отдельная линия с терморегулятором и УЗО.</li>
+</ul>
+
+<p>При распределении нагрузок в трехфазном щите важно не просто"разбросать" автоматы, а сгруппировать их по фазам логически. Например, если одна фаза"садится" из-за перегрузки, желательно, чтобы это не выбило свет во всем доме. Часто применяют схему, где свет запитан от одной фазы, а розетки распределены по трем.</p>
+
+<h2 id="компоновка-щита-и-правила-сборки">Компоновка щита и правила сборки</h2>
+
+<p>Сборка щита — это искусство укладки проводов. Даже самая правильная схема, собранная"лапшой", будет работать плохо и выглядеть непрофессионально. Основное правило — порядок и читаемость. Все провода должны идти пучками, по периметру или в специальных гребенках, поворачивая под прямым углом. Никогда не прокладывайте провода по диагонали!</p>
+
+<p>Для соединения автоматов лучше использовать <strong>гребенчатые шины</strong> (гребенки), а не самодельные перемычки из обрезков проводов. Гребенка обеспечивает надежный контакт по всей длине ряда автоматов и исключает риск ослабления соединения со временем. Для подключения отходящих линий используйте проводники соответствующего цвета и сечения.</p>
+
+<blockquote>⚠️ Внимание: При сборке щита соблюдайте цветовую маркировку проводов! Фаза — белый/коричневый/черный, Ноль — синий, Заземление — желто-зеленый. Путаница цветов может привести к короткому замыканию при будущем ремонте.</blockquote>
+
+<p>Важным элементом является <em>кросс-модуль</em> или распределительные блоки для нуля и земли. Скручивать нули под один винт автомата или гребенки категорически запрещено. Каждый ноль должен приходить на свою клемму. Также необходимо предусмотреть место для установки реле напряжения, которое защитит технику от скачков в сети, что особенно актуально в частном секторе.</p>
+
+<div class="checklist-block"><h4>☑️ Чек-лист перед закрытием щита</h4><label class="check-item"><input type="checkbox"><span>Все ли винты затянуты с нужным усилием?:Проверено динамометрической отверткой</span></label><label class="check-item"><input type="checkbox"><span>Соблюдена ли цветовая маркировка?:Все провода промаркированы</span></label><label class="check-item"><input type="checkbox"><span>Есть ли запас провода?:Оставлен запас на одну перебортовку</span></label><label class="check-item"><input type="checkbox"><span>Проверена ли работа УЗО?:Тест кнопкой"Тест" пройден</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="типичные-ошибки-при-проектировании-и-монтаже">Типичные ошибки при проектировании и монтаже</h2>
+
+<p>Одной из самых распространенных ошибок является несоответствие номинала автомата сечению кабеля. Установка автомата 25А на кабель сечением 1.5 мм² — это прямой путь к пожару, так как кабель сгорит раньше, чем сработает защита. <strong>Кабельная продукция</strong> должна выбираться с запасом по току, а автомат защищать именно кабель, а не прибор.</p>
+
+<p>Вторая ошибка — отсутствие маркировки. Через год после сборки даже сам электрик может забыть, какой автомат за что отвечает. Каждая группа должна быть подписана на схеме внутри щита и на самом модуле. Использование качественной <em>маркировки</em> (печатной или на принтере этикеток) значительно упрощает поиск неисправностей.</p>
+
+<p>Третья ошибка — экономия на месте. Щит, собранный"впритык", невозможно нормально обслуживать. Провода перетянуты, греются, пальцами не подлезть. Всегда выбирайте щит большего размера, чем кажется необходимым. Хороший тон — это когда внутри щита есть свободное пространство для циркуляции воздуха и рука легко проходит к винтам клемм.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главный принцип проектирования: Щит должен быть понятен любому грамотному электрику, который придет после вас. Читаемость и логика важнее экономии места и денег на пару модулей.</p></div>
+
+<h2 id="faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</h2>
+
+<details>
+<summary>Можно ли собрать электрощит самостоятельно без образования?</summary>
+<p>Теоретически собрать можно, но это опасно для жизни. Если у вас нет навыков чтения схем и понимания работы электричества, лучше доверить это профессионалам. Ошибка в подключении нуля и фазы или заземления может стоить жизни или сгоревшего дома.</p>
+</details>
+
+<details>
+<summary>Сколько стоит спроектировать и собрать щит?</summary>
+<p>Стоимость зависит от количества модулей, бренда оборудования и региона. Проект может стоить от 3 до 10 тысяч рублей, сборка — от 500 рублей за модуль. Оборудование подбирается индивидуально и может варьироваться от 10 до 100 тысяч рублей и выше.</p>
+</details>
+
+<details>
+<summary>Нужно ли ставить УЗО на освещение?</summary>
+<p>По современным нормам (ПУЭ 7.1.79) в групповых сетях, питающих штепсельные розетки, УЗО обязательно. На освещение в жилых помещениях установка УЗО не является строго обязательной, но желательна для повышения безопасности, особенно если используются металлические светильники или есть доступ к токоведущим частям при замене ламп.</p>
+</details>
+
+<details>
+<summary>Что лучше: дифавтоматы или связка Автомат + УЗО?</summary>
+<p>Дифавтомат занимает меньше места (1 модуль против 2-3), что удобно в маленьких щитах. Однако связка Автомат + УЗО дешевле и понятнее в диагностике (если выбило УЗО — утечка, если автомат — перегрузка). Выбор зависит от габаритов щита и бюджета.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#основные-принципы-проектирования-и-нормативная-база">Основные принципы проектирования и нормативная база</a></li><li><a href="#разработка-однолинейной-схемы-электроснабжения">Разработка однолинейной схемы электроснабжения</a></li><li><a href="#выбор-оборудования-автоматика-и-узо">Выбор оборудования: автоматика и УЗО</a></li><li><a href="#распределение-нагрузок-и-группировка-потребителей">Распределение нагрузок и группировка потребителей</a></li><li><a href="#компоновка-щита-и-правила-сборки">Компоновка щита и правила сборки</a></li><li><a href="#типичные-ошибки-при-проектировании-и-монтаже">Типичные ошибки при проектировании и монтаже</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kakoj-avtomat-stavyat-na-stiralnuyu-mashinu.html" class="related-card">Какой автомат ставить на стиральную машину: выбор и подключение</a></li><li><a href="/articles/v/vy/vybor-avtomata-po-secheniyu-kabelya-tablitsa.html" class="related-card">Выбор автомата по сечению кабеля: таблица и правила</a></li><li><a href="/articles/v/vy/vybor-uzo-po-toku-utechki.html" class="related-card">Как выбрать УЗО по току утечки: расчет и советы 2026</a></li><li><a href="/articles/c/ch/chto-takoe-uzo-i-dif-avtomaty-v-elektrike.html" class="related-card">УЗО и дифавтоматы: отличие, принцип работы и выбор для дома</a></li><li><a href="/articles/v/vy/vybor-avtomata-po-kabelyu.html" class="related-card">Как выбрать автомат по сечению кабеля: таблица и расчеты 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kakoj-avtomat-stavyat-na-stiralnuyu-mashinu.html" class="related-bottom-card"><span class="related-bottom-title">Какой автомат ставить на стиральную машину: выбор и подключение</span><span class="related-bottom-desc">Разбираемся, какой автоматический выключатель нужен для стиральной машины: номинал, тип, количество </span></a><a href="/articles/v/vy/vybor-avtomata-po-secheniyu-kabelya-tablitsa.html" class="related-bottom-card"><span class="related-bottom-title">Выбор автомата по сечению кабеля: таблица и правила</span><span class="related-bottom-desc">Как правильно подобрать автоматический выключатель под сечение провода? Таблицы соответствия, расчет</span></a><a href="/articles/v/vy/vybor-uzo-po-toku-utechki.html" class="related-bottom-card"><span class="related-bottom-title">Как выбрать УЗО по току утечки: расчет и советы 2026</span><span class="related-bottom-desc">Подробное руководство по выбору УЗО по току утечки: нормы для квартиры, дома, ванной. Таблицы, форму</span></a><a href="/articles/c/ch/chto-takoe-uzo-i-dif-avtomaty-v-elektrike.html" class="related-bottom-card"><span class="related-bottom-title">УЗО и дифавтоматы: отличие, принцип работы и выбор для дома</span><span class="related-bottom-desc">Чем УЗО отличается от дифавтомата? Как они работают и какой прибор выбрать для защиты электропроводк</span></a><a href="/articles/v/vy/vybor-avtomata-po-kabelyu.html" class="related-bottom-card"><span class="related-bottom-title">Как выбрать автомат по сечению кабеля: таблица и расчеты 2026</span><span class="related-bottom-desc">Пошаговая инструкция по подбору автоматического выключателя для защиты кабеля от перегрузки. Таблицы</span></a><a href="/articles/k/ka/kak-vyglyadit-schyotchik-elektroenergii.html" class="related-bottom-card"><span class="related-bottom-title">Как выглядит счётчик электроэнергии: фото, виды и устройство 2026</span><span class="related-bottom-desc">Подробный обзор внешнего вида электросчётчиков: от механических до умных. Фото, схемы, отличия модел</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

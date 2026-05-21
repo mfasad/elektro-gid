@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Схема работы ИБП: устройство, принцип действия и типы — Электро Гид</title>
+    <meta name="description" content="Детальный разбор схемы работы ИБП. Как устроен источник бесперебойного питания, разница между Line-Interactive и On-Line, роль инвертора и зарядного устройства.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/s/sk/skhema-raboty-ibp.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Схема работы ИБП: устройство, принцип действия и типы">
+    <meta property="og:description" content="Детальный разбор схемы работы ИБП. Как устроен источник бесперебойного питания, разница между Line-Interactive и On-Line, роль инвертора и зарядного устройства.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/stabilizatory-i-ibp/">Стабилизаторы и ИБП</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Схема работы ИБП: устройство, принцип действия и типы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Схема работы ИБП: устройство, принцип действия и типы</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#базовая-архитектура-основные-узлы-и-их-назначение">Базовая архитектура: основные узлы и их назначение</a></li><li><a href="#принцип-работы-off-line-standby-систем">Принцип работы Off-Line (Standby) систем</a></li><li><a href="#технология-line-interactive-золотая-середина">Технология Line-Interactive: золотая середина</a></li><li><a href="#системы-on-line-double-conversion-для-критических-нагрузок">Системы On-Line (Double Conversion) для критических нагрузок</a></li><li><a href="#режимы-работы-и-система-байпас">Режимы работы и система байпас</a></li><li><a href="#нюансы-работы-с-генераторами-и-сложной-нагрузкой">Нюансы работы с генераторами и сложной нагрузкой</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>В современном мире, где цифровые данные и непрерывность производственных процессов имеют критическое значение, стабильность электропитания становится не просто удобством, а необходимостью. Скачки напряжения, кратковременные отключения и помехи в сети способны вывести из строя дорогостоящее оборудование, привести к потере информации или остановке целых производственных линий. Именно для защиты от таких аномалий используются <strong>источники бесперебойного питания</strong>, которые часто называют просто ИБП или UPS.</p>
+
+<p>Однако мало кто задумывается о том, что происходит внутри этого «черного ящика» в момент, когда гаснет свет. <em>Схема работы ИБП</em> может кардинально отличаться в зависимости от класса устройства, его назначения и стоимости. Понимание базовых принципов преобразования энергии, переключения между источниками и работы аккумуляторной батареи поможет вам не только грамотно подобрать оборудование, но и правильно его эксплуатировать, продлевая срок службы всей системы.</p>
+
+<p>В этой статье мы детально разберем архитектуру современных систем резервного питания, рассмотрим ключевые компоненты и выясним, почему одни устройства издают писк при работе от батареи, а другие работают абсолютно бесшумно. Вы узнаете, как именно переменный ток превращается в постоянный для зарядки, и как он снова становится переменным для питания вашего компьютера или сервера.</p>
+
+<h2 id="базовая-архитектура-основные-узлы-и-их-назначение">Базовая архитектура: основные узлы и их назначение</h2>
+
+<p>Любой, даже самый простой источник бесперебойного питания, представляет собой сложное электротехническое устройство, состоящее из нескольких взаимосвязанных блоков. Основу любой <strong>схемы ИБП</strong> составляют входной фильтр, выпрямитель (или зарядное устройство), аккумуляторная батарея, инвертор и система коммутации. Эти элементы работают в связке, обеспечивая фильтрацию помех и бесперебойную подачу энергии.</p>
+
+<p>Первым на пути электрического тока стоит входной фильтр, который сглаживает высокочастотные помехи и защищает внутреннюю электронику от импульсных перенапряжений, возникающих в внешней сети. Далее ток поступает на выпрямитель, который преобразует переменное напряжение сети (AC) в постоянное (DC) для заряда аккумуляторов. Именно здесь происходит первичная стабилизация энергетического потока.</p>
+
+<ul>
+ <li>⚡ <strong>Аккумуляторная батарея (АКБ)</strong> — химический накопитель энергии, обеспечивающий автономность работы при отсутствии внешнего питания.</li>
+ <li>⚡ <strong>Инвертор</strong> — ключевой узел, преобразующий постоянный ток батареи обратно в переменный ток синусоидальной формы для питания нагрузки.</li>
+ <li>⚡ <strong>Статический переключатель (Bypass)</strong> — устройство, мгновенно переключающее нагрузку на обходную цепь в случае перегрузки или неисправности инвертора.</li>
+</ul>
+
+<p>Ключевым элементом, от которого зависит качество выходного напряжения, является <em>инвертор</em>. В зависимости от топологии построения схемы, он может работать постоянно или включаться только в аварийных ситуациях. Качество работы инвертора напрямую влияет на то, сможет ли ваш газовый котел или чувствительная медицинская аппаратура работать без сбоев.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При выборе ИБП обращайте внимание на форму выходного сигнала: для активной нагрузки (ПК, серверы) критически важна чистая синусоида, а не аппроксимированная.</p></div>
+
+<h2 id="принцип-работы-off-line-standby-систем">Принцип работы Off-Line (Standby) систем</h2>
+
+<p>Самой простой и распространенной схемой, используемой в бюджетных моделях для домашних компьютеров, является технология <strong>Off-Line</strong> или Standby. В штатном режиме работы, когда параметры сетевого напряжения находятся в допустимых пределах, ток проходит напрямую от сети к потребителю через входной фильтр и реле переключения. Инвертор в это время находится в «спящем» режиме и не участвует в процессе питания нагрузки.</p>
+
+<p>Ситуация меняется мгновенно, как только датчики фиксируют выход напряжения за установленные границы или полное пропадание сети. Электронный ключ (реле) размыкает цепь прямого прохождения и подключает нагрузку к инвертору, который начинает потреблять энергию от аккумуляторной батареи. Время этого переключения, называемое <em>временем реакции</em>, обычно составляет от 4 до 10 миллисекунд.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Для большинства блоков питания персональных компьютеров такое время переключения некритично, так как они способны удерживать заряд в конденсаторах до 20 мс. Однако для чувствительного оборудования, например, насосов газовых котлов с электронным управлением, даже 10 мс могут привести к перезагрузке или ошибке контроллера.</p>
+</blockquote>
+
+<p>Главным преимуществом такой схемы является высокий КПД (до 99%) и низкая стоимость, так как инвертор работает редко и меньше изнашивается. Однако отсутствие стабилизации напряжения в штатном режиме означает, что при частых колепаниях в сети устройство будет постоянно переключаться на батарею, что быстро истощает ресурс АКБ.</p>
+
+<div class="poll-widget" id="poll-57b00473"><div class="poll-widget-question">📊 Какой тип ИБП у вас установлен дома?</div><div class="poll-widget-option" data-poll="57b00473" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Off-Line (Standby)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="57b00473" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Line-Interactive</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="57b00473" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">On-Line (Double Conversion)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="57b00473" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">У меня нет ИБП</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="технология-line-interactive-золотая-середина">Технология Line-Interactive: золотая середина</h2>
+
+<p>Более совершенной схемой, получившей широкое распространение в офисном сегменте, является <strong>Line-Interactive</strong>. Внешне она похожа на Off-Line, но имеет критически важное дополнение — встроенный автотрансформатор (стабилизатор). Это позволяет устройству корректировать напряжение на выходе без перехода на питание от батареи при небольших отклонениях в сети.</p>
+
+<p>Принцип работы заключается в следующем: при падении или повышении входного напряжения схема управления переключает обмотки автотрансформатора, добавляя или компенсируя вольты. Инвертор включается только тогда, когда коррекции трансформатора недостаточно или электричество пропало полностью. Это существенно продлевает жизнь аккумуляторам, так как они используются реже.</p>
+
+<p>В таких системах часто используется <em>широкодиапазонный вход</em>, позволяющий работать в коридоре напряжений от 160 до 280 Вольт без разряда батареи. Это делает Line-Interactive ИБП идеальным выбором для регионов с нестабильной электросетью, где скачки напряжения — обычное явление, но качество синусоиды не является критичным параметром.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка состояния ИБП</h4><label class="check-item"><input type="checkbox"><span>Проверка даты производства батареи</span></label><label class="check-item"><input type="checkbox"><span>Тестирование времени автономной работы</span></label><label class="check-item"><input type="checkbox"><span>Очистка вентиляционных отверстий</span></label><label class="check-item"><input type="checkbox"><span>Проверка журналов событий в ПО</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="системы-on-line-double-conversion-для-критических-нагрузок">Системы On-Line (Double Conversion) для критических нагрузок</h2>
+
+<p>Вершиной эволюции схем бесперебойного питания являются системы <strong>On-Line</strong> или двойного преобразования. В этой архитектуре ток никогда не идет напрямую от сети к нагрузке. Входное переменное напряжение сначала выпрямляется в постоянное, заряжая батарею и питая инвертор, а затем инвертор заново генерирует идеальное переменное напряжение.</p>
+
+<p>Такая <strong>схема работы ИБП</strong> обеспечивает полную гальваническую развязку нагрузки от внешней сети. Любые помехи, искажения формы синусоиды, частотные колебания и шумовые выбросы полностью отсекаются. Нагрузка всегда получает эталонное питание, независимо от того, что творится во внешней розетке. Время перехода на батарею здесь равно нулю, так как инвертор работает постоянно.</p>
+
+<p>Единственным минусом данной технологии является более низкий КПД (около 90-94%) и повышенное тепловыделение, так как процесс двойного преобразования энергии неизбежно сопровождается потерями. Кроме того, такие устройства, как правило, дороже и требуют активного охлаждения. Однако для серверных стоек, медицинского оборудования иных приборов это единственно верное решение.</p>
+
+<details class="faq-item"><summary>Что происходит при перегреве On-Line ИБП?</summary><div class="faq-answer"><p>При достижении критической температуры система управления может принудительно перевести устройство в режим байпаса (прямое питание от сети), чтобы снизить тепловую нагрузку на инвертор и избежать выхода из строя компонентов. В этот момент защита от помех исчезает.</p></div></details>
+
+<h2 id="режимы-работы-и-система-байпас">Режимы работы и система байпас</h2>
+
+<p>Важнейшим элементом надежности современных ИБП является наличие цепи <strong>байпас (Bypass)</strong>. Это обходной путь, позволяющий подавать напряжение на нагрузку напрямую от сети, минуя внутренние узлы преобразования. Байпас может быть статическим (управляется электроникой за миллисекунды) или механическим (ручное переключение).</p>
+
+<p>Автоматический переход в режим байпаса происходит в нескольких случаях: при перегрузке инвертора (например, при подключении мощного принтера или обогревателя), при внутренней неисправности устройства или при перегреве. Это позволяет не обесточивать защищаемое оборудование, пока вы устраняете проблему с самим ИБП.</p>
+
+<p>Существует также понятие <em>ручного байпаса</em> (Maintenance Bypass), который представляет собой внешний блок переключения. Он позволяет полностью обесточить и снять ИБП с обслуживания или заменить его, не прерывая работу серверов. В промышленных системах двойного преобразования это обязательный элемент инфраструктуры.</p>
+
+<table>
+ <thead>
+ <tr>
+ <th>Параметр</th>
+ <th>Off-Line</th>
+ <th>Line-Interactive</th>
+ <th>On-Line</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Время переключения</td>
+ <td>4-10 мс</td>
+ <td>2-6 мс</td>
+ <td>0 мс</td>
+ </tr>
+ <tr>
+ <td>Форма сигнала</td>
+ <td>Синус / Аппрокс.</td>
+ <td>Синус / Аппрокс.</td>
+ <td>Чистая синусоида</td>
+ </tr>
+ <tr>
+ <td>Стабилизация</td>
+ <td>Нет</td>
+ <td>Ступенчатая</td>
+ <td>Постоянная</td>
+ </tr>
+ <tr>
+ <td>КПД</td>
+ <td>~99%</td>
+ <td>~98%</td>
+ <td>~92-94%</td>
+ </tr>
+ </tbody>
+</table>
+
+<h2 id="нюансы-работы-с-генераторами-и-сложной-нагрузкой">Нюансы работы с генераторами и сложной нагрузкой</h2>
+
+<p>Отдельного внимания заслуживает взаимодействие ИБП с бензиновыми или дизельными генераторами. Дешевые генераторы часто выдают напряжение с «плавающей» частотой и искаженной синусоидой. <strong>Схема ИБП</strong> типа On-Line с широким диапазоном входной частоты способна «переварить» такой ток, отфильтровать его и выдать чистую синусоиду.</p>
+
+<p>Однако модели Off-Line и многие Line-Interactive устройства могут воспринять «грязный» ток от генератора как аварию и перейти на работу от батареи. Поскольку генератор не может заряжать батарею ИБП в этом режиме, система быстро разрядится. Для работы с генераторами критически важно наличие функции <em>коррекции коэффициента мощности (PFC)</em> и широких допусков по частоте на входе.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> При подключении ИБП к генератору мощность генератора должна быть в 2-3 раза выше мощности ИБП. Это необходимо для компенсации пусковых токов зарядного устройства UPS, которые могут вызвать просадку напряжения и остановку двигателя генератора.</p>
+</blockquote>
+
+<p>Также стоит учитывать характер нагрузки. Оборудование с импульсными блоками питания (ПК, телевизоры) менее требовательно к форме сигнала, чем устройства с электродвигателями (насосы, компрессоры) или трансформаторами. Для последних наличие чистой синусоиды на выходе ИБП является обязательным условием долгой жизни, иначе двигатель будет перегреваться и гудеть.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Совместимость ИБП и генератора зависит не только от мощности, но и от способности UPS синхронизироваться с «грязной» частотой генератора без постоянного перехода на батарею.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+ <summary>Почему ИБП пищит, даже когда свет не отключали?</summary>
+ <p>Звуковой сигнал чаще всего указывает на работу в режиме коррекции напряжения (для Line-Interactive моделей) или на то, что устройство работает от батареи из-за выхода параметров сети за допустимые пределы. Также писк может сигнализировать о nearing end of battery life ( nearing конец срока службы батареи) или перегрузке. Проверьте индикацию на корпусе.</p>
+</details>
+
+<details>
+ <summary>Можно ли использовать автомобильный аккумулятор вместо штатного в ИБП?</summary>
+ <p>Технически схема работы ИБП позволит запустить систему от внешнего АКБ, если напряжения совпадают (обычно 12В). Однако стартерные автомобильные аккумуляторы не предназначены для циклирования (глубокого разряда и длительного заряда малым током). Они могут закипеть, выделить вредные газы или выйти из строя через несколько месяцев. Используйте только специализированные AGM или GEL батареи.</p>
+</details>
+
+<details>
+ <summary>Как часто нужно менять батареи в источнике бесперебойного питания?</summary>
+ <p>Средний срок службы свинцово-кислотных аккумуляторов в ИБП составляет 3-5 лет в зависимости от условий эксплуатации. Высокая температура окружающей среды (выше 25°C) сокращает срок жизни батареи вдвое на каждые 10 градусов превышения. Регулярно проводите тесты автономной работы.</p>
+</details>
+
+<details>
+ <summary>В чем разница между синусоидой и аппроксимированной синусоидой?</summary>
+ <p>Чистая синусоида — это идеальная гладкая волна напряжения, необходимая для двигателей и трансформаторов. Аппроксимированная (ступенчатая) синусоида — это упрощенная форма сигнала, которую выдают дешевые инверторы. Она подходит для блоков питания ПК, но может вызывать перегрев и шум у насосов и котлов.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#базовая-архитектура-основные-узлы-и-их-назначение">Базовая архитектура: основные узлы и их назначение</a></li><li><a href="#принцип-работы-off-line-standby-систем">Принцип работы Off-Line (Standby) систем</a></li><li><a href="#технология-line-interactive-золотая-середина">Технология Line-Interactive: золотая середина</a></li><li><a href="#системы-on-line-double-conversion-для-критических-нагрузок">Системы On-Line (Double Conversion) для критических нагрузок</a></li><li><a href="#режимы-работы-и-система-байпас">Режимы работы и система байпас</a></li><li><a href="#нюансы-работы-с-генераторами-и-сложной-нагрузкой">Нюансы работы с генераторами и сложной нагрузкой</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/b/bl/blok-istochnika-rezervirovannogo-pitaniya.html" class="related-card">Блок источника резервированного питания: устройство, типы и монтаж</a></li><li><a href="/articles/u/up/ups-eto-v-kompyutere.html" class="related-card">UPS в компьютере: что это, как работает и зачем нужен</a></li><li><a href="/articles/p/po/podklyuchenie-gazovogo-kotla-k-elektroseti-cherez-stabilizator.html" class="related-card">Подключение газового котла через стабилизатор: схема и выбор</a></li><li><a href="/articles/k/ka/kakoj-stabilizator-dlya-doma-luchshe-kupit.html" class="related-card">Какой стабилизатор напряжения для дома выбрать в 2026 году</a></li><li><a href="/articles/c/ch/chto-takoe-baza-ibp.html" class="related-card">База ИБП: что это такое, принцип работы и устройство</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/b/bl/blok-istochnika-rezervirovannogo-pitaniya.html" class="related-bottom-card"><span class="related-bottom-title">Блок источника резервированного питания: устройство, типы и монтаж</span><span class="related-bottom-desc">Как работает блок резервированного питания? Обзор типов БРП, критерии выбора для дома и офиса, схемы</span></a><a href="/articles/u/up/ups-eto-v-kompyutere.html" class="related-bottom-card"><span class="related-bottom-title">UPS в компьютере: что это, как работает и зачем нужен</span><span class="related-bottom-desc">Разбираемся, что такое UPS (ИБП) для ПК, как он защищает технику от скачков напряжения и как выбрать</span></a><a href="/articles/p/po/podklyuchenie-gazovogo-kotla-k-elektroseti-cherez-stabilizator.html" class="related-bottom-card"><span class="related-bottom-title">Подключение газового котла через стабилизатор: схема и выбор</span><span class="related-bottom-desc">Как правильно подключить газовый котел к электросети через стабилизатор напряжения. Выбор оборудован</span></a><a href="/articles/k/ka/kakoj-stabilizator-dlya-doma-luchshe-kupit.html" class="related-bottom-card"><span class="related-bottom-title">Какой стабилизатор напряжения для дома выбрать в 2026 году</span><span class="related-bottom-desc">Экспертный гайд по выбору стабилизатора напряжения для дома: рейтинг моделей, сравнение типов (релей</span></a><a href="/articles/c/ch/chto-takoe-baza-ibp.html" class="related-bottom-card"><span class="related-bottom-title">База ИБП: что это такое, принцип работы и устройство</span><span class="related-bottom-desc">Подробный разбор того, что такое база ИБП. Устройство, типы аккумуляторов, принцип работы и критерии</span></a><a href="/articles/k/ka/kakoj-kupit-stabilizator-napryazheniya-dlya-doma.html" class="related-bottom-card"><span class="related-bottom-title">Какой стабилизатор напряжения для дома выбрать: полный гид</span><span class="related-bottom-desc">Выбираем лучший стабилизатор напряжения для квартиры или коттеджа. Сравнение типов, расчет мощности,</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

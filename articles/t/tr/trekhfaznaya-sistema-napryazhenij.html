@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Трехфазная система напряжений: устройство, схемы и расчет — Электро Гид</title>
+    <meta name="description" content="Полный разбор трехфазной системы напряжений. Схемы звезда и треугольник, линейные и фазные токи, балансировка нагрузки и безопасность.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/t/tr/trekhfaznaya-sistema-napryazhenij.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Трехфазная система напряжений: устройство, схемы и расчет">
+    <meta property="og:description" content="Полный разбор трехфазной системы напряжений. Схемы звезда и треугольник, линейные и фазные токи, балансировка нагрузки и безопасность.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/normy-i-standarty/">Нормы и стандарты</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Трехфазная система напряжений: устройство, схемы и расчет</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Трехфазная система напряжений: принципы работы и схемы подключения</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#физические-основы-и-генерация-энергии">Физические основы и генерация энергии</a></li><li><a href="#схемы-соединения-звезда-и-треугольник">Схемы соединения: Звезда и Треугольник</a></li><li><a href="#линейные-и-фазные-величины-в-чем-разница">Линейные и фазные величины: в чем разница</a></li><li><a href="#балансировка-нагрузки-и-роль-нейтрали">Балансировка нагрузки и роль нейтрали</a></li><li><a href="#расчет-мощности-и-сечения-проводников">Расчет мощности и сечения проводников</a></li><li><a href="#сравнительная-таблица-параметров-сетей">Сравнительная таблица параметров сетей</a></li><li><a href="#безопасность-и-защита-в-трехфазных-сетях">Безопасность и защита в трехфазных сетях</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Современная энергетика и промышленный сектор немыслимы без использования переменного тока, передаваемого по сложным сетям. Особое место в этой инфраструктуре занимает <strong>трехфазная система напряжений</strong>, которая стала мировым стандартом благодаря своей эффективности и экономичности. Именно она позволяет передавать огромные мощности на большие расстояния с минимальными потерями, обеспечивая работу заводов, жилых комплексов и крупных коммерческих объектов.</p>
+<p>В отличие от привычной однофазной сети, которую мы используем для бытовых приборов, трехфазная схема обладает уникальными физическими свойствами. Она обеспечивает равномерную передачу энергии и создает вращающееся магнитное поле, необходимое для работы мощных электродвигателей. Понимание принципов работы такой системы критически важно для любого инженера-электрика или владельца производственного помещения.</p>
+<p>Основная идея заключается в передаче энергии не по двум проводам, а по четырем или трем, где токи сдвинуты по фазе на 120 градусов. Этот сдвиг позволяет системе оставаться стабильной даже при неравномерной нагрузке, если соблюдены условия симметрии. Далее мы подробно разберем, как именно формируется напряжение и почему это решение стало доминирующим в мировой энергетике.</p>
+
+<h2 id="физические-основы-и-генерация-энергии">Физические основы и генерация энергии</h2>
+<p>Генерация электроэнергии происходит на электростанциях, где механическая энергия преобразуется в электрическую. <strong>Генераторы переменного тока</strong> имеют специальную конструкцию: на роторе расположены обмотки возбуждения, а в статоре — три независимые обмотки, сдвинутые в пространстве на 120 градусов. При вращении ротора в каждой из этих обмоток наводится электродвижущая сила (ЭДС) синусоидальной формы.</p>
+<p>Ключевой особенностью является то, что амплитуды наведенных напряжений одинаковы, а частота совпадает. Однако, из-за пространственного смещения обмоток, максимумы и минимумы синусоид приходятся на разные моменты времени. Это и создает тот самый фазовый сдвиг, который позволяет системе работать сбалансированно.</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Нарушение последовательности фаз при подключении трехфазного двигателя может привести к вращению ротора в обратную сторону, что часто вызывает аварийные ситуации в насосных станциях и компрессорах.</p>
+</blockquote>
+<p>Важно понимать, что суммарная мгновенная мощность в трехфазной системе при симметричной нагрузке постоянна. В однофазной сети она пульсирует с удвоенной частотой, создавая вибрации и неравномерный крутящий момент. Здесь же, благодаря сложению векторов, получается ровная линия, что значительно продлевает срок службы оборудования.</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Технические характеристики генераторов и трансформаторов могут различаться у разных производителей, поэтому перед монтажом всегда сверяйтесь с паспортными данными конкретного оборудования.</p>
+</blockquote>
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При проектировании системы всегда учитывайте запас мощности генератора не менее 20% для компенсации пусковых токов мощных двигателей.</p></div>
+
+<h2 id="схемы-соединения-звезда-и-треугольник">Схемы соединения: Звезда и Треугольник</h2>
+<p>Обмотки генераторов и приемников электроэнергии могут соединяться двумя основными способами: звездой и треугольником. Выбор схемы зависит от требуемого напряжения и типа нагрузки. В схеме <strong>звезда</strong> концы всех трех обмоток соединяются в одну общую точку, называемую нейтралью. Это позволяет получить два уровня напряжения: фазное и линейное.</p>
+<p>Схема <strong>треугольник</strong> предполагает соединение начала одной обмотки с концом другой, образуя замкнутый контур. В такой системе линейное напряжение равно фазному, что часто используется для мощных двигателей, рассчитанных на высокое напряжение. Однако отсутствие нейтрали делает эту схему менее гибкой при работе с несимметричными нагрузками.</p>
+<ul>
+<li>🔌 <strong>Звезда:</strong> Позволяет использовать нейтральный провод для выравнивания потенциалов и подключения однофазных потребителей.</li>
+<li>⚡ <strong>Треугольник:</strong> Обеспечивает максимальную мощность, но требует симметричной нагрузки для предотвращения перекосов.</li>
+<li>🔄 <strong>Комбинированная:</strong> Часто двигатели запускают по схеме звезда, а на рабочий режим переключают на треугольник для снижения пусковых токов.</li>
+</ul>
+<p>Переход между схемами часто осуществляется автоматически с помощью специальных пусковых устройств. Это снижает механические и тепловые нагрузки на обмотки в момент включения. Правильный выбор схемы соединения — залог долговечности электрооборудования.</p>
+<details class="faq-item"><summary>Почему в треугольнике нет нейтрали?</summary><div class="faq-answer"><p>В замкнутом контуре треугольника при симметричной системе сумма ЭДС равна нулю, поэтому ток в контуре отсутствует, и выделенный нулевой провод не требуется.</p></div></details>
+
+<h2 id="линейные-и-фазные-величины-в-чем-разница">Линейные и фазные величины: в чем разница</h2>
+<p>Одной из самых частых причин путаницы у начинающих электриков является различие между линейными и фазными параметрами. <strong>Фазное напряжение</strong> измеряется между любым фазным проводом и нейтралью. В стандартной бытовой сети это привычные нам 220-230 вольт.</p>
+<p><strong>Линейное напряжение</strong> возникает между двумя фазными проводами. В трехфазной системе с соединением обмоток звездой оно больше фазного в корень из трех раз (примерно в 1.73 раза). Именно поэтому в промышленных сетях мы часто видим значение 380 или 400 вольт. Понимание этой разницы необходимо для правильного подбора оборудования.</p>
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Соотношение линейного и фазного напряжения строго зависит от схемы соединения: в звезде Uл = 1.73 * Uф, а в треугольнике они равны.</p></div>
+<p>Токи в системе также делятся на линейные и фазные. В схеме звезда линейный ток равен фазному, так как они протекают по одному проводу. В схеме треугольник ситуация обратная: линейный ток является векторной суммой токов двух фаз и также превышает фазный в 1.73 раза при симметричной нагрузке.</p>
+<p>Для расчетов мощности всегда нужно четко понимать, какие именно величины используются в формуле. Ошибка в определении типа напряжения может привести к выходу оборудования из строя или некорректной работе защитной автоматики.</p>
+
+<h2 id="балансировка-нагрузки-и-роль-нейтрали">Балансировка нагрузки и роль нейтрали</h2>
+<p>В идеальном мире все три фазы были бы нагружены одинаково. Однако в реальности, особенно в жилых секторах, потребители включаются хаотично. Это приводит к <strong>перекосу фаз</strong>, когда ток в одной линии значительно превышает ток в других. Нейтральный провод в системе с соединением звездой играет роль компенсатора, возвращая ток небаланса в генератор.</p>
+<p>Если нейтраль оборвется при сильном перекосе нагрузок, происходит смещение нейтральной точки. В результате на одной фазе напряжение может упасть до критических 50-100 вольт, а на другой — подскочить до 350-380 вольт. Это гарантированно приводит к массовому сгоранию бытовой техники.</p>
+<div class="poll-widget" id="poll-dfec8a71"><div class="poll-widget-question">📊 Сталкивались ли вы с перекосом фаз в своей сети?</div><div class="poll-widget-option" data-poll="dfec8a71" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, горела техника</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="dfec8a71" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Были скачки напряжения</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="dfec8a71" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет, сеть стабильная</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="dfec8a71" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю, что это</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+<p>Для предотвращения таких ситуаций необходимо грамотно распределять однофазных потребителей по группам еще на этапе проектирования щита. Электрики стараются развести мощные приборы (кондиционеры, электроплиты, бойлеры) равномерно по всем трем фазам.</p>
+<p>Кроме того, существуют специальные устройства контроля фаз, которые отключают питание при критическом перекосе или обрыве нуля. Установка такой защиты является обязательной для сохранности дорогостоящего оборудования в трехфазных сетях.</p>
+
+<h2 id="расчет-мощности-и-сечения-проводников">Расчет мощности и сечения проводников</h2>
+<p>Для правильного подбора кабеля и защитных автоматов необходимо уметь рассчитывать полную, активную и реактивную мощность. Активная мощность, которая совершает полезную работу, измеряется в Ваттах и вычисляется по формуле P = √3 <em> Uл </em> Iл * cosφ. Здесь <strong>cosφ</strong> (косинус фи) — это коэффициент мощности, зависящий от типа нагрузки.</p>
+<p>Реактивная мощность не совершает полезной работы, но создает нагрузку на провода и трансформаторы. Она характерна для устройств с электродвигателями и трансформаторами. Сумма активной и реактивной мощностей дает полную мощность, измеряемую в Вольт-амперах (ВА).</p>
+<div class="checklist-block"><h4>☑️ Проверка расчетной мощности</h4><label class="check-item"><input type="checkbox"><span>Определить тип нагрузки (активная/реактивная)</span></label><label class="check-item"><input type="checkbox"><span>Узнать cosφ из паспорта прибора</span></label><label class="check-item"><input type="checkbox"><span>Рассчитать ток по формуле</span></label><label class="check-item"><input type="checkbox"><span>Выбрать сечение кабеля с запасом</span></label><label class="check-item"><input type="checkbox"><span>Проверить падение напряжения на длине</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+<p>Сечение проводников выбирается не только по току, но и по допустимому падению напряжения. В длинных линиях даже при правильном токе напряжение на конце линии может быть недостаточным для работы оборудования. Поэтому для трехфазных сетей расчет сечения часто диктуется именно потерями напряжения.</p>
+<p>При расчетах важно учитывать способ прокладки кабеля (в воздухе, в земле, в лотке), так как от этого зависят условия его охлаждения. Перегрев изоции — частая причина пожаров, поэтому экономить на сечении жил категорически нельзя.</p>
+
+<h2 id="сравнительная-таблица-параметров-сетей">Сравнительная таблица параметров сетей</h2>
+<p>Для удобства восприятия информации сведем основные различия между однофазной и трехфазной системами в таблицу. Это поможет быстро сориентироваться при выборе типа подключения для конкретного объекта.</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Однофазная сеть</th>
+<th>Трехфазная сеть (Звезда)</th>
+<th>Трехфазная сеть (Треугольник)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Количество проводов</td>
+<td>2 или 3 (с заземлением)</td>
+<td>4 или 5 (с заземлением)</td>
+<td>3 или 4 (с заземлением)</td>
+</tr>
+<tr>
+<td>Фазное напряжение</td>
+<td>220-230 В</td>
+<td>220-230 В</td>
+<td>380-400 В</td>
+</tr>
+<tr>
+<td>Линейное напряжение</td>
+<td>220-230 В</td>
+<td>380-400 В</td>
+<td>380-400 В</td>
+</tr>
+<tr>
+<td>Мощность</td>
+<td>Ограничена (до 10-15 кВт)</td>
+<td>Высокая (до сотен кВт)</td>
+<td>Максимальная</td>
+</tr>
+<tr>
+<td>Применение</td>
+<td>Квартиры, малые офисы</td>
+<td>Дома, производство, ТЦ</td>
+<td>Промышленные двигатели</td>
+</tr>
+</tbody>
+</table>
+<p>Как видно из таблицы, трехфазная система предоставляет гораздо больше возможностей для масштабирования энергопотребления. Однако она требует более сложного и дорогого оборудования для учета и защиты.</p>
+<p>Выбор между однофазным и трехфазным вводом в частный дом часто диктуется наличием трехфазных потребителей, таких как электрокотлы или станки. Если их нет, трехфазка может быть избыточной и потребует ручной балансировки нагрузки.</p>
+
+<h2 id="безопасность-и-защита-в-трехфазных-сетях">Безопасность и защита в трехфазных сетях</h2>
+<p>Работа с трехфазным напряжением требует повышенной квалификации и осторожности. Поражение электрическим током здесь может быть смертельным даже при касании одного фазного провода, так как ток пойдет через тело человека на землю или другие фазы. <strong>Устройства защитного отключения (УЗО)</strong> в таких сетях должны быть четырехполюсными.</p>
+<p>Важнейшим элементом безопасности является система заземления. В современных сетях используется система TN-S или TN-C-S, где нулевой защитный проводник (PE) идет отдельно от рабочего нуля (N). Это гарантирует, что при обрыве нуля корпуса приборов не окажутся под опасным потенциалом.</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Категорически запрещается использовать нулевой рабочий проводник в качестве защитного заземления. Это создает прямую угрозу жизни при обрыве нейтрали на линии.</p>
+</blockquote>
+<p>Для контроля параметров сети используются трехфазные реле напряжения. Они отслеживают не только уровень напряжения в каждой фазе, но и правильность чередования фаз, а также наличие всех трех фаз. При любом отклонении реле мгновенно размыкает цепь.</p>
+<details class="faq-item"><summary>Что такое "отгорание нуля"?</summary><div class="faq-answer"><p>Это обрыв нулевого провода в трехфазной сети, приводящий к перекосу фаз и скачкам напряжения до 380В в квартирах.</p></div></details>
+<p>Регулярная проверка затяжки контактов в щите также обязательна. В трехфазных сетях токи велики, и ослабленный контакт может быстро нагреться, оплавить изоляцию и вызвать короткое замыкание. Тепловизионный контроль помогает выявить такие места до аварии.</p>
+
+<details>
+<summary>Чем трехфазная система лучше однофазной?</summary>
+<p>Трехфазная система позволяет передавать большую мощность меньшим сечением проводов, создает постоянное вращающее магнитное поле для двигателей и обеспечивает более стабильную работу при правильной балансировке.</p>
+</details>
+<details>
+<summary>Почему в розетке 220В, а между фазами 380В?</summary>
+<p>Это связано с геометрией векторов. Напряжение между фазой и нулем — это радиус окружности, а между двумя фазами — хорда, стягивающая дугу в 120 градусов. Математически 220 умножить на корень из 3 дает примерно 380.</p>
+</details>
+<details>
+<summary>Можно ли запустить трехфазный двигатель в однофазной сети?</summary>
+<p>Да, это возможно с использованием пусковых конденсаторов, но двигатель потеряет до 30-40% своей мощности и будет работать с меньшим КПД. Для полноценной работы нужен частотный преобразователь.</p>
+</details>
+<details>
+<summary>Что будет, если пропадет одна фаза?</summary>
+<p>При работе двигателя он начнет гудеть и перегреваться, что может привести к сгоранию обмоток. Однофазные потребители на оставшихся фазах могут работать нормально только при наличии исправной нейтрали.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#физические-основы-и-генерация-энергии">Физические основы и генерация энергии</a></li><li><a href="#схемы-соединения-звезда-и-треугольник">Схемы соединения: Звезда и Треугольник</a></li><li><a href="#линейные-и-фазные-величины-в-чем-разница">Линейные и фазные величины: в чем разница</a></li><li><a href="#балансировка-нагрузки-и-роль-нейтрали">Балансировка нагрузки и роль нейтрали</a></li><li><a href="#расчет-мощности-и-сечения-проводников">Расчет мощности и сечения проводников</a></li><li><a href="#сравнительная-таблица-параметров-сетей">Сравнительная таблица параметров сетей</a></li><li><a href="#безопасность-и-защита-в-трехфазных-сетях">Безопасность и защита в трехфазных сетях</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/m/mi/minimalnaya-vysota-ustanovki-rozetok-ot-pola-pue.html" class="related-card">Высота розеток от пола по ПУЭ 2026: нормы и ошибки монтажа</a></li><li><a href="/articles/k/ka/kak-rasschitat-elektriku.html" class="related-card">Как рассчитать электрику в доме: формулы, схемы и нормы 2026</a></li><li><a href="/articles/o/od/odnofaznaya-elektricheskaya-set.html" class="related-card">Однофазная сеть: схема, подключение и отличие от трёхфазной</a></li><li><a href="/articles/s/sk/skolko-kilovatt-v-obychnoj-kvartire.html" class="related-card">Сколько киловатт потребляет квартира: расчёт мощности и нормы</a></li><li><a href="/articles/c/ch/chto-takoe-sib-v-elektrike.html" class="related-card">СИБ в электрике: что это, назначение и как выбрать правильно</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/m/mi/minimalnaya-vysota-ustanovki-rozetok-ot-pola-pue.html" class="related-bottom-card"><span class="related-bottom-title">Высота розеток от пола по ПУЭ 2026: нормы и ошибки монтажа</span><span class="related-bottom-desc">Минимальная высота установки розеток от пола по ПУЭ 7: правильные расстояния для жилых помещений, ку</span></a><a href="/articles/k/ka/kak-rasschitat-elektriku.html" class="related-bottom-card"><span class="related-bottom-title">Как рассчитать электрику в доме: формулы, схемы и нормы 2026</span><span class="related-bottom-desc">Пошаговый расчёт электропроводки, автоматов и нагрузки с учётом ПУЭ. Формулы, таблицы сечений кабеле</span></a><a href="/articles/o/od/odnofaznaya-elektricheskaya-set.html" class="related-bottom-card"><span class="related-bottom-title">Однофазная сеть: схема, подключение и отличие от трёхфазной</span><span class="related-bottom-desc">Что такое однофазная электрическая сеть? Схемы подключения, отличие от трёхфазной, выбор кабеля и ав</span></a><a href="/articles/s/sk/skolko-kilovatt-v-obychnoj-kvartire.html" class="related-bottom-card"><span class="related-bottom-title">Сколько киловатт потребляет квартира: расчёт мощности и нормы</span><span class="related-bottom-desc">Узнайте, сколько киловатт электроэнергии расходует стандартная квартира в месяц. Расчёт мощности при</span></a><a href="/articles/c/ch/chto-takoe-sib-v-elektrike.html" class="related-bottom-card"><span class="related-bottom-title">СИБ в электрике: что это, назначение и как выбрать правильно</span><span class="related-bottom-desc">Разбираемся, что такое СИБ (система изолированной нейтрали) в электрике: принцип работы, виды, схемы</span></a><a href="/articles/n/na/napryazhenie-mezhdu-dvumya-fazami.html" class="related-bottom-card"><span class="related-bottom-title">Напряжение между фазами: что это, как измерить и нормы безопасности</span><span class="related-bottom-desc">Линейное напряжение между фазами в 380В и 220В сетях: отличие от фазного, схемы подключения, правила</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

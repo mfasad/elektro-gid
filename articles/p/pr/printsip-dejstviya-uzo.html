@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Принцип действия УЗО: как работает защита от тока — Электро Гид</title>
+    <meta name="description" content="Подробно разберем принцип действия УЗО, устройство дифференциального трансформатора и алгоритм отключения. Узнайте, как прибор спасает жизнь при утечке тока.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/pr/printsip-dejstviya-uzo.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Принцип действия УЗО: как работает защита от тока">
+    <meta property="og:description" content="Подробно разберем принцип действия УЗО, устройство дифференциального трансформатора и алгоритм отключения. Узнайте, как прибор спасает жизнь при утечке тока.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/bezopasnost-i-zazemlenie/">Безопасность и заземление</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Принцип действия УЗО: как работает защита от тока</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Принцип действия УЗО: устройство и алгоритм защиты</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#физическая-основа-работы-дифференциального-трансформатора">Физическая основа работы дифференциального трансформатора</a></li><li><a href="#алгоритм-отключения-и-работа-исполнительного-механизма">Алгоритм отключения и работа исполнительного механизма</a></li><li><a href="#ключевые-параметры-ток-утечки-и-время-срабатывания">Ключевые параметры: ток утечки и время срабатывания</a></li><li><a href="#типы-узо-и-их-назначение-в-электрических-сетях">Типы УЗО и их назначение в электрических сетях</a></li><li><a href="#сравнительная-таблица-характеристик-устройств-защиты">Сравнительная таблица характеристик устройств защиты</a></li><li><a href="#типичные-ошибки-монтажа-и-диагностика-неисправностей">Типичные ошибки монтажа и диагностика неисправностей</a></li><li><a href="#частые-вопросы-и-важные-уточнения">Частые вопросы и важные уточнения</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Электрический ток невидим и не имеет запаха, поэтому человек не способен ощутить его приближение до момента касания. Именно эта особенность делает электричество смертельно опасным, требуя применения надежных средств защиты. Одним из ключевых элементов безопасности в современном электрощите является устройство защитного отключения, известное как УЗО. Понимание того, как именно оно функционирует, позволяет не только правильно подобрать оборудование, но и грамотно диагностировать неисправности в проводке.</p>
+
+<p>Основная задача этого аппарата заключается не в защите электроприборов от перегрузок, а в сохранении жизни человека. <strong>Принцип действия УЗО</strong> базируется на постоянном контроле баланса токов, протекающих по фазному и нулевому проводникам. Как только этот баланс нарушается, что свидетельствует об утечке тока через тело человека или поврежденную изоляцию, механизм защиты мгновенно реагирует. Скорость реакции исчисляется долями секунды, что критически важно для предотвращения фатального исхода при поражении током.</p>
+
+<p>В отличие от автоматических выключателей, которые реагируют на превышение номинального тока, дифференциальные устройства «видят» микроскопические изменения в электрической цепи. Они сравнивают силу тока, ушедшего к потребителю, и тока, вернувшегося обратно. Если часть энергии «потерялась» по пути, пройдя через посторонний объект, аппарат экстренно разрывает цепь. Это фундаментальное различие делает УЗО незаменимым элементом в системах электроснабжения жилых и промышленных объектов.</p>
+
+<h2 id="физическая-основа-работы-дифференциального-трансформатора">Физическая основа работы дифференциального трансформатора</h2>
+
+<p>Сердцем любого устройства защитного отключения является дифференциальный трансформатор тока. Он представляет собой тороидальный сердечник, выполненный из ферромагнитного материала, на который намотана вторичная обмотка. Через центр этого кольца проходят фазный и нулевой проводники, которые в данном контексте выступают в роли первичной обмотки. В нормальном режиме работы, когда изоляция цела и утечек нет, токи в этих проводниках равны по величине, но противоположны по направлению.</p>
+
+<p>Согласно законам электромагнетизма, магнитные потоки, создаваемые протекающими токами, также равны и противоположно направлены. В результате их взаимной компенсации суммарный магнитный поток в сердечнике равен нулю. <em>Электромеханическое УЗО</em> не генерирует никакого сигнала на вторичной обмотке до тех пор, пока сохраняется это равновесие. Система находится в состоянии покоя, и электрическая цепь остается замкнутой.</p>
+
+<p>Ситуация кардинально меняется при возникновении утечки. Если человек касается фазного провода или происходит пробой изоляции на корпус прибора, часть тока начинает течь в землю, минуя нулевой проводник. Баланс токов нарушается, и магнитные потоки перестают компенсировать друг друга. В сердечнике трансформатора появляется переменный магнитный поток, который наводит электродвижущую силу (ЭДС) во вторичной обмотке. Именно этот сигнал запускает механизм отключения.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При выборе УЗО обращайте внимание на тип трансформатора: электромеханические модели сохраняют работоспособность даже при обрыве нуля, в отличие от электронных аналогов.</p></div>
+
+<h2 id="алгоритм-отключения-и-работа-исполнительного-механизма">Алгоритм отключения и работа исполнительного механизма</h2>
+
+<p>Процесс разрыва цепи происходит по строго определенному алгоритму, который отработан до миллисекунд. Возникшая во вторичной обмотке дифференциального трансформатора ЭДС создает ток, достаточный для срабатывания чувствительного элемента. В классических <strong>электромеханических устройствах</strong> этим элементом является поляризованное реле. Оно реагирует даже на очень слабые токи утечки, которые смертельно опасны для человека, но слишком малы для срабатывания обычного автомата.</p>
+
+<p>Как только ток во вторичной обмотке достигает порогового значения, реле приводит в действие спусковой механизм. Пружина, находящаяся в взведенном состоянии, мгновенно размыкает силовые контакты. Весь этот процесс занимает от 0,02 до 0,04 секунды. Такая скорость необходима, чтобы ток не успел вызвать фибрилляцию сердца — хаотичное сокращение мышечных волокон, которое часто приводит к остановке сердца.</p>
+
+<p>В электронных моделях принцип действия немного иной. Сигнал со вторичной обмотки поступает на электронную плату, где он усиливается и сравнивается с эталонным значением. Если порог превышен, плата подает команду на электромагнит, размыкающий контакты. Хотя электронные УЗО дешевле и компактнее, их работа зависит от наличия напряжения в сети, что является важным нюансом при проектировании защиты.</p>
+
+<blockquote>⚠️ Внимание: Электронные УЗО могут потерять защитные функции при обрыве нулевого провода, так как исчезает питание их внутренней схемы. Электромеханические устройства лишены этого недостатка и считаются более надежными для бытового использования.</blockquote>
+
+<h2 id="ключевые-параметры-ток-утечки-и-время-срабатывания">Ключевые параметры: ток утечки и время срабатывания</h2>
+
+<p>Эффективность защиты напрямую зависит от правильно подобранных технических характеристик. Главным параметром является номинальный дифференциальный ток отключения, обозначаемый как <code>IΔn</code>. Это значение указывает на ту силу тока утечки, при которой устройство гарантированно сработает. Для защиты человека от поражения электрическим током в жилых помещениях стандартом являются значения 10 мА и 30 мА.</p>
+
+<p>Вторым критически важным параметром является время срабатывания. Стандартные устройства относятся к классу <em>без выдержки времени</em> (селективные могут иметь задержку). Чем меньше время реакции, тем выше вероятность, что организм не получит необратимых повреждений. Важно понимать, что ток в 30 мА — это предельно допустимое значение, при котором человек еще способен разжать руку и отпустить проводник, хотя ощущения будут крайне неприятными.</p>
+
+<div class="poll-widget" id="poll-09482866"><div class="poll-widget-question">📊 Какой номинал УЗО установлен у вас в щитке?</div><div class="poll-widget-option" data-poll="09482866" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">10 мА</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="09482866" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">30 мА</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="09482866" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">100 мА</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="09482866" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">300 мА</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="09482866" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю / Нет УЗО</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Для предотвращения ложных срабатываний и обеспечения селективности в сложных системах используются приборы с разными временными характеристиками. Например, вводное УЗО может иметь задержку срабатывания, чтобы при аварии в одной из веток отключался только соответствующий автомат, а не весь дом. Это требует точного расчета и понимания <strong>принципов селективной защиты</strong>.</p>
+
+<h2 id="типы-узо-и-их-назначение-в-электрических-сетях">Типы УЗО и их назначение в электрических сетях</h2>
+
+<p>Разнообразие типов электрических приборов порождает различные виды токов утечки. Стандартные синусоидальные токи — не единственная угроза. Современная техника, оснащенная импульсными блоками питания, может создавать пульсирующие или даже постоянные токи утечки, на которые обычные устройства могут не среагировать. Поэтому классификация по типу тока является важнейшим аспектом выбора оборудования.</p>
+
+<p>Наиболее распространенным типом является <strong>AC</strong>. Такие устройства реагируют исключительно на синусоидальный переменный ток. Они подходят для защиты простых потребителей: ламп накаливания, нагревателей, электродвигателей без электроники. Однако в современных квартирах, насыщенных компьютерами, телевизорами и LED-светильниками, их применение становится ограниченным.</p>
+
+<p>Более универсальными являются устройства типа <strong>A</strong>. Они способны реагировать не только на переменный, но и на пульсирующий постоянный ток. Именно такие модели чаще всего рекомендуются для установки в жилых домах, так как они покрывают подавляющее большинство бытовых сценариев. Существуют также типы <em>B</em>, <em>F</em> и <em>G</em>, каждый из которых имеет свою узкую специализацию и область применения.</p>
+
+<details class="faq-item"><summary>В чем разница между типом AC и A?</summary><div class="faq-answer"><p>Тип AC реагирует только на синусоидальный переменный ток. Тип A реагирует на переменный и пульсирующий постоянный ток. Пульсирующий ток возникает в устройствах с полупроводниковой электроникой (компьютеры, стиральные машины с электронным управлением). Если установить тип AC на такую технику, он может просто не почувствовать утечку, и защита не сработает.</p></div></details>
+
+<h2 id="сравнительная-таблица-характеристик-устройств-защиты">Сравнительная таблица характеристик устройств защиты</h2>
+
+<p>Для наглядного понимания различий между основными типами устройств удобно использовать сравнительную таблицу. Она поможет быстро сориентироваться в технических нюансах и сделать правильный выбор при комплектации электрощита. Обратите внимание на чувствительность к различным формам тока.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Тип AC</th>
+<th>Тип A</th>
+<th>Тип B</th>
+<th>Тип S (Селективное)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Реакция на переменный ток</td>
+<td>Да</td>
+<td>Да</td>
+<td>Да</td>
+<td>Да (с задержкой)</td>
+</tr>
+<tr>
+<td>Реакция на пульсирующий ток</td>
+<td>Нет</td>
+<td>Да</td>
+<td>Да</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Реакция на постоянный ток</td>
+<td>Нет</td>
+<td>Нет</td>
+<td>Да</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>Время срабатывания</td>
+<td>Мгновенно</td>
+<td>Мгновенно</td>
+<td>Мгновенно</td>
+<td>С задержкой (0.1-0.5 с)</td>
+</tr>
+<tr>
+<td>Типичное применение</td>
+<td>Нагреватели, свет</td>
+<td>Бытовая техника</td>
+<td>Промышленность, лифты</td>
+<td>Ввод в дом/квартиру</td>
+</tr>
+</tbody>
+</table>
+
+<p>Выбор конкретного типа зависит от нагрузки. Если вы защищаете линию, где планируется подключение сложной электроники, экономить на типе устройства нельзя. <strong>Принцип работы УЗО</strong> типа A гарантирует, что даже сложные формы тока утечки будут распознаны. Игнорирование этого правила может привести к ситуации, когда формально защита установлена, но фактически она бесполезна.</p>
+
+<h2 id="типичные-ошибки-монтажа-и-диагностика-неисправностей">Типичные ошибки монтажа и диагностика неисправностей</h2>
+
+<p>Даже самое качественное устройство не будет работать правильно, если оно смонтировано с ошибками. Одна из самых распространенных проблем — объединение нулевых проводов после УЗО. Если нулевой проводник защищаемой линии соединить с нулем другой линии или с заземлением, дифференциальный трансформатор зафиксирует утечку и произведет отключение.</p>
+
+<p>Еще одной частой ошибкой является использование четырехполюсного УЗО в однофазной сети с нарушением схемы подключения. В таких случаях важно строго следовать маркировке на корпусе: входные клеммы обычно обозначаются как <code>1</code> и <code>N</code> (или <code>2</code>), а выходные — соответствующими цифрами. Перепутывание входа и выхода может привести к тому, что магнитный поток не скомпенсируется даже в нормальном режиме.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка правильности подключения УЗО</h4><label class="check-item"><input type="checkbox"><span>Нулевой провод N не объединен с другими нулями</span></label><label class="check-item"><input type="checkbox"><span>Заземление не проходит через корпус УЗО</span></label><label class="check-item"><input type="checkbox"><span>Соблюдена полярность подключения</span></label><label class="check-item"><input type="checkbox"><span>Проведен тест кнопкой "Проверка"</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<p>Для диагностики исправности прибора предназначена специальная кнопка <code>Test</code> (или <code>Т</code>). При ее нажатии искусственно создается ток утечки внутри устройства. Если механизм исправен, происходит мгновенное отключение. Рекомендуется проводить такую проверку регулярно, например, раз в месяц, чтобы убедиться, что механические части не закисли и <strong>принцип действия УЗО</strong> реализуется на практике.</p>
+
+<blockquote>⚠️ Внимание: Кнопка "Тест" проверяет только исправность самого механизма отключения и чувствительного элемента. Она не проверяет качество заземления или реальную чувствительность к токам утечки в вашей конкретной проводке. Для полной проверки требуется специализированный прибор.</blockquote>
+
+<h2 id="частые-вопросы-и-важные-уточнения">Частые вопросы и важные уточнения</h2>
+
+<p>В завершение стоит рассмотреть несколько вопросов, которые часто возникают у пользователей при эксплуатации и выборе оборудования. Понимание этих нюансов помогает избежать паники при ложных срабатываниях и правильно оценить необходимость установки защиты.</p>
+
+<p>Многие задаются вопросом, может ли УЗО работать без заземления. Ответ утвердительный: да, может. <strong>Принцип действия</strong> основан на сравнении токов в фазе и нуле, наличие заземляющего проводника для работы не требуется. Однако без заземения устройство сработает только в момент касания человеком токоведущей части, тогда как с заземлением — сразу при пробое изоляции на корпус, еще до касания.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>УЗО работает и без заземления, но с заземлением защита срабатывает превентивно, до касания человеком опасного напряжения.</p></div>
+
+<p>Также важно помнить о старении изоляции. В старых домах с ветхой проводкой установка чувствительного УЗО на 10 мА может привести к постоянным ложным отключениям. В таких случаях суммарный естественный ток утечки всех приборов и старой изоляции может превышать порог срабатывания. Решением может стать разделение линий на более мелкие группы или использование приборов с током утечки 30 мА.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если УЗО постоянно выбивает, не спешите его менять. Попробуйте отключить все приборы и включать их по очереди, чтобы найти виновника утечки.</p></div>
+
+<details>
+<summary>Почему УЗО выбивает при включении стиральной машины?</summary>
+<p>Это может указывать на пробой изоляции нагревательного элемента (ТЭНа) или двигателя. В влажной среде ванной комнаты даже небольшая микротрещина в изоляции создает ток утечки, достаточный для срабатывания защиты. Требуется диагностика прибора или замена ТЭНа.</p>
+</details>
+
+<details>
+<summary>Можно ли устанавливать одно УЗО на всю квартиру?</summary>
+<p>Технически можно, но это не рекомендуется. При любой утечке в любой розетке свет и электричество пропадут во всей квартире. Кроме того, длинные линии проводки имеют большую естественную утечку, что может вызывать ложные срабатывания. Лучше делить потребителей на группы.</p>
+</details>
+
+<details>
+<summary>В чем разница между УЗО и дифавтоматом?</summary>
+<p>УЗО защищает только от утечек тока (поражения человека, пожара). Дифавтомат — это "два в одном": он сочетает функции УЗО и автоматического выключателя (защита от короткого замыкания и перегрузки). Дифавтомат занимает меньше места в щитке, но стоит дороже.</p>
+</details>
+
+<details>
+<summary>Как часто нужно проверять работоспособность УЗО?</summary>
+<p>Производители и нормы электробезопасности рекомендуют нажимать кнопку "Тест" не реже одного раза в месяц. Это позволяет убедиться, что механический привод не заклинен и устройство готово выполнить свою функцию в критический момент.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#физическая-основа-работы-дифференциального-трансформатора">Физическая основа работы дифференциального трансформатора</a></li><li><a href="#алгоритм-отключения-и-работа-исполнительного-механизма">Алгоритм отключения и работа исполнительного механизма</a></li><li><a href="#ключевые-параметры-ток-утечки-и-время-срабатывания">Ключевые параметры: ток утечки и время срабатывания</a></li><li><a href="#типы-узо-и-их-назначение-в-электрических-сетях">Типы УЗО и их назначение в электрических сетях</a></li><li><a href="#сравнительная-таблица-характеристик-устройств-защиты">Сравнительная таблица характеристик устройств защиты</a></li><li><a href="#типичные-ошибки-монтажа-и-диагностика-неисправностей">Типичные ошибки монтажа и диагностика неисправностей</a></li><li><a href="#частые-вопросы-и-важные-уточнения">Частые вопросы и важные уточнения</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/c/ch/chto-daet-zazemlenie.html" class="related-card">Что дает заземление: защита, функции и монтаж</a></li><li><a href="/articles/n/nu/nuzhno-li-delat-zazemlenie-v-chastnom-dome-na-380-volt.html" class="related-card">Заземление в частном доме 380В: нужно ли делать и как правильно?</a></li><li><a href="/articles/v/vo/voda-propuskaet-tok-ili-net.html" class="related-card">Проводит ли вода электрический ток: правда и мифы</a></li><li><a href="/articles/k/ka/kak-delaetsya-zazemlenie.html" class="related-card">Заземление дома: схема, монтаж и ошибки (ПУЭ 2026)</a></li><li><a href="/articles/k/ka/kak-prolozhit-polosu-zazemleniya.html" class="related-card">Как проложить полосу заземления: нормы, монтаж и схемы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/c/ch/chto-daet-zazemlenie.html" class="related-bottom-card"><span class="related-bottom-title">Что дает заземление: защита, функции и монтаж</span><span class="related-bottom-desc">Узнайте, что дает заземление для безопасности дома. Принцип действия, виды контуров, нормы ПУЭ и защ</span></a><a href="/articles/n/nu/nuzhno-li-delat-zazemlenie-v-chastnom-dome-na-380-volt.html" class="related-bottom-card"><span class="related-bottom-title">Заземление в частном доме 380В: нужно ли делать и как правильно?</span><span class="related-bottom-desc">Разбираемся, обязательно ли заземление для частного дома с напряжением 380В, какие риски без него и </span></a><a href="/articles/v/vo/voda-propuskaet-tok-ili-net.html" class="related-bottom-card"><span class="related-bottom-title">Проводит ли вода электрический ток: правда и мифы</span><span class="related-bottom-desc">Узнайте, почему чистая вода не проводит ток, а водопроводная — опасна. Физика процесса, эксперименты</span></a><a href="/articles/k/ka/kak-delaetsya-zazemlenie.html" class="related-bottom-card"><span class="related-bottom-title">Заземление дома: схема, монтаж и ошибки (ПУЭ 2026)</span><span class="related-bottom-desc">Пошаговое руководство по монтажу заземления в частном доме и квартире: схемы, материалы, расчёты и т</span></a><a href="/articles/k/ka/kak-prolozhit-polosu-zazemleniya.html" class="related-bottom-card"><span class="related-bottom-title">Как проложить полосу заземления: нормы, монтаж и схемы</span><span class="related-bottom-desc">Подробная инструкция: как правильно проложить полосу заземления, выбрать сечение, сделать траншею и </span></a><a href="/articles/t/ti/tip-toka-utechki-ac.html" class="related-bottom-card"><span class="related-bottom-title">Ток утечки AC: что это, нормы и как измерить в домашних условиях</span><span class="related-bottom-desc">Разбираемся в переменном токе утечки (AC): причины возникновения, допустимые нормы по ПУЭ, методы из</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

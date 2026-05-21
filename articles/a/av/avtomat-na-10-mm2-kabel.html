@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Автомат на 10 мм2 кабель: выбор номинала по ПУЭ — Электро Гид</title>
+    <meta name="description" content="Какой автомат ставить на кабель 10 мм2? Расчет токовой нагрузки, сечение жил, выбор защиты по ПУЭ для медного и алюминиевого провода.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/a/av/avtomat-na-10-mm2-kabel.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Автомат на 10 мм2 кабель: выбор номинала по ПУЭ">
+    <meta property="og:description" content="Какой автомат ставить на кабель 10 мм2? Расчет токовой нагрузки, сечение жил, выбор защиты по ПУЭ для медного и алюминиевого провода.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Автомат на 10 мм2 кабель: выбор номинала по ПУЭ</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Автомат на 10 мм2 кабель: правильный выбор защиты</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#физические-свойства-и-токовая-нагрузка-кабеля">Физические свойства и токовая нагрузка кабеля</a></li><li><a href="#влияние-способа-прокладки-на-выбор-автомата">Влияние способа прокладки на выбор автомата</a></li><li><a href="#расчет-номинала-автоматического-выключателя">Расчет номинала автоматического выключателя</a></li><li><a href="#таблица-соответствия-сечения-и-защиты">Таблица соответствия сечения и защиты</a></li><li><a href="#особенности-подключения-в-однофазной-и-трехфазной-сети">Особенности подключения в однофазной и трехфазной сети</a></li><li><a href="#типичные-ошибки-и-советы-профессионалов">Типичные ошибки и советы профессионалов</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Выбор правильного номинала автоматического выключателя для кабеля сечением 10 мм² является критически важным этапом проектирования или модернизации электрической сети. Именно этот элемент защищает проводник от перегрузок по току и коротких замыканий, предотвращая нагрев изоляции и потенциальное возгорание. Ошибка в расчетах может стоить не только выхода из строя дорогостоящего оборудования, но и привести к пожароопасной ситуации в доме.</p>
+
+<p>Основной принцип подбора заключается в том, что <strong>номинальный ток автомата</strong> должен быть меньше или равен максимально допустимому току для данного сечения кабеля при конкретных условиях прокладки. В то же время, автомат должен выдерживать кратковременные пусковые токи, характерные для работы мощных электродвигателей или блоков питания, не выбивая ложно. Баланс между надежной защитой и стабильной работой — главная задача электрика.</p>
+
+<p>В данной статье мы подробно разберем все нюансы выбора, опираясь на актуальные нормативные документы, такие как ПУЭ (Правила Устройства Электроустановок). Вы узнаете, как влияют способ прокладки, материал жил и температура окружающей среды на итоговое решение.</p>
+
+<h2 id="физические-свойства-и-токовая-нагрузка-кабеля">Физические свойства и токовая нагрузка кабеля</h2>
+
+<p>Кабель сечением 10 мм² представляет собой достаточно мощный проводник, способный пропускать значительные токи. Однако его пропускная способность не является абсолютной величиной и напрямую зависит от материала, из которого изготовлены жилы. <strong>Медный кабель</strong> обладает значительно лучшей проводимостью по сравнению с алюминиевым аналогом того же сечения, что позволяет ему выдерживать большие нагрузки без критического нагрева.</p>
+
+<p>При пропускании электрического тока проводник нагревается из-за внутреннего сопротивления. Если ток превышает допустимые значения, температура изоляции начинает расти. Для большинства современных кабелей (ВВГ, NYM) предельная температура нагрева составляет 70°C при нормальной эксплуатации и до 90°C в аварийных режимах. Превышение этих значений ведет к оплавлению изоляции и потере диэлектрических свойств.</p>
+
+<blockquote>⚠️ Внимание: Алюминиевые кабели склонны к "текучести" металла и окислению в местах контакта. При использовании алюминия 10 мм² необходимо особенно тщательно следить за качеством соединений и periodically подтягивать клеммы.</blockquote>
+
+<p>Рассмотрим основные различия в токопроводящей способности для разных материалов:</p>
+
+<ul>
+<li>🔌 Медная жила 10 мм²: обладает высокой эластичностью и стойкостью к окислению, выдерживает ток до 60 Ампер в зависимости от условий.</li>
+<li>🔌 Алюминиевая жила 10 мм²: легче и дешевле, но требует большего сечения для той же нагрузки, лимит обычно до 40-42 Ампер.</li>
+<li>🔌 Влияние изоляции: материал оболочки (ПВХ, сшитый полиэтилен) определяет максимальную рабочую температуру.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Всегда используйте кабель с запасом по сечению, если планируете в будущем увеличивать мощность электроприборов. Замена кабеля в стене — трудоемкий процесс, проще сразу заложить 10 мм² вместо 6 мм².</p></div>
+
+<h2 id="влияние-способа-прокладки-на-выбор-автомата">Влияние способа прокладки на выбор автомата</h2>
+
+<p>Способ прокладки кабеля является одним из определяющих факторов при выборе номинала защиты. Теплоотдача от проводника напрямую зависит от окружающей среды. Кабель, проложенный открыто по воздуху, охлаждается значительно эффективнее, чем кабель, замурованный в стене или уложенный в пучке с другими проводниками.</p>
+
+<p>Если <strong>кабель 10 мм²</strong> проложен в кабель-канале, трубе или коробе вместе с другими проводами, коэффициент снижения нагрузки становится обязательным к применению. В таких условиях тепло накапливается, и реальная пропускная способность снижается. Игнорирование этого фактора при установке автомата может привести к тому, что кабель будет греться даже при токе, формально не превышающем номинал защиты.</p>
+
+<p>Существует несколько основных вариантов монтажа, которые необходимо учитывать:</p>
+
+<ul>
+<li>🏠 Открытая прокладка: кабель закреплен на поверхности стены или лотка, охлаждение естественное, допустимый ток максимален.</li>
+<li>🧱 Скрытая прокладка в штробе: кабель заделан раствором, теплоотдача ухудшена, требуется снижение номинала автомата.</li>
+<li>📦 Прокладка в пучке: несколько кабелей лежат вплотную друг к другу, взаимный нагрев требует серьезной коррекции расчетов.</li>
+</ul>
+
+<details class="faq-item"><summary>Коэффициенты снижения нагрузки</summary><div class="faq-answer"><p>Если в одном пучке прокладывается от 4 до 6 кабелей, коэффициент составляет 0.8. При 7-9 кабелях — 0.75. Это означает, что кабель, выдерживающий 50А в одиночку, в пучке из 5 штук безопасно выдержит только 40А.</p></div></details>
+
+<p>Для точного определения допустимого тока необходимо сверяться с таблицами ПУЭ, выбирая соответствующую колонку для вашего способа монтажа. Не стоит полагаться на усредненные значения из интернета, так как разница в 5-10 Ампер может стать решающей для безопасности.</p>
+
+<h2 id="расчет-номинала-автоматического-выключателя">Расчет номинала автоматического выключателя</h2>
+
+<p>Процесс выбора автомата для кабеля 10 мм² базируется на строгой логике: защита должна срабатывать раньше, чем кабель начнет перегреваться. Стандартный ряд номиналов автоматических выключателей включает значения 6, 10, 13, 16, 20, 25, 32, 40, 50, 63 Ампер. Для сечения 10 мм² наиболее часто рассматриваются варианты от 40А до 63А.</p>
+
+<p>Важно различать <strong>номинальный ток</strong> (In) и ток расцепления. Автомат не обязан отключаться при токе, равном его номиналу. Согласно стандартам, он может длительно выдерживать ток до 1.13 In без отключения. Отключение при перегрузке происходит в диапазоне 1.13–1.45 от номинала, причем время срабатывания может занимать от нескольких минут до часа.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Золотое правило: Номинальный ток автомата должен быть меньше или равен длительно допустимому току кабеля, приведенному к условиям прокладки.</p></div>
+
+<p>Рассмотрим примерный алгоритм расчета:</p>
+<ol>
+<li>Определяем допустимый ток для 10 мм² меди (например, 60А для открытой прокладки).</li>
+<li>Применяем коэффициенты температуры и способа укладки (если нужно).</li>
+<li>Выбираем ближайший стандартный номинал автомата в меньшую сторону.</li>
+</ol>
+
+<p>Также необходимо учитывать характеристику срабатывания. Для активной нагрузки (нагреватели, лампы) подходит характеристика <code>B</code> или <code>C</code>. Для двигателей и насосов, где высоки пусковые токи, лучше использовать характеристику <code>C</code> или <code>D</code>, чтобы избежать ложных срабатываний при запуске оборудования.</p>
+
+<h2 id="таблица-соответствия-сечения-и-защиты">Таблица соответствия сечения и защиты</h2>
+
+<p>Для удобства проектировщиков и монтажников существуют сводные таблицы, которые упрощают выбор. Ниже приведены ориентировочные данные для медного кабеля сечением 10 мм² при однофазном напряжении 220В и трехфазном 380В. Данные актуальны для кабелей с изоляцией из ПВХ.</p>
+
+<table>
+<thead>
+<tr>
+<th>Сечение (мм²)</th>
+<th>Материал</th>
+<th>Способ прокладки</th>
+<th>Допустимый ток (А)</th>
+<th>Рекомендуемый автомат (А)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Медь</td>
+<td>Открыто (воздух)</td>
+<td>60-65</td>
+<td>50</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Медь</td>
+<td>В трубе/коробе</td>
+<td>50-55</td>
+<td>40-50</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Медь</td>
+<td>Скрыто в стене</td>
+<td>45-50</td>
+<td>40</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Алюминий</td>
+<td>Открыто/Скрыто</td>
+<td>38-42</td>
+<td>32</td>
+</tr>
+</tbody>
+</table>
+
+<p>Обратите внимание, что в таблице указан именно <strong>рекомендуемый автомат</strong>, который обеспечивает запас прочности. Использование автомата на 63А для кабеля 10 мм², проложенного в стене, является нарушением правил пожарной безопасности, так как кабель может начать греться при токе 55-60А, а автомат еще не сработает.</p>
+
+<div class="poll-widget" id="poll-3e0adfb7"><div class="poll-widget-question">📊 Какой кабель вы чаще всего используете для мощных потребителей?</div><div class="poll-widget-option" data-poll="3e0adfb7" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">ВВГнг (медь)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3e0adfb7" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">АВВГ (алюминий)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3e0adfb7" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">NYM (импорт)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3e0adfb7" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Гибкий провод (КГ)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="особенности-подключения-в-однофазной-и-трехфазной-сети">Особенности подключения в однофазной и трехфазной сети</h2>
+
+<p>При работе с кабелем 10 мм² мы часто имеем дело с мощными потребителями, такими как электроплиты, котлы или ввод в дом. В однофазной сети 220В кабель 10 мм² способен передать мощность порядка 10-12 кВт. Этого достаточно для большинства частных домов, но при наличии электрического отопления или сауны может потребоваться трехфазное подключение.</p>
+
+<p>В трехфазной сети 380В нагрузка распределяется равномерно между тремя фазами. Кабель 10 мм² в трехфазной схеме может передавать уже около 30-35 кВт мощности. Здесь важно использовать трехполюсные или четырехполюсные автоматы, которые обеспечивают одновременное отключение всех фаз при аварии на одной из них.</p>
+
+<p>Существуют специфические требования к коммутации:</p>
+<ul>
+<li>⚡ Равномерность: старайтесь распределить однофазные нагрузки по фазам так, чтобы перекос не превышал 15-20%.</li>
+<li>⚡ Сечение нуля: в трехфазной сети сечение нулевой жилы может быть уменьшено до 50% от фазной, если нагрузка линейная, но для кабеля 10 мм² лучше использовать полноценную 4-х или 5-ти жильную структуру.</li>
+<li>⚡ Заземление: наличие надежного заземления обязательно для всех мощных приборов.</li>
+</ul>
+
+<blockquote>⚠️ Внимание: При подключении трехфазного оборудования убедитесь, что автомат имеет соответствующую отключающую способность (например, 6кА или 10кА), особенно если трансформаторная подстанция находится рядом с домом.</blockquote>
+
+<h2 id="типичные-ошибки-и-советы-профессионалов">Типичные ошибки и советы профессионалов</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки, пренебрегая деталями. Одной из самых распространенных ошибок является выбор автомата "с запасом", чтобы его "не выбивало". Люди ставят автомат 63А на кабель 10 мм², надеясь на надежность, но фактически оставляют провод без защиты от перегрузки. В результате кабель греется, изоляция сохнет и трескается.</p>
+
+<p>Еще одна проблема — использование некачественного кабеля. На рынке много продукции, где сечение 10 мм² заявлено, но фактически составляет 8.5 или 9 мм² ("кабель по ТУ" вместо ГОСТ). Такой проводник при токе 50А будет работать на пределе своих возможностей.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка перед монтажом</h4><label class="check-item"><input type="checkbox"><span>Проверить маркировку на оболочке кабеля</span></label><label class="check-item"><input type="checkbox"><span>Замерить диаметр жилы штангенциркулем</span></label><label class="check-item"><input type="checkbox"><span>Убедиться в целостности изоляции</span></label><label class="check-item"><input type="checkbox"><span>Проверить затяжку клемм динамометрической отверткой</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<p>Советы по монтажу и эксплуатации:</p>
+<ol>
+<li>Всегда используйте <strong>гильзование</strong> или специальные наконечники для многожильных кабелей перед подключением к автомату. Это улучшает контакт и предотвращает нагрев.</li>
+<li>Протягивайте контакты автомата после первого нагрева. Через несколько часов работы под нагрузкой желательно проверить затяжку клемм повторно.</li>
+<li>Не игнорируйте цветовую маркировку: фаза, ноль и земля должны быть подключены строго к своим клеммам.</li>
+</ol>
+
+<p>Помните, что <em>автоматический выключатель</em> защищает кабель, а не прибор. Прибор защищает встроенная в него собственная электроника или предохранитель. Поэтому ориентироваться нужно именно на возможности проводника.</p>
+
+<details class="faq-item"><summary>Почему греется автомат?</summary><div class="faq-answer"><p>Если автомат греется, это может означать плохой контакт (слабая затяжка), окисление проводов или работу на пределе номинала. Легкий нагрев корпуса допустим, но если рука не терпит — нужно искать причину.</p></div></details>
+
+<details>
+<summary>Можно ли ставить автомат 63А на кабель 10 мм²?</summary>
+<p>Технически подключить можно, но это нарушение правил безопасности для большинства способов прокладки. Кабель 10 мм² длительно выдерживает около 50-60А. Автомат 63А может не отключиться при токе 70А в течение длительного времени, что приведет к перегреву и разрушению изоляции. Исключение — кратковременная работа или специальная вентиляция кабеля.</p>
+</details>
+
+<details>
+<summary>Какой автомат выбрать для вводного кабеля 10 мм² в дом?</summary>
+<p>Для вводного медного кабеля 10 мм² оптимальным выбором будет автомат номиналом 50А. Это обеспечит мощность около 11 кВт, что достаточно для среднего дома с газом и электрической плитой. Если лимит мощности от сети позволяет больше, лучше заменить кабель на 16 мм², чем рисковать с автоматом 63А на 10 мм².</p>
+</details>
+
+<details>
+<summary>В чем разница между характеристикой C и B для этого сечения?</summary>
+<p>Характеристика <code>B</code> срабатывает при 3-5 кратном превышении номинала, а <code>C</code> — при 5-10 кратном. Для кабеля 10 мм² с автоматом 40А, характеристика B сработает при 120-200А, а C — при 200-400А. Для вводных автоматов и мощных нагрузок обычно используют характеристику C, чтобы избежать ложных выбиваний при пусковых токах.</p>
+</details>
+
+<details>
+<summary>Нужно ли менять автомат, если кабель 10 мм², а стоял 25А?</summary>
+<p>Если кабель 10 мм², а стоит автомат 25А, то кабель используется с большим запасом, что безопасно, но нерационально с точки зрения стоимости кабеля. Однако, если вы планируете увеличить мощность (например, поставить электрокотел), то автомат 25А будет ограничивать вас. В таком случае его можно заменить на 40А или 50А, убедившись, что способ прокладки кабеля это позволяет.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#физические-свойства-и-токовая-нагрузка-кабеля">Физические свойства и токовая нагрузка кабеля</a></li><li><a href="#влияние-способа-прокладки-на-выбор-автомата">Влияние способа прокладки на выбор автомата</a></li><li><a href="#расчет-номинала-автоматического-выключателя">Расчет номинала автоматического выключателя</a></li><li><a href="#таблица-соответствия-сечения-и-защиты">Таблица соответствия сечения и защиты</a></li><li><a href="#особенности-подключения-в-однофазной-и-трехфазной-сети">Особенности подключения в однофазной и трехфазной сети</a></li><li><a href="#типичные-ошибки-и-советы-профессионалов">Типичные ошибки и советы профессионалов</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/o/od/odnofaznoe-ili-trekhfaznoe-podklyuchenie-v-chem-raznitsa.html" class="related-card">Однофазное и трехфазное подключение: ключевые отличия и выбор</a></li><li><a href="/articles/k/ka/kakoj-nuzhen-avtomat-na-5-5-kilovatt.html" class="related-card">Какой автомат нужен на 5.5 кВт: расчёт, выбор, ошибки</a></li><li><a href="/articles/z/za/zamena-probok-na-avtomaty.html" class="related-card">Замена пробок на автоматы: пошаговая инструкция и выбор оборудования</a></li><li><a href="/articles/k/ka/kak-sip-podklyuchit-k-avtomatu.html" class="related-card">Как подключить СИП к автомату: схема, ошибки, советы электрика</a></li><li><a href="/articles/k/ka/kakoj-avtomat-na-kabel.html" class="related-card">Какой автомат ставить на кабель: таблица и правила выбора</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/o/od/odnofaznoe-ili-trekhfaznoe-podklyuchenie-v-chem-raznitsa.html" class="related-bottom-card"><span class="related-bottom-title">Однофазное и трехфазное подключение: ключевые отличия и выбор</span><span class="related-bottom-desc">Чем отличается однофазная сеть от трехфазной? Какую выбрать для дома, гаража или производства? Разби</span></a><a href="/articles/k/ka/kakoj-nuzhen-avtomat-na-5-5-kilovatt.html" class="related-bottom-card"><span class="related-bottom-title">Какой автомат нужен на 5.5 кВт: расчёт, выбор, ошибки</span><span class="related-bottom-desc">Подробный гайд по выбору автоматического выключателя для нагрузки 5.5 кВт: формулы, таблицы, типичны</span></a><a href="/articles/z/za/zamena-probok-na-avtomaty.html" class="related-bottom-card"><span class="related-bottom-title">Замена пробок на автоматы: пошаговая инструкция и выбор оборудования</span><span class="related-bottom-desc">Как заменить старые пробки на современные автоматы в электрощитке? Выбор номинала, схема подключения</span></a><a href="/articles/k/ka/kak-sip-podklyuchit-k-avtomatu.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить СИП к автомату: схема, ошибки, советы электрика</span><span class="related-bottom-desc">Пошаговая инструкция по подключению самонесущего изолированного провода (СИП) к автоматическому выкл</span></a><a href="/articles/k/ka/kakoj-avtomat-na-kabel.html" class="related-bottom-card"><span class="related-bottom-title">Какой автомат ставить на кабель: таблица и правила выбора</span><span class="related-bottom-desc">Разбираемся, как подобрать автоматический выключатель по сечению кабеля, мощности нагрузки и типу се</span></a><a href="/articles/v/vy/vybivaet-vvodnoj-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Почему выбивает вводной автомат: причины и решения 2026</span><span class="related-bottom-desc">Разбираем 7 основных причин срабатывания вводного автомата в щитке: от перегрузки до короткого замык</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

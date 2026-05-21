@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Ручной байпас: что это, принцип работы и инструкция — Электро Гид</title>
+    <meta name="description" content="Полный гид по ручному байпасу ИБП и стабилизаторов. Зачем нужен обходной контур, как правильно переключать и чего опасаться при эксплуатации.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/r/ru/ruchnoj-bajpas-chto-eto.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Ручной байпас: что это, принцип работы и инструкция">
+    <meta property="og:description" content="Полный гид по ручному байпасу ИБП и стабилизаторов. Зачем нужен обходной контур, как правильно переключать и чего опасаться при эксплуатации.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/stabilizatory-i-ibp/">Стабилизаторы и ИБП</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Ручной байпас: что это, принцип работы и инструкция</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Ручной байпас: что это и как им пользоваться</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#основное-назначение-обходного-контура">Основное назначение обходного контура</a></li><li><a href="#принципиальная-схема-и-устройство">Принципиальная схема и устройство</a></li><li><a href="#когда-необходимо-использовать-ручной-режим">Когда необходимо использовать ручной режим</a></li><li><a href="#пошаговая-инструкция-переключения">Пошаговая инструкция переключения</a></li><li><a href="#типичные-ошибки-и-меры-безопасности">Типичные ошибки и меры безопасности</a></li><li><a href="#преимущества-и-недостатки-системы">Преимущества и недостатки системы</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+
+
+<p>В мире современного электропитания аббревиатура <strong>ИБП</strong> (источник бесперебойного питания) знакома многим владельцам компьютеров, серверов и систем отопления. Однако, когда речь заходит о более сложном оборудовании, таком как промышленные стабилизаторы или мощные инверторы, часто упоминается термин «байпас». <em>Ручной байпас</em> представляет собой критически важный элемент системы, позволяющий обходить внутренние цепи устройства, подавая напряжение напрямую к нагрузке.</p>
+
+<p>Понимание того, что такое <strong>ручной байпас</strong>, необходимо не только инженерам, но и грамотным пользователям, желающим обеспечить безопасность своей техники. В отличие от автоматических систем, этот механизм требует физического вмешательства человека для переключения режимов работы. Именно от правильности действий оператора в критический момент часто зависит сохранность дорогостоящего оборудования.</p>
+
+<p>В данной статье мы подробно разберем устройство обходного контура, его назначение и алгоритмы безопасного переключения. Вы узнаете, почему наличие <strong>обходного пути</strong> является стандартом качества для серьезного электрооборудования и как избежать фатальных ошибок при эксплуатации.</p>
+
+<h2 id="основное-назначение-обходного-контура">Основное назначение обходного контура</h2>
+
+<p>Главная функция <strong>байпаса</strong> (от англ. bypass — обход) заключается в обеспечении прямого соединения входной сети с выходом на нагрузку, минуя внутренние преобразователи или стабилизаторы напряжения. Это необходимо в ситуациях, когда сам прибор защиты вышел из строя, перегрелся или требует планового обслуживания. <em>Ручное переключение</em> позволяет продолжить электроснабжение объектов даже при неработающем ИБП.</p>
+
+<p>Важно различать автоматический и ручной режимы. <strong>Автоматический байпас</strong> срабатывает мгновенно при перегрузке или неисправности электроники, часто незаметно для пользователя. <em>Ручной режим</em> предназначен для плановых работ, когда требуется полностью обесточить внутреннюю схему устройства для замены компонентов или глубокой диагностики без отключения потребителей.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Переключение в режим байпаса означает, что ваша нагрузка остается без защиты от скачков напряжения в сети. Убедитесь, что в электросети в данный момент нет аномалий перед выполнением операции.</p>
+</blockquote>
+
+<p>Кроме того, использование <strong>обходного контура</strong> позволяет значительно повысить КПД системы в штатных режимах, когда качество входного тока идеально. Некоторые продвинутые системы позволяют вручную переводить оборудование в экономный режим, исключая потери энергии на двойное преобразование.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед покупкой ИБП или стабилизатора обязательно проверьте наличие встроенного или внешнего ручного байпаса — это сэкономит время и деньги при будущем обслуживании.</p></div>
+
+<h2 id="принципиальная-схема-и-устройство">Принципиальная схема и устройство</h2>
+
+<p>Конструктивно <strong>ручной байпас</strong> реализуется с помощью специальных тумблеров, рубильников или контакторов, которые физически размыкают цепь прохождения тока через инвертор и замыкают цепь напрямую. В простых моделях это может быть один трехпозиционный переключатель, в сложных системах — каскад контакторов с механической блокировкой.</p>
+
+<p>Ключевым элементом здесь является <strong>механическая блокировка</strong>. Она предотвращает ситуацию, когда одновременно замкнуты цепи инвертора и прямой сети, что привело бы к короткому замыканию или выходу из строя силовой электроники. Схема всегда строится по принципу «разорвать одно, чтобы замкнуть другое».</p>
+
+<p>Внутренняя компоновка устройства с <em>функцией байпас</em> обычно включает:</p>
+<ul>
+<li>🔌 Входные клеммы для подключения фазы, нуля и заземления от внешней сети.</li>
+<li>⚡ Силовые контакторы, отвечающие за коммутацию мощных токовых потоков.</li>
+<li>🛡️ Плавкие предохранители или автоматические выключатели для защиты цепей обхода.</li>
+<li>🎛️ Органы управления (тумблеры) с четкой индикацией текущего положения.</li>
+</ul>
+
+<p>Стоит отметить, что в некоторых <em>промышленных ИБП</em> ручной байпас вынесен в отдельный внешний шкаф, особенно если токи нагрузки превышают стандартные значения. Это позволяет проводить работы по обслуживанию самого шкафа байпаса без остановки производства.</p>
+
+<details class="faq-item"><summary>Почему нельзя сделать байпас без разрыва?</summary><div class="faq-answer"><p>Попытка переключить цепь под нагрузкой без специальной конструкции контактов (разрывного типа) приведет к возникновению мощной электрической дуги, которая может оплавить контакты или вызвать пожар.</p></div></details>
+
+<h2 id="когда-необходимо-использовать-ручной-режим">Когда необходимо использовать ручной режим</h2>
+
+<p>Эксплуатация оборудования в режиме <strong>прямого питания</strong> оправдана в нескольких конкретных сценариях. Прежде всего, это плановое техническое обслуживание. Периодическая чистка от пыли, протяжка контактов и замена фильтров требуют полного снятия напряжения с внутренних плат устройства.</p>
+
+<p>Второй случай — это неисправность самого стабилизатора или ИБП. Если устройство издает посторонний шум, гудит или показывает ошибку, которую невозможно сбросить, перевод на <em>ручной байпас</strong> спасет вашу технику от отключения, пока вы ждете ремонта.</p>
+
+<p>Третий сценарий — перегрузка. Если вы подключили дополнительное оборудование и суммарная мощность превысила номинал ИБП, система может уйти в защиту. В этом случае временный переход на <strong>прямую сеть</strong> позволит запитать мощные потребители (например, строительные инструменты или нагреватели), которые не критичны к качеству напряжения.</p>
+
+<table>
+<thead>
+<tr>
+<th>Ситуация</th>
+<th>Режим работы ИБП</th>
+<th>Защита нагрузки</th>
+<th>Риск для оборудования</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Нормальная работа</td>
+<td>Онлайн (через инвертор)</td>
+<td>Полная</td>
+<td>Минимальный</td>
+</tr>
+<tr>
+<td>Плановое ТО</td>
+<td>Ручной байпас</td>
+<td>Отсутствует</td>
+<td>Высокий (скачки сети)</td>
+</tr>
+<tr>
+<td>Неисправность ИБП</td>
+<td>Ручной байпас</td>
+<td>Отсутствует</td>
+<td>Средний (зависит от сети)</td>
+</tr>
+<tr>
+<td>Перегрузка</td>
+<td>Ручной байпас</td>
+<td>Отсутствует</td>
+<td>Средний</td>
+</tr>
+</tbody>
+</table>
+
+<div class="poll-widget" id="poll-c3184f42"><div class="poll-widget-question">📊 Как часто вы проверяете состояние вашего ИБП?</div><div class="poll-widget-option" data-poll="c3184f42" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Ежемесячно</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c3184f42" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Раз в полгода</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c3184f42" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Только при сбоях</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c3184f42" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда не проверял</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="пошаговая-инструкция-переключения">Пошаговая инструкция переключения</h2>
+
+<p>Процедура перевода оборудования в режим <strong>ручного байпаса</strong> должна выполняться строго по алгоритму, указанному производителем в паспорте изделия. Нарушение последовательности действий может привести к повреждению электроники. Ниже приведена универсальная схема, подходящая для большинства бытовых и полупрофессиональных систем.</p>
+
+<p>Для начала необходимо убедиться, что нагрузка не превышает допустимые пределы для прямой сети. Затем следует подготовить инструменты и средства индивидуальной защиты. <em>Диэлектрические перчатки</strong> и сухая обувь — обязательное требование безопасности.</p>
+
+<p>Алгоритм действий:</p>
+<ul>
+<li>🔍 Визуально осмотрите прибор на отсутствие внешних повреждений, дыма или искрения.</li>
+<li>📉 Снизьте нагрузку по возможности, отключив второстепенные потребители.</li>
+<li>🔄 Переведите переключатель в положение «Bypass» (или «Обход»), следуя маркировке.</li>
+<li>✅ Убедитесь по индикаторам, что питание на нагрузку подается напрямую.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Категорически запрещается переключать тумблер байпаса, если в системе есть активные переходные процессы или мигают индикаторы аварии. Дождитесь стабилизации или полностью обесточьте входной автомат перед переключением.</p>
+</blockquote>
+
+<div class="checklist-block"><h4>☑️ Проверка перед переключением</h4><label class="check-item"><input type="checkbox"><span>Индикатор «Сеть» горит зеленым</span></label><label class="check-item"><input type="checkbox"><span>Отсутствует звуковая сигнализация</span></label><label class="check-item"><input type="checkbox"><span>Нагрузка в пределах нормы</span></label><label class="check-item"><input type="checkbox"><span>Руки сухие и в перчатках</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<p>После завершения работ по обслуживанию или ремонту необходимо выполнить обратное переключение. Сначала убедитесь, что <strong>инвертор</strong> запущен и синхронизирован с сетью, и только затем возвращайте тумблер в штатное положение.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Золотое правило электрика: переключать байпас можно только убедившись, что напряжение на выходе инвертора синхронизировано с напряжением сети, иначе возникнет бросок тока.</p></div>
+
+<h2 id="типичные-ошибки-и-меры-безопасности">Типичные ошибки и меры безопасности</h2>
+
+<p>Одной из самых распространенных ошибок является игнирование фазировки. При монтаже или переключении <strong>ручного байпаса</strong> в трехфазных сетях легко перепутать фазы, что приведет к выходу из строя трехфазных двигателей или электроники. Всегда проверяйте соответствие фаз перед коммутацией.</p>
+
+<p>Еще одна ошибка — попытка переключения под высокой нагрузкой без использования специальных контакторов, рассчитанных на дугогашение. Обычные бытовые тумблеры могут просто свариться при коммутации токов свыше 10-16 Ампер, что потребует замены всего узла.</p>
+
+<p>Основные риски при неправильной эксплуатации:</p>
+<ul>
+<li>⚡ Поражение электрическим током при касании открытых токоведущих частей.</li>
+<li>🔥 Возгорание проводки из-за плохого контакта в месте соединения байпаса.</li>
+<li>💥 Выход из строя дорогостоящей электроники ИБП из-за подачи встречного напряжения.</li>
+</ul>
+
+<p>Если вы не обладаете квалификацией электромонтера или не уверены в своих действиях, лучше доверить операцию по переключению <em>режимов питания</strong> специалистам. Электричество не прощает дилетантизма.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Интерфейсы и расположение переключателей могут отличаться в зависимости от модели и года выпуска оборудования. Всегда сверяйтесь с актуальной инструкцией производителя, так как конструктивные изменения вносятся регулярно.</p>
+</blockquote>
+
+<h2 id="преимущества-и-недостатки-системы">Преимущества и недостатки системы</h2>
+
+<p>Наличие <strong>ручного байпаса</strong> — это несомненный плюс для любой системы резервного питания. Это дает пользователю полный контроль над ситуацией и возможность гибко управлять ресурсом оборудования. Вы сами решаете, когда экономить ресурс батарей и электроники, а когда переходить на прямое питание.</p>
+
+<p>Однако у системы есть и свои минусы. Главный из них — человеческий фактор. Автоматика работает быстрее и точнее человека, но <em>ручное управление</strong> требует концентрации и знаний. Ошибка оператора стоит дороже, чем сбой программы.</p>
+
+<p>Кроме того, наличие дополнительного узла коммутации увеличивает габариты устройства и его стоимость. В компактных домашних моделях часто жертвуют <strong>ручным байпасом</em> в пользу миниатюризации, оставляя только программный обход.</p>
+
+<details class="faq-item"><summary>Миф о вечной работе на байпасе</summary><div class="faq-answer"><p>Некоторые пользователи думают, что можно постоянно работать через байпас для «экономии ресурса ИБП». Это опасно, так как при внезапном отключении света произойдет мгновенный сброс питания, что может повредить данные или оборудование.</p></div></details>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Можно ли постоянно работать в режиме ручного байпаса?</summary>
+<p>Технически это возможно, если проводка и нагрузки исправны. Однако в этом режиме ваше оборудование полностью лишено защиты от скачков напряжения, помех и отключений электричества. Использовать этот режим стоит только временно, для обслуживания или при неисправности самого ИБП.</p>
+</details>
+
+<details>
+<summary>Чем отличается ручной байпас от автоматического?</summary>
+<p>Автоматический байпас переключается электроникой устройства за миллисекунды при перегрузке или аварии, часто без вашего участия. Ручной байпас требует физического поворота тумблера или рубильника человеком и используется для плановых работ.</p>
+</details>
+
+<details>
+<summary>Сгорит ли техника, если я ошибусь при переключении?</summary>
+<p>В современных устройствах с правильной схемой включения риск минимален благодаря блокировкам. Однако в старых или дешевых моделях ошибка в последовательности переключения может привести к подаче напряжения сети на выход инвертора, что гарантированно выведет его из строя.</p>
+</details>
+
+<details>
+<summary>Нужен ли байпас для домашнего компьютера?</summary>
+<p>Для обычного домашнего ПК, подключенного через розеточный ИБП, отдельный ручной байпас обычно не нужен и не предусмотрен. Эта функция актуальна для стационарных систем бесперебойного питания, стабилизаторов напряжения на весь дом или серверного оборудования.</p>
+</details>
+
+<details>
+<summary>Как часто нужно проверять работу байпаса?</summary>
+<p>Рекомендуется проводить тестовое переключение (если позволяет инструкция) не реже одного раза в год, чтобы убедиться, что механические контакты не окислились и не «залипли». Это особенно важно для оборудования, работающего в запыленных помещениях.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#основное-назначение-обходного-контура">Основное назначение обходного контура</a></li><li><a href="#принципиальная-схема-и-устройство">Принципиальная схема и устройство</a></li><li><a href="#когда-необходимо-использовать-ручной-режим">Когда необходимо использовать ручной режим</a></li><li><a href="#пошаговая-инструкция-переключения">Пошаговая инструкция переключения</a></li><li><a href="#типичные-ошибки-и-меры-безопасности">Типичные ошибки и меры безопасности</a></li><li><a href="#преимущества-и-недостатки-системы">Преимущества и недостатки системы</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-rasshifrovyvaetsya-ibp.html" class="related-card">ИБП — что это такое и как расшифровывается в электрике?</a></li><li><a href="/articles/p/po/podklyuchenie-stabilizatora-resanta.html" class="related-card">Подключение стабилизатора Ресанта: схема, ошибки, советы</a></li><li><a href="/articles/k/ka/kak-podklyuchit-stabilizator-napryazheniya-v-chastnom-dome-odnofaznyj-220v.html" class="related-card">Подключение стабилизатора 220В в частном доме: схема и инструкция</a></li><li><a href="/articles/k/ka/kak-zaglushit-benzinovyj-generator.html" class="related-card">Как заглушить бензогенератор правильно: 5 безопасных способов</a></li><li><a href="/articles/a/av/avarijnoe-pitanie-dlya-doma-pri-otklyuchenii-elektrichestva.html" class="related-card">Аварийное питание для дома: выбор и монтаж ИБП при отключении электричества</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-rasshifrovyvaetsya-ibp.html" class="related-bottom-card"><span class="related-bottom-title">ИБП — что это такое и как расшифровывается в электрике?</span><span class="related-bottom-desc">Расшифровка ИБП, принципы работы, виды и как выбрать источник бесперебойного питания для дома или оф</span></a><a href="/articles/p/po/podklyuchenie-stabilizatora-resanta.html" class="related-bottom-card"><span class="related-bottom-title">Подключение стабилизатора Ресанта: схема, ошибки, советы</span><span class="related-bottom-desc">Пошаговая инструкция по подключению стабилизаторов напряжения Ресанта (AX, ACH, SPN). Схемы для дома</span></a><a href="/articles/k/ka/kak-podklyuchit-stabilizator-napryazheniya-v-chastnom-dome-odnofaznyj-220v.html" class="related-bottom-card"><span class="related-bottom-title">Подключение стабилизатора 220В в частном доме: схема и инструкция</span><span class="related-bottom-desc">Пошаговое руководство по установке однофазного стабилизатора напряжения 220В в частном доме: выбор м</span></a><a href="/articles/k/ka/kak-zaglushit-benzinovyj-generator.html" class="related-bottom-card"><span class="related-bottom-title">Как заглушить бензогенератор правильно: 5 безопасных способов</span><span class="related-bottom-desc">Пошаговая инструкция по остановке бензинового генератора без риска поломок. Способы для разных модел</span></a><a href="/articles/a/av/avarijnoe-pitanie-dlya-doma-pri-otklyuchenii-elektrichestva.html" class="related-bottom-card"><span class="related-bottom-title">Аварийное питание для дома: выбор и монтаж ИБП при отключении электричества</span><span class="related-bottom-desc">Как организовать аварийное питание в доме? Выбор ИБП, расчет мощности, схемы подключения генераторов</span></a><a href="/articles/s/st/stabilizator-napryazheniya-skhema-podklyucheniya.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения стабилизатора напряжения: пошаговая инструкция</span><span class="related-bottom-desc">Подробная схема подключения стабилизатора напряжения своими руками. Выбор сечения кабеля, автоматов </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

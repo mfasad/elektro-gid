@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Устройство дифференциального автомата: схема и принцип работы — Электро Гид</title>
+    <meta name="description" content="Подробный разбор устройства дифференциального автомата. Узнайте, как работает защита от утечек и коротких замыканий, и из каких узлов состоит прибор.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/u/us/ustrojstvo-differentsialnogo-avtomata.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Устройство дифференциального автомата: схема и принцип работы">
+    <meta property="og:description" content="Подробный разбор устройства дифференциального автомата. Узнайте, как работает защита от утечек и коротких замыканий, и из каких узлов состоит прибор.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Устройство дифференциального автомата: схема и принцип работы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Устройство дифференциального автомата: схема и принцип работы</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#конструкция-корпуса-и-основные-узлы">Конструкция корпуса и основные узлы</a></li><li><a href="#система-теплового-расцепителя-от-перегрузок">Система теплового расцепителя от перегрузок</a></li><li><a href="#электромагнитная-защита-от-короткого-замыкания">Электромагнитная защита от короткого замыкания</a></li><li><a href="#дифференциальный-модуль-и-трансформатор-тока">Дифференциальный модуль и трансформатор тока</a></li><li><a href="#исполнительный-механизм-и-расцепитель">Исполнительный механизм и расцепитель</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Дифференциальный автоматический выключатель, или просто дифавтомат, представляет собой сложное электротехническое изделие, объединяющее в одном корпусе функционал двух различных приборов. Это устройство защиты, которое одновременно контролирует токовую нагрузку на проводку и отслеживает появление токов утечки, опасных для жизни человека. Понимание того, как устроен <strong>дифференциальный автомат</strong>, необходимо не только профессиональным электрикам, но и каждому владельцу жилья, желающему обеспечить безопасность своей электрической сети.</p>
+
+<p>Визуально этот прибор мало чем отличается от обычного автоматического выключателя или УЗО, однако внутренняя компоновка значительно сложнее. Внутри пластикового корпуса из термостойкого диэлектрика скрытаная механика и электроника, работающая в тандеме. Именно внутреннее устройство дифавтомата позволяет ему мгновенно реагировать на перегрузку сети, короткое замыкание или прикосновение человека к токоведущим частям.</p>
+
+<p>Игнорирование принципов работы данного оборудования может привести к неправильному выбору номиналов или ошибочному монтажу. Современные модели, такие как <em>ABB DS201</em> или <em>Legrand DX3</em>, имеют свои конструктивные особенности, но базовый принцип действия остается единым для всей отрасли. Далее мы детально разберем, что находится внутри корпуса и как взаимодействуют различные узлы защиты.</p>
+
+<h2 id="конструкция-корпуса-и-основные-узлы">Конструкция корпуса и основные узлы</h2>
+
+<p>Внешний вид дифавтомата знаком каждому, кто хотя бы раз заглядывал в распределительный щиток. Корпус выполняется из прочного пластика, не поддерживающего горение, и оснащен механизмом крепления на DIN-рейку. На лицевой панели расположен рычаг включения-выключения, кнопка тестирования и, в некоторых моделях, индикатор состояния. Однако настоящая магия происходит внутри.</p>
+
+<p>Основным элементом, обеспечивающим механическую коммутацию, является расцепительный механизм. Он жестко связан с подвижными контактами, которые при переключении рычага замыкают или размыкают электрическую цепь. Скорость срабатывания этого механизма при аварийных ситуациях исчисляется миллисекундами. Надежность этого узла критически важна, так как от него зависит способность прибора разорвать цепь под нагрузкой без образования опасной электрической дуги.</p>
+
+<blockquote>⚠️ Внимание: Корпус дифавтомата не является герметичным. Попадание внутрь пыли, металлической стружки или влаги может привести к залипанию контактов или ложным срабатываниям. Устанавливайте щитки только в сухих помещениях с классом защиты не ниже IP54.</blockquote>
+
+<p>Для подключения проводов используются клеммные зажимы, часто имеющие двойной контакт для надежной фиксации жилы. Внутри корпуса все проводники и элементы изолированы друг от друга перегородками. Важно понимать, что <strong>тепловой расцепитель</strong> и электромагнитная катушка расположены последовательно с контактной группой, что позволяет им напрямую влиять на механизм расцепления.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При покупке обращайте внимание на качество пластика корпуса — он не должен иметь запаха гари или деформаций, что может свидетельствовать о браке литья или вторичном использовании материалов.</p></div>
+
+<h2 id="система-теплового-расцепителя-от-перегрузок">Система теплового расцепителя от перегрузок</h2>
+
+<p>Первой линией обороны электрической сети от перегрузок является тепловой расцепитель. Его основу составляет биметаллическая пластина, состоящая из двух металлов с разным коэффициентом линейного расширения. Когда ток, протекающий через автомат, превышает номинальное значение, пластина начинает нагреваться.</p>
+
+<p>Процесс нагрева не мгновенный. Биметалл изгибается в сторону металла с меньшим расширением, и этот изгиб толкает рычаг механизма расцепления. Время срабатывания напрямую зависит от величины перегрузки: чем больше ток, тем быстрее происходит изгиб. Это свойство называется времятоковой характеристикой и является ключевым для селективности защиты.</p>
+
+<ul>
+<li>🔥 При незначительном превышении тока (например, на 10-20%) автомат может не сработать часами, позволяя сети работать в штатном режиме.</li>
+<li>⏳ При токе перегрузки в 1.45 раза выше номинала, расцепление должно произойти в течение часа (для малых номиналов) или нескольких часов.</li>
+<li>⚡ При сильной перегрузке время срабатывания сокращается до нескольких секунд или десятков секунд.</li>
+</ul>
+
+<p>Важно отметить, что биметаллическая пластина чувствительна к температуре окружающей среды. В жарком помещении автомат может сработать раньше времени, а в холодном — позже. Современные устройства, такие как <em>Schneider Electric Domovoy</em>, часто имеют температурную компенсацию, но полностью исключить влияние внешних факторов невозможно. <strong>Тепловой расцепитель</strong> не срабатывает мгновенно, что защищает сеть от кратковременных пусковых токов, характерных для двигателей бытовой техники.</p>
+
+<div class="poll-widget" id="poll-3a836c29"><div class="poll-widget-question">📊 С каким типом перегрузок вы сталкивались чаще всего?</div><div class="poll-widget-option" data-poll="3a836c29" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Одновременное включение мощных приборов</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3a836c29" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Короткое замыкание в розетке</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3a836c29" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Пусковой ток холодильника</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3a836c29" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Неизвестно</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="электромагнитная-защита-от-короткого-замыкания">Электромагнитная защита от короткого замыкания</h2>
+
+<p>В отличие от теплового расцепителя, который работает с инерцией, защита от короткого замыкания (КЗ) должна действовать мгновенно. За эту функцию отвечает электромагнитный расцепитель. Конструктивно он представляет собой соленоид (катушку индуктивности) с подвижным сердечником внутри.</p>
+
+<p>В нормальном режиме работы ток, протекающий через катушку, создает магнитное поле, недостаточное для втягивания сердечника. Однако при коротком замыкании сила тока возрастает в десятки и сотни раз. Магнитное поле становится мощным настолько, что мгновенно втягивает сердечник внутрь соленоида.</p>
+
+<p>Движение сердечника механически воздействует на расцепительный механизм, принудительно размыкая контакты. Весь этот процесс занимает доли секунды, что предотвращает воспламенение проводки и разрушение оборудования. Скорость здесь важнее всего, так как энергия короткого замыкания колоссальна.</p>
+
+<table>
+<thead>
+<tr>
+<th>Характеристика</th>
+<th>Тип B</th>
+<th>Тип C</th>
+<th>Тип D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ток срабатывания</td>
+<td>3-5 Iном</td>
+<td>5-10 Iном</td>
+<td>10-20 Iном</td>
+</tr>
+<tr>
+<td>Применение</td>
+<td>Освещение, розетки</td>
+<td>Общие сети, двигатели</td>
+<td>Промышленность</td>
+</tr>
+<tr>
+<td>Скорость</td>
+<td>Мгновенная</td>
+<td>Мгновенная</td>
+<td>Мгновенная</td>
+</tr>
+</tbody>
+</table>
+
+<p>Выбор правильной характеристики (B, C или D) зависит от типа нагрузки. Для бытовой сети чаще всего используется характеристика <strong>C</strong>, которая позволяет пережить пусковые токи насосов и компрессоров, но надежно отсекает КЗ. Неправильный выбор типа расцепителя может привести к постоянным ложным выбиваниям автомата или, наоборот, к его нечувствительности.</p>
+
+<h2 id="дифференциальный-модуль-и-трансформатор-тока">Дифференциальный модуль и трансформатор тока</h2>
+
+<p>Сердцем дифавтомата, отличающим его от обычного автомата, является модуль дифференциальной защиты. Его задача — обнаруживать утечку тока, которая возникает при повреждении изоляции или контакте человека с фазой. Ключевым элементом здесь выступает <strong>дифференциальный трансформатор</strong> (трансформатор тока нулевой последовательности).</p>
+
+<p>Через кольцо трансформатора проходят фазный и нулевой проводники. В исправной цепи ток, уходящий по фазе, равен току, возвращающемуся по нулю. Магнитные потоки, создаваемые этими токами, направлены в противоположные стороны и взаимно компенсируют друг друга. Суммарный магнитный поток в сердечнике равен нулю, и во вторичной обмотке ток не наводится.</p>
+
+<p>Ситуация кардинально меняется при появлении утечки. Часть тока начинает уходить в землю (через тело человека или поврежденную изоляцию). Баланс токов нарушается: ток в фазе становится больше, чем в нуле. В сердечнике трансформатора появляется магнитный поток, который наводит ЭДС во вторичной обмотке.</p>
+
+<details class="faq-item"><summary>Почему трансформатор тороидальный?</summary><div class="faq-answer"><p>Кольцевая (тороидальная) форма сердечника позволяет замкнуть магнитный поток внутри материала, минимизируя потери и повышая чувствительность устройства к малейшим изменениям баланса токов.</p></div></details>
+
+<p>Появившийся во вторичной обмотке сигнал подается на исполнительное устройство. Чувствительность современных дифавтоматов крайне высока: они способны реагировать на утечки всего в 10 или 30 мА. Это значение является безопасным порогом для человека, предотвращая фибрилляцию сердца при поражении электрическим током.</p>
+
+<h2 id="исполнительный-механизм-и-расцепитель">Исполнительный механизм и расцепитель</h2>
+
+<p>Сигнал от дифференциального трансформатора сам по себе слишком слаб, чтобы разорвать мощные силовые контакты. Поэтому в устройстве дифавтомата предусмотрен специальный исполнительный механизм. В электронных моделях сигнал усиливается усилителем, который воздействует на электромагнит расцепителя.</p>
+
+<p>В электромеханических дифавтоматах (которые считаются более надежными, так как не зависят от наличия напряжения в сети) используется чувствительное поляризованное реле или специальный расцепитель с независимым питанием от самого трансформатора утечки. Энергии, возникающей при дисбалансе токов, достаточно для механического удара по защелке автомата.</p>
+
+<p>Механизм расцепления устроен так, что он срабатывает при любом виде аварии: будь то перегрузка, короткое замыкание или утечка. Рычаг управления принудительно переводится в положение"Выкл", размыкая цепь. После устранения причины аварии автомат необходимо взвести вручную.</p>
+
+<ul>
+<li>⚙️ Независимый расцепитель обеспечивает отключение даже при обрыве нуля в сети.</li>
+<li>🔌 Электронные модели требуют наличия напряжения для работы усилителя сигнала.</li>
+<li>🛡️ Механическая связь гарантирует разрыв цепи при физическом повреждении контактов.</li>
+</ul</div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#конструкция-корпуса-и-основные-узлы">Конструкция корпуса и основные узлы</a></li><li><a href="#система-теплового-расцепителя-от-перегрузок">Система теплового расцепителя от перегрузок</a></li><li><a href="#электромагнитная-защита-от-короткого-замыкания">Электромагнитная защита от короткого замыкания</a></li><li><a href="#дифференциальный-модуль-и-трансформатор-тока">Дифференциальный модуль и трансформатор тока</a></li><li><a href="#исполнительный-механизм-и-расцепитель">Исполнительный механизм и расцепитель</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kakoj-avtomat-nuzhen-na-6-kvt.html" class="related-card">Какой автомат нужен на 6 кВт: расчет сечения и номинала</a></li><li><a href="/articles/u/uz/uzo-na-380-volt-skhema-podklyucheniya.html" class="related-card">Схема подключения УЗО на 380В: пошаговая инструкция 2026</a></li><li><a href="/articles/v/vs/vse-vidy-avtomatov.html" class="related-card">Виды автоматов в электрощитке: как выбрать и установить правильно</a></li><li><a href="/articles/n/na/na-skolko-amper-stavit-vvodnoj-avtomat-v-chastnom-dome-na-220-volt.html" class="related-card">Какой вводной автомат на 220В выбрать для частного дома: расчет</a></li><li><a href="/articles/k/ka/kak-nazyvaetsya-rychag-v-elektroshchitke.html" class="related-card">Рычаг в электрощитке: как называется и для чего нужен</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kakoj-avtomat-nuzhen-na-6-kvt.html" class="related-bottom-card"><span class="related-bottom-title">Какой автомат нужен на 6 кВт: расчет сечения и номинала</span><span class="related-bottom-desc">Подробный расчет: какой автоматический выключатель выбрать на мощность 6 кВт. Таблицы сечения кабеля</span></a><a href="/articles/u/uz/uzo-na-380-volt-skhema-podklyucheniya.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения УЗО на 380В: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно подключить УЗО к трехфазной сети 380В: схемы, ошибки, выбор номинала. Подробный разбор</span></a><a href="/articles/v/vs/vse-vidy-avtomatov.html" class="related-bottom-card"><span class="related-bottom-title">Виды автоматов в электрощитке: как выбрать и установить правильно</span><span class="related-bottom-desc">Подробный гайд по типам автоматических выключателей: от дифференциальных до УЗО. Сравнение характери</span></a><a href="/articles/n/na/na-skolko-amper-stavit-vvodnoj-avtomat-v-chastnom-dome-na-220-volt.html" class="related-bottom-card"><span class="related-bottom-title">Какой вводной автомат на 220В выбрать для частного дома: расчет</span><span class="related-bottom-desc">Как правильно рассчитать и выбрать вводной автомат на 220 вольт для частного дома. Таблицы номиналов</span></a><a href="/articles/k/ka/kak-nazyvaetsya-rychag-v-elektroshchitke.html" class="related-bottom-card"><span class="related-bottom-title">Рычаг в электрощитке: как называется и для чего нужен</span><span class="related-bottom-desc">Разбираемся, как правильно называется рычаг в электрощитке, его функции, виды (автоматы, УЗО, рубиль</span></a><a href="/articles/k/ko/kogda-srabatyvaet-avtomaticheskij-vyklyuchatel.html" class="related-bottom-card"><span class="related-bottom-title">Когда срабатывает автоматический выключатель: причины и решение</span><span class="related-bottom-desc">Почему выбивает автомат? Полный разбор причин: КЗ, перегрузка, утечка тока. Инструкция по диагностик</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

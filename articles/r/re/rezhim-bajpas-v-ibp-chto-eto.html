@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Режим байпас в ИБП: что это и зачем он нужен — Электро Гид</title>
+    <meta name="description" content="Подробный разбор режима байпас в ИБП. Узнайте, что это такое, как работает обходная цепь и когда автоматика переключает нагрузку на сеть.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/r/re/rezhim-bajpas-v-ibp-chto-eto.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Режим байпас в ИБП: что это и зачем он нужен">
+    <meta property="og:description" content="Подробный разбор режима байпас в ИБП. Узнайте, что это такое, как работает обходная цепь и когда автоматика переключает нагрузку на сеть.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/stabilizatory-i-ibp/">Стабилизаторы и ИБП</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Режим байпас в ИБП: что это и зачем он нужен</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Режим байпас в ИБП: что это и зачем он нужен</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#принцип-работы-и-назначение-обходной-цепи">Принцип работы и назначение обходной цепи</a></li><li><a href="#автоматическое-переключение-когда-ибп-уходит-в-обход">Автоматическое переключение: когда ИБП уходит в обход</a></li><li><a href="#ручной-режим-и-техническое-обслуживание">Ручной режим и техническое обслуживание</a></li><li><a href="#различия-между-типами-ибп-и-байпасом">Различия между типами ИБП и байпасом</a></li><li><a href="#диагностика-проблем-и-звуковые-сигналы">Диагностика проблем и звуковые сигналы</a></li><li><a href="#влияние-режима-на-срок-службы-оборудования">Влияние режима на срок службы оборудования</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Современные системы электропитания требуют не просто наличия энергии, но и её высокого качества, а также бесперебойной подачи. Владельцы дорогостоящей компьютерной техники, медицинского оборудования или промышленных станков часто сталкиваются с аббревиатурой <strong>ИБП</strong>, означающей источник бесперебойного питания. Однако, приобретая такое устройство, многие пользователи замечают на дисплее или в инструкции термин «байпас», значение которого не всегда очевидно без технического образования.</p>
+
+<p>В самом простом понимании, <strong>Bypass</strong> (от английского bypass — обход) представляет собой специальный режим работы, при котором электрический ток поступает к подключенным устройствам напрямую от внешней сети, минуя основные узлы преобразования самого ИБП. Это может происходить как автоматически по команде внутренней логики устройства, так и принудительно по желанию пользователя. Понимание этого процесса критически важно для правильной эксплуатации и обслуживания системы резервирования.</p>
+
+<p>В данной статье мы подробно разберем физические принципы работы обходной цепи, рассмотрим, чем отличается статический байпас от ручного, и выясним, почему ваш источник питания может самостоятельно переходить в этот режим. <em>Знание этих нюансов поможет избежать ложных паник при звуковых сигналах устройства и правильно спланировать обслуживание оборудования.</em></p>
+
+<h2 id="принцип-работы-и-назначение-обходной-цепи">Принцип работы и назначение обходной цепи</h2>
+
+<p>Основная задача любого <strong>источника бесперебойного питания</strong> заключается в преобразовании входящего напряжения в стабильный ток с идеальной синусоидой. В штатном режиме работы электричество проходит через выпрямитель, заряжает аккумуляторные батареи и инвертор, который снова превращает постоянный ток в переменный для нагрузки. Однако электроника имеет свой предел производительности и может нагреваться или выходить из строя.</p>
+
+<p>Режим байпас предназначен для того, чтобы обеспечить подачу энергии к потребителям, даже если внутренние компоненты ИБП не справляются со своей задачей или требуют обслуживания. <strong>Обходная цепь</strong> позволяет исключить из контура инвертор или весь блок преобразования, соединяя входную розетку напрямую с выходной, но через защитные механизмы. Это гарантирует, что критически важные серверы или приборы не останутся без света.</p>
+
+<p>Существует два основных типа реализации этой функции: статический и ручной. Статический байпас управляется электроникой и переключает нагрузку за миллисекунды, что абсолютно незаметно для работающего оборудования. Ручной режим требует физического вмешательства оператора и перевода тумблеров, что предполагает кратковременный перерыв в питании или использование специальных схем переключения без разрыва.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главная функция байпаса — обеспечение непрерывности питания нагрузки при неисправности или перегрузке основного тракта ИБП.</p></div>
+
+<h2 id="автоматическое-переключение-когда-ибп-уходит-в-обход">Автоматическое переключение: когда ИБП уходит в обход</h2>
+
+<p>Многие пользователи пугаются, когда их дорогой <em>APC Smart-UPS</em> или <em>Eaton</em> внезапно начинает пищать, а на дисплее загорается индикатор обхода. Чаще всего это штатная реакция умной электроники на изменившиеся условия внешней среды или состояние самого устройства. Автоматика постоянно мониторит множество параметров и принимает решение о переходе в режим bypass, если это необходимо для безопасности.</p>
+
+<p>Одной из самых распространенных причин является перегрузка. Если вы подключили к ИБП слишком много оборудования и суммарная мощность потребления превысила номинал устройства, электроника не станет «натужно» работать, пытаясь вытянуть непосильную нагрузку. Вместо этого она мгновенно переключится на прямое питание от сети, чтобы избежать перегрева и пожара. <strong>Перегрузка</strong> — это сигнал о том, что нужно срочно отключить лишние приборы.</p>
+
+<p>Также автоматический переход происходит при критическом перегреве внутренних компонентов. Если система охлаждения не справляется или вентиляторы забиты пылью, температура инвертора растет. Чтобы предотвратить термическое разрушение дорогостоящих транзисторов, контроллер переводит нагрузку на байпас. В этом случае устройство продолжает работать, но уже без функции фильтрации помех и резервирования от аккумуляторов.</p>
+
+<div class="poll-widget" id="poll-e099da0d"><div class="poll-widget-question">📊 Сталкивались ли вы с автоматическим переходом ИБП в режим байпас?</div><div class="poll-widget-option" data-poll="e099da0d" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, при перегрузке</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e099da0d" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, из-за перегрева</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e099da0d" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет, только знаю теорию</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e099da0d" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">У меня нет ИБП</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Еще одним сценарием является неисправность самого инвертора или разряд батарей до критического уровня при включенной функции «холодного старта». В таких ситуациях логика устройства диктует приоритет наличия напряжения над его качеством. Лучше подать «грязное» сетевое напряжение, чем оставить серверы обесточенными. <mark>Важно понимать: если ИБП ушел в автоматический байпас, он временно перестает выполнять роль стабилизатора и фильтра.</mark></p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если ваш ИБП часто и без видимых причин переходит в автоматический режим байпас, это может свидетельствовать о деградации аккумуляторных батарей или неисправности силовой платы. Не игнорируйте повторяющиеся сигналы тревоги.</p>
+</blockquote>
+
+<h2 id="ручной-режим-и-техническое-обслуживание">Ручной режим и техническое обслуживание</h2>
+
+<p>В отличие от аварийного автоматического переключения, ручной режим байпас часто используется планово. Это необходимо при проведении профилактических работ, замене аккумуляторов или обновлении прошивки мощных промышленных моделей. В таких случаях оператор сознательно переводит устройство в режим обхода, чтобы иметь возможность полностью обесточить внутреннюю электронику ИБП, не выключая запитанное оборудование.</p>
+
+<p>Процедура перевода в ручной режим требует строгого соблюдения последовательности действий, описанной в руководстве пользователя конкретной модели. Обычно это involves нажатие комбинации кнопок на передней панели или поворот специального переключателя. Например, в некоторых моделях <em>Delta</em> или <em>Ippon</em> необходимо удерживать кнопку включения и кнопку выбора режима одновременно в течение нескольких секунд.</p>
+
+<p>Использование ручного байпаса дает следующие преимущества при обслуживании:
+<ul>
+<li>🔌 Полная изоляция внутренней электроники ИБП от сети для безопасного ремонта.</li>
+<li>🛠 Возможность замены аккумуляторных блоков без прерывания работы серверов.</li>
+<li>🧹 Проведение глубокой очистки от пыли с использованием пылесоса, что запрещено при работе инвертора.</li>
+</ul>
+</p>
+
+<p>После завершения работ устройство необходимо вернуть в нормальный режим работы. Обычно ИБП сам синхизирует фазу и частоту выходного напряжения с сетевым перед обратным переключением, чтобы избежать скачка тока. Если синхронизация невозможна из-за сильных искажений в сети, устройство выдаст предупреждение и не выполнит обратный переход.</p>
+
+<div class="checklist-block"><h4>☑️ Плановое обслуживание ИБП</h4><label class="check-item"><input type="checkbox"><span>Перевести нагрузку в режим ручного байпас</span></label><label class="check-item"><input type="checkbox"><span>Отключить входной автомат ИБП</span></label><label class="check-item"><input type="checkbox"><span>Заменить аккумуляторные батареи</span></label><label class="check-item"><input type="checkbox"><span>Включить входной автомат и вернуть в нормальный режим</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="различия-между-типами-ибп-и-байпасом">Различия между типами ИБП и байпасом</h2>
+
+<p>Не все источники бесперебойного питания одинаково реализуют функцию обхода. Архитектура устройства напрямую влияет на то, как именно будет происходить переключение и будет ли оно вообще доступно в той или иной модели. Понимание разницы между <strong>Line-Interactive</strong>, <strong>Offline</strong> и <strong>Online</strong> (двойного преобразования) топологиями поможет правильно настроить ожидания.</p>
+
+<p>В устройствах топологии <em>Online Double Conversion</em> байпас является штатным и часто используемым режимом. Поскольку в таких ИБП ток постоянно проходит через двойное преобразование, наличие обходной цепи — это вопрос надежности и ремонтопригодности. Здесь байпас может быть статическим (электронным) и работать мгновенно.</p>
+
+<p>В более простых моделях, таких как <strong>Line-Interactive</strong>, роль байпаса часто выполняет автоматический регулятор напряжения (AVR) или простое реле. При нормальной работе сети ток идет в обход трансформатора или через его отводы, а при пропадании сети переключается на инвертор. В дешевых моделях <em>Offline</em> полноценного байпаса как отдельного функционала может не быть, так как там и так вся электроника bypass-ится в штатном режиме, пока есть сеть.</p>
+
+<p>Сравнительная таблица режимов работы в зависимости от топологии:</p>
+
+<table>
+<thead>
+<tr>
+<th>Тип ИБП</th>
+<th>Наличие статического байпаса</th>
+<th>Время переключения</th>
+<th>Основное назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Online (Двойное преобразование)</td>
+<td>Обязательно</td>
+<td>0 мс (без разрыва)</td>
+<td>Критические серверы, медицина</td>
+</tr>
+<tr>
+<td>Line-Interactive</td>
+<td>Часто (релейный)</td>
+<td>2-6 мс</td>
+<td>Офисные ПК, рабочие станции</td>
+</tr>
+<tr>
+<td>Offline (Back UPS)</td>
+<td>Нет (функция сети)</td>
+<td>4-10 мс</td>
+<td>Домашние ПК, периферия</td>
+</tr>
+</tbody>
+</table>
+
+<details class="faq-item"><summary>Что такое статический переключатель?</summary><div class="faq-answer"><p>Статический байпас — это быстродействующий электронный ключ на тиристорах, который не имеет движущихся механических частей. Это обеспечивает высокую надежность и практически мгновенное переключение, в отличие от механических реле, которые могут залипать или иметь большее время отклика.</p></div></details>
+
+<h2 id="диагностика-проблем-и-звуковые-сигналы">Диагностика проблем и звуковые сигналы</h2>
+
+<p>Когда ИБП переходит в режим байпас, он практически всегда сообщает об этом пользователю. Игнорирование звуковых сигналов может привести к потере данных в случае внезапного отключения электричества, так как в режиме обхода аккумуляторы отключены от нагрузки. <strong>Диагностика</strong> состояния устройства начинается именно с расшифровки этих сигналов.</p>
+
+<p>Обычно режим байпаса сопровождается прерывистым звуковым сигналом (например, один писк каждые две секунды) или изменением цвета светодиодного индикатора на желтый или оранжевый. В продвинутых моделях с ЖК-экраном сообщение «Bypass Mode» или «Overload» выводится текстом. Если вы слышите постоянный пронзительный писк, это может означать критическую перегрузку, и устройство вот-вот отключится полностью.</p>
+
+<p>Что делать, если ИБП «застрял» в байпасе?
+<ul>
+<li>📉 Проверьте суммарную мощность подключенных приборов и отключите лишнее.</li>
+<li>🌡 Дайте устройству остыть, если оно горячее на ощупь, и проверьте вентиляцию.</li>
+<li>🔋 Проверьте состояние аккумуляторов — глубокий разряд может блокировать выход из режима.</li>
+</ul>
+</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Не пытайтесь «лечить» ИБП, многократно включая и выключая его в режиме перегрузки. Это может привести к окончательному выходу силовых ключей из строя и дорогостоящему ремонту.</p>
+</blockquote>
+
+<p>В некоторых случаях, особенно после скачка напряжения, логика контроллера может «зависнуть». В такой ситуации может помочь полный сброс (hard reset), который обычно выполняется длительным нажатием кнопки выключения или через программный интерфейс, если модель поддерживает управление по <code>USB</code> или <code>SNMP</code>.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте программное обеспечение производителя для мониторинга ИБП. Оно позволяет видеть точный процент нагрузки и температуру в реальном времени, что помогает предотвратить переход в байпас до того, как он произойдет.</p></div>
+
+<h2 id="влияние-режима-на-срок-службы-оборудования">Влияние режима на срок службы оборудования</h2>
+
+<p>Частое нахождение в режиме байпас не проходит бесследно для самого ИБП, хотя для нагрузки это безопаснее, чем полное отключение. Когда устройство работает в обход, его внутренние компоненты (трансформаторы, фильтры) могут не работать, но цепи коммутации находятся под напряжением. Однако, основная нагрузка по стабилизации ложится на внешнюю сеть, что снижает износ инвертора.</p>
+
+<p>С другой стороны, если ИБП постоянно работает в режиме байпас из-за неисправности, но продолжает пропускать через себя ток, это создает риск. При повторном скачке напряжения в сети, который должен был бы сгладить ИБП, ток ударит напрямую в подключенную технику. Таким образом, <strong>эксплуатация неисправного ИБП</strong> в режиме постоянного обхода превращает его в обычный, и часто некачественный, сетевой фильтр.</p>
+
+<p>Для продления срока службы рекомендуется:
+<p>1. Регулярно проводить тестирование батарей и электроники.</p>
+<p>2. Следить за температурой в серверной комнате или месте установки.</p>
+<p>3. Не допускать работы на пределе мощности (загрузка более 80% от номинала).</p></p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Постоянная работа в режиме байпас из-за неисправности лишает ваше оборудование защиты от скачков напряжения, превращая ИБП в обычную «розетку».</p></div>
+
+<details>
+<summary>Можно ли постоянно использовать ИБП в режиме байпас?</summary>
+<p>Технически можно, если устройство исправно, а сеть стабильна, но это лишает смысла наличие ИБП. Вы теряете защиту от помех, скачков и возможность автономной работы. Это допустимо только как временная мера до ремонта.</p>
+</details>
+
+<details>
+<summary>Почему ИБП не выходит из режима байпас после снижения нагрузки?</summary>
+<p>Возможно, требуется ручной сброс ошибки. Некоторые модели не возвращаются в нормальный режим автоматически, ожидая подтверждения оператора, что ситуация с перегрузкой устранена и система готова к работе.</p>
+</details>
+
+<details>
+<summary>Вреден ли байпас для компьютера?</summary>
+<p>Сам по себе режим байпас не вреден для компьютера, так как он получает питание напрямую от сети. Вред может нанести только нестабильное сетевое напряжение, которое в этом режиме не фильтруется ИБП.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#принцип-работы-и-назначение-обходной-цепи">Принцип работы и назначение обходной цепи</a></li><li><a href="#автоматическое-переключение-когда-ибп-уходит-в-обход">Автоматическое переключение: когда ИБП уходит в обход</a></li><li><a href="#ручной-режим-и-техническое-обслуживание">Ручной режим и техническое обслуживание</a></li><li><a href="#различия-между-типами-ибп-и-байпасом">Различия между типами ИБП и байпасом</a></li><li><a href="#диагностика-проблем-и-звуковые-сигналы">Диагностика проблем и звуковые сигналы</a></li><li><a href="#влияние-режима-на-срок-службы-оборудования">Влияние режима на срок службы оборудования</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/p/pr/printsip-raboty-ibp.html" class="related-card">Принцип работы ИБП: устройство, типы и защита оборудования</a></li><li><a href="/articles/k/ka/kak-podobrat-generator-dlya-doma-po-moshchnosti.html" class="related-card">Как подобрать генератор для дома по мощности: расчет и советы</a></li><li><a href="/articles/s/st/stabilizator-napryazheniya-chto-on-delaet.html" class="related-card">Стабилизатор напряжения: как он работает и зачем нужен в доме</a></li><li><a href="/articles/g/ge/generator-v-kvartiru-pri-otklyuchenii-sveta.html" class="related-card">Генератор для квартиры при отключении света: как выбрать и подключить</a></li><li><a href="/articles/i/ib/ibp-kakoj-vybrat.html" class="related-card">Какой ИБП выбрать для дома и офиса: полное руководство 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/p/pr/printsip-raboty-ibp.html" class="related-bottom-card"><span class="related-bottom-title">Принцип работы ИБП: устройство, типы и защита оборудования</span><span class="related-bottom-desc">Подробный разбор того, как работает источник бесперебойного питания. Устройство, схемы переключения,</span></a><a href="/articles/k/ka/kak-podobrat-generator-dlya-doma-po-moshchnosti.html" class="related-bottom-card"><span class="related-bottom-title">Как подобрать генератор для дома по мощности: расчет и советы</span><span class="related-bottom-desc">Пошаговая инструкция по выбору генератора для дома: как рассчитать мощность, учесть пусковые токи и </span></a><a href="/articles/s/st/stabilizator-napryazheniya-chto-on-delaet.html" class="related-bottom-card"><span class="related-bottom-title">Стабилизатор напряжения: как он работает и зачем нужен в доме</span><span class="related-bottom-desc">Что делает стабилизатор напряжения, как выбрать для дома и техники, принципы работы и ключевые ошибк</span></a><a href="/articles/g/ge/generator-v-kvartiru-pri-otklyuchenii-sveta.html" class="related-bottom-card"><span class="related-bottom-title">Генератор для квартиры при отключении света: как выбрать и подключить</span><span class="related-bottom-desc">Какой генератор купить для квартиры при отключении электричества? ТОП-5 моделей, расчет мощности, пр</span></a><a href="/articles/i/ib/ibp-kakoj-vybrat.html" class="related-bottom-card"><span class="related-bottom-title">Какой ИБП выбрать для дома и офиса: полное руководство 2026</span><span class="related-bottom-desc">Экспертный разбор: как выбрать источник бесперебойного питания (ИБП) по мощности, типу, времени авто</span></a><a href="/articles/z/za/zashchita-ot-prevysheniya-napryazheniya.html" class="related-bottom-card"><span class="related-bottom-title">Защита от перенапряжения: схемы, реле, УЗИП</span><span class="related-bottom-desc">Полное руководство по защите домашней сети от скачков напряжения. Выбор реле контроля, УЗИП, схем по</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

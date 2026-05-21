@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Как работает ИБП для компьютера: принцип действия и схемы — Электро Гид</title>
+    <meta name="description" content="Подробный разбор принципа работы ИБП для ПК: типы (offline, line-interactive, online), схемы, время автономии и как выбрать правильный источник бесперебойного питания.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/pr/printsip-raboty-ibp-dlya-kompyutera.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как работает ИБП для компьютера: принцип действия и схемы">
+    <meta property="og:description" content="Подробный разбор принципа работы ИБП для ПК: типы (offline, line-interactive, online), схемы, время автономии и как выбрать правильный источник бесперебойного питания.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/stabilizatory-i-ibp/">Стабилизаторы и ИБП</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как работает ИБП для компьютера: принцип действия и схемы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Принцип работы ИБП для компьютера: как он спасает технику от скачков напряжения</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-основные-типы-ибп-чем-они-отличаются-по-принципу-работы">1. Основные типы ИБП: чем они отличаются по принципу работы</a></li><li><a href="#2-схема-работы-ибп-от-розетки-до-компьютера">2. Схема работы ИБП: от розетки до компьютера</a></li><li><a href="#3-как-ибп-защищает-компьютер-5-ключевых-угроз">3. Как ИБП защищает компьютер: 5 ключевых угроз</a></li><li><a href="#4-время-автономной-работы-от-чего-оно-зависит">4. Время автономной работы: от чего оно зависит</a></li><li><a href="#5-как-правильно-подключить-ибп-к-компьютеру">5. Как правильно подключить ИБП к компьютеру</a></li><li><a href="#6-распространённые-мифы-об-ибп">6. Распространённые мифы об ИБП</a></li><li><a href="#7-как-выбрать-ибп-для-компьютера-чек-лист">7. Как выбрать ИБП для компьютера: чек-лист</a></li><li><a href="#faq-частые-вопросы-об-ибп-для-компьютера">FAQ: Частые вопросы об ИБП для компьютера</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Источник бесперебойного питания (ИБП) для компьютера — это не просто аккумуляторная батарея, а сложное устройство, которое защищает вашу технику от целого спектра проблем с электросетью. От внезапных отключений света до опасных скачков напряжения — ИБП становится последней линией обороны между вашим ПК и потенциальной поломкой жесткого диска, блока питания или материнской платы. Но как именно он это делает?</p>
+
+<p>В этой статье мы разберём <strong>физические принципы работы ИБП</strong>, от простейших <em>offline</em>-моделей до профессиональных <em>online</em>-систем с двойным преобразованием. Вы узнаете, почему дешёвый ИБП может не спасти от высоковольтных импульсов, как рассчитать необходимое время автономии, и почему некоторые серверные ИБП весят как небольшой холодильник. А ещё — <mark>какие скрытые функции есть у современных моделей, о которых производители часто умалчивают в рекламе</mark>.</p>
+
+<h2 id="1-основные-типы-ибп-чем-они-отличаются-по-принципу-работы">1. Основные типы ИБП: чем они отличаются по принципу работы</h2>
+
+<p>Все источники бесперебойного питания делятся на три основные категории, каждая из которых решает свои задачи и имеет уникальные недостатки. Выбор типа ИБП напрямую влияет на то, насколько надёжно будет защищена ваша техника.</p>
+
+<p><strong>Offline (Standby) ИБП</strong> — самый простой и дешёвый вариант. В нормальном режиме он просто пропускает сетевое напряжение на выход, а при отключении электроэнергии переключается на аккумулятор. Время переключения — от 2 до 10 мс, что критично для чувствительного оборудования. Главный плюс: низкая цена и компактность. Минус: <em>не защищает от скачков напряжения</em> (только от полного отключения) и имеет ограниченное время автономии.</p>
+
+<p><strong>Line-Interactive ИБП</strong> — золотой стандарт для домашних и офисных ПК. Здесь уже есть <code>AVR (Automatic Voltage Regulation)</code> — система стабилизации напряжения, которая корректирует просадки и всплески без перехода на батарею. Переключение на аккумулятор происходит только при полном отключении сети. Время реакции — менее 4 мс. Подходит для большинства пользователей, но не спасёт от высокочастотных помех.</p>
+
+<p><strong>Online (Double-Conversion) ИБП</strong> — премиальное решение для серверов и критически важного оборудования. Здесь сетевое напряжение <em>всегда</em> преобразуется в постоянный ток, а затем обратно в переменный — это полностью изолирует нагрузку от проблем в сети. Нет времени переключения, идеальная синусоида на выходе, защита от всех типов помех. Минусы: высокая цена, большой вес и шум от вентиляторов.</p>
+
+<ul>
+  <li>🔌 <strong>Offline:</strong> только аварийное питание, нет стабилизации</li>
+  <li>⚡ <strong>Line-Interactive:</strong> стабилизация + резерв, оптимально для ПК</li>
+  <li>🖥️ <strong>Online:</strong> полная изоляция от сети, для серверов и ЦОД</li>
+</ul>
+
+<div class="poll-widget" id="poll-1be54b1b"><div class="poll-widget-question">📊 Какой тип ИБП у вас установлен?</div><div class="poll-widget-option" data-poll="1be54b1b" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Offline (Standby)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1be54b1b" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Line-Interactive</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1be54b1b" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Online (Double-Conversion)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1be54b1b" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет ИБП</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1be54b1b" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="2-схема-работы-ибп-от-розетки-до-компьютера">2. Схема работы ИБП: от розетки до компьютера</h2>
+
+<p>Давайте разберём, что происходит внутри ИБП, когда вы включаете его в розетку. Упрощённо схема выглядит так:</p>
+
+<ol>
+  <li>Сетевое напряжение (220В) поступает на <strong>входной фильтр</strong>, который отсекает высокочастотные помехи.</li>
+  <li>Далее сигнал идёт на <em>выпрямитель</em>, преобразующий переменный ток в постоянный (для зарядки аккумулятора).</li>
+  <li>В <em>line-interactive</em> и <em>online</em> моделях здесь же работает <code>AVR-контроллер</code>, который корректирует напряжение при просадках (например, до 180В) или всплесках (до 260В).</li>
+  <li>При отключении сети <strong>инвертор</strong> преобразует постоянный ток от аккумулятора обратно в переменный 220В/50Гц.</li>
+  <li>На выходе стоит ещё один фильтр, сглаживающий форму сигнала.</li>
+</ol>
+
+<p>Ключевой элемент — <strong>аккумуляторная батарея</strong>. В 90% бытовых ИБП используются свинцово-кислотные аккумуляторы (AGM или GEL), которые не требуют обслуживания, но теряют ёмкость через 3-5 лет. В серверных моделях могут стоять литий-ионные батареи с увеличенным ресурсом.</p>
+
+<table>
+  <thead>
+    <tr><th>Компонент ИБП</th><th>Функция</th><th>Типичные неисправности</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Входной фильтр</td><td>Подавление помех</td><td>Перегрев при высоковольтных импульсах</td></tr>
+    <tr><td>Выпрямитель</td><td>Преобразование AC→DC</td><td>Выход из строя диодов при скачках</td></tr>
+    <tr><td>AVR-контроллер</td><td>Стабилизация напряжения</td><td>Некорректная работа при сильных просадках</td></tr>
+    <tr><td>Инвертор</td><td>Преобразование DC→AC</td><td>Искажение синусоиды при износе</td></tr>
+    <tr><td>Аккумулятор</td><td>Резервное питание</td><td>Потеря ёмкости, вздутие</td></tr>
+  </tbody>
+</table>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если ваш ИБП издаёт высокочастотный писк при работе от батареи — это признак неисправности инвертора или глубокого разряда аккумулятора. Немедленно отключите нагрузку и проверьте батарею мультиметром (напряжение на клеммах должно быть не ниже 10.5В для 12В АКБ).</blockquote>
+
+<h2 id="3-как-ибп-защищает-компьютер-5-ключевых-угроз">3. Как ИБП защищает компьютер: 5 ключевых угроз</h2>
+
+<p>Многие думают, что ИБП нужен только для того, чтобы компьютер не выключился при отключении света. На самом деле он борется с целым комплексом проблем:</p>
+
+<ul>
+  <li>⚡ <strong>Скачки напряжения:</strong> Внезапные всплески до 300-400В (например, при ударе молнии в ЛЭП) сжигают блоки питания за доли секунды. ИБП с <em>AVR</em> или <em>online</em>-схемой гасит их.</li>
+  <li>📉 <strong>Просадки напряжения:</strong> Когда напряжение падает ниже 180В, жёсткие диски и SSD начинают работать нестабильно. ИБП корректирует его до номинала.</li>
+  <li>🔌 <strong>Полное отключение:</strong> Даёт время на сохранение данных и корректное завершение работы ОС (через софт вроде <code>APC PowerChute</code> или <code>CyberPower PowerPanel</code>).</li>
+  <li>🌡️ <strong>Высокочастотные помехи:</strong> Создаются сварочными аппаратами, микроволновками, мощными электродвигателями. ИБП фильтрует их.</li>
+  <li>🔄 <strong>Искажённая синусоида:</strong> В некоторых сетях форма сигнала далека от идеала, что вредит импульсным блокам питания. <em>Online</em>-ИБП генерирует чистую синусоиду.</li>
+</ul>
+
+<p>Пример из практики: в 2023 году после аварии на подстанции в Московской области напряжение в сети скакнуло до 280В. В одном офисе сгорели 3 блока питания на ПК без ИБП, а компьютеры с <em>CyberPower CP1500PFCLCD</em> (line-interactive) продолжили работу без последствий.</p>
+
+<details class="faq-item"><summary>Что такое "грязное" электричество?</summary><div class="faq-answer"><p>Это явление, когда в сети присутствуют гармонические искажения, импульсные помехи или нестабильная частота (не 50 Гц). Источники: сварочные аппараты, частотные преобразователи, дешёвые блоки питания. Последствия: перегрев трансформаторов, сбои в работе SSD, сокращение срока службы техники.</p></div></details>
+
+<h2 id="4-время-автономной-работы-от-чего-оно-зависит">4. Время автономной работы: от чего оно зависит</h2>
+
+<p>Одно из главных заблуждений — вера в заявленное производителем время автономии. На коробке может быть написано "15 минут при 500Вт", но в реальности это значение зависит от:</p>
+
+<ul>
+  <li>🔋 <strong>Ёмкости аккумулятора:</strong> Измеряется в <code>Вт·ч</code> или <code>А·ч</code>. Например, батарея 12В/9Ач = 108 Вт·ч.</li>
+  <li>🖥️ <strong>Реальной нагрузки:</strong> Современный игровой ПК с RTX 4090 может потреблять 800-1000Вт, а офисный — 150-200Вт.</li>
+  <li>🔄 <strong>КПД инвертора:</strong> В дешёвых моделях до 30% энергии теряется на нагрев.</li>
+  <li>📉 <strong>Износа батареи:</strong> Через 2 года ёмкость АКБ падает на 20-30%.</li>
+</ul>
+
+<p>Формула расчёта приблизительного времени:</p>
+<pre><code>Время (мин) = (Ёмкость АКБ в Вт·ч × КПД 0.85) / Мощность нагрузки</code></pre>
+
+<p>Пример: ИБП с батареей 600 Вт·ч и КПД 85% при нагрузке 300Вт проработает:</p>
+<pre><code>(600 × 0.85) / 300 = 1.7 часа (102 минуты)</code></pre>
+
+<table>
+  <thead>
+    <tr><th>Нагрузка (Вт)</th><th>Ёмкость АКБ (Вт·ч)</th><th>Время автономии</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>100</td><td>600</td><td>~5 часов</td></tr>
+    <tr><td>300</td><td>600</td><td>~1.7 часа</td></tr>
+    <tr><td>500</td><td>600</td><td>~1 час</td></tr>
+    <tr><td>800</td><td>600</td><td>~25 минут</td></tr>
+  </tbody>
+</table>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если ваш ИБП отключается через 1-2 минуты после перехода на батарею, хотя раньше работал дольше — это признак <em>сульфатации пластин</em> в свинцово-кислотном аккумуляторе. Попытки "реанимировать" батарею специальными зарядками обычно дают временный эффект. Оптимальное решение — замена АКБ на новую (стоимость ~30-50% от цены ИБП).</blockquote>
+
+<div class="checklist-block"><h4>☑️ Как продлить жизнь аккумулятору ИБП</h4><label class="check-item"><input type="checkbox"><span>Раз в 3 месяца проводите калибровку (разряд до 20% и полный заряд)</span></label><label class="check-item"><input type="checkbox"><span>Храните ИБП при температуре 20-25°C</span></label><label class="check-item"><input type="checkbox"><span>Не допускайте глубокого разряда ниже 30%</span></label><label class="check-item"><input type="checkbox"><span>Используйте ИБП хотя бы раз в 2 недели</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="5-как-правильно-подключить-ибп-к-компьютеру">5. Как правильно подключить ИБП к компьютеру</h2>
+
+<p>Ошибки при подключении могут свести на нет все преимущества ИБП. Вот пошаговая инструкция для безопасного подключения:</p>
+
+<ol>
+  <li><strong>Выбор розетки:</strong> ИБП должен быть подключён напрямую к стене, а не через удлинитель или сетевой фильтр. Используйте розетку с заземлением (если в доме есть контур заземления).</li>
+  <li><strong>Последовательность включения:</strong>
+    <ol>
+      <li>Выключите компьютер и периферию.</li>
+      <li>Подключите ИБП к розетке (не включайте его!).</li>
+      <li>Подключите компьютер и монитор к розеткам ИБП.</li>
+      <li>Включите ИБП, дождитесь полной зарядки (индикатор на панели).</li>
+      <li>Включите компьютер.</li>
+    </ol>
+  </li>
+  <li><strong>Настройка ПО:</strong> Установите программу для управления ИБП (например, <code>APC PowerChute Personal Edition</code> для моделей APC). Настройте автоматическое сохранение и выключение при разряде батареи до 30%.</li>
+</ol>
+
+<p>Что <strong>нельзя</strong> подключать к ИБП:</p>
+<ul>
+  <li>🔥 <strong>Лазерные принтеры:</strong> Имеют высокие пусковые токи (до 1000Вт), которые могут повредить инвертор.</li>
+  <li>💡 <strong>Нагревательные приборы:</strong> Обогреватели, чайники, микроволновки — создают перегрузку.</li>
+  <li>⚡ <strong>Сварочные аппараты:</strong> Генерируют помехи, с которыми не справится даже <em>online</em>-ИБП.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если у вашего ИБП есть разъём <code>USB/RS-232</code>, обязательно подключите его к компьютеру. Это позволит программе мониторинга точно отслеживать уровень заряда и иницировать выключение до полного разряда батареи.</p></div>
+
+<h2 id="6-распространённые-мифы-об-ибп">6. Распространённые мифы об ИБП</h2>
+
+<p>Вокруг источников бесперебойного питания ходит множество заблуждений. Разберём самые популярные:</p>
+
+<ul>
+  <li>🔋 <strong>"ИБП с большей мощностью продлит время автономии."</strong>
+    <p>Нет! Мощность (Вт) и ёмкость (Вт·ч) — разные вещи. ИБП на 1000Вт с батареей 600 Вт·ч при нагрузке 500Вт проработает столько же, сколько модель на 600Вт с той же батареей.</p>
+  </li>
+  <li>⚡ <strong>"ИБП защищает от молнии."</strong>
+    <p>Только если речь о <em>прямом</em> ударе в ЛЭП. При близком разряде молнии (даже в 100 метрах) наведённое напряжение может превысить возможности ИБП. Для полной защиты нужен <strong>молниеотвод + УЗИП (устройство защиты от импульсных перенапряжений)</strong>.</p>
+  </li>
+  <li>🖥️ <strong>"Ноутбуку не нужен ИБП."</strong>
+    <p>Ноутбук выживет при отключении света, но скачки напряжения могут повредить его блок питания или аккумулятор. Кроме того, ИБП защищает роутер и модем, что критично для удалённой работы.</p>
+  </li>
+</ul>
+
+<p>Ещё один популярный вопрос: "Можно ли использовать ИБП для холодильника?" Технически да, но:</p>
+<ul>
+  <li>Пусковые токи компрессора могут превышать номинальную мощность ИБП в 3-5 раз.</li>
+  <li>Свинцово-кислотные батареи не любят глубоких разрядов, которые неизбежны при длительной работе холодильника.</li>
+  <li>Для холодильника лучше использовать <strong>генератор</strong> или ИБП с внешними аккумуляторами (например, <em>Eaton 5PX</em> с поддержкой дополнительных батарейных модулей).</li>
+</ul>
+
+<h2 id="7-как-выбрать-ибп-для-компьютера-чек-лист">7. Как выбрать ИБП для компьютера: чек-лист</h2>
+
+<p>При выборе ИБП ориентируйтесь на:</p>
+
+<ol>
+  <li><strong>Тип:</strong>
+    <ul>
+      <li><em>Offline</em> — только для защиты от отключений (например, для роутера).</li>
+      <li><em>Line-Interactive</em> — оптимально для домашнего ПК.</li>
+      <li><em>Online</em> — для серверов, рабочих станций, чувствительного оборудования.</li>
+    </ol>
+  </li>
+  <li><strong>Мощность:</strong> Суммируйте мощность всех подключаемых устройств и добавьте 20-30% запаса. Для игрового ПК с RTX 3080 и Ryzen 9 потребуется ИБП на 1000-1200Вт.</li>
+  <li><strong>Ёмкость батареи:</strong> Для офисного ПК хватит 600 Вт·ч (15-20 минут автономии), для игрового — 1000-1500 Вт·ч.</li>
+  <li><strong>Форма выходного сигнала:</strong> Для активных PFC-блоков питания (в современных ПК) нужна <strong>чистая синусоида</strong> (указывается как <em>Pure Sine Wave</em>).</li>
+  <li><strong>Интерфейс:</strong> USB или сетевой разъём для связи с ПО (например, <code>APC</code>, <code>CyberPower</code>, <code>Eaton</code>).</li>
+  <li><strong>Гарантия на батарею:</strong> Хорошие производители дают 2-3 года на АКБ.</li>
+</ol>
+
+<p>Примеры моделей под разные задачи:</p>
+<ul>
+  <li>💻 <strong>Офисный ПК:</strong> <em>APC Back-UPS BE700G-RS</em> (700Вт, line-interactive, USB).</li>
+  <li>🎮 <strong>Игровой ПК:</strong> <em>CyberPower CP1500PFCLCD</em> (1500Вт, чистая синусоида, 10 розеток).</li>
+  <li>🖥️ <strong>Сервер/NAS:</strong> <em>Eaton 5SC 1500VA</em> (online, поддержка внешних батарей, сетевое управление).</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Характеристики ИБП (особенно время автономии и поддерживаемая мощность) могут отличаться в зависимости от партии и года выпуска. Всегда проверяйте паспорт конкретной модели на сайте производителя перед покупкой. Например, у <em>APC Back-UPS</em> 2023 года обновили схему AVR, что улучшило стабилизацию на 15%, но уменьшило максимальную мощность на 10% по сравнению с моделями 2020 года.</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для современных компьютеров с блоками питания стандарта 80 PLUS обязательно выбирайте ИБП с чистой синусоидой. Иначе при работе от батареи блок питания может перегреться или отключиться из-за искажённой формы сигнала.</p></div>
+
+<h2 id="faq-частые-вопросы-об-ибп-для-компьютера">FAQ: Частые вопросы об ИБП для компьютера</h2>
+
+<details>
+  <summary>Можно ли подключить ИБП к удлинителю?</summary>
+  <p>Технически да, но это снижает надёжность системы. Удлинитель добавляет дополнительное сопротивление, что может привести к:</p>
+  <ul>
+    <li>Падению напряжения на входе ИБП (особенно критично для <em>line-interactive</em> моделей).</li>
+    <li>Перегреву контактов при высокой нагрузке (риск пожара).</li>
+    <li>Ложным срабатываниям защиты ИБП из-за помех.</li>
+  </ul>
+  <p>Если без удлинителя не обойтись, используйте модель с сечением провода не менее 1.5 мм² и длиной до 3 метров.</p>
+</details>
+
+<details>
+  <summary>Сколько служит аккумулятор в ИБП?</summary>
+  <p>Срок службы свинцово-кислотного аккумулятора в ИБП:</p>
+  <ul>
+    <li><strong>3-5 лет</strong> при правильной эксплуатации (регулярная калибровка, температура 20-25°C).</li>
+    <li><strong>1-2 года</strong> при глубоких разрядах (ниже 20%) или хранении в разряженном состоянии.</li>
+  </ul>
+  <p>Признаки износа:</p>
+  <ul>
+    <li>Снижение времени автономии в 2-3 раза.</li>
+    <li>Вздутие корпуса батареи.</li>
+    <li>Постоянное горение индикатора "Replace Battery" на панели ИБП.</li>
+  </ul>
+  <p>Стоимость замены АКБ — от 2000 до 8000 рублей в зависимости от модели.</p>
+</details>
+
+<details>
+  <summary>Как часто нужно разряжать ИБП для калибровки?</summary>
+  <p>Свинцово-кислотные аккумуляторы нуждаются в <strong>контролируемом разряде</strong> раз в 3-6 месяцев. Это предотвращает "эффект памяти" и позволяет системе точно измерять оставшуюся ёмкость. Алгоритм:</p>
+  <ol>
+    <li>Отключите ИБП от сети (но не выключайте!).</li>
+    <li>Подключите нагрузку (например, лампу накаливания 60Вт).</li>
+    <li>Дождитесь разряда до 20-30% (индикатор на панели).</li>
+    <li>Подключите ИБП к сети и зарядите до 100%.</li>
+  </ol>
+  <p>Некоторые модели (например, <em>APC Smart-UPS</em>) имеют встроенную функцию самотестирования — запускайте её раз в квартал.</p>
+</details>
+
+<details>
+  <summary>Можно ли использовать ИБП для майнинга?</summary>
+  <p>Технически можно, но есть нюансы:</p>
+  <ul>
+    <li>🔥 <strong>Перегрев:</strong> Майнинг-фермы потребляют много энергии (1000-3000Вт), что приводит к нагреву инвертора. Выбирайте модели с активным охлаждением (вентилятором).</li>
+    <li>⚡ <strong>Пусковые токи:</strong> Блоки питания для майнинга (например, <em>Corsair HX1200</em>) имеют высокие пусковые токи — ИБП должен их выдерживать (ищите модели с <em>high inrush current</em>).</li>
+    <li>📉 <strong>Время автономии:</strong> При нагрузке 2000Вт даже ИБП на 1500 Вт·ч проработает всего 20-30 минут. Для майнинга лучше использовать <strong>генератор</strong> или ИБП с внешними батареями.</li>
+  </ul>
+  <p>Пример подходящей модели: <em>CyberPower OL1500RTXL2U</em> (1500Вт, online, поддержка внешних АКБ).</p>
+</details>
+
+<details>
+  <summary>Что делать, если ИБП пищит, но компьютер работает?</summary>
+  <p>Постоянный или прерывистый писк — признак неисправности. Расшифровка сигналов для популярных брендов:</p>
+  <table>
+    <thead>
+      <tr><th>Бренд</th><th>Сигнал</th><th>Причина</th><th>Действие</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>APC</td><td>Непрерывный писк</td><td>Перегрузка</td><td>Отключите часть устройств</td></tr>
+      <tr><td>APC</td><td>Короткие писки каждые 5 сек</td><td>Низкий заряд батареи</td><td>Подключите к сети или замените АКБ</td></tr>
+      <tr><td>CyberPower</td><td>2 коротких писка</td><td>Сбои в сети</td><td>Проверьте входное напряжение</td></tr>
+      <tr><td>Eaton</td><td>Длинный писк</td><td>Неисправность инвертора</td><td>Отключите нагрузку, обратитесь в сервис</td></tr>
+    </tbody>
+  </table>
+  <p>Если писк не соответствует таблице — сбросьте ИБП до заводских настроек (обычно кнопка <code>Reset</code> на задней панели).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-основные-типы-ибп-чем-они-отличаются-по-принципу-работы">1. Основные типы ИБП: чем они отличаются по принципу работы</a></li><li><a href="#2-схема-работы-ибп-от-розетки-до-компьютера">2. Схема работы ИБП: от розетки до компьютера</a></li><li><a href="#3-как-ибп-защищает-компьютер-5-ключевых-угроз">3. Как ИБП защищает компьютер: 5 ключевых угроз</a></li><li><a href="#4-время-автономной-работы-от-чего-оно-зависит">4. Время автономной работы: от чего оно зависит</a></li><li><a href="#5-как-правильно-подключить-ибп-к-компьютеру">5. Как правильно подключить ИБП к компьютеру</a></li><li><a href="#6-распространённые-мифы-об-ибп">6. Распространённые мифы об ИБП</a></li><li><a href="#7-как-выбрать-ибп-для-компьютера-чек-лист">7. Как выбрать ИБП для компьютера: чек-лист</a></li><li><a href="#faq-частые-вопросы-об-ибп-для-компьютера">FAQ: Частые вопросы об ИБП для компьютера</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/st/stabilizator-napryazheniya-220v-dlya-doma-rejting.html" class="related-card">ТОП-10 стабилизаторов 220В для дома 2026: рейтинг надежных моделей</a></li><li><a href="/articles/k/ka/kak-podklyuchit-besperebojnik-v-dome.html" class="related-card">Как подключить ИБП в доме: пошаговая инструкция 2026</a></li><li><a href="/articles/b/ba/bajpas-chto-eto-takoe.html" class="related-card">Байпас в стабилизаторах напряжения: что это и зачем нужен</a></li><li><a href="/articles/i/in/invertornye-stabilizatory-napryazheniya-seti-220v.html" class="related-card">Инверторные стабилизаторы 220В: принцип работы и выбор модели</a></li><li><a href="/articles/k/ka/kakoj-stabilizator-napryazheniya-luchshe-kupit.html" class="related-card">Какой стабилизатор напряжения купить в 2026? ТОП-5 моделей и советы эксперта</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/st/stabilizator-napryazheniya-220v-dlya-doma-rejting.html" class="related-bottom-card"><span class="related-bottom-title">ТОП-10 стабилизаторов 220В для дома 2026: рейтинг надежных моделей</span><span class="related-bottom-desc">Как выбрать лучший стабилизатор напряжения для дома? Рейтинг 2026 года с характеристиками, ценами и </span></a><a href="/articles/k/ka/kak-podklyuchit-besperebojnik-v-dome.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить ИБП в доме: пошаговая инструкция 2026</span><span class="related-bottom-desc">Полное руководство по выбору, установке и подключению бесперебойника для дома. Схемы, ошибки и совет</span></a><a href="/articles/b/ba/bajpas-chto-eto-takoe.html" class="related-bottom-card"><span class="related-bottom-title">Байпас в стабилизаторах напряжения: что это и зачем нужен</span><span class="related-bottom-desc">Подробный разбор функции байпас в стабилизаторах напряжения. Как включить, когда использовать и поче</span></a><a href="/articles/i/in/invertornye-stabilizatory-napryazheniya-seti-220v.html" class="related-bottom-card"><span class="related-bottom-title">Инверторные стабилизаторы 220В: принцип работы и выбор модели</span><span class="related-bottom-desc">Как работают инверторные стабилизаторы напряжения для дома? Сравнение с релейными, обзор топ-моделей</span></a><a href="/articles/k/ka/kakoj-stabilizator-napryazheniya-luchshe-kupit.html" class="related-bottom-card"><span class="related-bottom-title">Какой стабилизатор напряжения купить в 2026? ТОП-5 моделей и советы эксперта</span><span class="related-bottom-desc">Подробный гайд по выбору стабилизатора напряжения для дома, дачи и офиса. Сравнение типов (релейные,</span></a><a href="/articles/b/ba/bajpas-na-stabilizator.html" class="related-bottom-card"><span class="related-bottom-title">Байпас для стабилизатора напряжения: схема, установка, ошибки</span><span class="related-bottom-desc">Как правильно подключить байпас к стабилизатору напряжения? Схемы, выбор автоматов, типичные ошибки </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

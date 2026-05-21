@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Постоянно вырубает автомат: причины и устранение — Электро Гид</title>
+    <meta name="description" content="Анализ причин выбивания автомата в щитке. Как найти утечку тока, КЗ или перегрузку сети. Пошаговый алгоритм диагностики.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/po/postoyanno-vyrubaet-avtomat.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Постоянно вырубает автомат: причины и устранение">
+    <meta property="og:description" content="Анализ причин выбивания автомата в щитке. Как найти утечку тока, КЗ или перегрузку сети. Пошаговый алгоритм диагностики.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/poisk-neispravnostej/">Поиск неисправностей</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Постоянно вырубает автомат: причины и устранение</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Постоянно выбивает автомат в щитке: причины и решение</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#основные-причины-отключения-электричества">Основные причины отключения электричества</a></li><li><a href="#диагностика-перегрузки-электрической-сети">Диагностика перегрузки электрической сети</a></li><li><a href="#как-найти-короткое-замыкание-в-проводке">Как найти короткое замыкание в проводке</a></li><li><a href="#роль-узо-и-дифавтоматов-при-утечках-тока">Роль УЗО и дифавтоматов при утечках тока</a></li><li><a href="#неисправность-самого-автоматического-выключателя">Неисправность самого автоматического выключателя</a></li><li><a href="#алгоритм-действий-при-частом-выбивании-пробок">Алгоритм действий при частом выбивании пробок</a></li><li><a href="#когда-необходимо-вызывать-электрика">Когда необходимо вызывать электрика</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Ситуация, когда в квартире внезапно гаснет свет, а в щитке громко щелкает <strong>автоматический выключатель</strong>, знакома многим. Это не просто бытовое неудобство, а сигнал от системы защиты о том, что в электрической цепи возникла серьезная неисправность. Игнорирование таких отключений может привести к оплавлению проводки, выходу из строя дорогостоящей техники или даже возгоранию.</p>
+
+<p>Причин, по которым <em>вырубает автомат</em>, может быть несколько: от банальной перегрузки сети до скрытого короткого замыкания или утечки тока. Важно не действовать хаотично, пытаясь просто включить рубильник снова и снова. Грамотный подход начинается с понимания физики процесса: защита срабатывает только тогда, когда ток превышает допустимые пределы или когда нарушена изоляция.</p>
+
+<p>В этой статье мы разберем основные сценарии аварийного отключения и поможем определить, почему именно в вашем случае выбивает пробки. Вы научитесь различать симптомы перегрузки и короткого замыкания, а также поймете, когда можно справиться самостоятельно, а когда необходимо вызывать профессионального электрика.</p>
+
+<h2 id="основные-причины-отключения-электричества">Основные причины отключения электричества</h2>
+
+<p>Чтобы эффективно устранить проблему, необходимо классифицировать источник опасности. <strong>Электрическая сеть</strong> защищена автоматом не просто так, он реагирует на конкретные физические параметры тока. Чаще всего встречаются три сценария: перегрузка, короткое замыкание и утечка (если установлено УЗО).</p>
+
+<p><strong>Перегрузка сети</strong> — самая распространенная причина, особенно в старых домах с алюминиевой проводкой. Это происходит, когда суммарная мощность включенных приборов превышает пропускную способность кабеля и номинал автомата. Например, одновременная работа стиральной машины, электрочайника и обогревателя создает ток, который нагревает жилы проводов. Автомат, фиксируя превышение номинала, размыкает цепь, чтобы предотвратить пожар.</p>
+
+<ul>
+<li>⚡ Одновременное включение нескольких мощных потребителей (кондиционер + плита).</li>
+<li>⚡ Использование удлинителей и тройников для подключения большого количества техники.</li>
+<li>⚡ Износ контактной группы самого автомата, из-за чего он начинает греться и срабатывать раньше времени.</li>
+<li>⚡ Несоответствие номинала автомата сечению кабеля (автомат подобран слишком маленький).</li>
+</ul>
+
+<p>Второй сценарий — <em>короткое замыкание</em>. Это аварийный режим, при котором фаза и ноль соединяются напрямую, минуя нагрузку. Сопротивление цепи падает почти до нуля, а сила тока мгновенно возрастает в сотни раз. В этом случае автомат срабатывает практически мгновенно, часто с характерным треском. Причиной может быть повреждение изоляции в стене, неисправность розетки или поломка внутри электроприбора.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если автомат выбивает сразу же, в момент включения, или слышен хлопок — скорее всего, произошло короткое замыкание. Повторно включать автомат до выяснения причин категорически запрещено!</p>
+</blockquote>
+
+<h2 id="диагностика-перегрузки-электрической-сети">Диагностика перегрузки электрической сети</h2>
+
+<p>Если свет выключается не сразу, а спустя несколько минут или часов работы приборов, речь идет о тепловой защите автомата. Внутри устройства находится <strong>биметаллическая пластина</strong>, которая нагревается от проходящего тока. При длительном превышении номинала она изгибается и механически размыкает контакты. Это штатная работа защиты от перегрева проводки.</p>
+
+<p>Часто пользователи сталкиваются с тем, что автомат выбивает ночью или в определенное время суток. Это может указывать на циклическую работу мощных приборов, например, холодильника или бойлера. Если в момент их включения ток скачкообразно растет, а проводка старая, происходит отключение. Также стоит проверить, не окислились ли контакты в самом автомате — плохой контакт создает дополнительное сопротивление и нагрев, провоцируя ложные срабатывания.</p>
+
+<div class="poll-widget" id="poll-cc0944fe"><div class="poll-widget-question">📊 Как часто у вас выбивает автомат?</div><div class="poll-widget-option" data-poll="cc0944fe" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Только по утрам/вечерам</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cc0944fe" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Постоянно, при включении любого прибора</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cc0944fe" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Редко, раз в месяц</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cc0944fe" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Только при работе одного конкретного прибора</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Для точной диагностики перегрузки необходимо провести эксперимент. Отключите все электроприборы от розеток и включите автомат. Если он держит нагрузку без потребителей — проводка цела. Затем начинайте поочередно включать приборы. Тот, при включении которого (или через некоторое время после включения) выбьет автомат, и является источником проблемы или причиной перегрузки.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте ваттметр (измеритель мощности) для розетки. Он покажет реальное потребление тока в реальном времени и поможет понять, насколько вы близки к лимиту автомата.</p></div>
+
+<h2 id="как-найти-короткое-замыкание-в-проводке">Как найти короткое замыкание в проводке</h2>
+
+<p>Короткое замыкание (КЗ) — это более опасная ситуация, требующая немедленного вмешательства. В отличие от перегрузки, здесь автомат срабатывает электромагнитным расцепителем мгновенно. Если <strong>выбивает автомат</strong> сразу, как только вы пытаетесь его взвести, значит, фаза где-то замыкает на ноль или землю.</p>
+
+<p>Поиск места замыкания лучше всего начинать с исключения потребителей. Выньте все вилки из розеток во всей квартире. Попробуйте включить автомат. Если он не держит даже без нагрузки — проблема в самой проводке или в щитке. Если автомат включился, начинайте последовательно проверять розетки и светильники. Неисправным может быть патрон люстры, где замкнули провода, или внутренняя проводка розетки.</p>
+
+<table>
+<thead>
+<tr>
+<th>Симптом</th>
+<th>Вероятная причина</th>
+<th>Действия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Автомат выбивает мгновенно</td>
+<td>Короткое замыкание (КЗ)</td>
+<td>Проверить розетки, патроны, визуально осмотреть проводку</td>
+</tr>
+<tr>
+<td>Отключение через 5-30 минут</td>
+<td>Перегрузка сети</td>
+<td>Распределить нагрузку, отключить лишние приборы</td>
+</tr>
+<tr>
+<td>Выбивает только УЗО</td>
+<td>Утечка тока</td>
+<td>Проверить изоляцию приборов, влажность в розетках</td>
+</tr>
+<tr>
+<td>Греется корпус автомата</td>
+<td>Плохой контакт</td>
+<td>Подтянуть клеммы или заменить автомат</td>
+</tr>
+</tbody>
+</table>
+
+<p>Особое внимание стоит уделить местам, где проводка подвергалась механическому воздействию: зоны сверления стен, места сгибов кабеля, участки за плинтусами. Если в стене замкнула скрытая проводка, визуально это определить сложно. В таких случаях требуется профессиональное оборудование, например, тепловизор или мегаомметр, для поиска точки нагрева или нарушения изоляции.</p>
+
+<details class="faq-item"><summary>Что делать, если КЗ в стене?</summary><div class="faq-answer"><p>Если вы точно определили, что коротит скрытая проводка, а штробить стены нельзя, электрики иногда идут на компромисс: поврежденный участок исключают из цепи, соединяя концы кабеля напрямую в обход проблемной зоны, если это позволяет схема. Однако это временное решение, требующее замены линии в будущем.</p></div></details>
+
+<h2 id="роль-узо-и-дифавтоматов-при-утечках-тока">Роль УЗО и дифавтоматов при утечках тока</h2>
+
+<p>В современных щитках наряду с обычными автоматами часто устанавливаются <strong>УЗО (Устройства Защитного Отключения)</strong> или дифференциальные автоматы. Если у вас выбивает именно этот прибор (он обычно имеет рычажок с кнопкой "Тест" и больший номинал по току утечки, например, 30 мА), то причина не в перегрузке, а в утечке тока.</p>
+
+<p>Утечка означает, что часть электричества "убегает" мимо нулевого провода, например, через корпус стиральной машины на трубы водопровода или через влажную штукатурку на стене. Это смертельно опасно для человека. Автомат может не сработать, так как ток утечки мал для теплового расцепителя, но УЗО фиксирует разницу между входящим и выходящим током и отключает сеть.</p>
+
+<ul>
+<li>💧 Попадание влаги внутрь розетки или электроприбора.</li>
+<li>💧 Повреждение изоляции ТЭНа в водонагревателе или стиральной машине.</li>
+<li>💧 Старение изоляции проводов, когда она становится brittle и трескается.</li>
+<li>💧 Наведенные токи или ошибки монтажа (например, перепутан ноль и земля).</li>
+</ul>
+
+<p>Чтобы найти виновника, используйте метод исключения, описанный выше. Часто утечка проявляется во влажных помещениях — в ванной или на кухне. Если УЗО выбивает только при включении конкретного прибора (например, бойлера), его необходимо срочно ремонтировать или заменять. Эксплуатировать технику с утечкой тока на корпус запрещено.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Никогда не заземляйте корпуса приборов на трубы водоснабжения или отопления в старых домах! Это может привести к тому, что соседи получат удар током, если у вас пробьет изоляцию.</p>
+</blockquote>
+
+<h2 id="неисправность-самого-автоматического-выключателя">Неисправность самого автоматического выключателя</h2>
+
+<p>Не стоит сбрасывать со счетов вероятность того, что проблема кроется в самом защитном устройстве. <strong>Автоматические выключатели</strong> — это механические устройства, которые со временем изнашиваются. Частые срабатывания под нагрузкой (особенно с искрением) приводят к обугливанию контактов и ослаблению пружин механизма.</p>
+
+<p>Также встречается явление, когда автомат "держит" номинал хуже, чем заявлено производителем. Дешевые китайские модели могут выбивать при 80% от заявленного тока. Кроме того, если автомат установлен в щитке плотно с другими приборами, он может перегреваться от их тепла, что также вызывает ложное срабатывание теплового расцепителя.</p>
+
+<div class="checklist-block"><h4>☑️ Диагностика автомата</h4><label class="check-item"><input type="checkbox"><span>Проверить затяжку винтов клемм</span></label><label class="check-item"><input type="checkbox"><span>Осмотреть на предмет оплавления корпуса</span></label><label class="check-item"><input type="checkbox"><span>Понюхать наличие запаха гари</span></label><label class="check-item"><input type="checkbox"><span>Замерить температуру корпуса тепловизором</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<p>Для проверки гипотезы о неисправности автомата можно (при наличии навыков и соблюдении мер безопасности!) временно заменить его на заведомо исправный аналогичного номинала. Если новый автомат работает стабильно, значит, старый подлежит замене. Помните, что номинал автомата должен строго соответствовать сечению кабеля, а не мощности вашей техники.</p>
+
+<h2 id="алгоритм-действий-при-частом-выбивании-пробок">Алгоритм действий при частом выбивании пробок</h2>
+
+<p>Систематизируем знания в пошаговый план действий. Если у вас постоянно вырубает автомат, не паникуйте и действуйте последовательно. Хаотичное включение рычажка может усугубить ситуацию.</p>
+
+<p>Сначала оцените обстановку: есть ли запах гари, дым, искры? Если да — немедленно обесточьте квартиру общим рубильником (если он есть и исправен) или вызовите аварийную службу. Если внешних признаков пожара нет, переходите к диагностике.</p>
+
+<ol>
+<li>Отключите все электроприборы из розеток.</li>
+<li>Попробуйте включить автомат. Если не включается — проблема в проводке или щитке.</li>
+<li>Если включился, поочередно включайте приборы.</li>
+<li>Зафиксируйте момент срабатывания защиты.</li>
+<li>Определите, какой прибор работал в этот момент.</li>
+</ol>
+
+<p>Важно понимать, что если автомат выбивает регулярно, это "подарок" от вашей электросети, предупреждающий о беде. Не пытайтесь заклинить рычажок автомата спичкой или изолентой — это прямой путь к пожару. Защита должна работать.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Регулярное выбивание автомата — это не дефект, а признак того, что защита выполняет свою работу, предотвращая более серьезную аварию.</p></div>
+
+<h2 id="когда-необходимо-вызывать-электрика">Когда необходимо вызывать электрика</h2>
+
+<p>Существует ряд ситуаций, когда самостоятельный ремонт не только неэффективен, но и опасен. Если вы не обладаете навыками работы с электричеством, не умеете пользоваться мультиметром или не понимаете разницы между фазой и нулем, лучше не рисковать.</p>
+
+<p>Вызов специалиста обязателен, если автомат выбивает сразу после монтажа новой проводки или установки нового щитка — значит, допущена ошибка в сборке. Также помощь нужна, если проблема кроется в скрытой проводке внутри бетонных стен. Поиск места обрыва или замыкания без специнструмента может занять дни, а профессионал найдет точку за час.</p>
+
+<p>Кроме того, если у вас стоит старая алюминиевая проводка и вы планируете увеличить нагрузку (купить мощный кондиционер или электроплиту), необходима консультация по замене вводного кабеля и автоматов. Попытка просто поставить автомат большего номинала на старые провода приведет к их возгоранию.</p>
+
+<details>
+<summary>Можно ли заменить автомат на более мощный самостоятельно?</summary>
+<p>Категорически нет, если вы не меняете проводку. Автомат защищает кабель. Если поставить автомат на 25А вместо 16А на старый провод, при перегрузке кабель будет греться и плавить изоляцию, а автомат все еще не сработает. Это пожароопасно.</p>
+</details>
+
+<details>
+<summary>Почему выбивает автомат только зимой?</summary>
+<p>Зимой нагрузка на сеть резко возрастает из-за включения обогревателей, теплых полов и более раннего включения освещения. Старая проводка может не справляться с суммарным током, вызывая тепловое отключение автомата.</p>
+</details>
+
+<details>
+<summary>Что делать, если искрит автомат в щитке?</summary>
+<p>Это признак плохого контакта (ослабла клемма) или внутренней неисправности. Необходимо срочно обесточить линию, подтянуть винты клемм (если нет оплавления) или заменить автомат. Эксплуатировать искрящий автомат нельзя.</p>
+</details>
+
+<details>
+<summary>Как понять, сгорел ли автомат?</summary>
+<p>Если автомат визуально цел, но не держит нагрузку (выбивает сразу без потребителей) или, наоборот, не отключается при явном коротком замыкании (что очень опасно), его механизм нарушен. Такой автомат требует замены.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#основные-причины-отключения-электричества">Основные причины отключения электричества</a></li><li><a href="#диагностика-перегрузки-электрической-сети">Диагностика перегрузки электрической сети</a></li><li><a href="#как-найти-короткое-замыкание-в-проводке">Как найти короткое замыкание в проводке</a></li><li><a href="#роль-узо-и-дифавтоматов-при-утечках-тока">Роль УЗО и дифавтоматов при утечках тока</a></li><li><a href="#неисправность-самого-автоматического-выключателя">Неисправность самого автоматического выключателя</a></li><li><a href="#алгоритм-действий-при-частом-выбивании-пробок">Алгоритм действий при частом выбивании пробок</a></li><li><a href="#когда-необходимо-вызывать-электрика">Когда необходимо вызывать электрика</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-proverit-rozetku-multimetrom-napryazhenie-v-seti-220v.html" class="related-card">Как проверить розетку мультиметром: напряжение 220В за 5 шагов</a></li><li><a href="/articles/r/re/rele-12-volt-skhema-podklyucheniya.html" class="related-card">Реле 12В: схема подключения и 5 рабочих примеров</a></li><li><a href="/articles/p/po/pochemu-ne-zavoditsya-generator-benzinovyj.html" class="related-card">Почему не заводится бензогенератор: 10 причин и решения</a></li><li><a href="/articles/v/vy/vybivaet-difavtomat-pri-vklyuchenii-nagruzki-s-zazemleniem.html" class="related-card">Почему выбивает дифавтомат при включении нагрузки с заземлением</a></li><li><a href="/articles/d/dv/dvojnoj-vyklyuchatel-ne-rabotaet-po-otdelnosti-na-svet.html" class="related-card">Двойной выключатель не работает по отдельности: причины и ремонт</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-proverit-rozetku-multimetrom-napryazhenie-v-seti-220v.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить розетку мультиметром: напряжение 220В за 5 шагов</span><span class="related-bottom-desc">Пошаговая инструкция по проверке напряжения в розетке 220В мультиметром: настройки прибора, безопасн</span></a><a href="/articles/r/re/rele-12-volt-skhema-podklyucheniya.html" class="related-bottom-card"><span class="related-bottom-title">Реле 12В: схема подключения и 5 рабочих примеров</span><span class="related-bottom-desc">Подробные схемы подключения 12-вольтового реле для авто, умного дома и DIY-проектов. Разбираем конта</span></a><a href="/articles/p/po/pochemu-ne-zavoditsya-generator-benzinovyj.html" class="related-bottom-card"><span class="related-bottom-title">Почему не заводится бензогенератор: 10 причин и решения</span><span class="related-bottom-desc">Бензогенератор не запускается? Разбираем топ-10 неисправностей: от отсутствия топлива до поломок кар</span></a><a href="/articles/v/vy/vybivaet-difavtomat-pri-vklyuchenii-nagruzki-s-zazemleniem.html" class="related-bottom-card"><span class="related-bottom-title">Почему выбивает дифавтомат при включении нагрузки с заземлением</span><span class="related-bottom-desc">Разбираемся в причинах срабатывания дифавтомата при подключении заземлённых приборов: неисправности,</span></a><a href="/articles/d/dv/dvojnoj-vyklyuchatel-ne-rabotaet-po-otdelnosti-na-svet.html" class="related-bottom-card"><span class="related-bottom-title">Двойной выключатель не работает по отдельности: причины и ремонт</span><span class="related-bottom-desc">Почему двойной выключатель не работает по отдельности? Полный разбор причин, схемы подключения и пош</span></a><a href="/articles/p/po/pochemu-pri-vyklyuchennom-avtomate-est-napryazhenie-na-faze.html" class="related-bottom-card"><span class="related-bottom-title">Почему на фазе есть напряжение при выключенном автомате? 7 причин</span><span class="related-bottom-desc">Разбираемся, почему после отключения автомата на фазе остаётся напряжение: наведённое, обрыв нуля, о</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

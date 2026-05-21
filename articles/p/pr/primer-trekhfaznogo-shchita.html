@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Пример трехфазного щита: сборка, схема и компоненты — Электро Гид</title>
+    <meta name="description" content="Разбираем пример трехфазного щита: выбор автоматов, УЗО, схемы подключения и распределения нагрузки. Готовый чек-лист и FAQ для сборки.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/pr/primer-trekhfaznogo-shchita.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Пример трехфазного щита: сборка, схема и компоненты">
+    <meta property="og:description" content="Разбираем пример трехфазного щита: выбор автоматов, УЗО, схемы подключения и распределения нагрузки. Готовый чек-лист и FAQ для сборки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Пример трехфазного щита: сборка, схема и компоненты</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Пример трехфазного щита: от схемы до сборки</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#вводная-часть-и-распределение-нагрузки">Вводная часть и распределение нагрузки</a></li><li><a href="#защита-от-утечек-узо-и-дифференциальные-автоматы">Защита от утечек: УЗО и дифференциальные автоматы</a></li><li><a href="#компоновка-и-модульные-элементы">Компоновка и модульные элементы</a></li><li><a href="#выбор-оборудования-и-брендов">Выбор оборудования и брендов</a></li><li><a href="#сборка-и-монтаж-щита">Сборка и монтаж щита</a></li><li><a href="#типичные-ошибки-и-их-последствия">Типичные ошибки и их последствия</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Современное энергопотребление в загородном доме или просторной квартире требует грамотного подхода к распределению электроэнергии, и классическим решением здесь становится внедрение трехфазной сети. <strong>Пример трехфазного щита</strong> — это не просто коробка с проводами, а сложный инженерный узел, обеспечивающий безопасность, удобство эксплуатации и возможность подключения мощных потребителей. В отличие от однофазной системы, где напряжение составляет 220 вольт, трехфазная схема позволяет получать 380 вольт, что критически важно для работы станков, котлов и электромобилей.</p>
+<p>Однако наличие трех фаз накладывает повышенные требования к качеству сборки и балансировке нагрузки. <em>Неправильное распределение</em> потребителей по фазам может привести к перекосу, что чревато выходом из строя бытовой техники или постоянными отключениями вводного автомата. Именно поэтому детальный разбор компоновки и логических связей внутри щита является обязательным этапом перед началом монтажных работ.</p>
+<p>В этой статье мы рассмотрим реальный пример компоновки, разберем необходимые компоненты и ответим на вопросы, которые возникают у электриков и заказчиков. Вы узнаете, как избежать типичных ошибок и собрать щит, который прослужит десятилетия без нареканий.</p>
+
+<h2 id="вводная-часть-и-распределение-нагрузки">Вводная часть и распределение нагрузки</h2>
+<p>Центральным элементом любой распределительной системы является вводной автоматический выключатель, который защищает всю downstream-сеть от коротких замыканий и перегрузок. В трехфазном исполнении это, как правило, четырехполюсный аппарат, разрывающий три фазных проводника и ноль одновременно. <strong>Выбор номинала</strong> вводного автомата зависит от выделенной мощности объекта; чаще всего в частных домах встречаются варианты на 25А, 32А или 40А.</p>
+<p>После вводного автомата часто устанавливается реле контроля напряжения (РКН) или реле защиты от перенапряжения. Этот прибор непрерывно мониторит параметры входящей сети и отключает питание, если напряжение выходит за допустимые пределы. <mark>Установка РКН обязательна в сетях с нестабильным напряжением, так как скачки могут мгновенно вывести из строя дорогую электронику.</mark></p>
+<p>Далее следует самый ответственный этап — распределение фаз. <em>Балансировка нагрузки</em> подразумевает деление всех потребителей на три примерно равные группы по мощности. Если на одной фазе будет висеть мощная электроплита и бойлер, а на другой только освещение, возникнет перекос, который может быть опасен.</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Никогда не планируйте подключение мощных однофазных нагрузок (вроде проточных водонагревателей) на одну фазу без предварительного расчета суммарной мощности остальных групп.</p>
+</blockquote>
+<p>Для удобства обслуживания вводную группу и приборы учета часто выделяют в отдельный отсек или располагают в верхней части щита, обеспечивая свободный доступ к клеммам для пломбировки.</p>
+
+<div class="poll-widget" id="poll-bfc3cc5e"><div class="poll-widget-question">📊 Какая выделенная мощность у вашего объекта?</div><div class="poll-widget-option" data-poll="bfc3cc5e" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">15 кВт</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="bfc3cc5e" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">30 кВт</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="bfc3cc5e" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">50 кВт и более</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="bfc3cc5e" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Пока не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="защита-от-утечек-узо-и-дифференциальные-автоматы">Защита от утечек: УЗО и дифференциальные автоматы</h2>
+<p>Вторым уровнем защиты после автоматических выключателей являются устройства защитного отключения (УЗО). В трехфазных щитах существует два основных подхода: установка одного трехфазного УЗО на весь дом или разделение на несколько групповых УЗО. Первый вариант дешевле, но при утечке тока обесточится весь дом, что крайне неудобно.</p>
+<p>Более профессиональный <strong>пример трехфазного щита</strong> предполагает деление потребителей на группы, каждая из которых защищена своим двухполюсным (для однофазных линий) или четырехполюсным (для трехфазных потребителей) УЗО. Ток утечки для защиты людей выбирается 30 мА, а для противопожарной защиты на вводе — 100-300 мА.</p>
+<p>Альтернативой связке "автомат + УЗО" являются дифференциальные автоматы (дифавтоматы), которые занимают меньше места в щите (один модуль против двух-трех у связки). Однако их замена в случае выхода из строя обойдется дороже, так как меняется весь аппарат целиком.</p>
+<ul>
+<li> 🛡️ <strong>Селективность:</strong> Вводное УЗО должно быть селективным (тип S) с задержкой срабатывания, чтобы при аварии отключалась только поврежденная линия, а не весь дом.</li>
+<li> ⚡ <strong>Чувствительность:</strong> Для влажных помещений (ванные, бассейны) рекомендуется использовать УЗО с током утечки 10 мА.</li>
+<li> 🔄 <strong>Тип тока:</strong> Для современной техники с импульсными блоками питания (компьютеры, LED-свет) выбирайте УЗО типа А, а не АС.</li>
+</ul>
+
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте гребенчатые шины для подключения групповых автоматов — это сокращает количество соединений и повышает надежность щита.</p></div>
+
+<h2 id="компоновка-и-модульные-элементы">Компоновка и модульные элементы</h2>
+<p>Физическая сборка щита требует тщательного планирования пространства. Стандартный <em>модульный размер</em> (один DIN-модуль) составляет 17,5 мм, и все аппараты кратны этой величине. Автомат на одну фазу занимает 1 модуль, трехфазный автомат — 3 модуля, УЗО — 2 или 4 модуля в зависимости от производителя и типа.</p>
+<p>При проектировании компоновки необходимо оставлять запас места (около 15-20%) на будущее расширение. Также критически важно обеспечить свободную циркуляцию воздуха, особенно если в щите установлены мощные нагрузки или стабилизаторы напряжения.</p>
+<p>Для коммутации нулевых проводов после УЗО используются нулевые шины, изолированные от корпуса. Для фазных проводов применяются фазные гребенки или отдельные шинки. <strong>Качество контактов</strong> напрямую влияет на нагрев и пожаробезопасность, поэтому экономить на соединительных элементах категорически нельзя.</p>
+<table>
+<thead>
+<tr>
+<th>Компонент</th>
+<th>Занимаемое место (модули)</th>
+<th>Функция</th>
+<th>Примечание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Автомат 1P</td>
+<td>1</td>
+<td>Защита линии</td>
+<td>Освещение, розетки</td>
+</tr>
+<tr>
+<td>Автомат 3P</td>
+<td>3</td>
+<td>Защита 3-фазной нагрузки</td>
+<td>Котлы, станки</td>
+</tr>
+<tr>
+<td>УЗО 2P (40А)</td>
+<td>2</td>
+<td>Защита от утечки</td>
+<td>Групповая защита</td>
+</tr>
+<tr>
+<td>Реле напряжения</td>
+<td>2</td>
+<td>Контроль параметров</td>
+<td>Защита техники</td>
+</tr>
+</tbody>
+</table>
+<p>Располагать элементы нужно так, чтобы силовые кабели не пересекали слаботочные, если таковые присутствуют, минимизируя электромагнитные наводки.</p>
+
+<details class="faq-item"><summary>Почему греются контакты?</summary><div class="faq-answer"><p>Нагрев контактов чаще всего вызван плохой затяжкой винтов при монтаже или окислением медных поверхностей. Через 2-3 недели после первой эксплуатации рекомендуется провести протяжку контактов, так как медь имеет свойство "течь" под давлением.</p></div></details>
+
+<h2 id="выбор-оборудования-и-брендов">Выбор оборудования и брендов</h2>
+<p>Рынок электротехники предлагает широкий спектр производителей, и выбор конкретного бренда часто зависит от бюджета и требований к надежности. Лидерами рынка традиционно считаются <em>ABB</em>, <em>Schneider Electric</em> и <em>Legrand</em>. Продукция этих компаний отличается высокой надежностью, но и стоит соответствующе.</p>
+<p>Средний ценовой сегмент представлен брендами <em>IEK</em>, <em>EKF</em>, <em>TDM</em>. Для бытового использования в условиях стабильной сети они часто являются оптимальным выбором по соотношению цена/качество. Однако для ответственных узлов, таких как вводной автомат или защита дорогостоящего оборудования, лучше рассмотреть более премиальные линейки.</p>
+<p>При выборе автоматов обращайте внимание на отключающую способность. Для частного дома минимальным стандартом является 6 кА (6000 Ампер), что означает способность автомата безопасно разорвать цепь при коротком замыкании такой силы.</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Избегайте покупки электротехники на рынках без сертификатов. Подделки известных брендов встречаются очень часто и могут не сработать в критический момент.</p>
+</blockquote>
+<p>Также стоит учитывать серию оборудования: у одного производителя могут быть бюджетные линейки для масс-маркета и промышленные серии для тяжелых условий эксплуатации.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка перед покупкой</h4><label class="check-item"><input type="checkbox"><span>Номинал автомата соответствует сечению кабеля</span></label><label class="check-item"><input type="checkbox"><span>УЗО имеет тип А или АС по схеме</span></label><label class="check-item"><input type="checkbox"><span>Есть запас мест в щите</span></label><label class="check-item"><input type="checkbox"><span>Комплектующие одного бренда для совместимости</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="сборка-и-монтаж-щита">Сборка и монтаж щита</h2>
+<p>Процесс сборки щита начинается с установки DIN-реек и нулевых шин на их места. Затем монтируются вводной автомат и приборы учета. Важнейшим этапом является зачистка проводов: изоляция должна сниматься строго на длину контакта, чтобы исключить оголение токоведущих частей за пределами зажима.</p>
+<p>Для соединения автоматов в группах идеально подходят фазные гребенки. Они обеспечивают надежный контакт и аккуратный внешний вид. Если гребенки не используются, необходимо делать перемычки из провода того же сечения, что и подходящие кабели, используя метод скрутки с опрессовкой или пайки (хотя пайка в силовых щитах сейчас применяется редко из-за риска "поплыть" при перегреве).</p>
+<p><strong>Момент затяжки</strong> винтовых соединений должен соответствовать требованиям производителя. Недотянутый контакт будет греться, перетянутый может повредить жилу кабеля или сорвать резьбу. Используйте динамометрическую отвертку для контроля усилия.</p>
+<p>После сборки всех цепей проводится визуальная проверка и "прозвонка" мультиметром на предмет коротких замыканий. Только убедившись в отсутствии ошибок, можно подавать напряжение.</p>
+<ul>
+<li> 📐 <strong>Маркировка:</strong> Каждый провод должен быть промаркирован с двух сторон, а схема щита наклеена на внутреннюю сторону дверцы.</li>
+<li> 🔧 <strong>Инструмент:</strong> Используйте специализированный инструмент для зачистки (стриппер) и опрессовки наконечников.</li>
+<li> 🌡️ <strong>Температура:</strong> Не проводите монтаж при отрицательных температурах, пластик становится хрупким.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Качественная сборка щита занимает в 3-4 раза больше времени, чем просто "скрутить провода", но это гарантия безопасности вашего дома на десятилетия.</p></div>
+
+<h2 id="типичные-ошибки-и-их-последствия">Типичные ошибки и их последствия</h2>
+<p>Одной из самых распространенных ошибок является использование алюминиевых проводов для внутренней разводки щита или их соединение с медью напрямую. Гальваническая пара медь-алюминий быстро окисляется, что приводит к нагреву и пожару. Переход должен осуществляться только через специальные клеммники или биметаллические шайбы.</p>
+<p>Еще одна ошибка — игнорирование цветовой маркировки проводов. Синий провод должен быть всегда нулем, желто-зеленый — землей, а фазы — коричневого, черного или серого цвета (или L1, L2, L3). Перепутанные цвета усложняют поиск неисправностей в будущем.</p>
+<p>Часто встречается и недостаточная длина проводов внутри щита. Провода должны иметь запас для удобного демонтажа и повторного подключения аппаратов, но не быть чрезмерно длинными, создавая "бороду", которая мешает охлаждению.</p>
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Категорически запрещается использовать землю (PE) как рабочий ноль (N). Это смертельно опасно и приводит к появлению напряжения на корпусах электроприборов.</p>
+</blockquote>
+<p>Также ошибкой является установка автоматов с характеристикой "C" там, где нужна "B" (например, на освещение), что снижает чувствительность защиты, или наоборот, установка "B" на двигатели, что вызывает ложные отключения при пуске.</p>
+
+<h2 id="faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</h2>
+<details>
+<summary>Можно ли собрать трехфазный щит самостоятельно?</summary>
+<p>Теоретически можно, если у вас есть глубокие знания электротехники и опыт работы с трехфазными сетями. Однако ошибки в трехфазном щите (например, перекос фаз или неправильное подключение нуля) могут привести к сгоранию всей техники в доме. Лучше доверить сборку профессиональному электрику с допуском.</p>
+</details>
+<details>
+<summary>Что делать, если постоянно выбивает вводной автомат?</summary>
+<p>Сначала проверьте, не включили ли вы одновременно слишком много мощных приборов (пергрузка). Если нагрузка в норме, возможно, неисправен сам автомат или есть скрытое короткое замыкание. Требуется диагностика мультиметром и токоизмерительными клещами.</p>
+</details>
+<details>
+<summary>Нужно ли менять проводку в доме при переходе на 3 фазы?</summary>
+<p>Не обязательно менять всю проводку, если она в хорошем состоянии и сечение жил соответствует токовой нагрузке. Однако вводной кабель и линии для трехфазных потребителей (плита, котел) должны быть четырех- или пятижильными.</p>
+</details>
+<details>
+<summary>Как часто нужно проверять УЗО?</summary>
+<p>Проверять работоспособность УЗО рекомендуется раз в месяц, нажимая кнопку "Тест" на корпусе устройства. Это имитирует утечку тока и подтверждает исправность механизма расцепления.</p>
+</details>
+<details>
+<summary>Какой щит лучше: пластиковый или металлический?</summary>
+<p>Для внутри помещений (квартиры, дома) чаще используют пластиковые щиты (IP40) из-за эстетики и цены. Металлические щиты (IP65 и выше) обязательны для улицы, гаражей или производственных помещений, где важна механическая прочность и защита от влаги.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#вводная-часть-и-распределение-нагрузки">Вводная часть и распределение нагрузки</a></li><li><a href="#защита-от-утечек-узо-и-дифференциальные-автоматы">Защита от утечек: УЗО и дифференциальные автоматы</a></li><li><a href="#компоновка-и-модульные-элементы">Компоновка и модульные элементы</a></li><li><a href="#выбор-оборудования-и-брендов">Выбор оборудования и брендов</a></li><li><a href="#сборка-и-монтаж-щита">Сборка и монтаж щита</a></li><li><a href="#типичные-ошибки-и-их-последствия">Типичные ошибки и их последствия</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/c/ch/chto-takoe-avtomat-pitaniya.html" class="related-card">Автомат питания: что это, как работает и зачем нужен в электрике</a></li><li><a href="/articles/2/25/25-amper-avtomat-skolko-vyderzhit.html" class="related-card">25А автомат: мощность и нагрузка в кВт (таблица 2026)</a></li><li><a href="/articles/i/iz/iz-za-chego-mozhet-vybit-avtomat-v-kvartire.html" class="related-card">Почему выбивает автомат в квартире? 7 причин и решения</a></li><li><a href="/articles/k/ka/kakoj-avtomat-nuzhen-na-15-kvt.html" class="related-card">Автомат на 15 кВт: какой нужен для дома и как выбрать правильно</a></li><li><a href="/articles/3/38/380-volt-gde-ispolzuetsya.html" class="related-card">380 Вольт: где используется и как подключить правильно</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/c/ch/chto-takoe-avtomat-pitaniya.html" class="related-bottom-card"><span class="related-bottom-title">Автомат питания: что это, как работает и зачем нужен в электрике</span><span class="related-bottom-desc">Подробный разбор автомата питания: принцип работы, виды, отличие от УЗО и дифавтомата. Как выбрать и</span></a><a href="/articles/2/25/25-amper-avtomat-skolko-vyderzhit.html" class="related-bottom-card"><span class="related-bottom-title">25А автомат: мощность и нагрузка в кВт (таблица 2026)</span><span class="related-bottom-desc">Сколько выдержит автомат на 25 ампер в кВт? Расчёт мощности для 220В и 380В, выбор кабеля и защита о</span></a><a href="/articles/i/iz/iz-za-chego-mozhet-vybit-avtomat-v-kvartire.html" class="related-bottom-card"><span class="related-bottom-title">Почему выбивает автомат в квартире? 7 причин и решения</span><span class="related-bottom-desc">Разбираемся, почему срабатывает автоматический выключатель: перегрузка, короткое замыкание, неисправ</span></a><a href="/articles/k/ka/kakoj-avtomat-nuzhen-na-15-kvt.html" class="related-bottom-card"><span class="related-bottom-title">Автомат на 15 кВт: какой нужен для дома и как выбрать правильно</span><span class="related-bottom-desc">Разбираемся, какой автоматический выключатель нужен для 15 кВт: расчет по току, выбор по сечению каб</span></a><a href="/articles/3/38/380-volt-gde-ispolzuetsya.html" class="related-bottom-card"><span class="related-bottom-title">380 Вольт: где используется и как подключить правильно</span><span class="related-bottom-desc">Разбираемся, где применяется напряжение 380 Вольт в быту и промышленности, схемы подключения, преиму</span></a><a href="/articles/c/ch/chto-znachit-odnopolyusnyj-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Что такое однополюсный автомат: назначение, схема подключения, отличие от двухполюсного</span><span class="related-bottom-desc">Однополюсный автомат: принцип работы, где применяется, как выбрать и подключить. Разница между одноп</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

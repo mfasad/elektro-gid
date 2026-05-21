@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Как тестер показывает бесконечность: расшифровка показаний мультиметра — Электро Гид</title>
+    <meta name="description" content="Почему мультиметр показывает 1 или OL? Разбор режимов измерения, обрыва цепи, перегрузки по току и ошибок пользователя.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/k/ka/kak-tester-pokazyvaet-beskonechnost.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как тестер показывает бесконечность: расшифровка показаний мультиметра">
+    <meta property="og:description" content="Почему мультиметр показывает 1 или OL? Разбор режимов измерения, обрыва цепи, перегрузки по току и ошибок пользователя.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/instrumenty-i-zamery/">Инструменты и замеры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как тестер показывает бесконечность: расшифровка показаний мультиметра</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как тестер показывает бесконечность: расшифровка показаний мультиметра</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#физический-смысл-бесконечного-сопротивления">Физический смысл бесконечного сопротивления</a></li><li><a href="#режимы-работы-и-индикация-ol">Режимы работы и индикация OL</a></li><li><a href="#аналоговые-приборы-стрелка-у-левого-края">Аналоговые приборы: стрелка у левого края</a></li><li><a href="#таблица-расшифровки-показаний-в-разных-режимах">Таблица расшифровки показаний в разных режимах</a></li><li><a href="#типичные-ошибки-при-измерениях">Типичные ошибки при измерениях</a></li><li><a href="#практическое-применение-поиск-неисправностей">Практическое применение: поиск неисправностей</a></li><li><a href="#заключение-и-рекомендации-по-безопасности">Заключение и рекомендации по безопасности</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>В процессе диагностики электрооборудования мастера часто сталкиваются с ситуацией, когда цифровой дисплей мультиметра перестает отображать конкретные числовые значения. Вместо ожидаемых цифр на экране загорается единица слева или аббревиатура <em>OL</em> (Over Limit). Для новичка это может стать сигналом о поломке самого прибора, однако опытный электрик сразу понимает: цепь разорвана или сопротивление превышает возможности текущего диапазона измерений.</p>
+
+<p>Понимание того, как именно <strong>тестер показывает бесконечность</strong>, является фундаментальным навыком для безопасной работы с электричеством. Это состояние означает, что ток через щупы не протекает либо протекает в ничтожно малом количестве, которое прибор не может зафиксировать в выбранном масштабе. В физическом смысле это и есть бесконечное сопротивление.</p>
+
+<p>В данной статье мы детально разберем причины появления таких показаний, научимся отличать реальный обрыв от ошибки настройки и рассмотрим особенности работы аналоговых и цифровых устройств. <strong>Интерпретация показаний</strong> требует внимательности, так как игнорирование сигнала перегрузки может привести к повреждению дорогостоящего оборудования.</p>
+
+<h2 id="физический-смысл-бесконечного-сопротивления">Физический смысл бесконечного сопротивления</h2>
+
+<p>С точки зрения закона Ома, сопротивление является величиной, обратной проводимости. Когда вы видите на экране единицу, это означает, что сопротивление стремится к бесконечности, а проводимость падает до нуля. В идеальном диэлектрике электроны не могут перемещаться свободно, поэтому электрический ток не возникает.</p>
+
+<p><strong>Цифровой мультиметр</strong> в режиме измерения сопротивления подает на щупы небольшое напряжение и замеряет силу протекающего тока. Если ток отсутствует, процессор устройства вычисляет, что сопротивление слишком велико для отображения в текущем разряде. Именно поэтому на дисплее загорается символ переполнения.</p>
+
+<p>Важно различать понятия "очень высокое сопротивление" и "бесконечность". Изоляция проводов может иметь сопротивление в сотни мегаом, что для бытового тестера будет выглядеть как обрыв, хотя физически ток утечки все же существует. Однако для практических задач электрики такие значения приравниваются к <mark>разрыву цепи</mark>.</p>
+
+<blockquote>
+<p>⚠️ Внимание: При измерении сопротивления цепей, находящихся под напряжением, показания могут быть хаотичными или показывать "бесконечность" из-за работы защитных механизмов тестера. Всегда обесточивайте объект перед прозвонкой!</p>
+</blockquote>
+
+<p>Существует также понятие "плавающей единицы", когда контакт плохой. В этом случае показания могут скакать от конкретных значений до символа перегрузки. Это часто указывает на окисление контактов или наличие микротрещин в проводнике.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Всегда проверяйте исправность щупов перед работой: замкните их между собой. Если на экране 0 или близкое к нему значение — прибор исправен. Если сразу "1" — щупы в обрыве.</p></div>
+
+<h2 id="режимы-работы-и-индикация-ol">Режимы работы и индикация OL</h2>
+
+<p>Аббревиатура <em>OL</em> (Over Load) является стандартом для большинства современных мультиметров, таких как <em>Fluke</em>, <em>Mastech</em> или <em>Uni-T</em>. Она появляется не только при измерении сопротивления, но и в других режимах, сигнализируя о выходе измеряемой величины за пределы выбранного диапазона.</p>
+
+<p>В режиме прозвонки диодов <strong>OL</strong> означает, что диод не пропускает ток в прямом направлении (неисправен) или подключен в обратной полярности. Если же при прозвонке цепи с низким сопротивлением (менее 50 Ом) раздается звуковой сигнал, но на экране горит единица — это может указывать на севшую батарею или неисправность самого режима.</p>
+
+<ul>
+<li>🔌 <strong>Реометр:</strong> Единица означает, что сопротивление выше максимального предела шкалы (например, выше 200 МОм).</li>
+<li>⚡ <strong>Вольтметр:</strong> Сигнал о том, что напряжение выше выбранного предела (например, вы измеряете 500В на пределе 200В).</li>
+<li>🔋 <strong>Режим проверки диодов:</strong> Отсутствие падения напряжения или обратное включение исправного диода.</li>
+</ul>
+
+<p>Некоторые профессиональные модели оснащены функцией <em>Auto Range</em>, которая автоматически выбирает предел измерений. В таких устройствах "бесконечность" появляется только при реальном разрыве или превышении абсолютного максимума прибора (обычно 40-100 МОм).</p>
+
+<div class="poll-widget" id="poll-35edcedf"><div class="poll-widget-question">📊 Что чаще всего показывает ваш мультиметр при проверке изоляции?</div><div class="poll-widget-option" data-poll="35edcedf" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">OL (бесконечность)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="35edcedf" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Конкретное число в МОм</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="35edcedf" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Ноль</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="35edcedf" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Прибор пищит</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="аналоговые-приборы-стрелка-у-левого-края">Аналоговые приборы: стрелка у левого края</h2>
+
+<p>Стрелочные тестеры, такие как легендарный <em>Ц4353</em> или <em>TL-4M</em>, имеют иную логику отображения "бесконечности". В режиме измерения сопротивления (<em>Ω</em>) шкала у них нелинейна и перевернута: ноль находится справа, а бесконечность (<strong>∞</strong>) — слева.</p>
+
+<p>Когда цепь разомкнута, стрелка аналогового прибора под действием возвратной пружины стремится к левому краю, указывая на знак бесконечности. Это состояние является естественным для неподключенного омметра. Для проведения измерений необходимо выполнить калибровку нуля.</p>
+
+<p>Процесс калибровки выглядит так:</p>
+<ol>
+<li>Замкнуть щупы между собой.</li>
+<li>Вращением регулятора <code>0Ω ADJ</code> добиться полного отклонения стрелки вправо (на ноль).</li>
+<li>Разомкнуть щупы — стрелка должна вернуться влево к знаку <strong>∞</strong>.</li>
+</ol>
+
+<p>Если стрелка "убегает" за пределы шкалы или не возвращается к бесконечности при разомкнутых щупах, это свидетельствует о размагничивании механизма или неисправности возвратной пружины. В отличие от цифровых собратьев, здесь нет мигающих цифр, и визуальный контроль требует большей концентрации.</p>
+
+<details class="faq-item"><summary>Почему у аналоговых тестеров ноль справа?</summary><div class="faq-answer"><p>В режиме омметра внутри прибора есть батарейка. При замыкании щупов ток максимален, и магнитное поле катушки максимально отклоняет стрелку. Поэтому максимальный ток (минимальное сопротивление) — это полное отклонение вправо.</p></div></details>
+
+<h2 id="таблица-расшифровки-показаний-в-разных-режимах">Таблица расшифровки показаний в разных режимах</h2>
+
+<p>Для систематизации знаний о том, как тестер показывает бесконечность и перегрузку, удобно использовать сводную таблицу. Она поможет быстро определить, является ли показание ошибкой или физическим фактом.</p>
+
+<table>
+<thead>
+<tr>
+<th>Реим измерения</th>
+<th>Показание</th>
+<th>Значение</th>
+<th>Действия</th>
+</tr>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Сопротивление (Ω)</td>
+<td>1 / OL</td>
+<td>Обрыв цепи, сопротивление > предела</td>
+<td>Проверить контакты, увеличить предел</td>
+</tr>
+<tr>
+<td>Напряжение (V)</td>
+<td>1 / OL</td>
+<td>Перегрузка (напряжение > предела)</td>
+<td>Срочно переключить на больший предел!</td>
+</tr>
+<tr>
+<td>Ток (A)</td>
+<td>OL</td>
+<td>Ток выше допустимого для гнезда</td>
+<td>Переключить щуп в гнездо 10A/20A</td>
+</tr>
+<tr>
+<td>Прозвонка</td>
+<td>1 (без звука)</td>
+<td>Сопротивление > 50-100 Ом</td>
+<td>Цепь не замкнута</td>
+</tr>
+</tbody>
+</table>
+
+<p>Особое внимание следует уделить строке с напряжением. Если при измерении 220В вы оставили переключатель на пределе 20В, прибор покажет "1". Это не бесконечное сопротивление, а сигнал опасности: входные цепи могут сгореть, если не переключить режим немедленно.</p>
+
+<p>В режиме измерения тока появление единицы часто означает, что вы пытаетесь измерить ток через гнездо для малых токов (мА), когда реальная нагрузка потребляет Амперы. В этом случае сгорит внутренний предохранитель мультиметра, и в режиме измерения сопротивления прибор будет показывать обрыв даже при замкнутых щупах.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Если мультиметр показал перегрузку по току или напряжению, не продолжайте измерения. Проверьте целостность предохранителей и состояние щупов, чтобы избежать короткого замыкания.</p>
+</blockquote>
+
+<h2 id="типичные-ошибки-при-измерениях">Типичные ошибки при измерениях</h2>
+
+<p>Часто "бесконечность" на экране — это не свойство цепи, а результат неправильных действий оператора. Самая распространенная ошибка — попытка измерить сопротивление элемента, впаянного в схему, не отключив питание или не выпаяв одну из ножек.</p>
+
+<p>Параллельно измеряемому участку могут быть подключены другие элементы с высоким сопротивлением, которые искажают картину. Например, при прозвонке резистора на плате, параллельно ему может стоять конденсатор. В первый момент тестер покажет короткое замыкание (зарядка конденсатора), а затем уйдет в "бесконечность".</p>
+
+<ul>
+<li>🖐 <strong>Эффект тела:</strong> При измерении высоких сопротивлений (Мегаомы) нельзя касаться металлических частей щупов руками. Сопротивление кожи внесет свои коррективы.</li>
+<li>🔋 <strong>Севшая батарея:</strong> При низком заряде батареи "Крона" или АА, напряжение на щупах падает, и прибор может ошибочно показывать перегрузку или нестабильные значения.</li>
+<li>🌡️ <strong>Температурный дрейф:</strong> Дешевые резисторы могут менять сопротивление при нагреве, уводя показания за пределы диапазона.</li>
+</ul>
+
+<div class="checklist-block"><h4>☑️ Проверка перед измерением сопротивления</h4><label class="check-item"><input type="checkbox"><span>Обесточить цепь</span></label><label class="check-item"><input type="checkbox"><span>Разрядить конденсаторы</span></label><label class="check-item"><input type="checkbox"><span>Выпаять один конец элемента</span></label><label class="check-item"><input type="checkbox"><span>Проверить щупы на замыкание</span></label><label class="check-item"><input type="checkbox"><span>Выбрать правильный предел</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Также стоит упомянуть о "наведенном напряжении". Если вы измеряете сопротивление длинного кабеля, лежащего рядом с работающей силовой линией, наводки могут быть настолько сильными, что цифровой тестер сойдет с ума и покажет хаотичные значения или OL.</p>
+
+<h2 id="практическое-применение-поиск-неисправностей">Практическое применение: поиск неисправностей</h2>
+
+<p>Умение правильно интерпретировать "единицу" на дисплее позволяет быстро находить неисправности в бытовой технике. Например, при проверке ТЭНа стиральной машины, отсутствие показаний (бесконечность) говорит о перегорании спирали внутри трубки.</p>
+
+<p>При диагностике электродвигателей отсутствие сопротивления между выводами обмоток также указывает на обрыв. Однако, если тестер показывает бесконечность между обмоткой и корпусом двигателя — это <strong>хороший признак</strong>, означающий, что изоляция цела и пробоя на корпус нет.</p>
+
+<p>В электронике поиск оборванных дорожек на печатной плате производится именно в режиме прозвонки. Если между двумя точками, которые должны быть соединены, тестер показывает OL, значит, целостность проводника нарушена. Это может быть микротрещина, невидимая глазу.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Бесконечное сопротивление в цепи, где его быть не должно — это обрыв. Бесконечное сопротивление там, где оно должно быть (изоляция) — это норма. Контекст решает всё.</p></div>
+
+<p>Для проверки конденсаторов в режиме омметра: исправный конденсатор сначала покажет малое сопротивление (зарядка), а затем уйдет в бесконечность. Если сразу показывает бесконечность — емкость слишком мала для данного тестера или конденсатор высох. Если показывает ноль и не меняется — пробит.</p>
+
+<h2 id="заключение-и-рекомендации-по-безопасности">Заключение и рекомендации по безопасности</h2>
+
+<p>Индикация бесконечности на мультиметре — это мощный диагностический инструмент, а не просто сообщение об ошибке. Понимание физики процесса позволяет отличать исправную изоляцию от обрыва цепи, а перегрузку по напряжению — от реального отсутствия сигнала.</p>
+
+<p>Всегда начинайте измерения с самого большого предела, чтобы не повредить прибор, и постепенно снижайте его для получения точных данных. Помните, что цифровые приборы имеют высокое входное сопротивление, но они уязвимы к скачкам напряжения в режиме Омметра.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Характеристики и интерфейсы мультиметров могут отличаться в зависимости от модели и производителя. Всегда сверяйтесь с официальной инструкцией (мануалом) к вашему конкретному устройству перед проведением сложных измерений.</p>
+</blockquote>
+
+<p>Регулярная поверка инструментов и замена элементов питания гарантируют, что показанная "бесконечность" будет соответствовать действительности, а не являться следом разряженной батарейки.</p>
+
+<details class="faq-item"><summary>Что будет если измерять напряжение в режиме сопротивления?</summary><div class="faq-answer"><p>В лучшем случае сгорит предохранитель или защитный резистор внутри мультиметра. В худшем — прибор вспыхнет или выйдет из строя микропроцессор, а вас может ударить током.</p></div></details>
+
+<h2 id="faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</h2>
+
+<details>
+<summary>Почему мультиметр показывает 1, когда щупы ни к чему не подключены?</summary>
+<p>Это нормальное состояние для режима измерения сопротивления. Разомкнутые щупы означают разрыв цепи, сопротивление которого стремится к бесконечности. Прибор отображает это как "1" или "OL" слева дисплея.</p>
+</details>
+
+<details>
+<summary>Может ли "бесконечность" означать, что села батарейка?</summary>
+<p>Да, косвенно. Если при измерении низких сопротивлений (например, 1 Ом) прибор показывает OL или значения сильно занижены, а также если символ батарейки на экране мигает, элемент питания нужно заменить. Слабый ток не позволяет корректно измерить сопротивление.</p>
+</details>
+
+<details>
+<summary>В чем разница между OL и Err на экране?</summary>
+<p><em>OL</em> (Over Load) означает, что измеряемая величина выше предела шкалы. <em>Err</em> (Error) обычно указывает на внутреннюю ошибку прибора, неисправность АЦП или критическую ошибку измерений, которую невозможно компенсировать.</p>
+</details>
+
+<details>
+<summary>Почему аналоговый тестер показывает бесконечность слева, а цифровой справа?</summary>
+<p>У цифровых приборов логика линейная: больше число — правее на дисплее. Бесконечность — это "очень много", поэтому единица (символ переполнения) загорается в старшем разряде слева, но визуально воспринимается как выход за правый край шкалы. У аналоговых шкала сопротивления перевернута из-за принципа работы магнитоэлектрической головки.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#физический-смысл-бесконечного-сопротивления">Физический смысл бесконечного сопротивления</a></li><li><a href="#режимы-работы-и-индикация-ol">Режимы работы и индикация OL</a></li><li><a href="#аналоговые-приборы-стрелка-у-левого-края">Аналоговые приборы: стрелка у левого края</a></li><li><a href="#таблица-расшифровки-показаний-в-разных-режимах">Таблица расшифровки показаний в разных режимах</a></li><li><a href="#типичные-ошибки-при-измерениях">Типичные ошибки при измерениях</a></li><li><a href="#практическое-применение-поиск-неисправностей">Практическое применение: поиск неисправностей</a></li><li><a href="#заключение-и-рекомендации-по-безопасности">Заключение и рекомендации по безопасности</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/i/in/instrument-dlya-skrutki-provodov-v-raspredelitelnoj-korobke.html" class="related-card">Инструмент для скрутки проводов в коробке: виды, выбор, правила</a></li><li><a href="/articles/k/ka/kak-proverit-amperazh-multimetrom-v-rozetke.html" class="related-card">Как измерить ампераж в розетке мультиметром: пошаговый гайд</a></li><li><a href="/articles/p/pr/pribor-dlya-izmereniya-napryazheniya-v-elektricheskoj-seti.html" class="related-card">Приборы для измерения напряжения в сети: виды, выбор, инструкции</a></li><li><a href="/articles/k/ka/kak-najti-testerom-fazu.html" class="related-card">Как найти фазу индикаторной отверткой: пошаговая инструкция</a></li><li><a href="/articles/m/mu/multimetr-tsifrovoj-oboznachenie.html" class="related-card">Обозначения на цифровом мультиметре: расшифровка всех символов 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/i/in/instrument-dlya-skrutki-provodov-v-raspredelitelnoj-korobke.html" class="related-bottom-card"><span class="related-bottom-title">Инструмент для скрутки проводов в коробке: виды, выбор, правила</span><span class="related-bottom-desc">Как выбрать инструмент для скрутки проводов в распределительной коробке? Сравнение клещей, колпачков</span></a><a href="/articles/k/ka/kak-proverit-amperazh-multimetrom-v-rozetke.html" class="related-bottom-card"><span class="related-bottom-title">Как измерить ампераж в розетке мультиметром: пошаговый гайд</span><span class="related-bottom-desc">Подробная инструкция, как правильно замерить силу тока в розетке 220В мультиметром. Схемы, безопасно</span></a><a href="/articles/p/pr/pribor-dlya-izmereniya-napryazheniya-v-elektricheskoj-seti.html" class="related-bottom-card"><span class="related-bottom-title">Приборы для измерения напряжения в сети: виды, выбор, инструкции</span><span class="related-bottom-desc">Как выбрать вольтметр, мультиметр или тестер для дома? Сравнение приборов, правила безопасности и по</span></a><a href="/articles/k/ka/kak-najti-testerom-fazu.html" class="related-bottom-card"><span class="related-bottom-title">Как найти фазу индикаторной отверткой: пошаговая инструкция</span><span class="related-bottom-desc">Узнайте, как правильно определить фазу и ноль тестером напряжения. Подробная инструкция по работе с </span></a><a href="/articles/m/mu/multimetr-tsifrovoj-oboznachenie.html" class="related-bottom-card"><span class="related-bottom-title">Обозначения на цифровом мультиметре: расшифровка всех символов 2026</span><span class="related-bottom-desc">Подробный гайд по маркировке цифровых мультиметров: что означают буквы, значки и режимы измерений. С</span></a><a href="/articles/k/ka/kak-pravilno-merit-multimetrom.html" class="related-bottom-card"><span class="related-bottom-title">Как мерить мультиметром: пошаговая инструкция для новичка</span><span class="related-bottom-desc">Узнайте, как правильно мерить мультиметром напряжение, ток и сопротивление. Полное руководство по ра</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

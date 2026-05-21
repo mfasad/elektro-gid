@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Как устроен ИБП: схема, принцип работы и устройство — Электро Гид</title>
+    <meta name="description" content="Подробный разбор того, как устроен бесперебойник. Типы ИБП, устройство аккумуляторов, инверторов и AVR. Диагностика и обслуживание системы.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/k/ka/kak-ustroen-besperebojnik-dlya-kompyutera.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как устроен ИБП: схема, принцип работы и устройство">
+    <meta property="og:description" content="Подробный разбор того, как устроен бесперебойник. Типы ИБП, устройство аккумуляторов, инверторов и AVR. Диагностика и обслуживание системы.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/stabilizatory-i-ibp/">Стабилизаторы и ИБП</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как устроен ИБП: схема, принцип работы и устройство</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как устроен бесперебойник для компьютера: внутреннее устройство</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#базовая-архитектура-и-типы-топологий-ибп">Базовая архитектура и типы топологий ИБП</a></li><li><a href="#аккумуляторные-батареи-сердце-системы-автономности">Аккумуляторные батареи: сердце системы автономности</a></li><li><a href="#инвертор-и-система-преобразования-напряжения">Инвертор и система преобразования напряжения</a></li><li><a href="#блок-avr-и-защита-от-сетевых-помех">Блок AVR и защита от сетевых помех</a></li><li><a href="#система-управления-логика-и-интерфейсы">Система управления, логика и интерфейсы</a></li><li><a href="#особенности-охлаждения-и-конструктив-корпуса">Особенности охлаждения и конструктив корпуса</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Внезапное отключение электричества может привести к потере несохраненных данных, повреждению операционной системы или даже аппаратному сбою дорогостоящих компонентов ПК. Именно для защиты от таких ситуаций используется источник бесперебойного питания (ИБП), который берет на себя функции буфера между нестабильной внешней сетью и чувствительной электроникой. Понимание того, как устроен этот аппарат, позволяет не только правильно подобрать модель, но и вовремя заметить признаки неисправности.</p>
+
+<p>Внутри пластикового корпуса скрывается сложная электроника, задача которой — мгновенно реагировать на любые изменения во входящем токе. Устройство работает по принципу двойного преобразования или прямой передачи энергии, в зависимости от своей архитектуры. <strong>Ключевым элементом</strong> здесь выступает аккумуляторная батарея, которая накапливает энергию для последующего использования в момент аварии.</p>
+
+<p>Рассмотрение внутренней конструкции поможет вам понять разницу между дешевыми моделями и профессиональными решениями. Вы научитесь различать типы защиты и поймете, почему одни устройства гудят, а другие работают бесшумно. Это знание критически важно для обеспечения стабильности работы вашего цифрового оборудования.</p>
+
+<h2 id="базовая-архитектура-и-типы-топологий-ибп">Базовая архитектура и типы топологий ИБП</h2>
+
+<p>Все современные источники бесперебойного питания строятся на одной из трех основных топологий, которые определяют их быстродействие и качество выходного сигнала. Самой простой схемой обладает <em>Off-line</em> (или Standby) ИБП, который пропускает ток напрямую к потребителю, переключаясь на батарею только при полном исчезновении напряжения. Время переключения в таких моделях может достигать 10 мс, что для современной техники иногда бывает многовато.</p>
+
+<p>Более продвинутые <em>Line-interactive</em> модели оснащены встроенным стабилизатором напряжения (AVR). Они способны корректировать просадки или скачки напряжения без перехода на питание от аккумуляторов, используя трансформатор с несколькими обмотками. Это значительно продлевает срок службы батарей и обеспечивает более стабильный ток для компьютера.</p>
+
+<p>Наиболее сложным и надежным устройством обладает <strong>On-line</strong> ИБП с двойным преобразованием энергии. В этой схеме переменный ток сети сначала выпрямляется в постоянный, заряжая батарею, а затем инвертор заново преобразует его в переменный. Таким образом, компьютер всегда получает идеально чистую синусоиду, полностью изолированную от помех внешней сети.</p>
+
+<div class="poll-widget" id="poll-6cb3742f"><div class="poll-widget-question">📊 Какой тип ИБП установлен у вас дома?</div><div class="poll-widget-option" data-poll="6cb3742f" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Off-line (резервный)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6cb3742f" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Line-interactive (с AVR)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6cb3742f" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">On-line (двойное преобразование)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6cb3742f" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю / У меня нет ИБП</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Выбор конкретной топологии зависит от чувствительности подключаемого оборудования. Для обычного домашнего ПК часто достаточно линейно-интерактивной модели, тогда как для серверов или дорогих рабочих станций требуется только <strong>двойное преобразование</strong>.</p>
+
+<h2 id="аккумуляторные-батареи-сердце-системы-автономности">Аккумуляторные батареи: сердце системы автономности</h2>
+
+<p>Основным накопителем энергии в подавляющем большинстве компьютерных ИБП являются свинцово-кислотные аккумуляторы типа VRLA (Valve Regulated Lead Acid). Они не требуют обслуживания, герметичны и способны работать в широком диапазоне температур. Внутри такого блока находятся свинцовые пластины, погруженные в электролит, который находится в связанном состоянии (в виде геля или пропитанной ткани), что исключает возможность протечки даже при повреждении корпуса.</p>
+
+<p>Напряжение батареи обычно составляет 12 вольт, а емкость варьируется от 4 Ач до 9 Ач в компактных моделях. Именно от емкости зависит, сколько времени ваш компьютер сможет работать после отключения света. При глубоком разряде ниже критического порога в <code>10.5 В</code> в аккумуляторе начинаются необратимые сульфатационные процессы, резко снижающие его ресурс.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Старые или вздувшиеся аккумуляторы нельзя просто выбрасывать в бытовой мусор. Они содержат свинец и кислоту, поэтому их необходимо сдавать в специальные пункты приема опасных отходов.</blockquote>
+
+<p>Срок службы батарей напрямую зависит от температуры окружающей среды. Идеальным условием для работы считается температура <code>20-25°C</code>. Повышение температуры до <code>35°C</code> сокращает срок службы батареи вдвое, поэтому не рекомендуется размещать ИБП вблизи отопительных приборов или под прямыми солнечными лучами.</p>
+
+<details class="faq-item"><summary>Как продлить жизнь аккумулятору?</summary><div class="faq-answer"><p>Оставляйте ИБП включенным в сеть постоянно. Глубокий разряд и длительное хранение в разряженном состоянии губительны для свинцово-кислотной химии. Если устройство долго не используется, заряжайте его раз в 3-6 месяцев.</p></div></details>
+
+<h2 id="инвертор-и-система-преобразования-напряжения">Инвертор и система преобразования напряжения</h2>
+
+<p>Инвертор — это электронный узел, который преобразует постоянный ток (DC) от аккумуляторных батарей в переменный ток (AC) стандартного напряжения <code>220-230 В</code>. Качество этого преобразования определяет, насколько безопасно будет работать подключенное оборудование. В дешевых моделях на выходе формируется аппроксимированная синусоида (ступенчатая кривая), которая подходит для блоков питания ПК, но может вызывать гул в трансформаторах или нагрев двигателей.</p>
+
+<p>В более дорогих моделях используется технология <strong>чистой синусоиды</strong>, форма волны которой идентична или даже лучше, чем в бытовой розетке. Это необходимо для активных PFC-блоков питания, которые сейчас устанавливаются в большинство компьютеров средней и высокой мощности. Работа с некачественным сигналом может привести к перегреву блока питания ПК и его преждевременному выходу из строя.</p>
+
+<p>Мощность инвертора ограничивает максимальную нагрузку, которую можно подключить к ИБП. Превышение этого лимита, даже кратковременное, вызывает срабатывание защиты и отключение устройства. Современные инверторы оснащены сложными системами управления, которые контролируют частоту и амплитуду выходного сигнала в реальном времени.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Обратите внимание на коэффициент мощности (PF) вашего ИБП. Активная мощность (Вт) обычно составляет 60% от полной мощности (ВА). Не перегружайте устройство, подключая технику с суммарным потреблением, превышающим этот лимит.</p></div>
+
+<h2 id="блок-avr-и-защита-от-сетевых-помех">Блок AVR и защита от сетевых помех</h2>
+
+<p>Аббревиатура <em>AVR</em> (Automatic Voltage Regulation) обозначает систему автоматической регулировки напряжения, которая является стандартом для линейно-интерактивных ИБП. Она позволяет устройству корректировать входное напряжение без использования энергии аккумуляторов. Реализуется это чаще всего с помощью автотрансформатора с несколькими отводами (тапами), которые переключаются реле или тиристорами.</p>
+
+<p>Когда напряжение в сети падает, например, до 180 В, AVR повышает его до нормы, используя запас энергии трансформатора. При скачке до 260 В система понижает напряжение. Это происходит за доли секунды и позволяет экономить ресурс батарей, расходуя их только при полном блэкауте. Без такой системы ИБП переходил бы на батарею при каждом, даже незначительном, колебании сети.</p>
+
+<p>Кроме коррекции напряжения, внутренняя схема ИБП включает в себя фильтры высокочастотных помех и разрядники. Они защищают электронику от импульсных перенапряжений, возникающих при грозовых разрядах или коммутации мощных потребителей в сети. Однако стоит помнить, что ИБП — это не полноценный громоотвод, и прямой удар молнии он может не пережить.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Off-line (Резервный)</th>
+<th>Line-interactive (С AVR)</th>
+<th>On-line (Двойное преобразование)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Время переключения</td>
+<td>4-10 мс</td>
+<td>2-6 мс</td>
+<td>0 мс</td>
+</tr>
+<tr>
+<td>Форма сигнала</td>
+<td>Синусоида / Аппроксимация</td>
+<td>Синусоида / Аппроксимация</td>
+<td>Чистая синусоида</td>
+</tr>
+<tr>
+<td>Стабилизация напряжения</td>
+<td>Нет (только от батареи)</td>
+<td>Есть (AVR)</td>
+<td>Постоянная (двойная)</td>
+</tr>
+<tr>
+<td>КПД устройства</td>
+<td>Высокий (~98%)</td>
+<td>Высокий (~96-98%)</td>
+<td>Средний (90-94%)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="система-управления-логика-и-интерфейсы">Система управления, логика и интерфейсы</h2>
+
+<p>За всем процессом работы бесперебойника следит микропроцессорный контроллер. Он непрерывно опрашивает датчики напряжения на входе и выходе, контролирует заряд батареи и температуру внутренних компонентов. На основе этих данных логическая схема принимает решения о переключении режимов работы. Именно контроллер управляет звуковой сигнализацией, предупреждая пользователя о проблемах в сети характерными писками.</p>
+
+<p>Многие современные модели оснащаются интерфейсами для связи с компьютером, такими как <code>USB</code> или <code>RS-232</code>. Через специальный кабель и программное обеспечение ИБП может передавать на ПК статусные сообщения. Это позволяет операционной системе автоматически сохранять данные и корректно завершать работу при длительном отсутствии сети, даже если пользователя нет за компьютером.</p>
+
+<p>Внутри корпуса также располагаются предохранители и термопредохранители, которые разрывают цепь в случае короткого замыкания или критического перегрева. Некоторые модели имеют возможность «холодного старта» — включения устройства без наличия напряжения во внешней сети, исключительно от аккумуляторов, что полезно для проверки работоспособности системы.</p>
+
+<div class="checklist-block"><h4>☑️ Диагностика исправности ИБП</h4><label class="check-item"><input type="checkbox"><span>Проверка индикации на лицевой панели</span></label><label class="check-item"><input type="checkbox"><span>Отсутствие постороннего гула трансформатора</span></label><label class="check-item"><input type="checkbox"><span>Время работы от батареи соответствует норме</span></label><label class="check-item"><input type="checkbox"><span>Отсутствие запаха гари или пластика</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="особенности-охлаждения-и-конструктив-корпуса">Особенности охлаждения и конструктив корпуса</h2>
+
+<p>Процесс преобразования энергии, особенно в мощных моделях и в режиме работы от батареи, сопровождается выделением тепла. Для отвода тепла в корпусе ИБП предусмотрены вентиляционные отверстия, расположение которых должно обеспечивать свободную циркуляцию воздуха. В устройствах высокой мощности устанавливаются активные вентиляторы, которые могут включаться по мере нагрева или при переходе на работу от батареи.</p>
+
+<p>Корпус выполняется из ударопрочного пластика, часто с использованием антипиренов — добавок, снижающих горючесть материала. Внутри пластик может быть экранирован металлической фольгой или иметь металлическое основание для защиты от электромагнитных помех (EMI), чтобы работающая электроника не создавала наводок на другие приборы.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Никогда не перекрывайте вентиляционные отверстия ИБП. Размещение устройства в закрытой нише или заваливание его бумагами может привести к перегреву и аварийному отключению.</blockquote>
+
+<p>Конструкция также предусматривает надежное крепление тяжелых свинцовых аккумуляторов, чтобы они не смещались при транспортировке или случайном ударе. Контактные группы внутри устройства часто покрываются защитными составами для предотвращения окисления, которое могло бы увеличить сопротивление и вызвать нагрев контактов.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Регулярная очистка вентиляционных отверстий от пыли сжатым воздухом помогает поддерживать оптимальный температурный режим и продлевает срок службы электронных компонентов.</p></div>
+
+<details>
+<summary>Почему ИБП издает громкий писк при отключении света?</summary>
+<p>Звуковой сигнал генерируется динамиком, управляемым контроллером. Частота и периодичность писка кодируют информацию: редкий писк раз в несколько секунд обычно означает работу от батареи, а частый непрерывный сигнал может указывать на перегрузку или критически низкий заряд аккумулятора.</p>
+</details>
+
+<details>
+<summary>Можно ли заменить аккумулятор в ИБП на более емкий?</summary>
+<p>Технически это возможно, если новый аккумулятор имеет то же напряжение (обычно 12В) и физически помещается в корпус. Однако зарядное устройство штатного ИБП рассчитано на определенную емкость. Установка батареи большей емкости (например, 12 Ач вместо 7 Ач) приведет к тому, что она не будет заряжаться полностью, что сократит её срок службы. Для больших батарей нужны специализированные модели с мощными зарядными цепями.</p>
+</details>
+
+<details>
+<summary>Что означает мигающая красная лампочка на корпусе?</summary>
+<p>В большинстве моделей мигающий красный индикатор сигнализирует о неисправности самой батареи. Это может быть глубокий разряд, сульфатация пластин или обрыв внутренней цепи. В таком случае ИБП может включаться и выключаться сразу же после отключения сетевого кабеля, требуя замены аккумуляторного блока.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#базовая-архитектура-и-типы-топологий-ибп">Базовая архитектура и типы топологий ИБП</a></li><li><a href="#аккумуляторные-батареи-сердце-системы-автономности">Аккумуляторные батареи: сердце системы автономности</a></li><li><a href="#инвертор-и-система-преобразования-напряжения">Инвертор и система преобразования напряжения</a></li><li><a href="#блок-avr-и-защита-от-сетевых-помех">Блок AVR и защита от сетевых помех</a></li><li><a href="#система-управления-логика-и-интерфейсы">Система управления, логика и интерфейсы</a></li><li><a href="#особенности-охлаждения-и-конструктив-корпуса">Особенности охлаждения и конструктив корпуса</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/b/be/besperebojnaya-sistema-ibp.html" class="related-card">Бесперебойные системы ИБП: выбор, подключение, защита техники</a></li><li><a href="/articles/s/si/sistemy-rezervnogo-pitaniya.html" class="related-card">Системы резервного питания: выбор, установка и эксплуатация</a></li><li><a href="/articles/s/st/stabilizator-dlya-doma-kakoj-vybrat.html" class="related-card">Стабилизатор напряжения для дома: какой выбрать в 2026 году</a></li><li><a href="/articles/m/mo/moshchnost-stabilizatora-dlya-chastnogo-doma.html" class="related-card">Мощность стабилизатора для частного дома: как выбрать правильно</a></li><li><a href="/articles/d/dl/dlya-chego-nuzhen-stabilizator-napryazheniya-dlya-doma-220v.html" class="related-card">Стабилизатор 220В для дома: зачем нужен, как выбрать и подключить</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/b/be/besperebojnaya-sistema-ibp.html" class="related-bottom-card"><span class="related-bottom-title">Бесперебойные системы ИБП: выбор, подключение, защита техники</span><span class="related-bottom-desc">Как выбрать ИБП для дома и офиса? Сравнение типов, расчет мощности, схемы подключения и ошибки экспл</span></a><a href="/articles/s/si/sistemy-rezervnogo-pitaniya.html" class="related-bottom-card"><span class="related-bottom-title">Системы резервного питания: выбор, установка и эксплуатация</span><span class="related-bottom-desc">Как выбрать ИБП или генератор для дома/офиса? Сравнение типов, расчет мощности, схемы подключения и </span></a><a href="/articles/s/st/stabilizator-dlya-doma-kakoj-vybrat.html" class="related-bottom-card"><span class="related-bottom-title">Стабилизатор напряжения для дома: какой выбрать в 2026 году</span><span class="related-bottom-desc">Подробный гайд по выбору стабилизатора напряжения для дома: типы, мощность, бренды, цены и советы эк</span></a><a href="/articles/m/mo/moshchnost-stabilizatora-dlya-chastnogo-doma.html" class="related-bottom-card"><span class="related-bottom-title">Мощность стабилизатора для частного дома: как выбрать правильно</span><span class="related-bottom-desc">Подробный расчёт мощности стабилизатора напряжения для дома: формулы, примеры, таблицы и советы по в</span></a><a href="/articles/d/dl/dlya-chego-nuzhen-stabilizator-napryazheniya-dlya-doma-220v.html" class="related-bottom-card"><span class="related-bottom-title">Стабилизатор 220В для дома: зачем нужен, как выбрать и подключить</span><span class="related-bottom-desc">Разбираем, почему стабилизатор напряжения 220В защищает бытовую технику от скачков, как его выбрать </span></a><a href="/articles/c/ch/chto-takoe-trekhfaznyj-generator.html" class="related-bottom-card"><span class="related-bottom-title">Трехфазный генератор: принцип работы, виды и выбор для дома</span><span class="related-bottom-desc">Что такое трехфазный генератор, как он работает и чем отличается от однофазного? Подробный гайд по в</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

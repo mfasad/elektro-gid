@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Внутреннее сопротивление мультиметра при измерении тока: как влияет на точность — Электро Гид</title>
+    <meta name="description" content="Почему мультиметр искажает ток при измерениях? Разбираем влияние внутреннего сопротивления на точность, ошибки новичков и как выбрать прибор для точных замеров в цепях постоянного/переменного тока.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/s/so/soprotivlenie-multimetra-pri-izmerenii-toka.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Внутреннее сопротивление мультиметра при измерении тока: как влияет на точность">
+    <meta property="og:description" content="Почему мультиметр искажает ток при измерениях? Разбираем влияние внутреннего сопротивления на точность, ошибки новичков и как выбрать прибор для точных замеров в цепях постоянного/переменного тока.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/instrumenty-i-zamery/">Инструменты и замеры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Внутреннее сопротивление мультиметра при измерении тока: как влияет на точность</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Внутреннее сопротивление мультиметра при измерении тока: почему ваши замеры могут врать</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#почему-мультиметр-не-просто-смотрит-на-ток-а-меняет-его">Почему мультиметр не просто "смотрит" на ток, а меняет его</a></li><li><a href="#как-сопротивление-мультиметра-влияет-на-точность-расчёты-на-реальных-примерах">Как сопротивление мультиметра влияет на точность: расчёты на реальных примерах</a></li><li><a href="#сопротивление-мультиметров-разных-классов-от-dt-830-до-fluke-87v">Сопротивление мультиметров разных классов: от DT-830 до Fluke 87V</a></li><li><a href="#как-минимизировать-влияние-сопротивления-мультиметра-5-практических-советов">Как минимизировать влияние сопротивления мультиметра: 5 практических советов</a></li><li><a href="#типичные-ошибки-при-измерении-тока-и-как-их-избежать">Типичные ошибки при измерении тока и как их избежать</a></li><li><a href="#когда-сопротивление-мультиметра-не-имеет-значения">Когда сопротивление мультиметра не имеет значения</a></li><li><a href="#faq-частые-вопросы-о-сопротивлении-мультиметров">FAQ: Частые вопросы о сопротивлении мультиметров</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Вы когда-нибудь сталкивались с ситуацией, когда мультиметр показывает ток в цепи, но реальное потребление устройства явно не совпадает с измерениями? Или почему при подключении амперметра лампочка начинает светить тусклее? Виновник этих аномалий — <strong>внутреннее сопротивление мультиметра</strong>, о котором редко говорят в инструкциях, но которое способно полностью исказить результаты. Эта статья не про абстрактную теорию, а про конкретные цифры, ошибки и способы их избежать.</p>
+
+<p>Даже профессиональные электрики иногда упускают из виду, что любой прибор для измерения тока — это не просто "прозрачный" наблюдатель, а полноценный участник цепи. Его сопротивление (пусть и мизерное) вносит коррективы в работу схемы. Мы разберём, почему дешёвый DT-830B может показывать ток на 20% ниже реального, как правильно выбирать шунты для больших токов, и почему <em>Fluke 87V</em> считается эталоном точности не зря. А ещё вы узнаете, как одним простым расчётом оценить погрешность вашего мультиметра <em>до</em> покупки.</p>
+
+<h2 id="почему-мультиметр-не-просто-смотрит-на-ток-а-меняет-его">Почему мультиметр не просто "смотрит" на ток, а меняет его</h2>
+
+<p>Когда вы переключаете мультиметр в режим измерения тока, он фактически становится <strong>последовательным сопротивлением</strong> в вашей цепи. В отличие от вольтметра, который подключается параллельно и "отбирает" минимальный ток, амперметр <mark>обязательно вносит своё сопротивление в разрыв цепи</mark>. И вот здесь начинаются проблемы:</p>
+
+<ul>
+  <li>🔋 <strong>Батарейки и маломощные цепи</strong>: Сопротивление мультиметра (даже 0.1 Ом) может составлять значительную часть от общего сопротивления цепи. Например, при токе 100 мА и сопротивлении прибора 0.2 Ом падение напряжения составит 20 мВ — этого достаточно, чтобы светодиод стал светить тусклее.</li>
+  <li>⚡ <strong>Мощные нагрузки</strong>: В цепях с токами 10+ ампер внутреннее сопротивление большинства мультиметров (0.01–0.1 Ом) уже не так критично, но может влиять на точность при длительных измерениях из-за нагрева шунта.</li>
+  <li>📉 <strong>Импульсные источники питания</strong>: Здесь сопротивление прибора может сглаживать пики тока, показывая усреднённые значения вместо реальных бросков.</li>
+</ul>
+
+<p>Ключевая ошибка новичков — игнорировать <code>паспортное сопротивление шунта</code> своего мультиметра. Например, в <em>Mastech MS8268</em> оно составляет 0.1 Ом, а в <em>UNI-T UT61E</em> — всего 0.02 Ом. Разница в 5 раз! При токе 1 А это даёт погрешность 0.1 В против 0.02 В — и это только за счёт сопротивления прибора, без учёта других факторов.</p>
+
+<blockquote>⚠️ <strong>Внимание</strong>: Если вы измеряете ток в цепи с напряжением выше 60 В, никогда не используйте мультиметр с сопротивлением шунта более 0.5 Ом. Падение напряжения на приборе может превысить допустимое для его внутренних компонентов, что приведёт к выходу из строя.</blockquote>
+
+<h2 id="как-сопротивление-мультиметра-влияет-на-точность-расчёты-на-реальных-примерах">Как сопротивление мультиметра влияет на точность: расчёты на реальных примерах</h2>
+
+<p>Давайте посчитаем, насколько ваш мультиметр врёт. Возьмём типичную ситуацию: измерение тока в цепи питания светодиодной ленты 12 В с сопротивлением 10 Ом. Подключим последовательно мультиметр с внутренним сопротивлением 0.2 Ом (характерно для бюджетных моделей).</p>
+
+<p>По закону Ома ток в цепи <em>без мультиметра</em> составит:</p>
+<pre><code>I = U / R = 12 В / 10 Ом = 1.2 А</code></pre>
+
+<p>А ток <em>с подключённым мультиметром</em>:</p>
+<pre><code>I = U / (R_нагрузки + R_мультиметра) = 12 В / (10 Ом + 0.2 Ом) ≈ 1.18 А</code></pre>
+
+<p>Погрешность: <strong>(1.2 А – 1.18 А) / 1.2 А × 100% ≈ 1.7%</strong>. Кажется, некритично? А теперь представьте, что сопротивление нагрузки не 10 Ом, а 1 Ом (например, мощный моторчик):</p>
+<pre><code>I = 12 В / (1 Ом + 0.2 Ом) ≈ 10 А (вместо 12 А без прибора!)</code></pre>
+<p>Погрешность уже <strong>16.7%</strong> — и это при сопротивлении мультиметра всего 0.2 Ом!</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Сопротивление нагрузки (Ом)</th>
+      <th>Ток без мультиметра (А)</th>
+      <th>Ток с мультиметром (R=0.2 Ом)</th>
+      <th>Погрешность (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>0.12</td>
+      <td>0.1198</td>
+      <td>0.17</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1.2</td>
+      <td>1.18</td>
+      <td>1.7</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>12</td>
+      <td>10</td>
+      <td>16.7</td>
+    </tr>
+    <tr>
+      <td>0.1</td>
+      <td>120</td>
+      <td>54.5</td>
+      <td>54.6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Вывод очевиден: <strong>чем ниже сопротивление нагрузки, тем сильнее врёт мультиметр</strong>. В цепях с сопротивлением менее 1 Ом (аккумуляторы, мощные двигатели, сварочные аппараты) даже профессиональные приборы могут давать погрешность 10% и более.</p>
+
+<div class="poll-widget" id="poll-4475f476"><div class="poll-widget-question">📊 Какое сопротивление шунта у вашего мультиметра?</div><div class="poll-widget-option" data-poll="4475f476" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Менее 0.01 Ом</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4475f476" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">0.01–0.1 Ом</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4475f476" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">0.1–0.5 Ом</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4475f476" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4475f476" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Другой вариант</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="сопротивление-мультиметров-разных-классов-от-dt-830-до-fluke-87v">Сопротивление мультиметров разных классов: от DT-830 до Fluke 87V</h2>
+
+<p>Не все мультиметры одинаково полезны. Давайте сравним внутреннее сопротивление популярных моделей при измерении тока в диапазоне 200 мА (самый "проблемный" режим для большинства приборов):</p>
+
+<ul>
+  <li>💰 <strong>Бюджетные (до 1000 ₽)</strong>:
+    <ul>
+      <li><em>DT-830B</em>: 0.5–1.0 Ом (погрешность до 30% в низкоомных цепях)</li>
+      <li><em>Mastech M830B</em>: 0.3 Ом</li>
+      <li><em>Resanta DT 832</em>: 0.4 Ом</li>
+    </ul>
+  </li>
+  <li>🔧 <strong>Средний класс (1000–5000 ₽)</strong>:
+    <ul>
+      <li><em>UNI-T UT61E</em>: 0.02 Ом (один из лучших в своём сегменте)</li>
+      <li><em>Mastech MS8268</em>: 0.1 Ом</li>
+      <li><em>APPA 107N</em>: 0.05 Ом</li>
+    </ul>
+  </li>
+  <li>🏆 <strong>Профессиональные (от 5000 ₽)</strong>:
+    <ul>
+      <li><em>Fluke 87V</em>: 0.01 Ом (эталон точности)</li>
+      <li><em>Keysight U1273A</em>: 0.005 Ом</li>
+      <li><em>Agilent U1253B</em>: 0.008 Ом</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Обратите внимание: даже среди профессиональных приборов разброс сопротивлений достигает 2 раз. Например, <em>Fluke 17B+</em> имеет сопротивление шунта 0.02 Ом, что в 2 раза хуже, чем у <em>Fluke 87V</em>. При этом оба позиционируются как "профессиональные".</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед покупкой мультиметра проверьте в технических характеристиках параметр <code>Burden Voltage</code> (падение напряжения на шунте при максимальном токе). Чем он меньше — тем точнее прибор. Для качественных мультиметров это значение не превышает 0.2 мВ/мА.</p></div>
+
+<h2 id="как-минимизировать-влияние-сопротивления-мультиметра-5-практических-советов">Как минимизировать влияние сопротивления мультиметра: 5 практических советов</h2>
+
+<p>Если вы не готовы покупать <em>Fluke 87V</em> за 20 000 ₽, но хотите точные измерения, воспользуйтесь этими методами:</p>
+
+
+<p>Использовать отдельный шунт с сопротивлением 0.001–0.01 Ом для больших токов|Измерять падение напряжения на известном сопротивлении и рассчитывать ток по закону Ома|Для импульсных токов применять осциллограф с токовым пробником|Калибровать мультиметр перед критическими измерениями|Избегать длительных измерений (нагрев шунта увеличивает сопротивление)--></p>
+
+<p><strong>1. Метод шунта</strong>: Подключите параллельно мультиметру прецизионный резистор (шунт) с сопротивлением в 10–100 раз меньше, чем у прибора. Например, для мультиметра с R=0.2 Ом возьмите шунт 0.01 Ом. Ток разделится обратно пропорционально сопротивлениям, и вы сможете рассчитать реальное значение.</p>
+
+<p><strong>2. Измерение напряжения вместо тока</strong>: Если вы знаете сопротивление нагрузки (R), измерьте падение напряжения (U) на нём и рассчитайте ток по формуле <code>I = U / R</code>. Этот метод лишён погрешности от сопротивления амперметра.</p>
+
+<p><strong>3. Короткие импульсы</strong>: При измерении пусковых токов (например, при запуске двигателя) используйте <em>токовые клещи</em> вместо мультиметра. Они не вносят сопротивление в цепь, так как работают на принципе трансформатора тока.</p>
+
+<p><strong>4. Компенсация температуры</strong>: Сопротивление шунта мультиметра увеличивается при нагреве (температурный коэффициент меди ~0.004 К⁻¹). При длительных измерениях больших токов дайте прибору остыть или используйте внешний шунт с известным ТКС.</p>
+
+<p><strong>5. Калибровка по эталонному источнику</strong>: Если вам нужна высокая точность, подключите мультиметр к источнику стабильного тока (например, <em>Keithley 2400</em>) и запишите поправочный коэффициент. Например, если прибор показывает 1.00 А, а реальный ток 1.02 А, все дальнейшие измерения умножайте на 1.02.</p>
+
+<blockquote>⚠️ <strong>Внимание</strong>: Никогда не измеряйте ток в розетке 220 В, просто переключив мультиметр в режим амперметра. Даже если вы используете диапазон 10 А, внутренние цепи прибора не рассчитаны на такое напряжение. Для измерения тока в сети используйте <strong>токовые клещи</strong> или трансформатор тока.</blockquote>
+
+<h2 id="типичные-ошибки-при-измерении-тока-и-как-их-избежать">Типичные ошибки при измерении тока и как их избежать</h2>
+
+<p>Ошибка №1: <strong>Неправильный выбор диапазона</strong>. Многие мультиметры имеют отдельные гнёзда для измерения токов до 200 мА и 10 А. Если вы пытаетесь измерить ток 5 А, подключив щупы в разъём "200 мА", сработает предохранитель (если повезёт) или сгорит шунт. Всегда начинайте с максимального диапазона!</p>
+
+<p>Ошибка №2: <strong>Игнорирование полярности</strong>. При измерении постоянного тока неправильная полярность не только даст отрицательное значение, но и может повредить диодную защиту мультиметра. В переменном токе полярность не важна, но не все мультиметры умеют измерять AC ток в диапазоне 10 А (например, <em>DT-830B</em> измеряет только DC).</p>
+
+<p>Ошибка №3: <strong>Длительные измерения больших токов</strong>. Шунты мультиметров рассчитаны на кратковременную работу с максимальным током (обычно не более 10 секунд). При длительном измерении (например, 10 А в течение минуты) шунт нагревается, его сопротивление растёт, и показания занижаются. Для постоянного мониторинга используйте внешние шунты с радиаторами.</p>
+
+<p>Ошибка №4: <strong>Измерение тока в высоковольтных цепях</strong>. Даже если ваш мультиметр поддерживает диапазон 10 А, его максимальное допустимое напряжение в режиме амперметра редко превышает 60 В. Подключение к цепи 220 В приведёт к пробою изоляции и короткому замыканию.</p>
+
+<details class="faq-item"><summary>Что будет, если измерить ток в розетке мультиметром?</summary><div class="faq-answer"><p>
+<p>При подключении в режим амперметра к розетке 220 В произойдёт следующее:</p>
+<p>1. Через шунт мультиметра пойдёт ток, ограниченный только его сопротивлением (например, 0.1 Ом → 2200 А!).</p>
+<p>2. Предохранитель сгорит мгновенно (если он есть).</p>
+<p>3. Шунт расплавится, возможно возгорание платы.</p>
+<p>4. В лучшем случае мультиметр выйдет из строя. В худшем — короткое замыкание в сети.</p>
+<p>Для измерения тока в розетке <strong>обязательно</strong> используйте токовые клещи или трансформатор тока!</p></div></details></p>
+
+<h2 id="когда-сопротивление-мультиметра-не-имеет-значения">Когда сопротивление мультиметра не имеет значения</h2>
+
+<p>Не всегда внутреннее сопротивление прибора критично. Есть случаи, когда им можно пренебречь:</p>
+
+<ul>
+  <li>🔌 <strong>Высокоомные цепи</strong>: Если сопротивление нагрузки превышает 1 кОм, сопротивление мультиметра (даже 1 Ом) внесёт погрешность менее 0.1% — это допустимо для большинства задач.</li>
+  <li>⚡ <strong>Мощные промышленные сети</strong>: В цепях с токами 100+ А и напряжением 380 В падение 0.1 В на шунте мультиметра (при R=0.001 Ом) неощутимо.</li>
+  <li>📊 <strong>Относительные измерения</strong>: Если вам важно не абсолютное значение тока, а его изменение (например, при тестировании стабильности блока питания), погрешность от сопротивления прибора будет одинаковой во всех замерах и взаимно сократится.</li>
+  <li>🔋 <strong>Зарядные устройства с стабилизацией тока</strong>: Если источник питания поддерживает постоянный ток несмотря на изменения сопротивления нагрузки (как в лабораторных БП), мультиметр не исказит результат.</li>
+</ul>
+
+<p>Также сопротивление мультиметра не играет роли при измерении <strong>напряжения</strong> (в режиме вольтметра прибор подключается параллельно и имеет сопротивление 1–10 МОм) или <strong>сопротивления</strong> (здесь важна точность внутреннего источника опорного напряжения).</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сопротивление мультиметра критично только при измерении <strong>тока в низкоомных цепях</strong> (менее 10 Ом). Во всех остальных случаях его влияние минимально или отсутствует.</p></div>
+
+<h2 id="faq-частые-вопросы-о-сопротивлении-мультиметров">FAQ: Частые вопросы о сопротивлении мультиметров</h2>
+
+<details>
+  <summary>Можно ли уменьшить сопротивление мультиметра самостоятельно?</summary>
+  <p>Теоретически — да, заменив внутренний шунт на более низкоомный. Однако это требует паяльных работ, точной подгонки сопротивления (обычно подбирается с погрешностью не более 0.1%) и калибровки прибора. На практике проще купить мультиметр с подходящими характеристиками или использовать внешний шунт.</p>
+  <p>Исключение — старые аналоговые амперметры, где шунт часто выведен на отдельные клеммы и может быть заменён без разборки корпуса.</p>
+</details>
+
+<details>
+  <summary>Почему у дорогого мультиметра сопротивление шунта выше, чем у дешёвого?</summary>
+  <p>Это парадокс, но иногда так бывает. Дело в том, что профессиональные мультиметры (например, <em>Fluke 289</em>) могут иметь чуть более высокое сопротивление шунта (0.02 Ом против 0.01 Ом у <em>Fluke 87V</em>), но при этом обладают:</p>
+  <ul>
+    <li>Более точной калибровкой шунта (погрешность 0.05% против 1% у бюджетных моделей).</li>
+    <li>Лучшей температурной стабильностью.</li>
+    <li>Защитой от перегрузок (быстродействующие предохранители, варistors).</li>
+  </ul>
+  <p>В результате общая погрешность измерений у них ниже, несмотря на чуть большее сопротивление.</p>
+</details>
+
+<details>
+  <summary>Как измерить сопротивление шунта своего мультиметра?</summary>
+  <p>Для этого понадобится второй мультиметр (или прецизионный омметр) и источник стабильного тока (например, лабораторный блок питания). Алгоритм:</p>
+  <ol>
+    <li>Установите на блоке питания ток 100 мА.</li>
+    <li>Подключите ваш мультиметр в разрыв цепи и запишите показания (I<sub>изм</sub>).</li>
+    <li>Измерьте падение напряжения на шунте второго мультиметром (U<sub>шунт</sub>).</li>
+    <li>Рассчитайте сопротивление: R<sub>шунт</sub> = U<sub>шунт</sub> / I<sub>изм</sub>.</li>
+  </ol>
+  <p>Пример: если при I<sub>изм</sub> = 100 мА напряжение на шунте составило 20 мВ, то R<sub>шунт</sub> = 0.2 Ом.</p>
+</details>
+
+<details>
+  <summary>Влияет ли сопротивление щупов на точность измерения тока?</summary>
+  <p>Да, но в большинстве случаев его влияние ничтожно. Сопротивление стандартных щупов составляет 0.01–0.05 Ом, что на порядок меньше сопротивления шунта мультиметра. Однако при измерении микротоков (менее 1 мА) или в прецизионных схемы даже это значение может быть критично. Для таких задач используйте:</p>
+  <ul>
+    <li>Щупы с позолоченными контактами (сопротивление ~0.005 Ом).</li>
+    <li>Прямое подключение к плате без щупов (через крокодилы или пайку).</li>
+    <li>Специальные низкоомные кабели (например, <em>Pomona 3750</em>).</li>
+  </ul>
+</details>
+
+<details>
+  <summary>Какие мультиметры лучше для измерения больших токов (10 А и выше)?</summary>
+  <p>Для токов свыше 10 А рекомендуются:</p>
+  <ul>
+    <li><em>Fluke 376</em> (токовые клещи до 1000 А, сопротивление шунта не влияет на цепь).</li>
+    <li><em>Keysight U1272A</em> (внешний шунт 0.001 Ом, диапазон до 20 А).</li>
+    <li><em>UNI-T UT210E</em> (бюджетные клещи до 400 А).</li>
+    <li><em>Brymen BM869</em> (профессиональный мультиметр с диапазоном 20 А и сопротивлением шунта 0.005 Ом).</li>
+  </ul>
+  <p>Для постоянного измерения больших токов (например, в системах электроснабжения) лучше использовать <strong>стационарные шунты</strong> с отдельным вольтметром или специализированные анализаторы мощности (например, <em>Yokogawa WT3000</em>).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#почему-мультиметр-не-просто-смотрит-на-ток-а-меняет-его">Почему мультиметр не просто "смотрит" на ток, а меняет его</a></li><li><a href="#как-сопротивление-мультиметра-влияет-на-точность-расчёты-на-реальных-примерах">Как сопротивление мультиметра влияет на точность: расчёты на реальных примерах</a></li><li><a href="#сопротивление-мультиметров-разных-классов-от-dt-830-до-fluke-87v">Сопротивление мультиметров разных классов: от DT-830 до Fluke 87V</a></li><li><a href="#как-минимизировать-влияние-сопротивления-мультиметра-5-практических-советов">Как минимизировать влияние сопротивления мультиметра: 5 практических советов</a></li><li><a href="#типичные-ошибки-при-измерении-тока-и-как-их-избежать">Типичные ошибки при измерении тока и как их избежать</a></li><li><a href="#когда-сопротивление-мультиметра-не-имеет-значения">Когда сопротивление мультиметра не имеет значения</a></li><li><a href="#faq-частые-вопросы-о-сопротивлении-мультиметров">FAQ: Частые вопросы о сопротивлении мультиметров</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-pravilno-podklyuchit-provoda-na-multimetre.html" class="related-card">Как правильно подключить провода на мультиметре: инструкция</a></li><li><a href="/articles/k/ka/kakim-priborom-izmeryayut-silu-elektricheskogo-toka.html" class="related-card">Чем измеряют силу тока: приборы, амперметры и мультиметры</a></li><li><a href="/articles/o/os/osnovnye-instrumenty-elektrika.html" class="related-card">Инструменты электрика 2026: полный список с описанием и ценами</a></li><li><a href="/articles/k/ka/kak-rabotaet-multimetr-kratko.html" class="related-card">Как работает мультиметр: простым языком для новичков</a></li><li><a href="/articles/2/20/20-mom-na-multimetre.html" class="related-card">20 позиций на мультиметре: расшифровка и как пользоваться</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-pravilno-podklyuchit-provoda-na-multimetre.html" class="related-bottom-card"><span class="related-bottom-title">Как правильно подключить провода на мультиметре: инструкция</span><span class="related-bottom-desc">Подробная инструкция по подключению щупов мультиметра. Разбор гнезд, выбора диапазонов измерения и т</span></a><a href="/articles/k/ka/kakim-priborom-izmeryayut-silu-elektricheskogo-toka.html" class="related-bottom-card"><span class="related-bottom-title">Чем измеряют силу тока: приборы, амперметры и мультиметры</span><span class="related-bottom-desc">Подробный разбор приборов для измерения силы тока. Как правильно использовать амперметр и мультиметр</span></a><a href="/articles/o/os/osnovnye-instrumenty-elektrika.html" class="related-bottom-card"><span class="related-bottom-title">Инструменты электрика 2026: полный список с описанием и ценами</span><span class="related-bottom-desc">Какие инструменты нужны электрику для профессиональной работы? Подробный обзор приборов, приспособле</span></a><a href="/articles/k/ka/kak-rabotaet-multimetr-kratko.html" class="related-bottom-card"><span class="related-bottom-title">Как работает мультиметр: простым языком для новичков</span><span class="related-bottom-desc">Краткое руководство по принципу работы мультиметра: устройство, режимы измерений, как правильно поль</span></a><a href="/articles/2/20/20-mom-na-multimetre.html" class="related-bottom-card"><span class="related-bottom-title">20 позиций на мультиметре: расшифровка и как пользоваться</span><span class="related-bottom-desc">Подробный гайд по 20 режимам мультиметра: что означает каждая позиция, как правильно измерять напряж</span></a><a href="/articles/r/ra/razem-ext-na-multimetre.html" class="related-bottom-card"><span class="related-bottom-title">Разъем EXT на мультиметре: назначение, функции и правильное использование</span><span class="related-bottom-desc">Что такое разъем EXT на мультиметре? Подробный гайд по назначению, подключению и применению внешнего</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

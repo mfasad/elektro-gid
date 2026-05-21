@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Как сделать блок питания из ИБП: пошаговая инструкция и схемы — Электро Гид</title>
+    <meta name="description" content="Превращаем старый ИБП в мощный блок питания для паяльника, светодиодов или зарядки аккумуляторов. Схемы, расчёты и меры безопасности от эксперта.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/b/bl/blok-pitaniya-iz-ibp.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как сделать блок питания из ИБП: пошаговая инструкция и схемы">
+    <meta property="og:description" content="Превращаем старый ИБП в мощный блок питания для паяльника, светодиодов или зарядки аккумуляторов. Схемы, расчёты и меры безопасности от эксперта.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/stabilizatory-i-ibp/">Стабилизаторы и ИБП</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как сделать блок питания из ИБП: пошаговая инструкция и схемы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Блок питания из ИБП: как переделать своими руками без ошибок</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#какие-ибп-подходят-для-переделки-и-какие-нет">Какие ИБП подходят для переделки (и какие — нет)</a></li><li><a href="#схема-1-простой-блок-питания-12v24v-для-новичков">Схема №1: Простой блок питания 12V/24V (для новичков)</a></li><li><a href="#схема-2-регулируемый-блок-питания-030v-с-защитой">Схема №2: Регулируемый блок питания 0–30V с защитой</a></li><li><a href="#типичные-ошибки-и-как-их-избежать">Типичные ошибки и как их избежать</a></li><li><a href="#модернизация-добавление-usb-цифрового-вольтметра-и-защиты">Модернизация: добавление USB, цифрового вольтметра и защиты</a></li><li><a href="#безопасность-5-правил-которые-спасут-жизнь">Безопасность: 5 правил, которые спасут жизнь</a></li><li><a href="#faq-ответы-на-частые-вопросы">FAQ: Ответы на частые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Источник бесперебойного питания (ИБП), отслуживший свой срок, часто отправляется на свалку — и зря. В его корпусе скрывается мощный <strong>импульсный трансформатор</strong>, высоковольтные конденсаторы и силовая электроника, которые при грамотной доработке превратятся в <strong>регулируемый блок питания</strong> для паяльной станции, светодиодных лент или зарядного устройства. Главное — понимать принципы работы схемы и соблюдать меры предосторожности: даже разряженный ИБП может хранить смертельно опасное напряжение в конденсаторах.</p>
+
+<p>В этой статье разберём <em>три наиболее надёжных способа переделки</em> (с выходом на 12V, 24V и регулируемым напряжением), приведём <mark>уникальные схемы с защитой от короткого замыкания</mark>, которые редко встречаются в открытых источниках, и объясним, как избежать типичных ошибок — от перегрева трансформатора до «просадки» напряжения под нагрузкой. Если вы никогда не работали с высоковольтными цепями, начните с теории: в конце статьи есть FAQ с ответами на частые вопросы новичков.</p>
+
+<h2 id="какие-ибп-подходят-для-переделки-и-какие-нет">Какие ИБП подходят для переделки (и какие — нет)</h2>
+
+<p>Не каждый источник бесперебойного питания можно адаптировать под блок питания. Основные критерии отбора:</p>
+
+<ul>
+  <li>🔌 <strong>Тип ИБП:</strong> только <em>offline</em> (reserve) или <em>line-interactive</em>. Онлайн-ИБП (double-conversion) имеют сложную схему с инвертором и ПЛК-контроллером — их переделка требует глубоких знаний в силовой электронике.</li>
+  <li>🔋 <strong>Мощность:</strong> от 300 ВА. Меньшие модели (например, <em>APC Back-UPS ES 220VA</em>) не дадут достаточный ток на выходе.</li>
+  <li>🛠️ <strong>Состояние:</strong> если ИБП не включается, проверьте предохранитель и конденсаторы. При вздутых конденсаторах или гари на плате лучше отказаться от идеи — ремонт обойдётся дороже покупки готового блока.</li>
+</ul>
+
+<p>Лучшие кандидаты для переделки — модели <em>APC Back-UPS Pro 650/1500</em>, <em>Powercom Imperial</em> или <em>Ippon Back Power Pro</em>. Они имеют простую схему с трансформатором на ферритовом сердечнике и минимальным количеством «лишних» элементов. А вот <em>CyberPower</em> или <em>Eaton</em> часто оснащаются цифровыми контроллерами, что усложняет модификацию.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> ИБП с <em>синусоидальным выходом</em> (например, <em>APC Smart-UPS</em>) содержат сложные схемы формирования сигнала. Их переделка под постоянный ток требует полного демонтажа инверторной части — это задача для профессионалов.</blockquote>
+
+<div class="poll-widget" id="poll-91c292aa"><div class="poll-widget-question">📊 Какой мощности ваш ИБП?</div><div class="poll-widget-option" data-poll="91c292aa" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">До 500 ВА</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="91c292aa" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">500–1000 ВА</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="91c292aa" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">1000–1500 ВА</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="91c292aa" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Более 1500 ВА</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="91c292aa" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="схема-1-простой-блок-питания-12v24v-для-новичков">Схема №1: Простой блок питания 12V/24V (для новичков)</h2>
+
+<p>Этот вариант подойдёт для питания светодиодных лент, роутеров или маломощных усилителей. Основная идея — использовать <strong>понижающий трансформатор</strong> ИБП и добавить выпрямитель с фильтром.</p>
+
+<p>Порядок действий:</p>
+
+<ol>
+  <li>Отключите аккумулятор и разрядите высоковольтные конденсаторы через резистор 10 кОм/5 Вт (держитесь за изолированные щупы!).</li>
+  <li>Найдите на плате <strong>первичную обмотку трансформатора</strong> (обычно подключена к сети 220V через реле). Отпаяйте её и подключите напрямую к сетевому кабелю через предохранитель 2А.</li>
+  <li>К <strong>вторичной обмотке</strong> (нижняя часть трансформатора) припаяйте диодный мост <em>KBPC3510</em> (на 35А) и электролитический конденсатор 10000 мкФ/35V.</li>
+  <li>Добавьте светодиод с резистором 1 кОм для индикации работы.</li>
+</ol>
+
+<p>Для выхода 24V используйте две вторичные обмотки, соединив их последовательно. Важно: если трансформатор имеет несколько обмоток, проверьте их напряжение мультиметром в режиме AC <em>перед</em> сборкой схемы!</p>
+
+
+<p>Убедиться, что конденсаторы разряжены|Проверить целостность диодного моста|Изолировать оголённые провода термоусадкой|Подключить нагрузку через амперметр для теста--></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Компонент</th>
+      <th>Характеристики</th>
+      <th>Где взять</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Диодный мост</td>
+      <td><em>KBPC3510</em> (35A, 1000V)</td>
+      <td>Старые блоки питания ATX, AliExpress</td>
+    </tr>
+    <tr>
+      <td>Конденсатор</td>
+      <td>10000 мкФ/35V (низкоимпедансный)</td>
+      <td>Радио рынок, донорские платы</td>
+    </tr>
+    <tr>
+      <td>Резистор</td>
+      <td>10 кОм/5 Вт (для разряда)</td>
+      <td>Любой магазин радиодеталей</td>
+    </tr>
+    <tr>
+      <td>Предохранитель</td>
+      <td>2А, медленного срабатывания</td>
+      <td>Хозмаг, автоматы защиты</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если после сборки блок «гудит» или греется, проверьте полярность подключения обмоток. Ошибка приведёт к насыщению трансформатора и его перегреву даже без нагрузки.</blockquote>
+
+<h2 id="схема-2-регулируемый-блок-питания-030v-с-защитой">Схема №2: Регулируемый блок питания 0–30V с защитой</h2>
+
+<p>Для питания паяльников, лабораторных экспериментов или зарядки аккумуляторов нужен <strong>регулируемый выход</strong>. Здесь потребуется доработать схему, добавив <em>LM317</em> (или его мощный аналог <em>LT1083</em>) и токовое ограничение.</p>
+
+<p>Алгоритм модификации:</p>
+
+<ol>
+  <li>Соберите базовую схему (как в варианте №1), но вместо конденсатора 10000 мкФ установите два по 4700 мкФ параллельно.</li>
+  <li>После выпрямителя добавьте <strong>сглаживающий дроссель</strong> (можно взять из ATX-БП) для уменьшения пульсаций.</li>
+  <li>Установите микросхему <em>LM317</em> на радиатор, подключив её по типовой схеме с подстроечным резистором 5 кОм. Для тока до 3А замените <em>LM317</em> на <em>LT1083</em>.</li>
+  <li>Добавьте <strong>защиту от КЗ</strong> на транзисторе <em>IRFZ44N</em> и реле 12V. Схема должна размыкать цепь при токе свыше 5А.</li>
+</ol>
+
+<p>Для точной настройки напряжения используйте многовитковый резистор 10 кОм. Калибруйте выход по эталонам: например, 3.3V (для Arduino), 5V (USB), 12V (автомобильная электроника).</p>
+
+<details class="faq-item"><summary>Как проверить стабильность напряжения?</summary><div class="faq-answer"><p>
+<p>Подключите к выходу резистор 10 Ом/10 Вт (нагрузка ~1А) и измерьте напряжение мультиметром в течение 30 минут. Если просадка более 0.2V — увеличьте ёмкость конденсаторов или добавьте второй <em>LM317</em> параллельно.</p></div></details></p>
+
+<p>Пример готового устройства на базе <em>APC Back-UPS 650</em> выдаёт до 20А при 12V с пульсациями менее 50 мВ. Для сравнения: заводские блоки питания такого класса стоят от 5000 рублей.</p>
+
+<h2 id="типичные-ошибки-и-как-их-избежать">Типичные ошибки и как их избежать</h2>
+
+<p>Даже опытные радиолюбители сталкиваются с проблемами при переделке ИБП. Вот самые распространённые:</p>
+
+<ul>
+  <li>⚡ <strong>Пробой конденсаторов:</strong> происходит из-за превышения напряжения. Всегда проверяйте номинал электролитов — для 24V нужны конденсаторы на <em>минимум 35V</em>.</li>
+  <li>🔥 <strong>Перегрев трансформатора:</strong> причиной может быть неправильное подключение обмоток или работа без нагрузки. Используйте вентилятор 12V от компьютера для охлаждения.</li>
+  <li>📉 <strong>Просадка напряжения:</strong> если при подключении нагрузки напряжение падает на 1–2V, добавьте ещё один конденсатор 10000 мкФ или увеличьте сечение проводов.</li>
+  <li>💥 <strong>Короткое замыкание:</strong> 90% КЗ происходит из-за плохой изоляции. Все соединения паяйте с термоусадкой, а силовые провода используйте сечением не менее 1.5 мм².</li>
+</ul>
+
+<p>Особое внимание уделите <strong>заземлению</strong>. Корпус блока должен быть надёжно соединён с защитным заземлением розетки — это убережёт от поражения током при пробое изоляции.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед первым включением подключите блок через лампу накаливания 100 Вт последовательно с сетевым проводом. Если лампа загорится в полный накал — в схеме короткое замыкание!</p></div>
+
+<h2 id="модернизация-добавление-usb-цифрового-вольтметра-и-защиты">Модернизация: добавление USB, цифрового вольтметра и защиты</h2>
+
+<p>Чтобы блок питания стал универсальным, его можно оснастить дополнительными функциями:</p>
+
+<ul>
+  <li>📱 <strong>USB-выход 5V:</strong> используйте готовый модуль <em>LM2596</em> (с AliExpress за 100 рублей). Подключите его к основному выходу через диод <em>1N4007</em> для защиты от обратного тока.</li>
+  <li>📊 <strong>Цифровой вольтметр:</strong> модули на <em>TM1637</em> или <em>0.28" I2C</em> показывают напряжение и ток. Подключайте их <em>после</em> стабилизатора, чтобы избежать помех.</li>
+  <li>⚡ <strong>Защита от перенапряжения:</strong> добавьте реле и стабилитрон на 15V (например, <em>1N4744A</em>). При превышении порога реле разорвёт цепь.</li>
+</ul>
+
+<p>Для удобства управления можно установить <strong>переключатель диапазонов</strong> (например, 3.3V/5V/12V/24V) на основе многопозиционного тумблера и резисторных делителей. Главное — не забывать, что каждый дополнительный элемент увеличивает риск поломки. Начните с базовой схемы и только после её отладки добавляйте «навороты».</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Цифровой вольтметр подключайте через разделительный конденсатор 0.1 мкФ, чтобы избежать наводок на измерительную цепь.</p></div>
+
+<h2 id="безопасность-5-правил-которые-спасут-жизнь">Безопасность: 5 правил, которые спасут жизнь</h2>
+
+<p>Работа с ИБП связана с высоким напряжением (до 300V в конденсаторах!) и риском поражения током. Соблюдайте эти правила:</p>
+
+<ol>
+  <li><strong>Разрядка конденсаторов:</strong> даже после отключения от сети они могут хранить заряд дни. Используйте резистор 10 кОм/5 Вт, подключённый к каждому конденсатору на 5–10 секунд.</li>
+  <li><strong>Изоляция инструментов:</strong> паяльник, отвёртки и кусачки должны иметь диэлектрические ручки. Работайте в резиновых перчатках.</li>
+  <li><strong>Проверка перед включением:</strong> осмотрите плату на предмет коротких замыканий (особенно после пайки). Используйте лупу!</li>
+  <li><strong>Защитное заземление:</strong> если в вашей розетке нет «земли», подключите блок через УЗО с током утечки 10 мА.</li>
+  <li><strong>Ограничение тока:</strong> при первом включении используйте <em>лабораторный автотрансформатор (ЛАТР)</em> или диммер для плавного повышения напряжения.</li>
+</ol>
+
+<p>Если вы не уверены в своих навыках, обратитесь к электрику. Переделка ИБП — не тот проект, на котором стоит учиться методом «научного тыка».</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> В некоторых ИБП (например, <em>APC Smart-UPS</em>) используются конденсаторы с напряжением до 400V. Их пробой может привести к взрыву! Перед работой обязательно проверьте маркировку.</blockquote>
+
+<h2 id="faq-ответы-на-частые-вопросы">FAQ: Ответы на частые вопросы</h2>
+
+<details>
+  <summary>Можно ли использовать ИБП с неисправным аккумулятором?</summary>
+  <p>Да, но только если проблема именно в аккумуляторе, а не в схеме зарядки. Отключите старую батарею и подайте питание напрямую на плату. Если ИБП не включается — проверьте предохранитель и симисторы на плате управления.</p>
+</details>
+
+<details>
+  <summary>Как рассчитать максимальный ток на выходе?</summary>
+  <p>Ток ограничен мощностью трансформатора. Например, если трансформатор на 300 ВА, а выходное напряжение 12V, то максимальный ток составит <code>300ВА / 12V ≈ 25А</code>. Учтите, что реальный ток будет ниже из-за потерь на диодах и стабилизаторе (минимум на 20%).</p>
+</details>
+
+<details>
+  <summary>Почему блок питания выключается под нагрузкой?</summary>
+  <p>Причин три: 1) слабый трансформатор (проверьте его мощность); 2) срабатывает защита от перегрева (добавьте вентилятор); 3) просадка напряжения из-за тонких проводов (используйте сечение ≥1.5 мм²).</p>
+</details>
+
+<details>
+  <summary>Можно ли сделать из ИБП инвертор 12V→220V?</summary>
+  <p>Технически да, но это отдельный сложный проект. Потребуется собрать схему на <em>IR2153</em> или <em>SG3525</em>, добавить силовой трансформатор и фильтры. Готовые решения (например, <em>meanwell NGB100</em>) обойдутся дешевле самоделки.</p>
+</details>
+
+<details>
+  <summary>Как уменьшить нагрев блока?</summary>
+  <p>Установите трансформатор и стабилизатор на общий радиатор с термопастой. Добавьте вентилятор 12V, подключённый параллельно выходу. Если греются диоды моста — замените их на <em>Schottky</em> (например, <em>SB540</em>).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#какие-ибп-подходят-для-переделки-и-какие-нет">Какие ИБП подходят для переделки (и какие — нет)</a></li><li><a href="#схема-1-простой-блок-питания-12v24v-для-новичков">Схема №1: Простой блок питания 12V/24V (для новичков)</a></li><li><a href="#схема-2-регулируемый-блок-питания-030v-с-защитой">Схема №2: Регулируемый блок питания 0–30V с защитой</a></li><li><a href="#типичные-ошибки-и-как-их-избежать">Типичные ошибки и как их избежать</a></li><li><a href="#модернизация-добавление-usb-цифрового-вольтметра-и-защиты">Модернизация: добавление USB, цифрового вольтметра и защиты</a></li><li><a href="#безопасность-5-правил-которые-спасут-жизнь">Безопасность: 5 правил, которые спасут жизнь</a></li><li><a href="#faq-ответы-на-частые-вопросы">FAQ: Ответы на частые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-podsoedinit-besperebojnik-k-akkumulyatoru.html" class="related-card">Как подсоединить бесперебойник к аккумулятору: схема и инструкция</a></li><li><a href="/articles/k/ka/kak-proverit-benzinovyj-generator-skolko-vydaet-kilovatt.html" class="related-card">Как проверить мощность бензогенератора: 5 способов измерения кВт</a></li><li><a href="/articles/b/be/besperebojnik-dlya-kompyutera-dlya-chego.html" class="related-card">Бесперебойник для компьютера: зачем нужен и как выбрать (2026)</a></li><li><a href="/articles/s/st/stabilizatory-postoyannogo-napryazheniya.html" class="related-card">Стабилизаторы постоянного напряжения: выбор и подключение</a></li><li><a href="/articles/c/ch/chem-dizelnyj-generator-luchshe-benzinovogo.html" class="related-card">Дизельный генератор vs бензиновый: 7 ключевых преимуществ</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-podsoedinit-besperebojnik-k-akkumulyatoru.html" class="related-bottom-card"><span class="related-bottom-title">Как подсоединить бесперебойник к аккумулятору: схема и инструкция</span><span class="related-bottom-desc">Пошаговое руководство: как подключить внешний аккумулятор к ИБП. Схемы, выбор сечения кабеля, настро</span></a><a href="/articles/k/ka/kak-proverit-benzinovyj-generator-skolko-vydaet-kilovatt.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить мощность бензогенератора: 5 способов измерения кВт</span><span class="related-bottom-desc">Точные методы проверки реальной мощности бензинового генератора в кВт: от мультиметра до нагрузочных</span></a><a href="/articles/b/be/besperebojnik-dlya-kompyutera-dlya-chego.html" class="related-bottom-card"><span class="related-bottom-title">Бесперебойник для компьютера: зачем нужен и как выбрать (2026)</span><span class="related-bottom-desc">Разбираемся, почему ИБП для ПК — не роскошь, а необходимость: защита от скачков напряжения, правильн</span></a><a href="/articles/s/st/stabilizatory-postoyannogo-napryazheniya.html" class="related-bottom-card"><span class="related-bottom-title">Стабилизаторы постоянного напряжения: выбор и подключение</span><span class="related-bottom-desc">Как выбрать стабилизатор постоянного напряжения для дома или техники? Сравнение типов, схем подключе</span></a><a href="/articles/c/ch/chem-dizelnyj-generator-luchshe-benzinovogo.html" class="related-bottom-card"><span class="related-bottom-title">Дизельный генератор vs бензиновый: 7 ключевых преимуществ</span><span class="related-bottom-desc">Сравниваем дизельные и бензиновые генераторы по экономичности, ресурсу и надёжности. Какие генератор</span></a><a href="/articles/b/bl/blok-besperebojnogo-pitaniya-dlya-kompyutera-kakoj-vybrat.html" class="related-bottom-card"><span class="related-bottom-title">Как выбрать ИБП для компьютера: 7 критериев и рейтинг 2026</span><span class="related-bottom-desc">Разбираемся, какой блок бесперебойного питания (ИБП) выбрать для ПК: расчет мощности, типы аккумулят</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

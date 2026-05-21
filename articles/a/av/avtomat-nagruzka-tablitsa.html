@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Таблица нагрузки автоматов: расчет и выбор по мощности — Электро Гид</title>
+    <meta name="description" content="Как подобрать автоматический выключатель по таблице нагрузки? Формулы расчета, примеры для дома и квартиры, ошибки выбора.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/a/av/avtomat-nagruzka-tablitsa.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Таблица нагрузки автоматов: расчет и выбор по мощности">
+    <meta property="og:description" content="Как подобрать автоматический выключатель по таблице нагрузки? Формулы расчета, примеры для дома и квартиры, ошибки выбора.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Таблица нагрузки автоматов: расчет и выбор по мощности</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Таблица нагрузки автоматов: как правильно выбрать автоматический выключатель по мощности и току</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-таблица-нагрузки-автоматов-и-зачем-она-нужна">Что такое таблица нагрузки автоматов и зачем она нужна</a></li><li><a href="#как-пользоваться-таблицей-нагрузки-пошаговая-инструкция">Как пользоваться таблицей нагрузки: пошаговая инструкция</a></li><li><a href="#таблица-нагрузки-автоматов-для-однофазной-сети-220в">Таблица нагрузки автоматов для однофазной сети (220В)</a></li><li><a href="#таблица-нагрузки-для-трёхфазной-сети-380в">Таблица нагрузки для трёхфазной сети (380В)</a></li><li><a href="#характеристики-автоматов-b-c-d-какую-выбрать">Характеристики автоматов (B, C, D): какую выбрать</a></li><li><a href="#распространённые-ошибки-при-выборе-автомата-по-таблице">Распространённые ошибки при выборе автомата по таблице</a></li><li><a href="#как-рассчитать-автомат-для-сложных-случаев-пример-с-кухней">Как рассчитать автомат для сложных случаев (пример с кухней)</a></li><li><a href="#faq-частые-вопросы-по-таблицам-нагрузки-автоматов">FAQ: Частые вопросы по таблицам нагрузки автоматов</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Выбор автоматического выключателя — это не просто покупка "на глаз" или по совету продавца. Ошибка в подборе номинала может привести к двум критическим последствиям: либо <strong>автомат будет срабатывать при малейшей нагрузке</strong> (ложные отключения), либо, что опаснее, <em>не отключит цепь при перегрузке</em>, спровоцировав пожар. Именно поэтому электрики опираются на <strong>таблицу нагрузки автоматов</strong> — инструмент, который связывает мощность потребителей, силу тока и сечение кабеля в единую систему.</p>
+
+<p>В этой статье мы разберём не только готовые таблицы, но и научимся самостоятельно рассчитывать параметры. Вы узнаете, почему <mark>автомат на 16А не всегда защищает розеточную группу на 3,5 кВт</mark>, как учитывать пусковые токи холодильника или стиральной машины, и почему в некоторых случаях лучше взять автомат с <em>характеристикой "C"</em>, а не "B". Материал адаптирован для домашних мастеров, но будет полезен и профессионалам для систематизации знаний.</p>
+
+<h2 id="что-такое-таблица-нагрузки-автоматов-и-зачем-она-нужна">Что такое таблица нагрузки автоматов и зачем она нужна</h2>
+
+<p>Таблица нагрузки — это сводная информация, которая показывает <strong>соответствие номинального тока автомата (в амперах) максимальной мощности потребителей (в киловаттах)</strong> для однофазной и трёхфазной сети. Она учитывает:</p>
+<ul>
+  <li>🔌 <strong>Номинальный ток автомата</strong> (10А, 16А, 25А и т.д.)</li>
+  <li>⚡ <strong>Мощность нагрузки</strong> (кВт) при напряжении 220В или 380В</li>
+  <li>📏 <strong>Рекомендуемое сечение кабеля</strong> (мм²)</li>
+  <li>🔄 <strong>Тип характеристики</strong> (B, C, D) для разных типов оборудования</li>
+</ul>
+
+<p>Без этой таблицы подбор автомата превращается в лотерею. Например, если вы установите на водонагреватель мощностью 2,5 кВт автомат на 10А, он будет <em>отключаться при каждом нагреве</em>. А если поставите 25А — рискуете сжечь кабель сечением 1,5 мм², который не рассчитан на такой ток. Таблица помогает избежать обеих крайностей.</p>
+
+<blockquote>⚠️ Внимание: Табличные значения рассчитаны для <strong>медных проводов</strong> с температурой окружающей среды +25°C. При использовании алюминиевых кабелей или монтаже в жарких помещениях (баня, котельная) номинал автомата снижают на 10–15%.</blockquote>
+
+<p>Кроме того, таблица учитывает <strong>коэффициент спроса</strong> — вероятность того, что все приборы в цепи будут работать одновременно. Например, в кухне редко включают одновременно чайник, микроволновку и духовку на полную мощность. Поэтому для розеточных групп часто берут автомат с запасом по току, но не по сечению кабеля.</p>
+
+<div class="poll-widget" id="poll-2aa3df8e"><div class="poll-widget-question">📊 Как вы выбираете автоматы для дома?</div><div class="poll-widget-option" data-poll="2aa3df8e" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">По совету электрика</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2aa3df8e" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">По таблицам из интернета</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2aa3df8e" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Беру с запасом "на всякий случай"</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2aa3df8e" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Считаю сам по формулам</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="как-пользоваться-таблицей-нагрузки-пошаговая-инструкция">Как пользоваться таблицей нагрузки: пошаговая инструкция</h2>
+
+<p>Разберём алгоритм на примере. Допустим, вам нужно подобрать автомат для <em>розеточной группы в гостиной</em>, где будут подключены:</p>
+<ul>
+  <li>📺 Телевизор (200 Вт)</li>
+  <li>💻 Ноутбук + зарядка (100 Вт)</li>
+  <li>🎮 Игровая приставка (300 Вт)</li>
+  <li>🔌 Настольная лампа (60 Вт)</li>
+  <li>🔌 Зарядки для телефонов (50 Вт)</li>
+</ul>
+
+<p>Шаг 1: <strong>Суммируем мощность всех приборов</strong>:
+<p>200 + 100 + 300 + 60 + 50 = <strong>710 Вт</strong> (0,71 кВт).</p></p>
+
+<p>Шаг 2: <strong>Определяем пиковую нагрузку</strong>. Учитываем, что в гостиной может временно подключиться пылесос (1,5 кВт) или обогреватель (2 кВт). Допустим, максимальная мощность составит 0,71 + 2 = <strong>2,71 кВт</strong>.</p>
+
+<p>Шаг 3: <strong>Переводим мощность в ток</strong> по формуле:
+<code>I = P / U</code>, где <code>P</code> — мощность (Вт), <code>U</code> — напряжение (220В для однофазной сети).
+<p>Для нашего примера: 2710 Вт / 220В ≈ <strong>12,3 А</strong>.</p></p>
+
+<p>Шаг 4: <strong>Выбираем номинал автомата</strong>. Ближайшее стандартное значение <em>вверх</em> — 16А. Но проверяем сечение кабеля: для 16А нужен медный кабель <strong>2,5 мм²</strong> (по ПУЭ). Если у вас проложен кабель 1,5 мм², автомат придётся снизить до 10А или <mark>заменить проводку</mark>.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка перед покупкой автомата</h4><label class="check-item"><input type="checkbox"><span>Рассчитайте суммарную мощность приборов</span></label><label class="check-item"><input type="checkbox"><span>Учтите пусковые токи (для холодильников, насосов)</span></label><label class="check-item"><input type="checkbox"><span>Проверьте сечение существующего кабеля</span></label><label class="check-item"><input type="checkbox"><span>Выберите характеристику (B для освещения, C для розеток)</span></label><label class="check-item"><input type="checkbox"><span>Сверьтесь с таблицей нагрузки</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<h2 id="таблица-нагрузки-автоматов-для-однофазной-сети-220в">Таблица нагрузки автоматов для однофазной сети (220В)</h2>
+
+<p>Ниже представлена актуализированная таблица для бытовых сетей. Она учитывает <strong>длительно допустимый ток кабеля</strong> (по ПУЭ 7.1.34) и стандартные номиналы автоматов.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Номинал автомата (А)</th>
+      <th>Макс. мощность нагрузки (кВт)</th>
+      <th>Миним. сечение кабеля (мм²)</th>
+      <th>Рекомендуемая сфера применения</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>6</td>
+      <td>1,3</td>
+      <td>1,0</td>
+      <td>Освещение (лампы, светодиоды)</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>2,2</td>
+      <td>1,5</td>
+      <td>Розетки для маломощных приборов (TV, роутер)</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>3,5</td>
+      <td>2,5</td>
+      <td>Розеточные группы (кухня, гостиная)</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>4,4</td>
+      <td>2,5</td>
+      <td>Стиральные машины, посудомоечные машины</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>5,5</td>
+      <td>4,0</td>
+      <td>Водонагреватели, кондиционеры</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>7,0</td>
+      <td>6,0</td>
+      <td>Электроплиты, мощные обогреватели</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Обратите внимание: для <em>индуктивных нагрузок</em> (компрессоры, насосы, двигатели) мощность увеличивают на 20–30% из-за пусковых токов. Например, холодильник мощностью 300 Вт при запуске может потреблять до 900 Вт. В таких случаях автомат выбирают с запасом или используют устройства с <strong>характеристикой "D"</strong>.</p>
+
+<blockquote>⚠️ Внимание: В таблице указаны значения для <strong>одного автомата на группу</strong>. Если у вас несколько линий (например, 3 розеточные группы по 16А), суммарная нагрузка на вводной автомат будет выше! Для его расчёта используйте коэффициент спроса 0,7–0,8.</blockquote>
+
+<h2 id="таблица-нагрузки-для-трёхфазной-сети-380в">Таблица нагрузки для трёхфазной сети (380В)</h2>
+
+<p>Трёхфазные сети используются в частных домах, гаражах или для подключения мощного оборудования (станки, котлы, насосы). Здесь расчёт ведётся по другой формуле:</p>
+
+<p><code>I = P / (√3 × U × cosφ)</code>, где:
+<ul>
+  <li><code>P</code> — мощность (Вт),</li>
+  <li><code>U</code> — линейное напряжение (380В),</li>
+  <li><code>cosφ</code> — коэффициент мощности (для бытовых приборов ≈ 0,8).</li>
+</ul>
+</p>
+
+<p>Пример: для котла мощностью 9 кВт ток составит:
+<p>9000 / (1,73 × 380 × 0,8) ≈ <strong>16,5 А</strong>.</p>
+<p>Ближайший автомат — 20А, но с учётом пусковых токов лучше взять 25А.</p></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Номинал автомата (А)</th>
+      <th>Макс. мощность нагрузки (кВт)</th>
+      <th>Миним. сечение кабеля (мм²)</th>
+      <th>Пример оборудования</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>10</td>
+      <td>6,0</td>
+      <td>1,5</td>
+      <td>Небольшие станки, вентиляторы</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>10,5</td>
+      <td>2,5</td>
+      <td>Циркуляционные насосы, компрессоры</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>16,0</td>
+      <td>4,0</td>
+      <td>Отопительные котлы, сварочные аппараты</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>21,0</td>
+      <td>6,0</td>
+      <td>Промышленное оборудование, мощные двигатели</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Для трёхфазных сетей критично <strong>равномерное распределение нагрузки по фазам</strong>. Если одна фаза перегружена (например, подключены все обогреватели к одной линии), автомат может не сработать, а кабель — перегреться. Используйте <em>фазный балансировщик</em> или распределяйте приборы вручную.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для трёхфазных двигателей проверьте напряжение: некоторые модели рассчитаны на 220В (треугольник) или 380В (звезда). Подключение "не в ту" схему ведёт к перегреву или недогрузке.</p></div>
+
+<h2 id="характеристики-автоматов-b-c-d-какую-выбрать">Характеристики автоматов (B, C, D): какую выбрать</h2>
+
+<p>Буква на корпусе автомата (например, <em>C16</em>) обозначает <strong>время-токовую характеристику</strong> — скорость срабатывания при превышении номинального тока. Разберёмся, что означают варианты:</p>
+
+<ul>
+  <li>🔥 <strong>B</strong> (3–5 × In): Быстрое срабатывание. Подходит для <em>освещения, нагревателей, розеток с маломощными приборами</em>. Отключает цепь при превышении тока в 3–5 раз (например, автомат 10А сработает при 30–50А).</li>
+  <li>⚡ <strong>C</strong> (5–10 × In): Универсальная характеристика. Используется для <em>розеточных групп, холодильников, кондиционеров</em>. Выдерживает кратковременные пусковые токи (например, 16А автомат сработает при 80–160А).</li>
+  <li>🏗️ <strong>D</strong> (10–20 × In): Для оборудования с высокими пусковыми токами — <em>насосы, станки, трансформаторы</em>. Автомат 16А сработает только при 160–320А.</li>
+</ul>
+
+<p>Ошибка в выборе характеристики ведёт к двум проблемам:</p>
+<ol>
+  <li>Если поставить <strong>B</strong> на холодильник, автомат будет <em>срабатывать при каждом запуске компрессора</em>.</li>
+  <li>Если поставить <strong>D</strong> на освещение, при коротком замыкании он <em>не отключится вовремя</em>, и провода успеют расплавиться.</li>
+</ol>
+
+<p>Для большинства бытовых случаев оптимальна характеристика <strong>C</strong>. Исключения:</p>
+<ul>
+  <li>💡 Для <em>светодиодного освещения</em> — <strong>B</strong> (малые пусковые токи).</li>
+  <li>❄️ Для <em>холодильников и морозильников</em> — <strong>C</strong> или <strong>D</strong> (в зависимости от модели).</li>
+  <li>🔌 Для <em>розеток с компьютерами и телевизорами</em> — <strong>C</strong>.</li>
+</ul>
+
+<details class="faq-item"><summary>Что будет если поставить автомат с характеристикой D на освещение?</summary><div class="faq-answer"><p>При коротком замыкании в лампе ток может достигнуть 100–200А. Автомат D10 сработает только при 100–200А, тогда как для защиты кабеля 1,5 мм² нужно отключение уже при 15–20А. Последствия: оплавление изоляции, возгорание.</p></div></details>
+
+<h2 id="распространённые-ошибки-при-выборе-автомата-по-таблице">Распространённые ошибки при выборе автомата по таблице</h2>
+
+<p>Даже с таблицей нагрузки легко допустить критические ошибки. Вот топ-5 промахов, которые допускают новички (и иногда профессионалы):</p>
+
+<ol>
+  <li><strong>Игнорирование сечения кабеля</strong>. Автомат защищает не приборы, а <em>проводку</em>. Если вы поставили 25А на кабель 1,5 мм², то при токе 20А провод перегреется, а автомат не сработает (его порог — 25А).</li>
+  <li><strong>Суммирование мощностей без коэффициента спроса</strong>. Вряд ли вы включите одновременно все приборы в доме. Для розеточных групп коэффициент спроса — 0,7–0,8, для освещения — 0,9.</li>
+  <li><strong>Неучёт пусковых токов</strong>. Двигатель стиральной машины при запуске потребляет в 3–5 раз больше номинала. Автомат <strong>B16</strong> отключится, а <strong>C20</strong> — выдержит.</li>
+  <li><strong>Установка "на вырост"</strong>. Автомат 32А на кабель 2,5 мм² — это <em>бомба замедленного действия</em>. Кабель сгорит раньше, чем автомат отключится.</li>
+  <li><strong>Использование автоматов разных брендов в одной цепи</strong>. У <em>ABB</em>, <em>Schneider Electric</em> и <em>IEK</em> разные время-токовые характеристики даже при одинаковом номинале. Это ведёт к неселективному срабатыванию.</li>
+</ol>
+
+<p>Пример из практики: клиент жаловался, что в доме "выбивает" вводной автомат 40А при включении чайника и микроволновки. Причина — на розеточную группу был установлен кабель 1,5 мм² с автоматом 25А. При нагрузке 5 кВт (22,7А) кабель грелся, а автомат не срабатывал. Решение: заменили кабель на 4 мм² и поставили автомат 20А.</p>
+
+<blockquote>⚠️ Внимание: Если в вашем щете стоят автоматы <em>IEK</em> или <em>TDM</em>, а вы докупаете <em>Legrand</em> или <em>Hager</em>, проверьте совместимость по время-токовым кривым. Разница в срабатывании может достигать 30%!</blockquote>
+
+<h2 id="как-рассчитать-автомат-для-сложных-случаев-пример-с-кухней">Как рассчитать автомат для сложных случаев (пример с кухней)</h2>
+
+<p>Допустим, у вас кухня с следующим оборудованием:</p>
+<ul>
+  <li>🍳 Электроплита — 7 кВт (3 фазы)</li>
+  <li>🍲 Духовка — 3,5 кВт (1 фаза)</li>
+  <li>☕ Чайник — 2 кВт</li>
+  <li>🧊 Холодильник — 0,5 кВт (пусковой ток 1,5 кВт)</li>
+  <li>🍽️ Посудомоечная машина — 2,2 кВт</li>
+  <li>🔌 Микроволновка — 1,5 кВт</li>
+</ul>
+
+<p>Шаг 1: <strong>Разделяем нагрузку по линиям</strong>:
+<ul>
+  <li>Линия 1 (электроплита): 7 кВт, 3 фазы → автомат 25А (характеристика C).</li>
+  <li>Линия 2 (духовка + посудомойка): 3,5 + 2,2 = 5,7 кВт → 26А → автомат 32А, кабель 4 мм².</li>
+  <li>Линия 3 (чайник + микроволновка + холодильник): 2 + 1,5 + 1,5 = 5 кВт → 22,7А → автомат 25А, кабель 4 мм².</li>
+</ul>
+</p>
+
+<p>Шаг 2: <strong>Проверяем вводной автомат</strong>. Суммарная мощность: 7 + 5,7 + 5 = 17,7 кВт. С коэффициентом спроса 0,8: 14,16 кВт → 64А. Но вводной кабель может быть ограничен (например, 10 мм² выдерживает 50А). В таком случае придётся распределять нагрузку или модернизировать ввод.</p>
+
+<p>Шаг 3: <strong>Учитываем селективность</strong>. Автоматы на линиях должны срабатывать раньше вводного. Например:
+<ul>
+  <li>Линия 1: 25А (C)</li>
+  <li>Линия 2: 32А (C)</li>
+  <li>Линия 3: 25А (C)</li>
+  <li>Вводной: 50А (C)</li>
+</ul>
+</p>
+
+<p>Для кухни критично:
+<strong>не объединять плиту и розетки в одну группу</strong> (даже если мощность позволяет). При коротком замыкании в чайнике отключится вся кухня, включая плиту.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для кухни с электроплитой минимальный вводной автомат — 40А, а оптимальный кабель — 10 мм² (медь). Если дом старше 2000 года, скорее всего, потребуется замена ввода от столба.</p></div>
+
+<h2 id="faq-частые-вопросы-по-таблицам-нагрузки-автоматов">FAQ: Частые вопросы по таблицам нагрузки автоматов</h2>
+
+<details>
+  <summary>Можно ли ставить автомат 25А на кабель 2,5 мм², если нагрузка 5 кВт?</summary>
+  <p>Нет! Кабель 2,5 мм² рассчитан на <strong>длительный ток 21А</strong> (по ПУЭ). При 25А он будет перегреваться, даже если автомат не сработает. Максимум для 2,5 мм² — автомат 20А. Для 5 кВт (22,7А) нужен кабель 4 мм² и автомат 25А.</p>
+</details>
+
+<details>
+  <summary>Почему автомат 16А отключается при нагрузке 3 кВт (13,6А)?</summary>
+  <p>Причины:
+  <ol>
+    <li>Автомат имеет <strong>характеристику B</strong> и срабатывает при превышении на 30% (16 × 1,3 = 20,8А). Но если в цепи есть приборы с пусковыми токами (например, холодильник), кратковременный скачок до 50А может вызвать срабатывание.</li>
+    <li>Некачественный автомат (особенно <em>IEK</em> или <em>EKF</em> бюджетной серии) может иметь заниженные время-токовые характеристики.</li>
+    <li>Плохой контакт в клемме автомата или розетке, вызывающий нагрев и ложное срабатывание.</li>
+  </ol>
+<p>Решение: проверьте контакты, замените автомат на <strong>C16</strong> или разделите нагрузку на две группы.</p></p>
+</details>
+
+<details>
+  <summary>Какой автомат поставить на кондиционер мощностью 2,5 кВт?</summary>
+  <p>Для кондиционера учитывайте:
+  <ul>
+    <li>Номинальная мощность — 2,5 кВт → ток 11,4А.</li>
+    <li>Пусковой ток в 3–5 раз выше (до 35–50А).</li>
+    <li>Рекомендуемый автомат: <strong>C16</strong> (характеристика C выдерживает кратковременные скачки).</li>
+    <li>Кабель: 2,5 мм² (если длина линии до 20 м).</li>
+  </ul>
+<p>Для инверторных моделей можно взять <strong>B16</strong>, так как у них ниже пусковые токи.</p></p>
+</details>
+
+<details>
+  <summary>Чем отличаются таблицы нагрузки для медных и алюминиевых кабелей?</summary>
+  <p>Медный кабель выдерживает <strong>на 30–40% больший ток</strong>, чем алюминиевый того же сечения. Например:
+  <ul>
+    <li>Кабель 2,5 мм² (медь) — 21А → автомат 20А.</li>
+    <li>Кабель 2,5 мм² (алюминий) — 16А → автомат 10–13А.</li>
+  </ul>
+<p>В таблицах для алюминия номиналы автоматов <strong>занижены на 1–2 ступени</strong>. Также алюминий требует более частой проверки контактов (раз в 2 года), так как со временем окисляется и греется.</p></p>
+</details>
+
+<details>
+  <summary>Нужно ли менять автоматы, если я заменил проводку на более толстую?</summary>
+  <p>Да, но не всегда. Правило:
+  <ul>
+    <li>Если вы <strong>увеличили сечение кабеля</strong> (например, с 1,5 мм² до 2,5 мм²), автомат можно оставить прежним или увеличить на одну ступень (с 16А до 20А), но <em>не выше допустимого тока для нового кабеля</em>.</li>
+    <li>Если вы <strong>уменьшили сечение</strong> (например, с 4 мм² до 2,5 мм²), автомат нужно <strong>обязательно понизить</strong> (с 25А до 20А).</li>
+    <li>Если замена проводки связана с <strong>увеличением нагрузки</strong> (добавили мощные приборы), автомат меняют в соответствии с новой мощностью.</li>
+  </ul>
+<p>Пример: замена кабеля с 1,5 мм² на 2,5 мм² в розеточной группе позволяет повысить автомат с 10А до 16А, но только если нагрузка не превышает 3,5 кВт.</p></p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-таблица-нагрузки-автоматов-и-зачем-она-нужна">Что такое таблица нагрузки автоматов и зачем она нужна</a></li><li><a href="#как-пользоваться-таблицей-нагрузки-пошаговая-инструкция">Как пользоваться таблицей нагрузки: пошаговая инструкция</a></li><li><a href="#таблица-нагрузки-автоматов-для-однофазной-сети-220в">Таблица нагрузки автоматов для однофазной сети (220В)</a></li><li><a href="#таблица-нагрузки-для-трёхфазной-сети-380в">Таблица нагрузки для трёхфазной сети (380В)</a></li><li><a href="#характеристики-автоматов-b-c-d-какую-выбрать">Характеристики автоматов (B, C, D): какую выбрать</a></li><li><a href="#распространённые-ошибки-при-выборе-автомата-по-таблице">Распространённые ошибки при выборе автомата по таблице</a></li><li><a href="#как-рассчитать-автомат-для-сложных-случаев-пример-с-кухней">Как рассчитать автомат для сложных случаев (пример с кухней)</a></li><li><a href="#faq-частые-вопросы-по-таблицам-нагрузки-автоматов">FAQ: Частые вопросы по таблицам нагрузки автоматов</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sk/skhema-podklyucheniya-rele-napryazheniya-v-trekhfaznoj-seti.html" class="related-card">Схема подключения реле напряжения в 3-фазной сети: пошагово</a></li><li><a href="/articles/s/sb/sborka-shchita-s-avtomatami.html" class="related-card">Сборка электрощита с автоматами: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kak-vybirayut-avtomaticheskij-vyklyuchatel-po-nominalnomu-toku.html" class="related-card">Как выбрать автоматический выключатель по току: таблица и расчет</a></li><li><a href="/articles/r/ra/raschet-moshchnosti-avtomata-po-nagruzke-220.html" class="related-card">Расчет автомата 220В: формулы, таблицы и ошибки выбора</a></li><li><a href="/articles/k/ka/kakoj-avtomat-nuzhen-dlya-osveshcheniya.html" class="related-card">Какой автомат выбрать для освещения: расчет и советы эксперта</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sk/skhema-podklyucheniya-rele-napryazheniya-v-trekhfaznoj-seti.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения реле напряжения в 3-фазной сети: пошагово</span><span class="related-bottom-desc">Как правильно подключить реле контроля напряжения в трехфазной сети: схемы, ошибки, выбор оборудован</span></a><a href="/articles/s/sb/sborka-shchita-s-avtomatami.html" class="related-bottom-card"><span class="related-bottom-title">Сборка электрощита с автоматами: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно собрать щит с автоматами своими руками: схемы, инструменты, ошибки монтажа и требовани</span></a><a href="/articles/k/ka/kak-vybirayut-avtomaticheskij-vyklyuchatel-po-nominalnomu-toku.html" class="related-bottom-card"><span class="related-bottom-title">Как выбрать автоматический выключатель по току: таблица и расчет</span><span class="related-bottom-desc">Подробный расчет номинала автомата по сечению кабеля и мощности нагрузки. Таблицы токов, выбор харак</span></a><a href="/articles/r/ra/raschet-moshchnosti-avtomata-po-nagruzke-220.html" class="related-bottom-card"><span class="related-bottom-title">Расчет автомата 220В: формулы, таблицы и ошибки выбора</span><span class="related-bottom-desc">Как правильно подобрать автоматический выключатель для сети 220В по мощности нагрузки? Пошаговые рас</span></a><a href="/articles/k/ka/kakoj-avtomat-nuzhen-dlya-osveshcheniya.html" class="related-bottom-card"><span class="related-bottom-title">Какой автомат выбрать для освещения: расчет и советы эксперта</span><span class="related-bottom-desc">Подробный гайд по выбору автоматического выключателя для освещения: номинал, тип, бренды и ошибки мо</span></a><a href="/articles/r/ra/raznitsa-mezhdu-avtomatami.html" class="related-bottom-card"><span class="related-bottom-title">Автоматы в щитке: 5 ключевых отличий для правильного выбора</span><span class="related-bottom-desc">Чем отличаются автоматические выключатели по типу, току, полюсам и брендам? Разбираемся, какой автом</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

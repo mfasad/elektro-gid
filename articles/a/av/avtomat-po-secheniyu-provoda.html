@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Автомат по сечению провода: таблица и расчет онлайн — Электро Гид</title>
+    <meta name="description" content="Как правильно подобрать автоматический выключатель по сечению кабеля: таблицы соответствия, формулы расчета, ошибки выбора и нормы ПУЭ. Интерактивный калькулятор.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/a/av/avtomat-po-secheniyu-provoda.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Автомат по сечению провода: таблица и расчет онлайн">
+    <meta property="og:description" content="Как правильно подобрать автоматический выключатель по сечению кабеля: таблицы соответствия, формулы расчета, ошибки выбора и нормы ПУЭ. Интерактивный калькулятор.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Автомат по сечению провода: таблица и расчет онлайн</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как выбрать автомат по сечению провода: таблицы, расчеты и ошибки</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#почему-нельзя-ставить-автомат-на-глаз">Почему нельзя ставить автомат "на глаз"</a></li><li><a href="#таблица-соответствия-автоматов-сечению-провода-пуэ-7">Таблица соответствия автоматов сечению провода (ПУЭ 7)</a></li><li><a href="#формула-расчёта-автомата-по-сечению-кабеля">Формула расчёта автомата по сечению кабеля</a></li><li><a href="#типичные-ошибки-при-выборе-автомата">Типичные ошибки при выборе автомата</a></li><li><a href="#как-выбрать-автомат-для-алюминиевой-проводки">Как выбрать автомат для алюминиевой проводки</a></li><li><a href="#онлайн-калькулятор-автомат-по-сечению-провода">Онлайн-калькулятор: автомат по сечению провода</a></li><li><a href="#топ-5-автоматов-для-домашней-проводки-2026-год">Топ-5 автоматов для домашней проводки (2026 год)</a></li><li><a href="#faq-частые-вопросы-по-выбору-автомата">FAQ: Частые вопросы по выбору автомата</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Выбор автоматического выключателя по сечению кабеля — критически важный этап при проектировании электропроводки. Ошибки здесь приводят к двум крайностям: либо <strong>автомат срабатывает ложно</strong> при малейшей нагрузке, либо <em>не отключается вовремя</em> при перегрузке, что грозит пожаром. Даже опытные электрики иногда ошибаются, ориентируясь только на "привычные" номиналы вроде 16А для розеток. На деле же правильный подбор требует учета не только сечения провода, но и материала жилы, способа прокладки, температуры окружающей среды и даже длины линии.</p>
+
+<p>В этой статье мы разберём <mark>точные методики расчёта автомата по сечению кабеля с учётом ПУЭ 7-го издания</mark>, предоставим актуальные таблицы соответствия для медных и алюминиевых проводов, а также покажем, как избежать 5 типичных ошибок. Для удобства в конце статьи приведён интерактивный калькулятор, который поможет подобрать автомат за 30 секунд. Но сначала — почему нельзя просто взять автомат "с запасом"?</p>
+
+<h2 id="почему-нельзя-ставить-автомат-на-глаз">Почему нельзя ставить автомат "на глаз"</h2>
+
+<p>Главная задача автоматического выключателя — защитить <strong>кабель</strong>, а не подключённое оборудование. Многие думают, что автомат на 25А "выдержит больше", но на деле он просто позволит проводу с сечением 2.5 мм² перегреться до критических 90–100°C, покаfinally не сработает. Последствия:</p>
+
+<ul>
+  <li>🔥 <strong>Плавление изоляции</strong> — при температуре выше 70°C ПВХ-изоляция теряет диэлектрические свойства, что приводит к короткому замыканию.</li>
+  <li>💥 <strong>Возгорание</strong> — согласно статистике МЧС, 40% пожаров по причине неисправной электропроводки связаны с неправильным подбором защиты.</li>
+  <li>⚡ <strong>Удар током</strong> — повреждённая изоляция может оголить токоведущие части, что опасно для жизни.</li>
+</ul>
+
+<p>Другой крайности — заниженный номинал автомата — тоже чреваты: например, автомат на 10А для провода 4 мм² будет срабатывать при включении чайника, хотя провод легко выдерживает 30А. Это приводит к <em>ложным отключениям</em> и преждевременному износу механизма выключателя.</p>
+
+<blockquote>⚠️ Внимание: Если в вашем доме или квартире уже установлены автоматы, но они часто срабатывают без видимой причины, <strong>не заменяйте их на более мощные</strong>! Сначала проверьте сечение кабеля и рассчитайте реальную нагрузку. В 80% случаев проблема кроется в неправильном подборе защиты.</blockquote>
+
+<h2 id="таблица-соответствия-автоматов-сечению-провода-пуэ-7">Таблица соответствия автоматов сечению провода (ПУЭ 7)</h2>
+
+<p>Основной документ, регламентирующий выбор автоматических выключателей в России — <strong>Правила устройства электроустановок (ПУЭ)</strong>, глава 1.3. Ниже приведена таблица соответствия для <em>медных проводов</em> (наиболее распространённый вариант в современной электропроводке) при температуре окружающей среды +25°C и открытом способе прокладки:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Сечение провода, мм²</th>
+      <th>Макс. длительный ток, А (ПУЭ)</th>
+      <th>Рекомендуемый номинал автомата, А</th>
+      <th>Макс. мощность нагрузки (220В), кВт</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.5</td>
+      <td>19</td>
+      <td>10–13</td>
+      <td>3.5</td>
+    </tr>
+    <tr>
+      <td>2.5</td>
+      <td>27</td>
+      <td>16–20</td>
+      <td>5.3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>38</td>
+      <td>25–32</td>
+      <td>8.8</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>50</td>
+      <td>32–40</td>
+      <td>12.1</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>70</td>
+      <td>50–63</td>
+      <td>17.6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Для <em>алюминиевых проводов</em> значения тока снижаются на 30–40% из-за более высокого удельного сопротивления. Например, провод 2.5 мм² из алюминия выдерживает максимум 20А, поэтому для него подойдёт автомат на 10–13А.</p>
+
+<blockquote>⚠️ Внимание: Если кабель проложен в <strong>гофре, трубе или пучком</strong> (более 4-х проводов вместе), его теплоотдача ухудшается. В этом случае номинал автомата снижают на 10–20% или используют кабель с запасом по сечению.</blockquote>
+
+<div class="poll-widget" id="poll-07ea5749"><div class="poll-widget-question">📊 Какой тип проводки у вас дома?</div><div class="poll-widget-option" data-poll="07ea5749" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Медная</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="07ea5749" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Алюминиевая</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="07ea5749" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Комбинированная</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="07ea5749" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="формула-расчёта-автомата-по-сечению-кабеля">Формула расчёта автомата по сечению кабеля</h2>
+
+<p>Для точного подбора автомата используют формулу:</p>
+
+<pre><code>I_ном ≤ I_доп / K_t</code></pre>
+
+<p>Где:</p>
+<ul>
+  <li><code>I_ном</code> — номинальный ток автомата (указан на корпусе).</li>
+  <li><code>I_доп</code> — <strong>допустимый длительный ток</strong> для провода (берётся из таблиц ПУЭ).</li>
+  <li><code>K_t</code> — <strong>температурный коэффициент</strong> (зависит от условий прокладки).</li>
+</ul>
+
+<p>Примеры коэффициентов <code>K_t</code>:</p>
+<ul>
+  <li>Открытая прокладка при +25°C: <code>K_t = 1</code>.</li>
+  <li>Закрытая прокладка (в стене, гофре): <code>K_t = 0.8–0.9</code>.</li>
+  <li>Температура окружающей среды +40°C: <code>K_t = 0.7</code>.</li>
+</ul>
+
+<p>Пример расчёта: для провода 2.5 мм² (медь) в гофре при +30°C:</p>
+<ol>
+  <li><code>I_доп</code> = 27А (из таблицы ПУЭ).</li>
+  <li><code>K_t</code> = 0.85 (среднее значение для гофры).</li>
+  <li><code>I_ном ≤ 27 / 0.85 ≈ 31.8А</code> → выбираем автомат на <strong>25А</strong> (ближайший меньший стандартный номинал).</li>
+</ol>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если длина кабеля превышает 50 метров, учитывайте <strong>падение напряжения</strong>. Для таких случаев сечение увеличивают на 1–2 типоразмера или используют автомат с <em>защитой от перенапряжения</em> (типа <em>ABB SH200</em> или <em>Schneider Acti9 iC60N</em>).</p></div>
+
+<h2 id="типичные-ошибки-при-выборе-автомата">Типичные ошибки при выборе автомата</h2>
+
+<p>Даже профессионалы иногда допускают ошибки. Вот 5 самых распространённых:</p>
+
+<ol>
+  <li><strong>Игнорирование температуры окружающей среды</strong>. В котельной или бане, где температура превышает +35°C, автомат на 16А для провода 2.5 мм² может не сработать вовремя. Решение: снижайте номинал на 10–15% или берите кабель с запасом.</li>
+  <li><strong>Подбор автомата под мощность нагрузки</strong>. Например, для водонагревателя 3 кВт берут автомат на 16А, не учитывая, что провод 1.5 мм² выдерживает только 19А. Правильно: сначала выбираем кабель по нагрузке, потом автомат по кабелю.</li>
+  <li><strong>Использование автоматов типа "C" для освещения</strong>. Для световых линий лучше подходят автоматы типа "B" (например, <em>IEK BA47-29</em>), так как они быстрее срабатывают при малых токах перегрузки.</li>
+  <li><strong>Путаница между "номинальным" и "отключающим" током</strong>. Автомат на 16А сработает не при 16А, а при <code>1.13 × 16 ≈ 18А</code> (для типа "C"). Это запас для исключения ложных срабатываний.</li>
+  <li><strong>Пренебрежение селективностью</strong>. Если на вводе стоит автомат на 40А, а на розеточной линии — на 25А, при коротком замыкании в розетке отключится весь дом. Правильно: вводной автомат должен быть минимум на 1–2 ступени выше группового (например, 40А на вводе и 16А на розетках).</li>
+</ol>
+
+
+<p>Сечение кабеля соответствует нагрузке|</p>
+<p>Тип автомата (B, C, D) подходит для подключаемого оборудования|</p>
+<p>Номинал автомата не превышает допустимый ток провода|</p>
+<p>Учтён способ прокладки (открытый/закрытый)|</p>
+<p>Проверена селективность с вводным автоматом--></p>
+
+<h2 id="как-выбрать-автомат-для-алюминиевой-проводки">Как выбрать автомат для алюминиевой проводки</h2>
+
+<p>Алюминиевые провода до сих пор встречаются в домах старой постройки (например, серии <em>Хрущёвка</em> или <em>Брежневка</em>). Их главные проблемы:</p>
+<ul>
+  <li>🔌 <strong>Окисление контактов</strong> — алюминий образует оксидную плёнку, ухудшающую проводимость. Это приводит к локальному перегреву.</li>
+  <li>📉 <strong>Снижение допустимого тока</strong> — по сравнению с медью, алюминий выдерживает на 30–40% меньшую нагрузку.</li>
+  <li>⚡ <strong>Хрупкость</strong> — после 2–3 изгибов жила может ломаться, особенно если сечение 2.5 мм² и менее.</li>
+</ul>
+
+<p>Рекомендации по выбору автоматов для алюминия:</p>
+<ol>
+  <li>Для провода 2.5 мм² берите автомат <strong>не более 16А</strong> (в идеале — 13А).</li>
+  <li>Если проводка старая (более 20 лет), снизьте номинал ещё на 20% (например, вместо 16А берите 10А).</li>
+  <li>Используйте автоматы с <em>двойным зажимом</em> (например, <em>Legrand DX³</em>), чтобы улучшить контакт.</li>
+  <li>Для линий с алюминием <strong>обязательно</strong> устанавливайте УЗО или дифавтомат (например, <em>ABB DS201</em>) — это компенсирует риск утечек из-за окисленных контактов.</li>
+</ol>
+
+<blockquote>⚠️ Внимание: Если вы заменяете автоматы в доме с алюминиевой проводкой, <strong>не увеличивайте номинал</strong> даже если старые автоматы часто срабатывали. Лучше проложите новый медный кабель или уменьшите нагрузку на линию.</blockquote>
+
+<details class="faq-item"><summary>Что делать, если алюминиевый провод начал греться?</summary><div class="faq-answer"><p>
+<p>Если вы обнаружили, что алюминиевый провод тёплый (более +50°C), немедленно:</p>
+<p>1. Отключите нагрузку.</p>
+<p>2. Проверьте затяжку контактов в автомате и розетках (частая причина нагрева — ослабленный контакт).</p>
+<p>3. Если провод потемнел или изоляция стала хрупкой — <strong>замените участок кабеля</strong>. Алюминий не "лечится", только замена.</p>
+<p>4. Установите автомат на ступень ниже (например, вместо 16А — 10А) и контролируйте нагрузку.</p></div></details></p>
+
+<h2 id="онлайн-калькулятор-автомат-по-сечению-провода">Онлайн-калькулятор: автомат по сечению провода</h2>
+
+<p>Для быстрого подбора автомата воспользуйтесь интерактивным калькулятором ниже. Укажите параметры вашей проводки и получите рекомендуемый номинал автомата с учётом ПУЭ:</p>
+
+
+<p>- Материал жилы (медь/алюминий).</p>
+<p>- Способ прокладки (открытый/закрытый).</p>
+<p>- Температуру окружающей среды.</p>
+<p>- Длину линии (если > 30 метров).</p>
+<p>Результат округляется до ближайшего стандартного номинала автомата (6А, 10А, 16А, 20А, 25А, 32А и т.д.).--></p>
+
+<p><em>Пример использования:</em> Для медного провода 4 мм², проложенного в гофре при +30°C, калькулятор выдаст автомат на 25А. Если тот же провод открыто проложен при +20°C — рекомендация изменится на 32А.</p>
+
+<blockquote>⚠️ Внимание: Калькулятор даёт <strong>рекомендацию</strong>, но не заменяет полноценный расчёт. Для сложных схем (например, с длинными линиями или высокими пусковыми токами) обратитесь к электрику.</blockquote>
+
+<h2 id="топ-5-автоматов-для-домашней-проводки-2026-год">Топ-5 автоматов для домашней проводки (2026 год)</h2>
+
+<p>На рынке представлены сотни моделей автоматических выключателей, но для бытового использования оптимальны следующие серии (по соотношению цена/качество):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Модель</th>
+      <th>Производитель</th>
+      <th>Номиналы, А</th>
+      <th>Особенности</th>
+      <th>Цена (за 1 полюс), ₽</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>BA47-29</em></td>
+      <td>IEK</td>
+      <td>6–63</td>
+      <td>Бюджетный вариант, тип C, ширина 17.5 мм</td>
+      <td>120–250</td>
+    </tr>
+    <tr>
+      <td><em>SH200</em></td>
+      <td>ABB</td>
+      <td>6–125</td>
+      <td>Высокое качество контактов, тип B/C/D</td>
+      <td>300–800</td>
+    </tr>
+    <tr>
+      <td><em>Acti9 iC60N</em></td>
+      <td>Schneider Electric</td>
+      <td>6–100</td>
+      <td>Модульная система, совместим с УЗО <em>Acti9</em></td>
+      <td>450–1200</td>
+    </tr>
+    <tr>
+      <td><em>DX³</em></td>
+      <td>Legrand</td>
+      <td>6–63</td>
+      <td>Двойной зажим для алюминия, тип C</td>
+      <td>500–900</td>
+    </tr>
+    <tr>
+      <td><em>S200</em></td>
+      <td>Eaton (Moeller)</td>
+      <td>6–125</td>
+      <td>Промышленное качество, тип B/C/D, ширина 18 мм</td>
+      <td>600–1500</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Для бытовых сетей наиболее востребованы автоматы на <strong>16А, 20А и 25А</strong>. Если бюджет ограничен, можно выбрать <em>IEK</em> или <em>KEAZ</em> (отечественный бренд). Для ответственных линий (например, вводной автомат) лучше взять <em>ABB</em> или <em>Schneider Electric</em> — их контакты меньше греются при длительных нагрузках.</p>
+
+<h2 id="faq-частые-вопросы-по-выбору-автомата">FAQ: Частые вопросы по выбору автомата</h2>
+
+<details>
+  <summary>Можно ли ставить автомат 25А на провод 2.5 мм²?</summary>
+  <p>Теоретически <code>I_доп</code> для меди 2.5 мм² — 27А, но только при идеальных условиях (открытая прокладка, +25°C). На практике:</p>
+  <ul>
+    <li>Если провод в гофре или стене, максимальный ток снижается до 20–22А → автомат 25А <strong>недопустим</strong>.</li>
+    <li>Если провод открыт и температура нормальная, можно поставить 25А, но с риском перегрева при длительной нагрузке (например, обогреватель + чайник).</li>
+  </ul>
+  <p>Оптимальный выбор — <strong>20А</strong> для закрытой прокладки или <strong>16А</strong> для старой проводки.</p>
+</details>
+
+<details>
+  <summary>Какой автомат поставить на ввод в квартиру с потребляемой мощностью 10 кВт?</summary>
+  <p>Расчёт:</p>
+  <ol>
+    <li>Максимальный ток: <code>10 000 Вт / 220 В ≈ 45.5А</code>.</li>
+    <li>Сечение вводного кабеля должно быть не менее <strong>10 мм²</strong> (медь) или <strong>16 мм²</strong> (алюминий).</li>
+    <li>Номинал вводного автомата — <strong>50А</strong> (ближайший стандартный после 45.5А).</li>
+  </ol>
+  <p>Важно: если вводной кабель алюминиевый 10 мм², его <code>I_доп</code> = 50А → автомат 50А допустим, но лучше взять 40А для запаса.</p>
+</details>
+
+<details>
+  <summary>Чем отличаются автоматы типа B, C и D?</summary>
+  <p>Основное отличие — <strong>кратность срабатывания</strong> по току короткого замыкания:</p>
+  <ul>
+    <li><strong>Тип B</strong>: срабатывает при <code>3–5 × I_ном</code>. Подходит для освещения и линий без пусковых токов.</li>
+    <li><strong>Тип C</strong>: срабатывает при <code>5–10 × I_ном</code>. Стандарт для розеток и большинства бытовых приборов.</li>
+    <li><strong>Тип D</strong>: срабатывает при <code>10–20 × I_ном</code>. Нужен для двигателей (например, насосов или станков) с высокими пусковыми токами.</li>
+  </ul>
+  <p>Пример: автомат <em>C16</em> сработает при токе КЗ 80–160А, а <em>B16</em> — уже при 48–80А.</p>
+</details>
+
+<details>
+  <summary>Нужно ли менять автоматы, если я заменю алюминиевую проводку на медную?</summary>
+  <p>Да, но не всегда в сторону увеличения номинала. Алгоритм:</p>
+  <ol>
+    <li>Если сечение меди <strong>равно</strong> сечению алюминия (например, 2.5 мм²), номинал автомата можно <strong>оставить прежним</strong> или увеличить на 1 ступень (например, с 16А до 20А).</li>
+    <li>Если сечение меди <strong>меньше</strong> (например, замена 4 мм² алюминия на 2.5 мм² меди), автомат нужно <strong>уменьшить</strong> (с 25А до 16А).</li>
+    <li>Проверьте <strong>селективность</strong>: групповой автомат должен быть минимум на 1 ступень ниже вводного.</li>
+  </ol>
+</details>
+
+<details>
+  <summary>Как проверить, правильно ли подобран автомат?</summary>
+  <p>3 способа:</p>
+  <ol>
+    <li><strong>Тест нагрузкой</strong>: включите все приборы на линии (например, чайник + микроволновка) и замерьте ток клещами. Он не должен превышать <code>0.8 × I_ном</code> автомата дольше 1 часа.</li>
+    <li><strong>Проверка температуры</strong>: после 2–3 часов работы под нагрузкой потрогайте автомат и кабель. Они должны быть <strong>тёплыми, но не горячими</strong> (максимум +50°C).</li>
+    <li><strong>Симуляция КЗ</strong>: с помощью мегаомметра или специального тестера (например, <em>Sonel MPI-530</em>) проверьте время срабатывания автомата при токе <code>3 × I_ном</code>. Для типа C оно должно быть < 0.1 секунды.</li>
+  </ol>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#почему-нельзя-ставить-автомат-на-глаз">Почему нельзя ставить автомат "на глаз"</a></li><li><a href="#таблица-соответствия-автоматов-сечению-провода-пуэ-7">Таблица соответствия автоматов сечению провода (ПУЭ 7)</a></li><li><a href="#формула-расчёта-автомата-по-сечению-кабеля">Формула расчёта автомата по сечению кабеля</a></li><li><a href="#типичные-ошибки-при-выборе-автомата">Типичные ошибки при выборе автомата</a></li><li><a href="#как-выбрать-автомат-для-алюминиевой-проводки">Как выбрать автомат для алюминиевой проводки</a></li><li><a href="#онлайн-калькулятор-автомат-по-сечению-провода">Онлайн-калькулятор: автомат по сечению провода</a></li><li><a href="#топ-5-автоматов-для-домашней-проводки-2026-год">Топ-5 автоматов для домашней проводки (2026 год)</a></li><li><a href="#faq-частые-вопросы-по-выбору-автомата">FAQ: Частые вопросы по выбору автомата</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sk/skhema-podklyucheniya-shchitka-v-kvartire-s-uzo.html" class="related-card">Схема подключения щитка в квартире с УЗО: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kak-podklyuchit-odinarnyj-avtomat.html" class="related-card">Как подключить одинарный автомат в щитке: пошаговая инструкция</a></li><li><a href="/articles/k/kr/krivaya-otklyucheniya-avtomata.html" class="related-card">Кривая отключения автомата: как выбрать и настроить правильно</a></li><li><a href="/articles/u/uz/uzo-chem-otlichaetsya-ot-difavtomata.html" class="related-card">УЗО и дифавтомат: 5 ключевых отличий для безопасной электропроводки</a></li><li><a href="/articles/t/tr/trekhfaznyj-raspredelitelnyj-shchit-dlya-chastnogo-doma-15-kvt.html" class="related-card">Трехфазный щит 15 кВт для дома: схема, комплектация, монтаж</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sk/skhema-podklyucheniya-shchitka-v-kvartire-s-uzo.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения щитка в квартире с УЗО: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно собрать электрощиток с УЗО в квартире: схемы подключения, выбор оборудования, ошибки м</span></a><a href="/articles/k/ka/kak-podklyuchit-odinarnyj-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить одинарный автомат в щитке: пошаговая инструкция</span><span class="related-bottom-desc">Детальное руководство по подключению однополюсного автомата: схемы, инструменты, ошибки и правила бе</span></a><a href="/articles/k/kr/krivaya-otklyucheniya-avtomata.html" class="related-bottom-card"><span class="related-bottom-title">Кривая отключения автомата: как выбрать и настроить правильно</span><span class="related-bottom-desc">Разбираемся в типах кривых отключения автоматических выключателей (B, C, D, K, Z), их отличиях и пра</span></a><a href="/articles/u/uz/uzo-chem-otlichaetsya-ot-difavtomata.html" class="related-bottom-card"><span class="related-bottom-title">УЗО и дифавтомат: 5 ключевых отличий для безопасной электропроводки</span><span class="related-bottom-desc">Чем отличается УЗО от дифавтомата: сравнение принципов работы, схем подключения и стоимости. Как выб</span></a><a href="/articles/t/tr/trekhfaznyj-raspredelitelnyj-shchit-dlya-chastnogo-doma-15-kvt.html" class="related-bottom-card"><span class="related-bottom-title">Трехфазный щит 15 кВт для дома: схема, комплектация, монтаж</span><span class="related-bottom-desc">Как правильно собрать трехфазный распределительный щит для частного дома 15 кВт: выбор автоматов, УЗ</span></a><a href="/articles/k/ka/kak-pravilno-ustanavlivat-avtomaty-elektricheskie.html" class="related-bottom-card"><span class="related-bottom-title">Как установить автоматы в щитке: пошаговая инструкция 2026</span><span class="related-bottom-desc">Правильный монтаж автоматических выключателей: выбор номинала, схема подключения, ошибки и нормы ПУЭ</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

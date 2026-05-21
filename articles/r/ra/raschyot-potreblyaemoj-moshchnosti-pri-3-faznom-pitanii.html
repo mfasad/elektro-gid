@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Расчёт мощности 3-фазной сети: формулы, примеры, ошибки — Электро Гид</title>
+    <meta name="description" content="Как правильно рассчитать потребляемую мощность при 3-фазном питании: формулы для активной и реактивной нагрузки, примеры расчётов, типичные ошибки и советы по измерению.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/r/ra/raschyot-potreblyaemoj-moshchnosti-pri-3-faznom-pitanii.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Расчёт мощности 3-фазной сети: формулы, примеры, ошибки">
+    <meta property="og:description" content="Как правильно рассчитать потребляемую мощность при 3-фазном питании: формулы для активной и реактивной нагрузки, примеры расчётов, типичные ошибки и советы по измерению.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/normy-i-standarty/">Нормы и стандарты</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Расчёт мощности 3-фазной сети: формулы, примеры, ошибки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Расчёт потребляемой мощности в трёхфазной сети: формулы, примеры и практические советы</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-основные-понятия-фазное-vs-линейное-напряжение">1. Основные понятия: фазное vs линейное напряжение</a></li><li><a href="#2-формулы-расчёта-мощности-в-3-фазной-сети">2. Формулы расчёта мощности в 3-фазной сети</a></li><li><a href="#3-примеры-расчётов-для-разных-типов-нагрузки">3. Примеры расчётов для разных типов нагрузки</a></li><li><a href="#4-как-измерить-мощность-в-3-фазной-сети">4. Как измерить мощность в 3-фазной сети?</a></li><li><a href="#5-типичные-ошибки-при-расчётах">5. Типичные ошибки при расчётах</a></li><li><a href="#6-практические-советы-по-оптимизации-мощности">6. Практические советы по оптимизации мощности</a></li><li><a href="#7-нормативные-документы-и-стандарты">7. Нормативные документы и стандарты</a></li><li><a href="#faq-частые-вопросы-по-расчёту-мощности">FAQ: Частые вопросы по расчёту мощности</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Трёхфазные сети широко используются в промышленности, коммерческих зданиях и даже в частных домах с мощным оборудованием. Однако расчёт потребляемой мощности в таких сетях часто вызывает затруднения — особенно у тех, кто привык работать с однофазными цепями. Ошибки в расчётах могут привести к перегрузке кабелей, срабатыванию автоматов или даже пожару. В этой статье разберём <strong>основные формулы</strong>, покажем <strong>практические примеры</strong> и укажем на <strong>типичные ошибки</strong>, которые допускают даже опытные электрики.</p>
+
+<p>Многие ошибочно считают, что для трёхфазной сети достаточно умножить однофазную мощность на три. На деле всё сложнее: здесь учитываются <strong>линейное и фазное напряжение</strong>, <strong>коэффициент мощности (cos φ)</strong>, а также тип нагрузки — симметричная или несимметричная. Без учёта этих нюансов расчёты будут неточными, а оборудование может работать в нештатном режиме.</p>
+
+<p>В статье вы найдёте:</p>
+<ul>
+ <li>🔹 <strong>Формулы</strong> для активной, реактивной и полной мощности в 3-фазной сети</li>
+ <li>🔹 <strong>Примеры расчётов</strong> для разных типов нагрузки (электродвигатели, нагреватели, сварочные аппараты)</li>
+ <li>🔹 <strong>Способы измерения</strong> мощности с помощью приборов (ваттметр, анализатор сети, токовые клещи)</li>
+ <li>🔹 <strong>Ошибки</strong>, которые приводят к завышенным или заниженным результатам</li>
+</ul>
+
+<h2 id="1-основные-понятия-фазное-vs-линейное-напряжение">1. Основные понятия: фазное vs линейное напряжение</h2>
+
+<p>Прежде чем переходить к формулам, важно разобраться в ключевых терминах. В трёхфазной сети различают:</p>
+
+<ul>
+ <li>🔌 <strong>Фазное напряжение (<em>U<sub>ф</sub></strong>)</strong> — напряжение между любой фазой и нейтралью (обычно <code>220–230 В</code> в бытовых сетях).</li>
+ <li>🔌 <strong>Линейное напряжение (<em>U<sub>л</sub></strong>)</strong> — напряжение между двумя фазами (<code>380–400 В</code> в стандартных сетях).</li>
+</ul>
+
+<p>Связь между ними описывается простой формулой:</p>
+<pre><code>U<sub>л</sub> = √3 × U<sub>ф</sub> ≈ 1.73 × U<sub>ф</sub></code></pre>
+
+<p>Например, если фазное напряжение <code>230 В</code>, то линейное будет <code>1.73 × 230 ≈ 398 В</code> (округляют до <code>400 В</code>). Этот коэффициент <mark>√3 (1.73)</mark> появляется во всех формулах для трёхфазных сетей, и его часто забывают учитывать при расчётах.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> В некоторых странах (например, США) стандартное линейное напряжение составляет <code>208 В</code>, а фазное — <code>120 В</code>. Всегда уточняйте параметры сети перед расчётами!</blockquote>
+
+<p>Также важно понимать разницу между:</p>
+<ul>
+ <li>🔹 <strong>Симметричной нагрузкой</strong> — когда все три фазы потребляют одинаковый ток (например, трёхфазный электродвигатель).</li>
+ <li>🔹 <strong>Несимметричной нагрузкой</strong> — когда токи по фазам различаются (например, в доме с однофазными потребителями, распределёнными по фазам).</li>
+</ul>
+
+<div class="poll-widget" id="poll-5d7a70ed"><div class="poll-widget-question">📊 Какую нагрузку вы чаще рассчитываете?</div><div class="poll-widget-option" data-poll="5d7a70ed" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Симметричную (двигатели, нагреватели)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5d7a70ed" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Несимметричную (бытовая сеть)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5d7a70ed" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю, что это</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5d7a70ed" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Другое</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="2-формулы-расчёта-мощности-в-3-фазной-сети">2. Формулы расчёта мощности в 3-фазной сети</h2>
+
+<p>Мощность в трёхфазной сети бывает трёх типов:</p>
+<ol>
+ <li><strong>Активная (<em>P</strong>)</strong> — реальная мощность, выполняющая полезную работу (измеряется в <code>Вт</code>).</li>
+ <li><strong>Реактивная (<em>Q</strong>)</strong> — мощность, расходуемая на создание электромагнитных полей (измеряется в <code>ВАр</code>).</li>
+ <li><strong>Полная (<em>S</strong>)</em> — векторная сумма активной и реактивной мощности (измеряется в <code>ВА</code>).</li>
+</ol>
+
+<p>Связь между ними описывается треугольником мощностей:</p>
+<pre><code>S = √(P² + Q²)</code></pre>
+
+<h3>2.1. Активная мощность (<em>P</em>)</h3>
+<p>Для <strong>симметричной нагрузки</strong> (одинаковый ток во всех фазах):</p>
+<pre><code>P = √3 × U<sub>л</sub> × I<sub>л</sub> × cos φ
+<p>= 3 × U<sub>ф</sub> × I<sub>ф</sub> × cos φ</code></pre></p>
+<p>Где:</p>
+<ul>
+ <li><em>U<sub>л</sub></em> — линейное напряжение (<code>380 В</code>),</li>
+ <li><em>I<sub>л</sub></em> — линейный ток (измеряется в <code>А</code>),</li>
+ <li><em>cos φ</em> — коэффициент мощности (от <code>0</code> до <code>1</code>).</li>
+</ul>
+
+<p>Для <strong>несимметричной нагрузки</strong> мощность считают как сумму мощностей по фазам:</p>
+<pre><code>P<sub>общ</sub> = P<sub>A</sub> + P<sub>B</sub> + P<sub>C</sub>
+<p>= U<sub>фA</sub>×I<sub>фA</sub>×cos φ<sub>A</sub> + U<sub>фB</sub>×I<sub>фB</sub>×cos φ<sub>B</sub> + U<sub>фC</sub>×I<sub>фC</sub>×cos φ<sub>C</sub></code></pre></p>
+
+<h3>2.2. Реактивная мощность (<em>Q</em>)</h3>
+<p>Формулы аналогичны, но вместо <em>cos φ</em> используется <em>sin φ</em>:</p>
+<pre><code>Q = √3 × U<sub>л</sub> × I<sub>л</sub> × sin φ</code></pre>
+
+<h3>2.3. Полная мощность (<em>S</em>)</h3>
+<p>Это максимальная мощность, которую может отдать источник:</p>
+<pre><code>S = √3 × U<sub>л</sub> × I<sub>л</sub> = 3 × U<sub>ф</sub> × I<sub>ф</sub></code></pre>
+
+
+<ul>
+ <li>🔹 Нагреватели, лампы накаливания: <code>cos φ ≈ 1</code></li>
+ <li>🔹 Асинхронные двигатели: <code>cos φ ≈ 0.7–0.8</code></li>
+ <li>🔹 Компьютеры, сварочные аппараты: <code>cos φ ≈ 0.5–0.6</code></li>
+</ul>
+<p>--></p>
+
+<h2 id="3-примеры-расчётов-для-разных-типов-нагрузки">3. Примеры расчётов для разных типов нагрузки</h2>
+
+<p>Рассмотрим тричных сценария: электродвигатель, нагревательный элемент и бытовая сеть с несимметричной нагрузкой.</p>
+
+<h3>3.1. Трёхфазный электродвигатель</h3>
+<p><strong>Условия:</strong></p>
+<ul>
+ <li>Напряжение: <code>380 В</code> (линейное),</li>
+ <li>Ток: <code>10 А</code> (по каждой фазе),</li>
+ <li><em>cos φ</em>: <code>0.8</code>.</li>
+</ul>
+
+<p><strong>Расчёт активной мощности:</strong></p>
+<pre><code>P = √3 × 380 × 10 × 0.8 ≈ 1.73 × 380 × 10 × 0.8 ≈ 5237 Вт ≈ 5.2 кВт</code></pre>
+
+<p><strong>Расчёт реактивной мощности:</strong></p>
+<pre><code>sin φ = √(1 - cos² φ) = √(1 - 0.8²) ≈ 0.6
+<p>Q = √3 × 380 × 10 × 0.6 ≈ 3928 ВАр ≈ 3.9 кВАр</code></pre></p>
+
+<h3>3.2. Трёхфазный нагреватель (симметричная нагрузка)</h3>
+<p><strong>Условия:</strong></p>
+<ul>
+ <li>Напряжение: <code>220 В</code> (фазное),</li>
+ <li>Сопротивление одной фазы: <code>19 Ом</code>.</li>
+</ul>
+
+<p><strong>Расчёт:</strong></p>
+<ol>
+ <li>Ток в фазе: <code>I<sub>ф</sub> = U<sub>ф</sub> / R = 220 / 19 ≈ 11.58 А</code>.</li>
+ <li>Активная мощность (так как <em>cos φ = 1</em> для нагревателя):</li>
+ <pre><code>P = 3 × U<sub>ф</sub> × I<sub>ф</sub> = 3 × 220 × 11.58 ≈ 7615 Вт ≈ 7.6 кВт</code></pre>
+</ol>
+
+<h3>3.3. Бытовой дом с несимметричной нагрузкой</h3>
+<p><strong>Условия:</strong></p>
+<table>
+ <thead>
+ <tr>
+ <th>Фаза</th>
+ <th>Напряжение (<em>U<sub>ф</sub></em>), В</th>
+ <th>Ток (<em>I<sub>ф</sub></em>), А</th>
+ <th><em>cos φ</em></th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>A</td>
+ <td>230</td>
+ <td>8</td>
+ <td>0.9</td>
+ </tr>
+ <tr>
+ <td>B</td>
+ <td>230</td>
+ <td>6</td>
+ <td>0.8</td>
+ </tr>
+ <tr>
+ <td>C</td>
+ <td>230</td>
+ <td>10</td>
+ <td>0.7</td>
+ </tr>
+ </tbody>
+</table>
+
+<p><strong>Расчёт:</strong></p>
+<pre><code>P<sub>A</sub> = 230 × 8 × 0.9 = 1656 Вт
+<p>P<sub>B</sub> = 230 × 6 × 0.8 = 1104 Вт</p>
+<p>P<sub>C</sub> = 230 × 10 × 0.7 = 1610 Вт</p>
+<p>P<sub>общ</sub> = 1656 + 1104 + 1610 = 4370 Вт ≈ 4.4 кВт</code></pre></p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При несимметричной нагрузке <strong>обязательно</strong> рассчитывать мощность по каждой фазе отдельно. Использование формулы для симметричной нагрузки даст неверный результат!</p></div>
+
+<h2 id="4-как-измерить-мощность-в-3-фазной-сети">4. Как измерить мощность в 3-фазной сети?</h2>
+
+<p>Теоретические расчёты хороши, но на практике часто требуется <strong>измерить</strong> реальную мощность. Для этого используют:</p>
+
+<ul>
+ <li>🔹 <strong>Трёхфазный ваттметр</strong> — самый точный метод, но требует подключения к каждой фазе.</li>
+ <li>🔹 <strong>Токовые клещи</strong> + мультиметр — измеряют ток и напряжение, затем мощность рассчитывают вручную.</li>
+ <li>🔹 <strong>Анализатор качества электроэнергии</strong> — показывает <em>P</em>, <em>Q</em>, <em>S</em>, <em>cos φ</em> и даже гармоники.</li>
+</ul>
+
+<p><strong>Порядок измерения токовыми клещами:</strong></p>
+
+<p>Измерить линейное напряжение <em>U<sub>л</sub></em>|Измерить ток в каждой фазе <em>I<sub>A</sub>, I<sub>B</sub>, I<sub>C</sub></em>|Узнать <em>cos φ</em> (из паспорта оборудования или анализатора)|Подставить данные в формулу <code>P = √3 × U<sub>л</sub> × I<sub>ср</sub> × cos φ</code>, где <em>I<sub>ср</sub></em> — средний ток</p>
+<p>--></p>
+
+<p>Для двигателей <em>cos φ</em> можно оценить по таблице:</p>
+<table>
+ <thead>
+ <tr>
+ <th>Тип двигателя</th>
+ <th><em>cos φ</em> (при номинальной нагрузке)</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Асинхронный (стандартный)</td>
+ <td>0.7–0.85</td>
+ </tr>
+ <tr>
+ <td>Синхронный</td>
+ <td>0.8–0.95</td>
+ </tr>
+ <tr>
+ <td>Высокоэффективный (IE3, IE4)</td>
+ <td>0.85–0.98</td>
+ </tr>
+ </tbody>
+</table>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При измерении мощности индуктивной нагрузки (двигатели, трансформаторы) <strong>никогда не игнорируйте реактивную мощность</strong>. Даже если вас интересует только активная мощность, для точного расчёта сечения кабелей и выбора автоматов нужно учитывать <em>полную мощность (S)</em>!</blockquote>
+
+<h2 id="5-типичные-ошибки-при-расчётах">5. Типичные ошибки при расчётах</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки. Вот самые распространённые:</p>
+
+<ul>
+ <li>🔸 <strong>Игнорирование коэффициента √3</strong> — забывают умножить на <code>1.73</code> при использовании линейного напряжения.</li>
+ <li>🔸 <strong>Путаница между фазным и линейным напряжением</strong> — например, подставляют <code>220 В</code> вместо <code>380 В</code> в формулу с <em>U<sub>л</sub></em>.</li>
+ <li>🔸 <strong>Пренебрежение <em>cos φ</strong></strong> — особенно критично для двигателей и трансформаторов.</li>
+ <li>🔸 <strong>Неучёт несимметрии фаз</strong> — в бытовых сетях нагрузка редко бывает идеально сбалансированной.</li>
+ <li>🔸 <strong>Округление промежуточных результатов</strong> — лучше сохранять 2–3 знака после запятой до финального ответа.</li>
+</ul>
+
+<p><strong>Пример ошибки:</strong></p>
+<p>Допустим, вы рассчитали ток для двигателя мощностью <code>5 кВт</code> по формуле:</p>
+<pre><code>I = P / (√3 × U × cos φ) = 5000 / (1.73 × 380 × 0.8) ≈ 9.4 А</code></pre>
+<p>Но забыли, что это <strong>линейный ток</strong>, а для выбора автомата нужен <strong>фазный ток</strong> (в данном случае они равны, но в других схемах могут отличаться). Кроме того, если не учесть пусковые токи (которые в 5–7 раз выше номинальных), автомат может сработать при запуске.</p>
+
+<details class="faq-item"><summary>Что будет если неправильно рассчитать мощность?</summary><div class="faq-answer"><p>
+<p>При заниженных расчётах:</p>
+<ul>
+ <li>🔹 Перегрев кабелей и риск пожара,</li>
+ <li>🔹 Ложные срабатывания автоматов,</li>
+ <li>🔹 Снижение срока службы оборудования.</li>
+</ul>
+<p>При завышенных расчётах:</p>
+<ul>
+ <li>🔹 Неоправданные затраты на более мощные (и дорогие) кабели и автоматы,</li>
+ <li>🔹 Увеличение потерь энергии в проводах.</li>
+</ul>
+<p></p></div></details></p>
+
+<h2 id="6-практические-советы-по-оптимизации-мощности">6. Практические советы по оптимизации мощности</h2>
+
+<p>Если вы рассчитали мощность и обнаружили, что она близка к максимально допустимой для вашей сети, рассмотрите следующие меры:</p>
+
+<ul>
+ <li>🔹 <strong>Компенсация реактивной мощности</em> — установка конденсаторных батарей для повышения <em>cos φ</em> (особенно актуально для предприятий с большим количеством двигателей).</li>
+ <li>🔹 <strong>Балансировка фаз</strong> — равномерное распределение однофазных нагрузок по фазам для уменьшения несимметрии.</li>
+ <li>🔹 <strong>Замена устаревших двигателей</strong> на модели с высоким КПД (класс <em>IE3/IE4</em>), которые потребляют меньше энергии.</li>
+ <li>🔹 <strong>Использование мягких пускателей</strong> — снижает пусковые токи и уменьшает нагрузку на сеть при запуске оборудования.</li>
+</ul>
+
+<p>Для бытовых сетей:</p>
+<ul>
+ <li>🔹 Отдавайте предпочтение трёхфазным потребителям (например, электроплитам или обогревателям), если у вас подведено 3 фазы — они распределяют нагрузку равномернее.</li>
+ <li>🔹 Избегайте подключения мощных однофазных приборов (например, сварочного аппарата) к одной фазе — это может вызвать перекос напряжений.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы планируете увеличить мощность подключаемой нагрузки (например, установить новый станок или электрокотёл), <strong>обязательно согласуйте это с энергоснабжающей организацией</strong>. В противном случае вас могут оштрафовать за самовольное увеличение мощности или отключить от сети.</blockquote>
+
+<h2 id="7-нормативные-документы-и-стандарты">7. Нормативные документы и стандарты</h2>
+
+<p>При расчётах и проектировании трёхфазных сетей следует ориентироваться на следующие документы:</p>
+
+<ul>
+ <li>📄 <strong>ГОСТ 32144-2013</strong> — нормы качества электроэнергии (в том числе допустимые отклонения напряжения и <em>cos φ</em>).</li>
+ <li>📄 <strong>ПУЭ (Правила устройства электроустановок)</strong> — главы 1.5 (учёт электроэнергии) и 7.1 (заземление и защитные меры).</li>
+ <li>📄 <strong>СП 31-110-2003</strong> — проектирование электроснабжения жилых и общественных зданий.</li>
+ <li>📄 <strong>ГОСТ Р 54149-2010</strong> — требования к электрическим установкам зданий.</li>
+</ul>
+
+<p>Для промышленных объектов также актуальны:</p>
+<ul>
+ <li>📄 <strong>ГОСТ 13109-97</strong> — нормы качества электроэнергии для промышленных сетей.</li>
+ <li>📄 <strong>РД 34.20.185-94</strong> — инструкция по компенсации реактивной мощности.</li>
+</ul>
+
+<p>Согласно <strong>ПУЭ (п. 1.5.14)</strong>, коэффициент мощности (<em>cos φ</em>) для промышленных предприятий должен быть не ниже <code>0.92</code>. При меньших значениях энергоснабжающая организация может применять штрафные санкции.</p>
+
+
+<ul>
+ <li>🔹 Разрешённая мощность подключения,</li>
+ <li>🔹 Требования к <em>cos φ</em>,</li>
+ <li>🔹 Необходимость установки счётчиков реактивной энергии.</li>
+</ul>
+<p>--></p>
+
+<h2 id="faq-частые-вопросы-по-расчёту-мощности">FAQ: Частые вопросы по расчёту мощности</h2>
+
+<details>
+ <summary>Как рассчитать мощность трёхфазного двигателя, если известен только ток?</summary>
+ <p>Если вы измерили <strong>линейный ток (<em>I<sub>л</sub></strong>)</em> и знаете <em>cos φ</em>, используйте формулу:</p>
+ <pre><code>P = √3 × U<sub>л</sub> × I<sub>л</sub> × cos φ</code></pre>
+ <p>Например, при <em>I<sub>л</sub> = 15 А</em>, <em>U<sub>л</sub> = 380 В</em> и <em>cos φ = 0.8</em>:</p>
+ <pre><code>P ≈ 1.73 × 380 × 15 × 0.8 ≈ 8.5 кВт</code></pre>
+ <p>Если <em>cos φ</em> неизвестен, возьмите среднее значение <code>0.8</code> для асинхронных двигателей.</p>
+</details>
+
+<details>
+ <summary>Можно ли использовать однофазные формулы для трёхфазной сети?</summary>
+ <p>Нет, это приведёт к ошибке. Однофазная формула <code>P = U × I × cos φ</code> не учитывает:</p>
+ <ul>
+ <li>🔹 Коэффициент <code>√3</code> для линейного напряжения,</li>
+ <li>🔹 Распределение нагрузки по трём фазам.</li>
+ </ul>
+ <p>Исключение — если вы рассчитываете мощность <strong>одной фазы</strong> трёхфазной сети (например, для проверки баланса нагрузки).</p>
+</details>
+
+<details>
+ <summary>Как узнать <em>cos φ</em> для своего оборудования?</summary>
+ <p>Способы:</p>
+ <ol>
+ <li>Посмотреть в <strong>паспорте устройства</strong> или на его шильдике (обычно указывается рядом с мощностью).</li>
+ <li>Использовать <strong>анализатор качества электроэнергии</strong> (показывает текущий <em>cos φ</em>).</li>
+ <li>Для двигателей без данных можно взять <strong>средние значения</strong>:
+ <ul>
+ <li>🔹 Асинхронные двигатели: <code>0.7–0.85</code>,</li>
+ <li>🔹 Синхронные двигатели: <code>0.8–0.95</code>,</li>
+ <li>🔹 Нагреватели, лампы: <code>0.95–1</code>.</li>
+ </ol>
+ </li>
+ </ol>
+</details>
+
+<details>
+ <summary>Что делать, если мощность превышает разрешённую?</summary>
+ <p>Варианты решений:</p>
+ <ul>
+ <li>🔹 <strong>Уменьшить нагрузку</strong> — отключить часть потребителей или распределить их по времени.</li>
+ <li>🔹 <strong>Увеличить разрешённую мощность</strong> — подать заявку в энергоснабжающую организацию (потребуется оплата и возможно усиление линии).</li>
+ <li>🔹 <strong>Оптимизировать <em>cos φ</strong></strong> — установить конденсаторные батареи для компенсации реактивной мощности.</li>
+ <li>🔹 <strong>Использовать источники бесперебойного питания (ИБП)</strong> с функцией ограничения мощности.</li>
+ </ul>
+ <p>Самовольное превышение мощности может привести к <strong>отключению электроэнергии</strong> или <strong>штрафам</strong>.</p>
+</details>
+
+<details>
+ <summary>Нужно ли учитывать пусковые токи при расчёте мощности?</summary>
+ <p>Да, если речь идёт о:</p>
+ <ul>
+ <li>🔹 <strong>Выборе автоматических выключателей</strong> — они должны выдерживать кратковременные пусковые токи (например, для двигателей используют автоматы с характеристикой <code>D</code> вместо <code>C</code>).</li>
+ <li>🔹 <strong>Расчёте сечения кабелей</em> — пусковые токи могут нагревать провода, поэтому иногда берут кабель с запасом.</li>
+ </ul>
+ <p>Для большинства асинхронных двигателей пусковой ток в <code>5–7 раз</code> превышает номинальный. Например, если номинальный ток <code>10 А</code>, то при запуске он может достигать <code>50–70 А</code>.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-основные-понятия-фазное-vs-линейное-напряжение">1. Основные понятия: фазное vs линейное напряжение</a></li><li><a href="#2-формулы-расчёта-мощности-в-3-фазной-сети">2. Формулы расчёта мощности в 3-фазной сети</a></li><li><a href="#3-примеры-расчётов-для-разных-типов-нагрузки">3. Примеры расчётов для разных типов нагрузки</a></li><li><a href="#4-как-измерить-мощность-в-3-фазной-сети">4. Как измерить мощность в 3-фазной сети?</a></li><li><a href="#5-типичные-ошибки-при-расчётах">5. Типичные ошибки при расчётах</a></li><li><a href="#6-практические-советы-по-оптимизации-мощности">6. Практические советы по оптимизации мощности</a></li><li><a href="#7-нормативные-документы-и-стандарты">7. Нормативные документы и стандарты</a></li><li><a href="#faq-частые-вопросы-по-расчёту-мощности">FAQ: Частые вопросы по расчёту мощности</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/c/ch/chto-znachit-odnotarifnyj-uchet-elektroenergii.html" class="related-card">Однотарифный учет электроэнергии: что это и как работает в 2026 году</a></li><li><a href="/articles/v/vi/vintovoe-soedinenie-provodov.html" class="related-card">Винтовое соединение проводов: технология, нормы ПУЭ и ошибки</a></li><li><a href="/articles/c/ch/chto-takoe-t1-na-schetchike-elektroenergii.html" class="related-card">Что такое Т1 на счётчике электроэнергии: расшифровка и тарифы</a></li><li><a href="/articles/r/ra/razmer-ramki-rozetki-standartnoj.html" class="related-card">Размер рамки розетки стандартной: габариты, нормы и монтаж</a></li><li><a href="/articles/k/ka/kakoe-napryazhenie-v-domashnej-rozetke.html" class="related-card">Какое напряжение в розетке 220В или 230В? Стандарты и отклонения</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/c/ch/chto-znachit-odnotarifnyj-uchet-elektroenergii.html" class="related-bottom-card"><span class="related-bottom-title">Однотарифный учет электроэнергии: что это и как работает в 2026 году</span><span class="related-bottom-desc">Разбираемся, что значит однотарифный учет электроэнергии, его плюсы и минусы, как перейти с многотар</span></a><a href="/articles/v/vi/vintovoe-soedinenie-provodov.html" class="related-bottom-card"><span class="related-bottom-title">Винтовое соединение проводов: технология, нормы ПУЭ и ошибки</span><span class="related-bottom-desc">Полный разбор винтового соединения проводов. Как правильно затянуть контакт, выбрать клемму и избежа</span></a><a href="/articles/c/ch/chto-takoe-t1-na-schetchike-elektroenergii.html" class="related-bottom-card"><span class="related-bottom-title">Что такое Т1 на счётчике электроэнергии: расшифровка и тарифы</span><span class="related-bottom-desc">Т1 на счётчике электроэнергии — это дневной тариф в многотарифной системе. Разбираемся, как он работ</span></a><a href="/articles/r/ra/razmer-ramki-rozetki-standartnoj.html" class="related-bottom-card"><span class="related-bottom-title">Размер рамки розетки стандартной: габариты, нормы и монтаж</span><span class="related-bottom-desc">Какой размер рамки розетки стандартной? Подробный разбор габаритов по ГОСТ и DIN, допуски при монтаж</span></a><a href="/articles/k/ka/kakoe-napryazhenie-v-domashnej-rozetke.html" class="related-bottom-card"><span class="related-bottom-title">Какое напряжение в розетке 220В или 230В? Стандарты и отклонения</span><span class="related-bottom-desc">Узнайте, какое напряжение должно быть в домашней розетке по ГОСТ 2026: 220В или 230В? Допустимые отк</span></a><a href="/articles/n/no/normy-napryazheniya-v-seti.html" class="related-bottom-card"><span class="related-bottom-title">Нормы напряжения в сети: стандарты, допуски и защита</span><span class="related-bottom-desc">Какое напряжение должно быть в розетке? Разбор ГОСТ, допустимые отклонения 220В, последствия скачков</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

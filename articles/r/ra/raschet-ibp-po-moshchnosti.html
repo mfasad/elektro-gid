@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Расчет ИБП по мощности: формулы, примеры и ошибки выбора — Электро Гид</title>
+    <meta name="description" content="Как правильно рассчитать мощность ИБП для дома или офиса? Формулы, таблицы нагрузок, примеры расчетов и типичные ошибки при выборе источника бесперебойного питания.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/r/ra/raschet-ibp-po-moshchnosti.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Расчет ИБП по мощности: формулы, примеры и ошибки выбора">
+    <meta property="og:description" content="Как правильно рассчитать мощность ИБП для дома или офиса? Формулы, таблицы нагрузок, примеры расчетов и типичные ошибки при выборе источника бесперебойного питания.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/stabilizatory-i-ibp/">Стабилизаторы и ИБП</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Расчет ИБП по мощности: формулы, примеры и ошибки выбора</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Расчёт мощности ИБП: пошаговая инструкция с примерами и таблицами</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-основные-понятия-активная-реактивная-и-полная-мощность">1. Основные понятия: активная, реактивная и полная мощность</a></li><li><a href="#2-как-определить-суммарную-нагрузку-на-ибп">2. Как определить суммарную нагрузку на ИБП</a></li><li><a href="#3-формулы-расчёта-мощности-ибп">3. Формулы расчёта мощности ИБП</a></li><li><a href="#4-типичные-ошибки-при-выборе-ибп-по-мощности">4. Типичные ошибки при выборе ИБП по мощности</a></li><li><a href="#5-особенности-расчёта-для-разных-типов-нагрузок">5. Особенности расчёта для разных типов нагрузок</a></li><li><a href="#6-практические-примеры-расчётов">6. Практические примеры расчётов</a></li><li><a href="#7-как-проверить-правильность-выбора-ибп">7. Как проверить правильность выбора ИБП</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Источник бесперебойного питания (ИБП) — это не просто резервный аккумулятор для вашей техники, а сложное устройство, от правильного выбора которого зависит стабильность работы оборудования, сохранность данных и даже безопасность. Ошибка в расчёте мощности может привести к двум крайностям: либо ИБП не справится с нагрузкой и отключится в критический момент, либо вы переплатите за избыточную мощность, которая никогда не будет задействована. В этой статье мы разберём, как <strong>точно рассчитать требуемую мощность ИБП</strong>, учитывая все нюансы — от типа нагрузки до коэффициента пусковых токов.</p>
+
+<p>Многие пользователи ошибочно полагают, что достаточно сложить паспортные мощности всех подключаемых устройств — и готово. Однако реальная картина сложнее: нужно учитывать <em>реактивную мощность</em> (для оборудования с электродвигателями или трансформаторами), <em>коэффициент мощности (PF)</em>, а также запас на будущие апгрейды системы. Например, сервер с блоком питания 500 Вт может потреблять до 800 Вт в момент запуска, а обычный офисный компьютер с БП на 400 Вт — всего 150 Вт в режиме простоя. Как не ошибиться в таких расчётах? Давайте разбираться по порядку.</p>
+
+<h2 id="1-основные-понятия-активная-реактивная-и-полная-мощность">1. Основные понятия: активная, реактивная и полная мощность</h2>
+
+<p>Прежде чем приступать к расчётам, нужно чётко понимать разницу между типами мощности, которые указываются в характеристиках оборудования и ИБП:</p>
+
+<ul>
+  <li>🔌 <strong>Активная мощность (P)</strong> — измеряется в <em>ваттах (Вт)</em>. Это реальная мощность, которая выполняет полезную работу (например, вращает жёсткий диск или освещает экран монитора). Именно её обычно указывают в паспорте устройства.</li>
+  <li>🌀 <strong>Реактивная мощность (Q)</strong> — измеряется в <em>вольт-амперах реактивных (ВАр)</em>. Возникает в цепях с индуктивными или ёмкостными нагрузками (например, в электродвигателях или трансформаторах). Не совершает полезной работы, но создаёт дополнительную нагрузку на сеть.</li>
+  <li>⚡ <strong>Полная мощность (S)</strong> — измеряется в <em>вольт-амперах (ВА)</em>. Это векторная сумма активной и реактивной мощностей. Именно её указывают в характеристиках ИБП как <em>номинальную мощность</em>.</li>
+</ul>
+
+<p>Ключевой параметр, связывающий эти величины, — <strong>коэффициент мощности (PF, Power Factor)</strong>. Он показывает, какая часть полной мощности используется для полезной работы. Например, если на блоке питания указано <code>PF = 0.7</code>, это значит, что из 1000 ВА полной мощности только 700 Вт идут на активную нагрузку, а остальные 300 ВА расходуются на реактивные потери.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если в характеристиках устройства указан только параметр <em>Вт</em>, а <em>ВА</em> отсутствует, используйте формулу: <strong>ВА = Вт / PF</strong>. Для большинства компьютерного оборудования PF составляет 0.6–0.8, для серверов — 0.9–0.95.</p></div>
+
+<h2 id="2-как-определить-суммарную-нагрузку-на-ибп">2. Как определить суммарную нагрузку на ИБП</h2>
+
+<p>Чтобы рассчитать общую мощность, которую должен выдерживать ИБП, выполните следующие шаги:</p>
+
+<ol>
+  <li><strong>Составьте список всех устройств</strong>, которые будут подключены к ИБП. Учтите не только компьютеры и серверы, но и периферию: мониторы, роутеры, IP-камеры, внешние жёсткие диски.</li>
+  <li><strong>Найдите паспортные данные</strong> каждого устройства. Ищите параметры <em>мощность (Вт)</em> или <em>ток потребления (А)</em>. Если мощность указана в <em>ВА</em>, используйте её напрямую.</li>
+  <li><strong>Учтите пусковые токи</strong>. Некоторые устройства (например, насосы, холодильники, лазерные принтеры) в момент включения потребляют в 3–5 раз больше энергии, чем в штатном режиме.</li>
+  <li><strong>Добавьте запас 20–30%</strong> на будущие апгрейды или неучтённые нагрузки.</li>
+</ol>
+
+<p>Пример расчёта для офисного рабочего места:</p>
+<table>
+  <thead>
+    <tr><th>Устройство</th><th>Мощность (Вт)</th><th>PF</th><th>Полная мощность (ВА)</th><th>Примечание</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Системный блок (офисный ПК)</td><td>250</td><td>0.7</td><td>357</td><td>Блок питания 400 Вт, реальное потребление ~250 Вт</td></tr>
+    <tr><td>Монитор 24"</td><td>30</td><td>0.95</td><td>32</td><td>LED-подсветка</td></tr>
+    <tr><td>Роутер</td><td>10</td><td>0.6</td><td>17</td><td>Wi-Fi 6, 4 порта</td></tr>
+    <tr><td>IP-камера</td><td>5</td><td>0.5</td><td>10</td><td>PoE, ночное видение</td></tr>
+    <tr><td><strong>Итого без запаса</strong></td><td>295</td><td>—</td><td><strong>416</strong></td><td>—</td></tr>
+    <tr><td><strong>С запасом 30%</strong></td><td>—</td><td>—</td><td><strong>540</strong></td><td>Рекомендуемая мощность ИБП</td></tr>
+  </tbody>
+</table>
+
+
+<p>Собрать список всех подключаемых устройств|</p>
+<p>Проверить паспортные данные (Вт или ВА)|</p>
+<p>Учесть пусковые токи для двигателей/нагревателей|</p>
+<p>Добавить запас 20–30% на будущее|</p>
+<p>Проконсультироваться с продавцом по модели ИБП--></p>
+
+<p><mark>Критическая ошибка: игнорировать пусковые токи может привести к отключению ИБП при запуске оборудования, даже если номинальная мощность подходит. Например, холодильник с компрессором на 200 Вт в момент включения может потреблять до 1000 Вт!</mark></p>
+
+<h2 id="3-формулы-расчёта-мощности-ибп">3. Формулы расчёта мощности ИБП</h2>
+
+<p>Для точного расчёта используйте следующие формулы:</p>
+
+<ol>
+  <li><strong>Если известна активная мощность (P) и PF:</strong>
+    <pre><code>S (ВА) = P (Вт) / PF</code></pre>
+<p>Пример: для сервера с P = 600 Вт и PF = 0.9 → S = 600 / 0.9 ≈ 667 ВА.</p>
+  </li>
+  <li><strong>Если известен ток (I) и напряжение (U):</strong>
+    <pre><code>S (ВА) = I (А) × U (В)</code></pre>
+<p>Пример: для устройства с током 2 А в сети 220 В → S = 2 × 220 = 440 ВА.</p>
+  </li>
+  <li><strong>Суммарная мощность для нескольких устройств:</strong>
+    <pre><code>S_total (ВА) = Σ(S_i) × 1.2 (запас 20%)</code></pre>
+  </li>
+</ol>
+
+<p>Для упрощения можно использовать <strong>онлайн-калькуляторы</strong> (например, на сайтах производителей ИБП <em>APC</em> или <em>Eaton</em>), но помните: они часто не учитывают пусковые токи и специфические нагрузки. Лучше перепроверить расчёты вручную.</p>
+
+
+<p>Складываю ватты всех устройств|</p>
+<p>Использую формулы с учётом PF|</p>
+<p>Пользуюсь онлайн-калькулятором|</p>
+<p>Доверяю консультанту в магазине--></p>
+
+<h2 id="4-типичные-ошибки-при-выборе-ибп-по-мощности">4. Типичные ошибки при выборе ИБП по мощности</h2>
+
+<p>Даже опытные пользователи иногда допускают ошибки, которые приводят к неправильному выбору ИБП. Вот наиболее распространённые:</p>
+
+<ul>
+  <li>❌ <strong>Игнорирование PF устройств</strong>. Например, если ИБП на 1000 ВА подключить к серверу с PF = 0.6, реальная активная мощность составит всего 600 Вт — этого может не хватить для нагрузки в 800 Вт.</li>
+  <li>❌ <strong>Неучтённые пусковые токи</strong>. Лазерный принтер или насосная станция могут "выбивать" ИБП при включении, если не заложен запас.</li>
+  <li>❌ <strong>Переоценка мощности БП</strong>. Блок питания на 600 Вт не означает, что устройство потребляет столько же. Реальное потребление часто в 1.5–2 раза ниже.</li>
+  <li>❌ <strong>Отсутствие запаса</strong>. ИБП, работающий на пределе мощности, быстрее изнашивается и может отключаться при скачках напряжения.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Производители ИБП часто указывают <em>пиковую</em> мощность (например, "1500 ВА / 900 Вт"), которая доступна лишь кратковременно. Для длительной работы ориентируйтесь на <em>номинальную</em> мощность (в этом примере — 900 Вт).</blockquote>
+
+<p>Пример из практики: клиент купил ИБП <em>APC Back-UPS 1500VA</em> для домашнего сервера с блоком питания 750 Вт, не учтя PF = 0.7. В результате при нагрузке 750 Вт ИБП отключался через 5 минут из-за превышения полной мощности (750 / 0.7 ≈ 1071 ВА > 1500 ВА). Пришлось докупать модель на 2200 ВА.</p>
+
+<h2 id="5-особенности-расчёта-для-разных-типов-нагрузок">5. Особенности расчёта для разных типов нагрузок</h2>
+
+<p>Разные устройства предъявляют различные требования к ИБП. Рассмотрим ключевые категории:</p>
+
+<h3>5.1. Компьютеры и серверы</h3>
+<p>Для офисных ПК и игровых компьютеров:</p>
+<ul>
+  <li>🖥️ Используйте реальное потребление (можно измерить <em>ваттметром</em>), а не мощность блока питания.</li>
+  <li>🔌 Для серверов с redundant-БП суммируйте мощность всех блоков, даже если они работают попеременно.</li>
+  <li>⚡ Учтите, что видеокарты и процессоры в нагрузке (рендеринг, игры) потребляют на 30–50% больше энергии.</li>
+</ul>
+
+<h3>5.2. Сетевое оборудование</h3>
+<p>Роутеры, коммутаторы и IP-камеры обычно имеют высокий PF (0.9–0.95), но их суммарная мощность может превысить ожидания:</p>
+<ul>
+  <li>📡 Один PoE-порт коммутатора может давать до 30 Вт на устройство (например, для Wi-Fi точки доступа).</li>
+  <li>🔄 Учтите количество портов: 24-портовой коммутатор с PoE может потреблять до 500 Вт.</li>
+</ul>
+
+<h3>5.3. Бытовой техника и инструменты</h3>
+<p>Здесь критично учитывать пусковые токи:</p>
+<ul>
+  <li>❄️ Холодильники: пусковой ток в 3–5 раз выше номинального (например, 200 Вт → 1000 Вт).</li>
+  <li>🔨 Электродрели, насосы: кратковременные пики до 150% от номинала.</li>
+  <li>🖨️ Лазерные принтеры: при печати потребляют в 2–3 раза больше, чем в режиме ожидания.</li>
+</ul>
+
+<details class="faq-item"><summary>Почему нельзя подключать холодильник к офисному ИБП?</summary><div class="faq-answer"><p>
+<p>Большинство офисных ИБП (например, <em>APC Back-UPS</em> или <em>Eaton 5S</em>) не рассчитаны на высокие пусковые токи компрессоров. Даже если номинальная мощность холодильника (150–200 Вт) укладывается в возможности ИБП, пусковой ток в 800–1000 Вт может привести к отключению или повреждению инвертора. Для холодильников используйте ИБП с <strong>синусоидой на выходе</strong> (например, <em>Ippon Back Comfort Sinus 1000</em>) или специализированные модели для реактивных нагрузок.</p></div></details></p>
+
+<h2 id="6-практические-примеры-расчётов">6. Практические примеры расчётов</h2>
+
+<p>Разберём два реальных сценария с детальными расчётами.</p>
+
+<h3>Пример 1: Домашний офис</h3>
+<p><strong>Оборудование:</strong>
+<ul>
+  <li>Ноутбук (65 Вт, PF = 0.9) → 65 / 0.9 ≈ 72 ВА</li>
+  <li>Монитор 27" (40 Вт, PF = 0.95) → 42 ВА</li>
+  <li>Роутер (10 Вт, PF = 0.6) → 17 ВА</li>
+  <li>IP-камера (5 Вт, PF = 0.5) → 10 ВА</li>
+  <li>Настольная лампа LED (12 Вт, PF = 1) → 12 ВА</li>
+</ul>
+<p><strong>Итого:</strong> 72 + 42 + 17 + 10 + 12 = 153 ВА. С запасом 30% → <strong>200 ВА</strong>.</p>
+<p><strong>Рекомендация:</strong> ИБП <em>CyberPower CP220SG</em> (220 ВА / 120 Вт) или <em>APC Back-UPS BE425M</em> (425 ВА / 255 Вт) для запаса на будущее.</p>
+
+<h3>Пример 2: Серверная стойка</h3>
+<p><strong>Оборудование:</strong>
+<ul>
+  <li>Сервер 1U (БП 500 Вт, реальное потребление 300 Вт, PF = 0.9) → 333 ВА</li>
+  <li>Сетевой коммутатор 24 порта (150 Вт, PF = 0.95) → 158 ВА</li>
+  <li>Система хранения (NAS, 120 Вт, PF = 0.8) → 150 ВА</li>
+  <li>ИБП для мониторинга (50 Вт, PF = 0.7) → 71 ВА</li>
+</ul>
+<p><strong>Итого:</strong> 333 + 158 + 150 + 71 = 712 ВА. С запасом 30% → <strong>925 ВА</strong>.</p>
+<p><strong>Рекомендация:</strong> ИБП <em>Eaton 5SC 1000VA</em> (1000 ВА / 900 Вт) или <em>APC Smart-UPS SMC1000I</em> с поддержкой сетевого управления.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для серверных решений выбирайте ИБП с <strong>возможностью горячей замены батарей</strong> и <strong>интерфейсом для мониторинга</strong> (USB/SNMP). Это позволит избежать простоя при замене аккумуляторов и контролировать состояние системы удалённо.</p></div>
+
+<h2 id="7-как-проверить-правильность-выбора-ибп">7. Как проверить правильность выбора ИБП</h2>
+
+<p>Даже после расчётов стоит проверить, подходит ли выбранная модель:</p>
+
+<ol>
+  <li><strong>Тест под нагрузкой</strong>: подключите все устройства и запустите стресс-тест (например, <em>Prime95</em> для ПК или печать большого документа на принтере). ИБП не должен отключаться или выдавать ошибки.</li>
+  <li><strong>Проверка времени автономии</strong>: разрядите ИБП до 20% и сравните реальное время работы с паспортным. Расхождение более 30% говорит о неправильном расчёте.</li>
+  <li><strong>Мониторинг температуры</strong>: если корпус ИБП сильно нагревается, это признак работы на пределе мощности.</li>
+</ol>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если ИБП издаёт высокочастотный писк или мигает индикатор перегрузки, немедленно отключите часть нагрузки. Длительная работа в таком режиме сокращает срок службы батарей и может привести к возгоранию.</blockquote>
+
+<p>Для точной диагностики используйте <em>ваттметр</em> (например, <em>Robiton PM-2</em> или <em>UNI-T UT230C</em>). Он покажет реальное потребление в Вт и ВА, а также PF нагрузки. Это поможет скорректировать расчёты, если ИБП ведёт себя нестабильно.</p>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+  <summary>Можно ли подключать к ИБП устройства с электродвигателями (например, дрель или вентилятор)?</summary>
+  <p>Да, но только если ИБП поддерживает <strong>синусоидальную форму выходного напряжения</strong>. Дешёвые офисные модели (например, <em>APC Back-UPS</em> серии <em>BE</em>) выдают <em>аппроксимированную синусоиду</em>, что может привести к перегреву двигателя или сбоям в работе. Для инструментов выбирайте ИБП с чистой синусоидой: <em>Ippon Back Comfort Sinus</em>, <em>Eaton 9130</em>.</p>
+</details>
+
+<details>
+  <summary>Как рассчитать мощность ИБП для газового котла?</summary>
+  <p>Газовые котлы с электронным управлением (например, <em>Baxi Eco-4s</em> или <em>Navien Deluxe</em>) потребляют 100–200 Вт в штатном режиме, но в момент розжига горелки ток может достигать 500–800 Вт. Для котла:</p>
+  <ol>
+    <li>Узнайте <strong>максимальный ток розжига</strong> (указан в паспорте).</li>
+    <li>Умножьте на 220 В, чтобы получить полную мощность в ВА.</li>
+    <li>Добавьте запас 30% для надёжности.</li>
+  </ol>
+  <p>Пример: если ток розжига 4 А → 4 × 220 = 880 ВА. С запасом → 1150 ВА. Подойдёт ИБП <em>Powercom BNT-1200AP</em>.</p>
+</details>
+
+<details>
+  <summary>Что будет, если мощность нагрузки превысит мощность ИБП?</summary>
+  <p>Последствия зависят от модели ИБП:</p>
+  <ul>
+    <li>🔌 <strong>Офисные ИБП</strong> (например, <em>APC Back-UPS</em>): отключатся через 1–2 секунды, издав звуковой сигнал.</li>
+    <li>🔥 <strong>Модели с защитой</strong> (например, <em>Eaton 5PX</em>): перейдут в байпас (питание напрямую из сети) или отключат нагрузку.</li>
+    <li>⚡ <strong>Дешёвые ИБП без защиты</strong>: могут сгореть (плавятся ключи инвертора, вздуваются конденсаторы).</li>
+  </ul>
+  <p>В любом случае <strong>не рекомендуется</strong> эксплуатировать ИБП в режиме перегрузки — это сокращает срок службы батарей и повышает риск пожара.</p>
+</details>
+
+<details>
+  <summary>Как учесть будущее расширение системы при выборе ИБП?</summary>
+  <p>Если планируете добавлять оборудование (например, второй сервер или дополнительные жёсткие диски), заложите запас:</p>
+  <ul>
+    <li>📈 <strong>Для офиса:</strong> запас 30–50% от текущей нагрузки.</li>
+    <li>🖥️ <strong>Для серверных:</strong> запас 50–100%, так как новое железо (например, GPU для майннинга) может потреблять в разы больше.</li>
+    <li>🔌 <strong>Для дома:</strong> если планируете подключить, например, ещё один компьютер, сразу берите ИБП на 1–1.5 кВА.</li>
+  </ul>
+  <p>Пример: текущая нагрузка 500 ВА → выбирайте ИБП на 1000–1500 ВА.</p>
+</details>
+
+<details>
+  <summary>Можно ли параллельно подключить два ИБП для увеличения мощности?</summary>
+  <p>Технически это возможно, но <strong>не рекомендуется</strong> без специального оборудования. Проблемы:</p>
+  <ul>
+    <li>⚠️ <strong>Несинхронизированная работа</strong>: ИБП могут иметь разную задержку переключения на батареи, что приведёт к сбоям.</li>
+    <li>🔌 <strong>Перекос фаз</strong>: если ИБП подключены к разным розеткам, возможны проблемы с заземлением.</li>
+    <li>💥 <strong>Риск короткого замыкания</strong>: при неправильном подключении.</li>
+  </ul>
+  <p>Альтернатива: используйте один ИБП с <strong>возможностью подключения внешних батарей</strong> (например, <em>Eaton 93PM</em>) или модель с <strong>параллельным режимом</strong> (например, <em>APC Symmetra</em>).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-основные-понятия-активная-реактивная-и-полная-мощность">1. Основные понятия: активная, реактивная и полная мощность</a></li><li><a href="#2-как-определить-суммарную-нагрузку-на-ибп">2. Как определить суммарную нагрузку на ИБП</a></li><li><a href="#3-формулы-расчёта-мощности-ибп">3. Формулы расчёта мощности ИБП</a></li><li><a href="#4-типичные-ошибки-при-выборе-ибп-по-мощности">4. Типичные ошибки при выборе ИБП по мощности</a></li><li><a href="#5-особенности-расчёта-для-разных-типов-нагрузок">5. Особенности расчёта для разных типов нагрузок</a></li><li><a href="#6-практические-примеры-расчётов">6. Практические примеры расчётов</a></li><li><a href="#7-как-проверить-правильность-выбора-ибп">7. Как проверить правильность выбора ИБП</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-podobrat-stabilizator-napryazheniya-dlya-kompyutera.html" class="related-card">Как подобрать стабилизатор напряжения для ПК: 5 ключевых шагов</a></li><li><a href="/articles/s/st/stabilizatory-napryazheniya-vidy.html" class="related-card">Стабилизаторы напряжения: виды, устройство и критерии выбора</a></li><li><a href="/articles/s/sk/skolko-vatt-potreblyaet-stabilizator-napryazheniya.html" class="related-card">Сколько ватт потребляет стабилизатор напряжения: расчет расхода</a></li><li><a href="/articles/s/st/stabilizator-napryazheniya-na-vvode-v-chastnyj-dom.html" class="related-card">Стабилизатор напряжения на вводе в частный дом: выбор и монтаж</a></li><li><a href="/articles/m/mo/moshchnost-benzinovykh-generatorov.html" class="related-card">Мощность бензогенераторов: как выбрать и рассчитать правильно</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-podobrat-stabilizator-napryazheniya-dlya-kompyutera.html" class="related-bottom-card"><span class="related-bottom-title">Как подобрать стабилизатор напряжения для ПК: 5 ключевых шагов</span><span class="related-bottom-desc">Пошаговое руководство по выбору стабилизатора для компьютера: мощность, тип, защита от скачков. Срав</span></a><a href="/articles/s/st/stabilizatory-napryazheniya-vidy.html" class="related-bottom-card"><span class="related-bottom-title">Стабилизаторы напряжения: виды, устройство и критерии выбора</span><span class="related-bottom-desc">Полный обзор типов стабилизаторов напряжения: релейные, электромеханические, инверторные. Сравнение </span></a><a href="/articles/s/sk/skolko-vatt-potreblyaet-stabilizator-napryazheniya.html" class="related-bottom-card"><span class="related-bottom-title">Сколько ватт потребляет стабилизатор напряжения: расчет расхода</span><span class="related-bottom-desc">Узнайте, сколько ватт потребляет стабилизатор напряжения в час. Реальный расход электроэнергии, КПД </span></a><a href="/articles/s/st/stabilizator-napryazheniya-na-vvode-v-chastnyj-dom.html" class="related-bottom-card"><span class="related-bottom-title">Стабилизатор напряжения на вводе в частный дом: выбор и монтаж</span><span class="related-bottom-desc">Как выбрать и установить стабилизатор напряжения на вводе в частном доме. Виды, расчет мощности, схе</span></a><a href="/articles/m/mo/moshchnost-benzinovykh-generatorov.html" class="related-bottom-card"><span class="related-bottom-title">Мощность бензогенераторов: как выбрать и рассчитать правильно</span><span class="related-bottom-desc">Подробный гид по выбору бензинового генератора по мощности: расчет нагрузки, типы потребителей, табл</span></a><a href="/articles/k/ka/kak-podklyuchit-stabilizator-napryazheniya-v-chastnom-dome.html" class="related-bottom-card"><span class="related-bottom-title">Подключение стабилизатора напряжения в частном доме: схема + инструкция 2026</span><span class="related-bottom-desc">Пошаговое руководство по установке стабилизатора напряжения для дома: выбор места, схема подключения</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

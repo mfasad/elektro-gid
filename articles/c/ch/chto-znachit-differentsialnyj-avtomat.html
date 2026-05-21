@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Дифференциальный автомат: что это, принцип работы и схема подключения — Электро Гид</title>
+    <meta name="description" content="Дифференциальный автомат — это устройство, объединяющее УЗО и автоматический выключатель. Разбираемся, как он работает, где применяется и как выбрать правильную модель для защиты электропроводки.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/c/ch/chto-znachit-differentsialnyj-avtomat.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Дифференциальный автомат: что это, принцип работы и схема подключения">
+    <meta property="og:description" content="Дифференциальный автомат — это устройство, объединяющее УЗО и автоматический выключатель. Разбираемся, как он работает, где применяется и как выбрать правильную модель для защиты электропроводки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Дифференциальный автомат: что это, принцип работы и схема подключения</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Дифференциальный автомат: устройство, принцип работы и схема подключения</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-дифференциальный-автомат-и-для-чего-он-нужен">Что такое дифференциальный автомат и для чего он нужен</a></li><li><a href="#устройство-и-принцип-работы-дифференциального-автомата">Устройство и принцип работы дифференциального автомата</a></li><li><a href="#отличия-дифференциального-автомата-от-узо-и-автомата">Отличия дифференциального автомата от УЗО и автомата</a></li><li><a href="#как-выбрать-дифференциальный-автомат-ключевые-параметры">Как выбрать дифференциальный автомат: ключевые параметры</a></li><li><a href="#схемы-подключения-дифференциального-автомата">Схемы подключения дифференциального автомата</a></li><li><a href="#типичные-ошибки-при-установке-и-эксплуатации">Типичные ошибки при установке и эксплуатации</a></li><li><a href="#преимущества-и-недостатки-дифференциальных-автоматов">Преимущества и недостатки дифференциальных автоматов</a></li><li><a href="#faq-частые-вопросы-о-дифференциальных-автоматах">FAQ: Частые вопросы о дифференциальных автоматах</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Вы когда-нибудь задумывались, почему в современных электрощитах всё чаще встречаются компактные устройства с надписью <strong>АВДТ</strong>? Это не просто модное веяние, а <strong>дифференциальные автоматы</strong> — гибриды, сочетающие в себе функции <em>автоматического выключателя</em> и <em>устройства защитного отключения (УЗО)</em>. Они защищают проводку от перегрузок, коротких замыканий <em>и</em> утечек тока, которые могут привести к поражению электрическим током или пожару.</p>
+
+<p>Если вы стоите перед выбором между отдельным УЗО + автоматом или единым дифавтоматом, эта статья поможет разобраться в нюансах. Мы детально рассмотрим, как работает дифференциальный автомат, где его целесообразно устанавливать, а где лучше обойтись классической связкой. А ещё вы узнаете, как <mark>отличить дифавтомат от УЗО по внешнему виду без маркировки</mark> — этот лайфхак сэкономит время при покупке или проверке щита.</p>
+
+<h2 id="что-такое-дифференциальный-автомат-и-для-чего-он-нужен">Что такое дифференциальный автомат и для чего он нужен</h2>
+
+<p>Дифференциальный автомат (или <strong>АВДТ</strong> — автоматический выключатель дифференциального тока) — это <em>комбинированное защитное устройство</em>, которое выполняет три ключевые функции:</p>
+<ul>
+  <li>🔌 <strong>Защита от перегрузок</strong>: отключает цепь, если ток превышает номинальный (например, при подключении слишком мощных приборов).</li>
+  <li>⚡ <strong>Защита от коротких замыканий</strong>: мгновенно размыкает контакты при КЗ, предотвращая оплавление проводки.</li>
+  <li>⚠️ <strong>Защита от утечек тока</strong>: срабатывает при дифференциальном токе (утечке), который может вызвать поражение током или пожар.</li>
+</ul>
+
+<p>По сути, дифавтомат заменяет собой пару <em>УЗО + автоматический выключатель</em>, экономя место в щитке и упрощая монтаж. Например, в квартире с однофазной сетью вместо 6 модулей (3 УЗО + 3 автомата) можно установить 3 дифавтомата, освободив пространство для других устройств.</p>
+
+<p>Где применяются дифференциальные автоматы?</p>
+<ul>
+  <li>🏠 <strong>Жилые помещения</strong>: защита розеточных групп, стиральных машин, электроплит, бойлеров.</li>
+  <li>🏢 <strong>Офисы и коммерческие объекты</strong>: серверные, торговое оборудование, освещение.</li>
+  <li>🏗️ <strong>Промышленность</strong>: станки, конвейеры, системы вентиляции.</li>
+  <li>🌳 <strong>Уличные сети</strong>: освещение дворов, подключение насосов, теплиц.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание</strong>: Дифавтоматы <em>не заменяют</em> основную систему заземления (TN-C-S, TN-S). Они лишь дополняют её, обеспечивая дополнительный уровень безопасности. В сетях с устаревшей системой <code>TN-C</code> (без отдельного заземляющего проводника) установка дифавтоматов <strong>обязательна</strong> для защиты от поражения током.</blockquote>
+
+<div class="poll-widget" id="poll-a9a017a9"><div class="poll-widget-question">📊 Где у вас установлен дифференциальный автомат?</div><div class="poll-widget-option" data-poll="a9a017a9" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">В квартире</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a9a017a9" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">В частном доме</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a9a017a9" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">На даче</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a9a017a9" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">В офисе/магазине</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a9a017a9" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет дифавтомата</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="устройство-и-принцип-работы-дифференциального-автомата">Устройство и принцип работы дифференциального автомата</h2>
+
+<p>Чтобы понять, как работает дифавтомат, разберём его конструкцию. Внутри корпуса (шириной 1–4 модуля) объединены:</p>
+<ol>
+  <li><strong>Автоматический выключатель</strong> — электромагнитный и тепловой расцепители, срабатывающие на КЗ и перегрузку.</li>
+  <li><strong>Дифференциальный трансформатор</strong> — сравнивает ток в фазном и нулевом проводах. При утечке (разнице токов) генерирует сигнал на отключение.</li>
+  <li><strong>Электронный или электромеханический расцепитель</strong> — размыкает контакты при обнаружении утечки.</li>
+  <li><strong>Тестовая кнопка</strong> — имитирует утечку для проверки работоспособности.</li>
+</ol>
+
+<p><strong>Принцип работы</strong>:</p>
+<ol>
+  <li>Ток проходит через фазный и нулевой провода, создавая в трансформаторе равные магнитные потоки.</li>
+  <li>При утечке (например, при пробое изоляции на корпус прибора) часть тока «уходит» в землю, нарушая баланс.</li>
+  <li>Трансформатор фиксирует разницу токов (дифференциальный ток) и активирует расцепитель.</li>
+  <li>Контакты размыкаются, обесточивая цепь за <code>0.02–0.3 секунды</code> (в зависимости от типа дифавтомата).</li>
+</ol>
+
+<p>Важный нюанс: дифавтоматы бывают <strong>электронными</strong> и <strong>электромеханическими</strong>. Первые дешевле, но требуют питания для работы защиты от утечек (при обрыве нуля они не сработают!). Вторые надёжнее, так как механически срабатывают даже без напряжения.</p>
+
+<details class="faq-item"><summary>Чем опасен обрыв нуля в электронном дифавтомате?</summary><div class="faq-answer"><p>При обрыве нулевого проводника электронный дифавтомат теряет питание для схемы контроля утечек. В результате он продолжит защищать от КЗ и перегрузок, но <strong>не отреагирует на утечку тока</strong>, что может привести к поражению электрическим током или пожару.</p></div></details>
+
+<h2 id="отличия-дифференциального-автомата-от-узо-и-автомата">Отличия дифференциального автомата от УЗО и автомата</h2>
+
+<p>Частая ошибка при выборе — путать дифавтомат с <em>УЗО</em> или обычным <em>автоматическим выключателем</em>. Разберём ключевые различия:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Характеристика</th>
+      <th>Дифференциальный автомат (АВДТ)</th>
+      <th>УЗО + автомат</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Функции</strong></td>
+      <td>Защита от КЗ, перегрузок <em>и</em> утечек тока</td>
+      <td>Автомат — КЗ/перегрузки; УЗО — только утечки</td>
+    </tr>
+    <tr>
+      <td><strong>Занимаемое место в щитке</strong></td>
+      <td>1–2 модуля (компактнее)</td>
+      <td>2–3 модуля (УЗО + автомат)</td>
+    </tr>
+    <tr>
+      <td><strong>Стоимость</strong></td>
+      <td>Дороже, чем автомат + УЗО (но дешевле, чем их покупка и монтаж по отдельности)</td>
+      <td>Дешевле при покупке, но дороже с учётом монтажа</td>
+    </tr>
+    <tr>
+      <td><strong>Удобство монтажа</strong></td>
+      <td>Меньше соединений, проще подключить</td>
+      <td>Требуется правильное подключение УЗО <em>после</em> автомата</td>
+    </tr>
+    <tr>
+      <td><strong>Причина срабатывания</strong></td>
+      <td>Сложно определить (КЗ, перегрузка или утечка)</td>
+      <td>Легко диагностировать (сработало УЗО — утечка; автомат — КЗ/перегрузка)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Как отличить дифавтомат от УЗО визуально?</strong></p>
+<ul>
+  <li>🔍 <strong>Маркировка</strong>: На дифавтомате указана буква <code>C</code> или <code>B</code> (характеристика расцепителя) и номинальный ток (например, <code>C16</code>). На УЗО только ток утечки (например, <code>30 мА</code>) и отсутствует буквенная характеристика.</li>
+  <li>📏 <strong>Схема на корпусе</strong>: У дифавтомата на схеме есть обозначение <em>теплового</em> и <em>электромагнитного</em> расцепителей (извилистая линия и прямоугольник с пружиной). У УЗО только трансформатор и реле.</li>
+  <li>🔢 <strong>Кнопка «Тест»</strong>: Есть у обоих, но на дифавтомате обычно подписана <code>T</code> или <code>Test</code>, а на УЗО — просто большая кнопка.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание</strong>: В некоторых моделях <em>ABB</em>, <em>Schneider Electric</em> и <em>Legrand</em> дифавтоматы визуально почти не отличаются от УЗО. В этом случае ориентируйтесь на маркировку или спрашивайте сертификат у продавца.</blockquote>
+
+<h2 id="как-выбрать-дифференциальный-автомат-ключевые-параметры">Как выбрать дифференциальный автомат: ключевые параметры</h2>
+
+<p>При выборе дифавтомата учитывайте <strong>5 основных характеристик</strong>:</p>
+
+<h3>1. Номинальный ток (<code>In</code>)</h3>
+<p>Показывает максимальный ток, который дифавтомат может пропускать длительное время. Выбирается по сечению провода и мощности нагрузки:</p>
+<ul>
+  <li>🔌 <code>10 А</code> — освещение, маломощные приборы.</li>
+  <li>🔌 <code>16 А</code> — розеточные группы в жилых комнатах.</li>
+  <li>🔌 <code>25 А</code> — стиральные машины, водонагреватели.</li>
+  <li>🔌 <code>40 А</code> и выше — электроплиты, духовки, мощные станки.</li>
+</ul>
+
+<h3>2. Ток утечки (<code>IΔn</code>)</h3>
+<p>Чувствительность защиты. Для жилых помещений:</p>
+<ul>
+  <li>🏠 <code>10 мА</code> — влажные помещения (ванная, кухня), детские комнаты.</li>
+  <li>🏠 <code>30 мА</code> — стандарт для розеточных групп.</li>
+  <li>🏢 <code>100–300 мА</code> — противопожарная защита (на вводе в дом).</li>
+</ul>
+
+<h3>3. Тип расцепителя (<code>B, C, D</code>)</h3>
+<p>Определяет скорость срабатывания при КЗ:</p>
+<ul>
+  <li>🔌 <code>B</code> — для освещения, длинных кабелей (срабатывает при токе <code>3–5×In</code>).</li>
+  <li>🔌 <code>C</code> — универсальный (срабатывает при <code>5–10×In</code>). Подходит для большинства бытовых сетей.</li>
+  <li>🔌 <code>D</code> — для двигателей, насосов (выдерживает пусковые токи).</li>
+</ul>
+
+<h3>4. Класс дифференциальной защиты (<code>AC, A, B, F</code>)</h3>
+<p>Определяет, на какие утечки реагирует устройство:</p>
+<ul>
+  <li>🔌 <code>AC</code> — только на переменные утечки (самый распространённый и дешёвый класс).</li>
+  <li>🔌 <code>A</code> — на переменные <em>и</em> пульсирующие утечки (рекомендуется для стиральных машин, посудомоек).</li>
+  <li>🔌 <code>B</code> — для всех типов утечек, включая постоянный ток (для солнечных батарей, зарядных станций).</li>
+</ul>
+
+<h3>5. Количество полюсов</h3>
+<p>Зависит от сети:</p>
+<ul>
+  <li>🔌 <strong>Однополюсный + нейтраль</strong> (2 модуля) — для однофазной сети (<code>220 В</code>).</li>
+  <li>🔌 <strong>Двухполюсный</strong> (2 модуля) — для однофазной сети с полным размыканием фазы и нуля.</li>
+  <li>🔌 <strong>Четырёхполюсный</strong> (4 модуля) — для трёхфазной сети (<code>380 В</code>).</li>
+</ul>
+
+<div class="checklist-block"><h4>☑️ Параметры для выбора дифавтомата</h4><label class="check-item"><input type="checkbox"><span>Определить номинальный ток (по сечению провода)</span></label><label class="check-item"><input type="checkbox"><span>Выбрать ток утечки (10 или 30 мА для быта)</span></label><label class="check-item"><input type="checkbox"><span>Проверить тип расцепителя (C для большинства случаев)</span></label><label class="check-item"><input type="checkbox"><span>Уточнить класс защиты (A для техники с электроникой)</span></label><label class="check-item"><input type="checkbox"><span>Подобрать количество полюсов (2 для однофазной сети)</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<h2 id="схемы-подключения-дифференциального-автомата">Схемы подключения дифференциального автомата</h2>
+
+<p>Дифавтомат можно подключить двумя способами: <strong>на отдельную линию</strong> или <strong>на вводе</strong> (вместо группы УЗО + автоматов). Рассмотрим оба варианта.</p>
+
+<h3>1. Подключение на отдельную линию (рекомендуется)</h3>
+<p>Самый надёжный способ — установить дифавтомат на каждую критичную группу потребителей (например, стиральную машину, розетки ванной, кухонную технику). Преимущества:</p>
+<ul>
+  <li>✅ При срабатывании отключается только одна линия, а не вся квартира.</li>
+  <li>✅ Легче найти причину неисправности.</li>
+  <li>✅ Можно подобрать номинал под конкретную нагрузку.</li>
+</ul>
+
+<p><strong>Схема подключения:</strong></p>
+<ol>
+  <li>Фазный провод (<code>L</code>) подключается к верхней клемме дифавтомата с маркировкой <code>1</code>.</li>
+  <li>Нулевой провод (<code>N</code>) — к клемме <code>N</code> (обычно справа вверху).</li>
+  <li>С нижних клемм (<code>2</code> и <code>N</code>) провода идут к нагрузке.</li>
+</ol>
+
+<p><strong>Важно</strong>: Нулевой провод после дифавтомата <em>нельзя объединять</em> с другими нулями! Это приведёт к ложным срабатываниям.</p>
+
+<h3>2. Подключение на вводе (групповое)</h3>
+<p>Дифавтомат устанавливается вместо вводного автомата и защищает всю квартиру. Минусы:</p>
+<ul>
+  <li>❌ При утечке или КЗ отключается всё помещение.</li>
+  <li>❌ Сложно определить, где произошла неисправность.</li>
+</ul>
+<p>Такой вариант оправдан только в маленьких квартирах или как временное решение.</p>
+
+<p><strong>Схема подключения:</strong></p>
+<ol>
+  <li>Фаза и ноль от счётчика подключаются к верхним клеммам дифавтомата.</li>
+  <li>С нижних клемм провода идут на групповые автоматы (если они есть) или напрямую к потребителям.</li>
+</ol>
+
+<blockquote>⚠️ <strong>Внимание</strong>: При групповом подключении суммарный ток утечки всех приборов не должен превышать <code>30% от IΔn</code> дифавтомата. Например, для устройства на <code>30 мА</code> общая утечка не должна быть выше <code>10 мА</code>. В противном случае возможны ложные срабатывания.</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если дифавтомат срабатывает без видимой причины, проверьте утечку тока с помощью мегаомметра или вызовите электрика. Частая причина — старая изоляция проводки или неисправный бытовой прибор (например, водонагреватель с пробоем на корпус).</p></div>
+
+<h2 id="типичные-ошибки-при-установке-и-эксплуатации">Типичные ошибки при установке и эксплуатации</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки при работе с дифавтоматами. Вот самые распространённые:</p>
+
+<ol>
+  <li><strong>Объединение нулей после дифавтомата</strong>: Если соединить нулевые провода нескольких линий после дифавтомата, он будет ложно срабатывать из-за разницы токов.</li>
+  <li><strong>Подключение фазы снизу</strong>: У большинства дифавтоматов питание должно подаваться на <strong>верхние</strong> клеммы. Подключение снизу может привести к выходу устройства из строя.</li>
+  <li><strong>Игнорирование тестовой кнопки</strong>: После установки дифавтомат нужно проверять нажатием кнопки <code>Test</code> не реже 1 раза в месяц. Если он не срабатывает — устройство неисправно.</li>
+  <li><strong>Неправильный выбор по току утечки</strong>: Дифавтомат на <code>300 мА</code> не защитит человека от поражения током (порог чувствительности человека — <code>10–30 мА</code>).</li>
+  <li><strong>Отсутствие запаса по току</strong>: Если дифавтомат на <code>16 А</code> защищает линию с розетками, в которые включают приборы на <code>20 А</code>, он будет постоянно отключаться.</li>
+</ol>
+
+<p><strong>Как избежать ошибок?</strong></p>
+<div class="checklist-block"><h4>☑️ Правила монтажа дифавтомата</h4><label class="check-item"><input type="checkbox"><span>Подавать питание только на верхние клеммы</span></label><label class="check-item"><input type="checkbox"><span>Не объединять нули после дифавтомата</span></label><label class="check-item"><input type="checkbox"><span>Проверять срабатывание кнопкой Test после установки</span></label><label class="check-item"><input type="checkbox"><span>Выбирать ток утечки 10–30 мА для защиты человека</span></label><label class="check-item"><input type="checkbox"><span>Учитывать пусковые токи приборов (например, у холодильника они в 3–5 раз выше номинальных)</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Ещё одна частая проблема — <strong>ложные срабатывания</strong>. Их причины:</p>
+<ul>
+  <li>🌩️ <strong>Грозовые разряды</strong>: Импульсные перенапряжения могут вызвать утечку.</li>
+  <li>🔌 <strong>Некачественные приборы</strong>: Дешёвые водонагреватели или стиральные машины часто «текут» на корпус.</li>
+  <li>🏗️ <strong>Старая проводка</strong>: Изношенная изоляция пропускает ток на заземлённые элементы.</li>
+</ul>
+
+<h2 id="преимущества-и-недостатки-дифференциальных-автоматов">Преимущества и недостатки дифференциальных автоматов</h2>
+
+<p>Дифавтоматы активно вытесняют связку УЗО + автомат, но у них есть и минусы. Сравним:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Критерий</th>
+      <th>Преимущества</th>
+      <th>Недостатки</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Занимаемое место</strong></td>
+      <td>✅ Компактнее (1–2 модуля вместо 2–3)</td>
+      <td>❌ При выходе из строя теряется обе защиты сразу</td>
+    </tr>
+    <tr>
+      <td><strong>Стоимость</strong></td>
+      <td>✅ Дешевле с учётом монтажа (меньше соединений)</td>
+      <td>❌ Дороже при покупке (один дифавтомат стоит как УЗО + автомат)</td>
+    </tr>
+    <tr>
+      <td><strong>Монтаж</strong></td>
+      <td>✅ Проще подключить (меньше проводов)</td>
+      <td>❌ Сложнее диагностировать причину срабатывания</td>
+    </tr>
+    <tr>
+      <td><strong>Надёжность</strong></td>
+      <td>✅ Меньше контактов = ниже риск плохого соединения</td>
+      <td>❌ Электронные дифавтоматы зависят от напряжения</td>
+    </tr>
+    <tr>
+      <td><strong>Ремонтопригодность</strong></td>
+      <td>✅ —</td>
+      <td>❌ При поломке меняется весь модуль (в отличие от УЗО + автомата, где можно заменить только неисправную часть)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Когда выгодно ставить дифавтомат?</strong></p>
+<ul>
+  <li>🏠 В маленьких щитках, где важна экономия места.</li>
+  <li>🔌 Для защиты отдельных мощных приборов (например, <em>варочной панели</em> или <em>кондиционера</em>).</li>
+  <li>🏗️ В временных сетях (строительные площадки, дачи), где нужен быстрый монтаж.</li>
+</ul>
+
+<p><strong>Когда лучше выбрать УЗО + автомат?</strong></p>
+<ul>
+  <li>🔧 Если важна лёгкая диагностика (например, в сложных сетях с множеством потребителей).</li>
+  <li>💰 При ограниченном бюджете (отдельные УЗО и автоматы дешевле).</li>
+  <li>🔄 Если нужна гибкость (например, замена только автомата при увеличении нагрузки).</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Дифавтомат оптимален для защиты отдельных линий в жилых помещениях, где критична компактность и простота монтажа. Для сложных сетей с большим количеством потребителей лучше использовать связку УЗО + автомат.</p></div>
+
+<h2 id="faq-частые-вопросы-о-дифференциальных-автоматах">FAQ: Частые вопросы о дифференциальных автоматах</h2>
+
+<details>
+  <summary>Можно ли заменить дифавтоматом обычный автомат без УЗО?</summary>
+  <p>Да, но только если вам нужна <strong>дополнительная защита от утечек тока</strong>. Обычный автомат защищает только от КЗ и перегрузок, а дифавтомат — ещё и от поражения электрическим током. Однако если в сети уже есть УЗО, заменять его на дифавтомат необязательно.</p>
+</details>
+
+<details>
+  <summary>Почему дифавтомат срабатывает без нагрузки?</summary>
+  <p>Вероятные причины:</p>
+  <ol>
+    <li>Неисправность самого дифавтомата (проверьте кнопкой <code>Test</code>).</li>
+    <li>Утечка в проводке (например, повреждён кабель в стене).</li>
+    <li>Влажность в щитке или розетках (конденсат может вызывать микроутечки).</li>
+    <li>Неправильное подключение (объединённые нули или фаза/ноль поменяны местами).</li>
+  </ol>
+  <p>Для диагностики отключите все приборы от розеток и проверьте, срабатывает ли дифавтомат. Если да — проблема в проводке или устройстве.</p>
+</details>
+
+<details>
+  <summary>Какой дифавтомат выбрать для стиральной машины?</summary>
+  <p>Оптимальные параметры:</p>
+  <ul>
+    <li>Номинальный ток: <code>16 А</code> (если машина до <code>3.5 кВт</code>) или <code>25 А</code> (для мощных моделей).</li>
+    <li>Ток утечки: <code>10 мА</code> (так как машина контактирует с водой и металлическими трубами).</li>
+    <li>Класс: <code>A</code> (защищает от пульсирующих утечек, характерных для электроники).</li>
+    <li>Тип расцепителя: <code>C</code>.</li>
+  </ul>
+  <p>Пример моделей: <em>ABB DS201 C16/0.01</em>, <em>Schneider Electric DPN N Vigi C16A 10mA</em>.</p>
+</details>
+
+<details>
+  <summary>Можно ли подключить дифавтомат без заземления?</summary>
+  <p>Да, дифференциальный автомат <strong>работает и без заземления</strong>. Он защищает от утечек тока, даже если в сети система <code>TN-C</code> (без отдельного заземляющего проводника). Однако заземление <em>рекомендуется</em>, так как:</p>
+  <ul>
+    <li>Уменьшает риск поражения током при пробое изоляции.</li>
+    <li>Повышает надёжность срабатывания дифавтомата.</li>
+    <li>Снижает вероятность ложных срабатываний.</li>
+  </ul>
+</details>
+
+<details>
+  <summary>Сколько стоит дифференциальный автомат?</summary>
+  <p>Цена зависит от бренда, характеристик и количества полюсов. Примерные расценки (на 2026 год):</p>
+  <ul>
+    <li><em>Бюджетные</em> (IEK, TDM, EKF): <code>800–1500 ₽</code> (16 А, 30 мА).</li>
+    <li><em>Средний сегмент</em> (ABB, Schneider Electric, Legrand): <code>1500–3500 ₽</code>.</li>
+    <li><em>Премиум</em> (Siemens, Hager): <code>3000–6000 ₽</code>.</li>
+    <li><em>Трёхфазные</em> (4 полюса): от <code>4000 ₽</code>.</li>
+  </ul>
+  <p>Совет: Для бытовых сетей оптимально выбрать <em>Schneider Electric</em> или <em>ABB</em> — они надёжны и доступны по цене.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-дифференциальный-автомат-и-для-чего-он-нужен">Что такое дифференциальный автомат и для чего он нужен</a></li><li><a href="#устройство-и-принцип-работы-дифференциального-автомата">Устройство и принцип работы дифференциального автомата</a></li><li><a href="#отличия-дифференциального-автомата-от-узо-и-автомата">Отличия дифференциального автомата от УЗО и автомата</a></li><li><a href="#как-выбрать-дифференциальный-автомат-ключевые-параметры">Как выбрать дифференциальный автомат: ключевые параметры</a></li><li><a href="#схемы-подключения-дифференциального-автомата">Схемы подключения дифференциального автомата</a></li><li><a href="#типичные-ошибки-при-установке-и-эксплуатации">Типичные ошибки при установке и эксплуатации</a></li><li><a href="#преимущества-и-недостатки-дифференциальных-автоматов">Преимущества и недостатки дифференциальных автоматов</a></li><li><a href="#faq-частые-вопросы-о-дифференциальных-автоматах">FAQ: Частые вопросы о дифференциальных автоматах</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sb/sborka-shchitka-dlya-chastnogo-doma-na-220.html" class="related-card">Сборка щитка на 220В для частного дома: схема + пошаговый монтаж</a></li><li><a href="/articles/s/sb/sborka-shchita-v-kvartire.html" class="related-card">Сборка электрощита в квартире: пошаговая инструкция 2026</a></li><li><a href="/articles/c/ch/chto-takoe-rele-elektromagnitnoe.html" class="related-card">Электромагнитное реле: устройство, принцип работы и применение</a></li><li><a href="/articles/n/na/na-kakuyu-moshchnost-rasschitan-avtomat-40-amper.html" class="related-card">40 ампер автомат — на какую мощность рассчитан в кВт (таблица)</a></li><li><a href="/articles/a/av/avtomat-na-10-mm2-kabel.html" class="related-card">Автомат на 10 мм2 кабель: выбор номинала по ПУЭ</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sb/sborka-shchitka-dlya-chastnogo-doma-na-220.html" class="related-bottom-card"><span class="related-bottom-title">Сборка щитка на 220В для частного дома: схема + пошаговый монтаж</span><span class="related-bottom-desc">Как правильно собрать электрощиток на 220В в частном доме: выбор автоматов, УЗО, схема подключения, </span></a><a href="/articles/s/sb/sborka-shchita-v-kvartire.html" class="related-bottom-card"><span class="related-bottom-title">Сборка электрощита в квартире: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно собрать щиток в квартире: схемы, комплектующие, ошибки и нормы ПУЭ. Пошаговое руководс</span></a><a href="/articles/c/ch/chto-takoe-rele-elektromagnitnoe.html" class="related-bottom-card"><span class="related-bottom-title">Электромагнитное реле: устройство, принцип работы и применение</span><span class="related-bottom-desc">Что такое электромагнитное реле, как оно работает и где применяется? Подробный разбор конструкции, с</span></a><a href="/articles/n/na/na-kakuyu-moshchnost-rasschitan-avtomat-40-amper.html" class="related-bottom-card"><span class="related-bottom-title">40 ампер автомат — на какую мощность рассчитан в кВт (таблица)</span><span class="related-bottom-desc">Разбираемся, сколько киловатт выдержит автомат 40А в однофазной и трёхфазной сети. Формулы расчёта, </span></a><a href="/articles/a/av/avtomat-na-10-mm2-kabel.html" class="related-bottom-card"><span class="related-bottom-title">Автомат на 10 мм2 кабель: выбор номинала по ПУЭ</span><span class="related-bottom-desc">Какой автомат ставить на кабель 10 мм2? Расчет токовой нагрузки, сечение жил, выбор защиты по ПУЭ дл</span></a><a href="/articles/p/pr/pribor-dlya-zashchity-elektricheskikh-setej-9-bukv.html" class="related-bottom-card"><span class="related-bottom-title">Прибор защиты электрических сетей 9 букв: что это и как выбрать</span><span class="related-bottom-desc">Разбираемся, какой прибор на 9 букв защищает электрические сети от перегрузок и коротких замыканий. </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Что делает реле напряжения: защита от скачков и обрыва фазы — Электро Гид</title>
+    <meta name="description" content="Узнайте, как работает реле напряжения, чем оно отличается от УЗО и стабилизатора. Подробный разбор принципа действия, настройки порогов и правил установки.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/c/ch/chto-delaet-rele-napryazheniya.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Что делает реле напряжения: защита от скачков и обрыва фазы">
+    <meta property="og:description" content="Узнайте, как работает реле напряжения, чем оно отличается от УЗО и стабилизатора. Подробный разбор принципа действия, настройки порогов и правил установки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Что делает реле напряжения: защита от скачков и обрыва фазы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Что делает реле напряжения: полная защита вашей электросети</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#основной-принцип-работы-и-устройство-реле">Основной принцип работы и устройство реле</a></li><li><a href="#от-каких-угроз-защищает-реле-напряжения">От каких угроз защищает реле напряжения</a></li><li><a href="#различия-между-реле-напряжения-узо-и-стабилизатором">Различия между реле напряжения, УЗО и стабилизатором</a></li><li><a href="#критерии-выбора-однофазное-или-трехфазное-реле">Критерии выбора: однофазное или трехфазное реле</a></li><li><a href="#правильная-настройка-порогов-и-времени-задержки">Правильная настройка порогов и времени задержки</a></li><li><a href="#схемы-подключения-и-типичные-ошибки-монтажа">Схемы подключения и типичные ошибки монтажа</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Современный дом буквально напичкан сложной электроникой, которая крайне чувствительна к качеству электроэнергии. В отличие от старых ламповых телевизоров или простых холодильников, новые устройства с импульсными блоками питания могут выйти из строя при малейшем отклонении напряжения в сети. Именно для решения этой проблемы и существует специализированное устройство защиты — <strong>реле контроля напряжения</strong> (РКН).</p>
+
+<p>Многие владельцы квартир ошибочно полагают, что автоматический выключатель (автомат) способен защитить дорогую технику от скачков в сети. Однако это не так, так как его задача — реагировать только на токи перегрузки и короткого замыкания, но не на изменения вольтажа. <strong>Реле напряжения</strong> выполняет совершенно другую функцию: оно непрерывно измеряет параметры сети и мгновенно разрывает цепь, если показатели выходят за безопасные пределы.</p>
+
+<p>Установка такого прибора является обязательным требованием во многих новых жилых комплексах и рекомендуется стандартами <em>ПУЭ</em> для защиты электрооборудования. В этой статье мы детально разберем, что именно делает реле напряжения, как оно реагирует на различные аварийные ситуации и почему его наличие в щитке может спасти ваш бюджет от крупных трат на ремонт бытовой техники.</p>
+
+<h2 id="основной-принцип-работы-и-устройство-реле">Основной принцип работы и устройство реле</h2>
+
+<p>В основе любого реле напряжения лежит микропроцессорный контроллер, который выполняет роль «мозга» устройства. Этот контроллер в режиме реального времени считывает значение напряжения в сети, сравнивая его с заданными пользователем или заводскими настройками. Если значение находится в пределах нормы, устройство пропускает электрический ток к потребителям через встроенное электромагнитное реле или симисторный ключ.</p>
+
+<p>Как только происходит скачок или провал напряжения, микроконтроллер подает команду на размыкание контактов. Скорость реакции здесь критически важна: современные модели реагируют за доли секунды (обычно от 10 до 20 мс), что быстрее, чем успеет сгореть блок питания телевизора или компьютера. После того как напряжение в сети восстановится, устройство не включится мгновенно, а выдержит паузу, известную как <strong>время задержки включения</strong>.</p>
+
+<p>Эта задержка необходима для того, чтобы сеть стабилизировалась и повторных ложных срабатываний при кратковременных колебаниях. В зависимости от модели, пользователь может настроить это время самостоятельно или выбрать предустановленный режим (например, для холодильников требуется более длительная пауза).</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Обратите внимание: для холодильников и кондиционеров время задержки включения должно составлять не менее 5-6 минут, чтобы компрессор успел сбросить давление хладагента.</p></div>
+
+<h2 id="от-каких-угроз-защищает-реле-напряжения">От каких угроз защищает реле напряжения</h2>
+
+<p>Электрическая сеть — это сложная система, подверженная множеству внешних и внутренних факторов. Понимание того, от чего конкретно защищает реле, помогает осознать его необходимость. Основные угрозы делятся на несколько категорий, и для каждой из них реле напряжения является первым и главным барьером.</p>
+
+<p>Наиболее распространенной проблемой в многоквартирных домах является <strong>обрыв нуля</strong>. В трехфазной сети, если обрывается нулевой провод, напряжение в квартирах может скакнуть от 0 до 380 вольт. В одних квартирах свет погаснет, а в других, где нагрузка меньше, напряжение вырастет до критических значений, вызывая мгновенное сгорание техники. Реле фиксирует этот скачок и отключает всю квартиру или дом за миллисекунды.</p>
+
+<blockquote>⚠️ Внимание: Обрыв нуля часто происходит в старых домах с алюминиевой проводкой или после грозы. Без реле напряжения в такой ситуации сгорает до 80% включенных в розетку приборов.</blockquote>
+
+<p>Кроме того, устройство эффективно борется с перекосом фаз и сезонными колебаниями. Летом, когда все включают кондиционеры, или зимой, в период пиковых нагрузок, напряжение в сети может падать до 150-160 вольт. Работа техники при таком низком напряжении приводит к перегреву двигателей и выходу их из строя. Реле просто отключит питание, предотвращая работу оборудования в аварийном режиме.</p>
+
+<ul>
+<li>🔥 <strong>Перенапряжение:</strong> резкий скачок выше 250-260 вольт, опасный для блоков питания.</li>
+<li>📉 <strong>Недопустимое падение:</strong> напряжение ниже 170 вольт, губительное для электродвигателей.</li>
+<li>⚡ <strong>Импульсные помехи:</strong> кратковременные всплески, вызванные грозовыми разрядами или работой сварочного оборудования соседей.</li>
+</ul>
+
+<h2 id="различия-между-реле-напряжения-узо-и-стабилизатором">Различия между реле напряжения, УЗО и стабилизатором</h2>
+
+<p>Часто возникает путаница между различными устройствами защиты, установленными в электрощите. Важно четко понимать разницу, так как они не заменяют, а дополняют друг друга. <strong>УЗО (Устройство защитного отключения)</strong> реагирует исключительно на ток утечки. Если вы коснетесь оголенного провода или изоляция прибора повредится, УЗО спасет жизнь человека, но никак не защитит технику от высокого напряжения.</p>
+
+<p>С <strong>стабилизатором напряжения</strong> ситуация иная. Стабилизатор активно выравнивает напряжение, повышая или понижая его до нормы (например, 220 вольт). Реле же не корректирует напряжение, оно лишь контролирует его наличие и диапазон. Если напряжение вышло за рамки, реле просто отключает свет, тогда как стабилизатор попытается его «вытянуть». Реле работает быстрее и дешевле, но не обеспечивает непрерывность питания при плохой сети.</p>
+
+<details class="faq-item"><summary>Можно ли использовать реле вместо УЗО?</summary><div class="faq-answer"><p>Нет, категорически нельзя. Реле защищает только от скачков напряжения, но не реагирует на утечку тока на корпус прибора или поражение человека электричеством. Эти устройства должны стоять в паре.</p></div></details>
+
+<p>В идеальной схеме электроснабжения дома должны присутствовать все три элемента защиты. Автоматический выключатель бережет проводку от перегрева, УЗО бережет жизнь людей, а реле напряжения бережет дорогостоящую бытовую технику. Игнорирование любого из этих компонентов оставляет систему уязвимой.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Реле напряжения</th>
+<th>Стабилизатор</th>
+<th>УЗО</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Основная функция</td>
+<td>Контроль диапазона</td>
+<td>Выравнивание напряжения</td>
+<td>Защита от утечки тока</td>
+</tr>
+<tr>
+<td>Реакция на скачок</td>
+<td>Отключение питания</td>
+<td>Коррекция до нормы</td>
+<td>Нет реакции</td>
+</tr>
+<tr>
+<td>Скорость срабатывания</td>
+<td>0.02 - 0.1 сек</td>
+<td>Мгновенно (инерционно)</td>
+<td>0.02 - 0.04 сек</td>
+</tr>
+<tr>
+<td>Защита человека</td>
+<td>Нет</td>
+<td>Нет</td>
+<td>Да</td>
+</tr>
+</tbody>
+</table>
+
+<div class="poll-widget" id="poll-88e6b95f"><div class="poll-widget-question">📊 Что у вас уже установлено в щитке?</div><div class="poll-widget-option" data-poll="88e6b95f" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Только автоматы:Автоматы + УЗО:Автоматы + Реле:Полный комплект защиты:</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="критерии-выбора-однофазное-или-трехфазное-реле">Критерии выбора: однофазное или трехфазное реле</h2>
+
+<p>При покупке устройства первым делом необходимо определить тип вашей сети. Для стандартных квартир и небольших домов используется однофазная сеть 220 вольт. В этом случае выбирается однофазное реле, которое монтируется на DIN-рейку и занимает всего два модуля (места для автоматов). Такие модели, как <em>ZUBR</em>, <em>Digitop</em> или <em>RBUZ</em>, являются лидерами рынка благодаря надежности и понятному интерфейсу.</p>
+
+<p>Если же в дом заведены три фазы (380 вольт), выбор становится сложнее. Существует два пути: установить одно трехфазное реле или три отдельных однофазных. Трехфазное реле контролирует сразу все три фазы и отключает питание полностью, если проблема возникла хотя бы на одной из них. Это необходимо для защиты трехфазных двигателей (насосы, станки), которые сгорят при перекосе фаз.</p>
+
+<p>В жилых домах, где трехфазные потребители отсутствуют, а 380В нужно только для равномерного распределения нагрузки, эксперты рекомендуют схему из трех отдельных однофазных реле. Это обеспечит независимую защиту: если «просядет» одна фаза, в остальной части дома свет и техника продолжат работать нормально.</p>
+
+<ul>
+<li>🏠 <strong>Для квартиры:</strong> Однофазное реле на ток 32А, 40А или 63А (в зависимости от вводного автомата).</li>
+<li>🏭 <strong>Для коттеджа с насосной:</strong> Трехфазное реле для контроля перекоса и порядка фаз.</li>
+<li>⚙️ <strong>Мощность:</strong> Всегда берите реле с запасом по току минимум 20-30% от номинала вводного автомата.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Золотое правило: номинальный ток реле должен быть на одну ступень выше, чем ток вводного автоматического выключателя. Если автомат 40А, реле ставьте 63А.</p></div>
+
+<h2 id="правильная-настройка-порогов-и-времени-задержки">Правильная настройка порогов и времени задержки</h2>
+
+<p>После установки реле необходимо правильно настроить. Заводские настройки часто имеют широкий диапазон, который не всегда оптимален для конкретной бытовой техники. Стандартный верхний порог обычно составляет 250 вольт, а нижний — 170 вольт. Однако для современной электроники верхнюю границу можно опустить до 245 вольт для большей безопасности.</p>
+
+<p>Особое внимание следует уделить времени задержки включения (<code>t</code>). Для освещения, телевизоров и компьютеров достаточно 5-10 секунд. Для холодильников, кондиционеров и насосных станций время задержки должно быть увеличено до 180-300 секунд. Это связано с физикой работы компрессоров: им требуется время для выравнивания давления фреона перед повторным запуском.</p>
+
+<pre><code>Рекомендуемые настройки для квартиры:
+<p>Верхний предел: 250 В</p>
+<p>Нижний предел: 170 В</p>
+<p>Задержка включения: 180 сек (универсально)</code></pre></p>
+
+<p>Некоторые продвинутые модели позволяют настраивать два разных таймера задержки. Это удобно, если вы не хотите ждать 5 минут включения света каждый раз, когда моргнет сеть. В таком случае можно настроить быстрое включение для одной группы потребителей и долгое — для другой, используя схему с контактором.</p>
+
+<h2 id="схемы-подключения-и-типичные-ошибки-монтажа">Схемы подключения и типичные ошибки монтажа</h2>
+
+<p>Подключение реле напряжения выполняется строго после вводного автомата и счетчика, но перед УЗО и групповыми автоматами. Фазный провод с выхода автомата заводится на вход реле (<code>L in</code>), а с выхода реле (<code>L out</code>) идет дальше на распределительную гребенку или УЗО. Нулевой провод подключается напрямую к нулевой шине, хотя на некоторых моделях требуется пропускать ноль через корпус реле для питания самого прибора.</p>
+
+<p>Одной из самых частых ошибок является подключение реле «напрямую» без использования контактора (пускателя) в случаях, когда ток потребления велик. Хотя реле может иметь маркировку 63А, длительная работа на предельных токах приводит к залипанию контактов и нагреву. Для токов выше 40А профессионалы рекомендуют использовать связку: <strong>Реле напряжения + Контактор</strong>. Реле в этой схеме управляет только катушкой контактора, а мощные контакты коммутируют нагрузку.</p>
+
+<blockquote>⚠️ Внимание: Никогда не используйте реле напряжения как обычный выключатель для постоянного включения/выключения света. Частая коммутация под нагрузкой быстро выведет механические контакты из строя.</blockquote>
+
+<p>Также важно следить за качеством затяжки винтовых контактов. Алюминиевый провод под действием температуры может «течь», ослабляя контакт, что приведет к нагреву клемм реле. Через месяц после установки рекомендуется провести профилактическую протяжку контактов в щитке.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка монтажа реле</h4><label class="check-item"><input type="checkbox"><span>Затянуты ли винты клемм:Есть ли запас по току:Настроена ли задержка:Проверена ли фаза на входе:</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 1</div></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Почему реле напряжения щелкает при включении?</summary>
+<p>Щелчок — это нормальный звук работы электромагнитного реле, означающий замыкание или размыкание контактов. Если щелчки происходят постоянно без стабилизации напряжения, значит, в сети идут сильные колебания, и устройство работает в аварийном режиме, защищая технику.</p>
+</details>
+
+<details>
+<summary>Может ли реле сгореть само при сильном скачке?</summary>
+<p>Теоретически да, если скачок будет экстремально мощным (например, прямое попадание молнии). Однако качественные реле имеют защиту от дуги и рассчитаны на коммутацию токов короткого замыкания. В большинстве случаев реле жертвует собой, спасая остальную технику, и его замена обойдется дешевле ремонта холодильника.</p>
+</details>
+
+<details>
+<summary>Нужно ли реле напряжения, если есть заземление?</summary>
+<p>Заземление и реле напряжения решают разные задачи. Заземление отводит статический заряд и ток утечки, обеспечивая безопасность при касании приборов. Оно никак не влияет на уровень напряжения в фазном проводе. Поэтому наличие заземления не отменяет необходимости установки реле.</p>
+</details>
+
+<details>
+<summary>Как часто нужно проверять работу реле?</summary>
+<p>Специальной периодической проверки не требуется, так как устройство работает в автоматическом режиме. Однако рекомендуется раз в год визуально осматривать щиток на предмет нагрева корпуса реле и проверять надежность затяжки контактов.</p>
+</details>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Реле напряжения — это страховой полис для вашей техники. Его стоимость составляет менее 1% от стоимости защищаемых приборов, но оно предотвращает 100% ущерба от скачков сети.</p></div></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#основной-принцип-работы-и-устройство-реле">Основной принцип работы и устройство реле</a></li><li><a href="#от-каких-угроз-защищает-реле-напряжения">От каких угроз защищает реле напряжения</a></li><li><a href="#различия-между-реле-напряжения-узо-и-стабилизатором">Различия между реле напряжения, УЗО и стабилизатором</a></li><li><a href="#критерии-выбора-однофазное-или-трехфазное-реле">Критерии выбора: однофазное или трехфазное реле</a></li><li><a href="#правильная-настройка-порогов-и-времени-задержки">Правильная настройка порогов и времени задержки</a></li><li><a href="#схемы-подключения-и-типичные-ошибки-монтажа">Схемы подключения и типичные ошибки монтажа</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-pomenyat-avtomat-v-podezde.html" class="related-card">Замена автомата в подъезде: пошаговая инструкция 2026</a></li><li><a href="/articles/u/uz/uzo-i-dif-v-chem-otlichiya.html" class="related-card">УЗО и дифавтомат: ключевые отличия и что выбрать для дома</a></li><li><a href="/articles/a/av/avtomat-po-amperam-tablitsa.html" class="related-card">Таблица автоматов по амперам: выбор для дома и квартиры</a></li><li><a href="/articles/k/ka/kak-rasschitat-kakoj-avtomat-postavit.html" class="related-card">Какой автомат поставить: расчёт по мощности и току 2026</a></li><li><a href="/articles/s/sk/skhema-podklyucheniya-uzo-trekhfaznogo.html" class="related-card">Схема подключения УЗО 380В: пошаговая инструкция 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-pomenyat-avtomat-v-podezde.html" class="related-bottom-card"><span class="related-bottom-title">Замена автомата в подъезде: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как самостоятельно поменять автоматический выключатель в этажном щите: выбор автомата, отключение пи</span></a><a href="/articles/u/uz/uzo-i-dif-v-chem-otlichiya.html" class="related-bottom-card"><span class="related-bottom-title">УЗО и дифавтомат: ключевые отличия и что выбрать для дома</span><span class="related-bottom-desc">Чем отличается УЗО от дифавтомата: сравнение принципов работы, схем подключения, стоимости и защиты.</span></a><a href="/articles/a/av/avtomat-po-amperam-tablitsa.html" class="related-bottom-card"><span class="related-bottom-title">Таблица автоматов по амперам: выбор для дома и квартиры</span><span class="related-bottom-desc">Подробная таблица автоматических выключателей по току (6А-63А) с расшифровкой для медных и алюминиев</span></a><a href="/articles/k/ka/kak-rasschitat-kakoj-avtomat-postavit.html" class="related-bottom-card"><span class="related-bottom-title">Какой автомат поставить: расчёт по мощности и току 2026</span><span class="related-bottom-desc">Пошаговый расчёт автоматического выключателя по нагрузке, сечению кабеля и типу сети. Таблицы, форму</span></a><a href="/articles/s/sk/skhema-podklyucheniya-uzo-trekhfaznogo.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения УЗО 380В: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно подключить трехфазное УЗО в щитке: схемы, ошибки, выбор номинала и автоматов. Разбор 4</span></a><a href="/articles/t/tr/trekhfaznyj-avtomat-16a-skolko-kilovatt.html" class="related-bottom-card"><span class="related-bottom-title">Трехфазный автомат 16А: сколько киловатт выдержит?</span><span class="related-bottom-desc">Разбираемся, какую мощность (кВт) выдерживает 3-фазный автомат 16А. Формулы расчета, таблицы нагрузк</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

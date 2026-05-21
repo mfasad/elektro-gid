@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Пример проекта электроснабжения частного дома: план и расчеты — Электро Гид</title>
+    <meta name="description" content="Готовый пример проекта электроснабжения частного дома. Разбор однолинейной схемы, расчет нагрузок, выбор автоматов и сечения кабеля по ПУЭ.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/pr/primer-proekta-elektrosnabzheniya-chastnogo-doma.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Пример проекта электроснабжения частного дома: план и расчеты">
+    <meta property="og:description" content="Готовый пример проекта электроснабжения частного дома. Разбор однолинейной схемы, расчет нагрузок, выбор автоматов и сечения кабеля по ПУЭ.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/chastnyj-dom-i-dacha/">Частный дом и дача</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Пример проекта электроснабжения частного дома: план и расчеты</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Проект электроснабжения частного дома: пример, расчеты и схемы</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#определение-исходных-данных-и-расчет-потребляемой-мощности">Определение исходных данных и расчет потребляемой мощности</a></li><li><a href="#разработка-однолинейной-схемы-электроснабжения">Разработка однолинейной схемы электроснабжения</a></li><li><a href="#выбор-сечения-кабеля-и-способа-прокладки">Выбор сечения кабеля и способа прокладки</a></li><li><a href="#компоновка-и-сборка-распределительного-щита">Компоновка и сборка распределительного щита</a></li><li><a href="#заземление-и-система-уравнивания-потенциалов">Заземление и система уравнивания потенциалов</a></li><li><a href="#автоматизация-и-системы-безопасности">Автоматизация и системы безопасности</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Собственный дом — это не только комфорт, но и огромная ответственность за создание безопасной и надежной инженерной инфраструктуры. Центральным элементом этой системы является электричество, от грамотного проектирования которого зависит не только наличие света в розетках, но и пожаробезопасность всего строения. Многие владельцы участков ошибочно полагаются на «опыт дяди Васи» или случайные решения, забывая, что <strong>электроснабжение</strong> требует точного инженерного подхода.</p>
+
+<p>Проект электроснабжения — это комплект технической документации, включающий расчетные листы, однолинейные схемы, планы разводки и спецификации оборудования. Без этого документа невозможно корректно собрать электрощит, так как вы просто не будете знать, какие токи протекают по вашим проводам. В этой статье мы разберем реальный пример проекта для дома площадью около 120-150 квадратных метров, чтобы вы понимали логику принятия решений профессиональными проектировщиками.</p>
+
+<p>Понимание принципов распределения энергии поможет вам избежать типичных ошибок, таких как постоянные выбивания автоматов или перегрев проводки. Мы рассмотрим путь электричества от вводного устройства до конечного потребителя, уделив внимание нормативным требованиям и современным стандартам безопасности. Важно осознавать, что <em>ПУЭ</em> (Правила устройства электроустановок) — это не просто, а свод законов, нарушение которых может стоить жизни.</p>
+
+<h2 id="определение-исходных-данных-и-расчет-потребляемой-мощности">Определение исходных данных и расчет потребляемой мощности</h2>
+
+<p>Любой проект начинается не с рисования линий на плане, а с тщательного сбора информации о потребителях энергии. В нашем примере рассматривается двухэтажный коттедж с газовым котлом, скважным насосом, электрической плитой на кухне и возможностью установки кондиционера. Первым шагом является составление перечня всех электроприборов с указанием их мощности. Это позволяет рассчитать <strong>максимальную нагрузку</strong>, которую должна выдержать система.</p>
+
+<p>Для частного дома характерен так называемый «коэффициент одновременности». Вряд ли вы будете одновременно включать духовку, стиральную машину, насос и все светильники в доме. Однако при проектировании вводной группы необходимо учитывать пиковые значения, чтобы автоматика не отключала дом в самый неподходящий момент. Обычно для домов такой площади выделенная мощность составляет 15 кВт при трехфазном вводе.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> При расчете мощности всегда оставляйте запас около 15-20% на будущее расширение (например, установка теплого пола или зарядки для электромобиля). Увеличить мощность позже будет значительно сложнее и дороже, чем сразу заложить резерв.</p>
+</blockquote>
+
+<p>Расчет ведется по формуле, учитывающей активную и реактивную составляющие мощности, но для бытовых нужд часто используют упрощенные таблицы. Критически важно правильно определить тип нагрузки: активная (нагрев, свет) или индуктивная (двигатели насосов, холодильники). Для индуктивных потребителей характерны высокие пусковые токи, которые могут быть в 5-7 раз выше номинальных.</p>
+
+<div class="poll-widget" id="poll-889329c5"><div class="poll-widget-question">📊 Какой ввод электричества планируется в вашем доме?</div><div class="poll-widget-option" data-poll="889329c5" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Однофазный (220В)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="889329c5" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Трехфазный (380В)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="889329c5" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Пока не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="889329c5" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Нужен генератор</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>В нашем примере суммарная мощность всех потребителей составила около 22 кВт, но с учетом коэффициента спроса расчетная мощность для вводного автомата принята равной 15 кВт. Это стандартное значение для большинства современных поселков. На этапе сбора данных также фиксируется наличие особо мощных потребителей, таких как <em>электрокотлы</em> или сауны, которые часто требуют выделенных линий.</p>
+
+<h2 id="разработка-однолинейной-схемы-электроснабжения">Разработка однолинейной схемы электроснабжения</h2>
+
+<p>Однолинейная схема — это «сердце» любого проекта, графическое отображение всей системы электроснабжения. На ней показаны все связи между элементами: от точки подключения до конечных розеток. В отличие от монтажной схемы, здесь линии изображаются одной чертой, что позволяет компактно отобразить сложные цепочки защиты и коммутации. Именно по этому документу электромонтер собирает <strong>распределительный щит</strong>.</p>
+
+<p>В рассматриваемом примере схема начинается с вводного автомата, установленного в учетно-распределительном щите (УРЩ) на фасаде или столбе. Далее ток проходит через прибор учета (счетчик) и поступает в главный распределительный щит (ГРЩ) внутри дома. Здесь происходит разделение на группы потребителей. Каждая группа защищена своим автоматическим выключателем и, при необходимости, устройством защитного отключения (<em>УЗО</em>).</p>
+
+<details class="faq-item"><summary>Почему схема называется однолинейной?</summary><div class="faq-answer"><p>Название происходит от того, что все три фазы (если ввод трехфазный) часто изображаются одной линией с перечеркиванием и цифрой 3. Это упрощает чтение чертежа, позволяя сосредоточиться на логике работы защиты, а не на геометрии прокладки проводов.</p></div></details>
+
+<p>Особое внимание на однолинейной схеме уделяется селективности защиты. Это принцип, при котором при коротком замыкании в розетке на кухне отключается только автомат этой розетки, а не весь дом целиком. Для этого номиналы автоматов выстраиваются в иерархическую цепочку: вводной автомат имеет больший ток срабатывания, чем групповые. Нарушение селективности приводит к полному блэкауту при любой мелкой неисправности.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Однолинейная схема — это главный документ для сборки щита и согласования с энергоснабжающей организацией. Без неё сборка щита превращается в гадание на кофейной гуще.</p></div>
+
+<h2 id="выбор-сечения-кабеля-и-способа-прокладки">Выбор сечения кабеля и способа прокладки</h2>
+
+<p>Правильный выбор сечения кабеля — это вопрос пожарной безопасности. Если провод слишком тонкий для протекающего по нему тока, он начнет нагреваться, изоляция оплавится, и произойдет короткое замыкание. В нашем проекте для освещения используются кабели сечением 1.5 мм², так как современные светодиодные лампы потребляют минимум энергии. Для розеточных групп выбрано сечение 2.5 мм², что является стандартом для бытовой техники мощностью до 3.5 кВт.</p>
+
+<p>Для мощных потребителей, таких как варочная панель или проточный водонагреватель, прокладываются отдельные линии кабелем 4 мм² или даже 6 мм². Материал жил в проекте строго определен — медь. Алюминиевые кабели в внутренней разводке жилых домов применять запрещено из-за их ломкости и окисления в местах контактов. Марка кабеля <em>ВВГнг-LS</em> (негорючий, с низким дымовыделением) является обязательным требованием для внутренней прокладки.</p>
+
+<p>Способ прокладки также влияет на выбор сечения. Кабель, лежащий в воздухе, охлаждается лучше, чем кабель, замурованный в стене под штукатуркой или находящийся в пучке с другими проводами. В проекте учтены поправочные коэффициенты на способ прокладки. Для деревянных домов требования еще строже: вся проводка должна быть либо в металлических трубах, либо открытой, чтобы исключить контакт кабеля с горючим материалом.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Всегда покупайте кабель с запасом длины (около 10-15%). Ошибки в расчетах или непредвиденные повороты трассы могут привести к нехватке нескольких сантиметров, что заставит вас наращивать провод, создавая лишние и потенциально опасные соединения в стене.</p></div>
+
+<p>Важно помнить о падении напряжения. Если дом большой и удален от столба, или если линия до потребителя очень длинная, напряжение на конце линии может быть ниже нормы. В таких случаях расчетное сечение кабеля приходится увеличивать, чтобы компенсировать потери. В нашем примере длина трасс не критична, поэтому стандартных сечений достаточно для обеспечения стабных <strong>параметров сети</strong>.</p>
+
+<h2 id="компоновка-и-сборка-распределительного-щита">Компоновка и сборка распределительного щита</h2>
+
+<p>Распределительный щит — это командный центр всей электрики дома. В нашем примере проекта щит насчитывает 24 модуля (места под стандартные автоматы шириной 18 мм). Такая вместимость позволяет разместить всю необходимую автоматику с запасом. Щит разделен на несколько секций: вводная группа, неотключаемые линии, линии розеток, линии освещения и силовые потребители.</p>
+
+<p>Вводная группа включает в себя рубильник для полного обесточивания дома, ограничитель мощности (по требованию сетевой компании) и приборы учета. Далее ток распределяется по группам через дифференциальные автоматы или связку «Автомат + УЗО». Использование дифавтоматов экономит место в щите, так как один модуль выполняет функции защиты от перегрузки и защиты от утечки тока.</p>
+
+<table>
+<thead>
+<tr>
+<th>Группа потребителей</th>
+<th>Тип защиты</th>
+<th>Номинал автомата</th>
+<th>Ток утечки (УЗО)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Розетки кухня</td>
+<td>Дифавтомат</td>
+<td>C16 (16А)</td>
+<td>30 мА</td>
+</tr>
+<tr>
+<td>Освещение 1 этаж</td>
+<td>Автомат + УЗО</td>
+<td>B10 (10А)</td>
+<td>30 мА</td>
+</tr>
+<tr>
+<td>Электроплита</td>
+<td>Дифавтомат</td>
+<td>C32 (32А)</td>
+<td>30 мА</td>
+</tr>
+<tr>
+<td>Скважный насос</td>
+<td>Дифавтомат</td>
+<td>C10 (10А)</td>
+<td>30 мА</td>
+</tr>
+</tbody>
+</table>
+
+<p>При сборке щита критически важно соблюдать цветовую маркировку проводов и качественную коммутацию. Все соединения выполняются через гребенчатые шины там, где это возможно, а для подключения проводов к автоматам используются наконечники НШВИ. Это обеспечивает надежный контакт и предотвращает выгорание клемм. Хаотичная сборка «как придется» недопустима для <strong>безопасной эксплуатации</strong>.</p>
+
+<div class="checklist-block"><h4>☑️ Сборка щита</h4><label class="check-item"><input type="checkbox"><span>Проверить затяжку всех винтов отверткой</span></label><label class="check-item"><input type="checkbox"><span>Подписать каждый автомат маркером</span></label><label class="check-item"><input type="checkbox"><span>Сфотографировать внутренности перед закрытием крышки</span></label><label class="check-item"><input type="checkbox"><span>Проверить работу УЗО кнопкой «Тест»</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="заземление-и-система-уравнивания-потенциалов">Заземление и система уравнивания потенциалов</h2>
+
+<p>Ни один современный проект электроснабжения не обходится без системы заземления. В нашем примере реализуется система <em>TN-C-S</em>, которая является наиболее распространенной для частной застройки. Суть её в том, что PEN-проводник (совмещенный ноль и земля) на входе в дом разделяется на два независимых: рабочий ноль (N) и защитное заземление (PE). После этого точки нигде не соединяются.</p>
+
+<p>Для реализации заземления вокруг дома или в удобном месте монтируется контур заземления. Обычно это три вертикальных штыря, забитых в землю и соединенных горизонтальной полосой. Сопротивление этого контура должно быть минимальным, чтобы в случае аварии ток уходил в землю, а не через человека. На входе в щит шина заземления соединяется с этим контуром.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Категорически запрещается использовать в качестве заземления трубы водопровода, газовые трубы или арматуру фундамента (если она не была специально подготовлена как заземлитель). Это смертельно опасно и может привести к поражению током ваших соседей.</p>
+</blockquote>
+
+<p>Кроме внешнего контура, в проекте предусмотрена система уравнивания потенциалов (СУП). Все металлические части в доме, которые могут оказаться под напряжением (корпуса ванн, трубы водопровода, вентиляции), соединяются с главной заземляющей шиной. Это гарантирует, что даже при пробое изоляции на металлической поверхности не возникнет опасная разность потенциалов.</p>
+
+<details class="faq-item"><summary>Что делать, если грунт каменистый и забить штыри невозможно?</summary><div class="faq-answer"><p>В таких случаях применяют специальные химические составы для снижения сопротивления грунта или используют модульно-штыревые системы, которые можно забить на большую глубину (до 30 метров), где сопротивление грунта обычно ниже.</p></div></details>
+
+<h2 id="автоматизация-и-системы-безопасности">Автоматизация и системы безопасности</h2>
+
+<p>Современный проект электроснабжения частного дома обязательно включает элементы автоматики. В нашем примере предусмотрена установка реле напряжения. Этот прибор защищает дорогостоящую технику от скачков напряжения в сети, которые часто случаются в дачных поселках (например, при обрыве нуля). Реле просто отключит питание, если напряжение выйдет за допустимые пределы.</p>
+
+<p>Также в проект заложена возможность подключения системы «Умный дом» или отдельных датчиков протечки воды с электроприводными кранами. Для этого в щите (оставлено) место и зарезервировано питание 12/24В. Интеграция систем безопасности на этапе проектирования обходится в разы дешевле, чем попытка внедрить их в готовый ремонт.</p>
+
+<p>Отдельного внимания заслуживает резервное питание. В проекте предусмотрена розетка для подключения генератора с перекидным рубильником или автоматическим вводным контактором (АВР). Это позволяет за считанные секунды переключить дом на автономное питание, сохранив работу котла отопления и холодильника. Для чувствительной электроники также рекомендуется использовать <strong>источники бесперебойного питания</strong> (ИБП).</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Инвестиции в реле напряжения и систему резервного питания окупаются при первой же аварии на линии, сохраняя вашу технику и комфорт в доме.</p></div>
+
+<p>В заключение стоит отметить, что представленный пример проекта — это лишь скелет, который обрастает деталями в зависимости от конкретных условий вашего участка и бюджета. Однако соблюдение базовых принципов расчета нагрузок, выбора сечений и организации защиты является обязательным минимумом. Электричество не прощает ошибок, но при грамотном подходе оно становится самым надежным союзником в создании уютного дома.</p>
+
+<details>
+<summary>Можно ли сделать проект электроснабжения самостоятельно без образования?</summary>
+<p>Теоретически, начертить план можно, но расчет токов короткого замыкания и селективности требует инженерных знаний. Ошибки в проекте могут привести к пожару. Для себя сделать можно, но согласовать с энергетиками и нести ответственность за безопасность — уже сложнее.</p>
+</details>
+
+<details>
+<summary>Сколько стоит разработка профессионального проекта?</summary>
+<p>Стоимость варьируется от 10 до 50 рублей за квадратный метр площади в зависимости от региона и сложности. Для дома 150 м² это составит от 1500 до 7500 рублей, что составляет менее 1% от стоимости всей электрики, но гарантирует безопасность.</p>
+</details>
+
+<details>
+<summary>Нужно ли согласовывать проект с энергосбытом?</summary>
+<p>Да, техническое присоединение и получение разрешительных документов невозможны без утвержденной однолинейной схемы. Энергетики проверяют соответствие вашего проекта их техническим условиям (ТУ).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#определение-исходных-данных-и-расчет-потребляемой-мощности">Определение исходных данных и расчет потребляемой мощности</a></li><li><a href="#разработка-однолинейной-схемы-электроснабжения">Разработка однолинейной схемы электроснабжения</a></li><li><a href="#выбор-сечения-кабеля-и-способа-прокладки">Выбор сечения кабеля и способа прокладки</a></li><li><a href="#компоновка-и-сборка-распределительного-щита">Компоновка и сборка распределительного щита</a></li><li><a href="#заземление-и-система-уравнивания-потенциалов">Заземление и система уравнивания потенциалов</a></li><li><a href="#автоматизация-и-системы-безопасности">Автоматизация и системы безопасности</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/r/ra/razvodka-elektroprovodki-v-chastnom-dome-svoimi-rukami.html" class="related-card">Разводка электропроводки в частном доме: пошаговая инструкция 2026</a></li><li><a href="/articles/p/pr/provodka-svoimi-rukami-v-chastnom-dome.html" class="related-card">Проводка в частном доме своими руками: схема, материалы, монтаж 2026</a></li><li><a href="/articles/s/se/sechenie-vvodnogo-kabelya-v-chastnyj-dom.html" class="related-card">Сечение вводного кабеля в частный дом: расчет и выбор по мощности</a></li><li><a href="/articles/p/pr/provod-na-dache.html" class="related-card">Проводка на даче: выбор, монтаж и безопасность (2026)</a></li><li><a href="/articles/k/ka/kak-podklyuchit-saraj-k-elektrichestvu-ot-doma.html" class="related-card">Как подключить сарай к электричеству от дома: пошаговая инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/r/ra/razvodka-elektroprovodki-v-chastnom-dome-svoimi-rukami.html" class="related-bottom-card"><span class="related-bottom-title">Разводка электропроводки в частном доме: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно сделать разводку электропроводки в частном доме своими руками: схемы, материалы, инстр</span></a><a href="/articles/p/pr/provodka-svoimi-rukami-v-chastnom-dome.html" class="related-bottom-card"><span class="related-bottom-title">Проводка в частном доме своими руками: схема, материалы, монтаж 2026</span><span class="related-bottom-desc">Пошаговая инструкция по монтажу электропроводки в частном доме: выбор кабеля, разводка, подключение </span></a><a href="/articles/s/se/sechenie-vvodnogo-kabelya-v-chastnyj-dom.html" class="related-bottom-card"><span class="related-bottom-title">Сечение вводного кабеля в частный дом: расчет и выбор по мощности</span><span class="related-bottom-desc">Как правильно подобрать сечение вводного кабеля для частного дома: формулы расчета, таблицы нагрузок</span></a><a href="/articles/p/pr/provod-na-dache.html" class="related-bottom-card"><span class="related-bottom-title">Проводка на даче: выбор, монтаж и безопасность (2026)</span><span class="related-bottom-desc">Как правильно выбрать и проложить проводку на даче: схемы, материалы, нормы безопасности и типичные </span></a><a href="/articles/k/ka/kak-podklyuchit-saraj-k-elektrichestvu-ot-doma.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить сарай к электричеству от дома: пошаговая инструкция</span><span class="related-bottom-desc">Полное руководство по подводке электричества к хозпостройке. Выбор кабеля, глубина траншеи, монтаж щ</span></a><a href="/articles/p/po/podklyuchenie-k-schetchiku-na-stolbe.html" class="related-bottom-card"><span class="related-bottom-title">Как подключиться к счетчику на столбе: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по подключению к электросчетчику на опоре: схемы, инструменты, безопасность и </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Как работает реле контроля напряжения: принцип действия и схема — Электро Гид</title>
+    <meta name="description" content="Подробный разбор принципа работы реле контроля напряжения (РКН): устройство, схемы подключения, настройка порогов и защита от скачков 220В. Инструкции для дома и щитовой.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/pr/printsip-raboty-rele-kontrolya-napryazheniya.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как работает реле контроля напряжения: принцип действия и схема">
+    <meta property="og:description" content="Подробный разбор принципа работы реле контроля напряжения (РКН): устройство, схемы подключения, настройка порогов и защита от скачков 220В. Инструкции для дома и щитовой.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как работает реле контроля напряжения: принцип действия и схема</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Принцип работы реле контроля напряжения: устройство, схема и настройка</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-реле-контроля-напряжения-и-зачем-оно-нужно">Что такое реле контроля напряжения и зачем оно нужно</a></li><li><a href="#устройство-реле-контроля-напряжения-из-чего-состоит-ркн">Устройство реле контроля напряжения: из чего состоит РКН</a></li><li><a href="#принцип-работы-реле-контроля-напряжения-пошагово">Принцип работы реле контроля напряжения: пошагово</a></li><li><a href="#схемы-подключения-реле-контроля-напряжения">Схемы подключения реле контроля напряжения</a></li><li><a href="#настройка-порогов-срабатывания-инструкция">Настройка порогов срабатывания: инструкция</a></li><li><a href="#типичные-ошибки-при-установке-и-эксплуатации-ркн">Типичные ошибки при установке и эксплуатации РКН</a></li><li><a href="#сравнение-ркн-с-другими-устройствами-защиты">Сравнение РКН с другими устройствами защиты</a></li><li><a href="#faq-частые-вопросы-о-реле-контроля-напряжения">FAQ: Частые вопросы о реле контроля напряжения</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Скачки напряжения в сети 220В — одна из главных причин выхода из строя бытовой техники, от холодильников до компьютеров. Даже кратковременное повышение до 250В или падение ниже 180В может повредить электронику, не говоря уже о более серьёзных авариях. <strong>Реле контроля напряжения (РКН)</strong> — это простое, но эффективное устройство, которое защищает оборудование от таких рисков. В отличие от стабилизаторов, оно не корректирует напряжение, а просто отключает питание при выходе параметров за допустимые пределы.</p>
+
+<p>В этой статье разберём, как устроено реле контроля напряжения, по какому принципу оно работает, и почему его часто называют «страховкой» для дорогой техники. Мы рассмотрим схемы подключения для однофазных и трёхфазных сетей, объясним, как настроить пороги срабатывания, и приведём примеры типичных ошибок при монтаже. Если вы планируете установить РКН в квартире, доме или гараже — здесь найдёте ответы на ключевые вопросы.</p>
+
+<h2 id="что-такое-реле-контроля-напряжения-и-зачем-оно-нужно">Что такое реле контроля напряжения и зачем оно нужно</h2>
+
+<p>Реле контроля напряжения (<em>РКН</em>) — это электромеханическое или электронное устройство, которое непрерывно измеряет напряжение в сети и размыкает цепь при выходе параметров за установленные пределы. Его основная задача — <strong>защита подключённого оборудования</strong> от:</p>
+
+<ul>
+  <li>🔌 <strong>Перенапряжения</strong> (более 240–250В) — возникает при обрыве нейтрали, неисправностях трансформаторов или грозовых разрядах.</li>
+  <li>🔋 <strong>Пониженного напряжения</strong> (менее 170–180В) — typично для перегруженных сельских сетей или при неравномерном распределении нагрузки.</li>
+  <li>⚡ <strong>Импульсных помех</strong> — кратковременных скачков, которые могут повредить блоки питания техники.</li>
+</ul>
+
+<p>В отличие от <em>стабилизаторов напряжения</em>, РКН не выравнивает параметры сети, а просто отключает нагрузку при критических значениях. Это делает его более надёжным (нет электронных схем, которые могут выйти из строя) и дешёвым решением. Например, модель <em>UBK-16</em> от <em>Новатек-Электро</em> стоит в 2–3 раза дешевле аналогичного по мощности стабилизатора.</p>
+
+<p>Где устанавливают РКН?</p>
+
+<ul>
+  <li>🏠 <strong>Квартиры и частные дома</strong> — для защиты холодильников, котлов отопления, кондиционеров.</li>
+  <li>🏭 <strong>Гаражи и мастерские</strong> — для сварочных аппаратов, компрессоров, станков.</li>
+  <li>🖥️ <strong>Офисы и серверные</strong> — чтобы уберечь оргтехнику от скачков.</li>
+</ul>
+
+<div class="poll-widget" id="poll-d1600bf3"><div class="poll-widget-question">📊 Где вы планируете установить реле контроля напряжения?</div><div class="poll-widget-option" data-poll="d1600bf3" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">В квартире</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="d1600bf3" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">В частном доме</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="d1600bf3" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">В гараже/мастерской</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="d1600bf3" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">На даче</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="d1600bf3" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Другой вариант</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="устройство-реле-контроля-напряжения-из-чего-состоит-ркн">Устройство реле контроля напряжения: из чего состоит РКН</h2>
+
+<p>Конструкция реле контроля напряжения зависит от типа (электромеханическое или электронное), но в большинстве моделей можно выделить следующие ключевые элементы:</p>
+
+<ol>
+  <li><strong>Измерительный блок</strong> — содержит трансформатор тока или датчик напряжения, который фиксирует текущие параметры сети.</li>
+  <li><strong>Компаратор</strong> — сравнивает измеренное напряжение с установленными порогами (верхним и нижним).</li>
+  <li><strong>Исполнительное реле</strong> — размыкает/замыкает цепь при срабатывании защиты.</li>
+  <li><strong>Блок задержки</strong> — предотвращает ложные срабатывания при кратковременных помехах (например, при пуске мощного двигателя).</li>
+  <li><strong>Индикация</strong> — светодиоды или дисплей, показывающие текущее напряжение и статус работы.</li>
+</ol>
+
+<p>В <em>электромеханических</em> РКН (например, <em>РН-111</em>) роль компаратора выполняет катушка с сердечником, которая физически размыкает контакты. В <em>электронных</em> (например, <em>DigiTOP V-protect 16A</em>) за логику отвечает микроконтроллер, что позволяет точнее настраивать пороги и добавлять дополнительные функции (например, журнал событий).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Тип РКН</th>
+      <th>Принцип работы</th>
+      <th>Плюсы</th>
+      <th>Минусы</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Электромеханическое</td>
+      <td>Катушка с сердечником размыкает контакты при превышении порога</td>
+      <td>Простота, надёжность, низкая цена</td>
+      <td>Меньшая точность, износ механических частей</td>
+    </tr>
+    <tr>
+      <td>Электронное</td>
+      <td>Микроконтроллер анализирует сигнал и управляет реле</td>
+      <td>Высокая точность, дополнительные функции (дисплей, настройка задержки)</td>
+      <td>Дороже, чувствительно к помехам</td>
+    </tr>
+    <tr>
+      <td>Гибридное</td>
+      <td>Сочетает электронный блок управления и электромеханическое реле</td>
+      <td>Баланс цены и точности</td>
+      <td>Сложнее в ремонте</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Важно: некоторые модели (например, <em>АСН-110</em>) имеют встроенный <strong>байпас</strong> — обходной контакт, который позволяет подать питание напрямую, минуя защиту. Это полезно для аварийных ситуаций, но использовать байпас постоянно не рекомендуется.</p>
+
+<h2 id="принцип-работы-реле-контроля-напряжения-пошагово">Принцип работы реле контроля напряжения: пошагово</h2>
+
+<p>Алгоритм работы РКН можно разделить на 4 этапа:</p>
+
+<ol>
+  <li><strong>Измерение</strong>: Датчик фиксирует текущее напряжение в сети (например, 225В).</li>
+  <li><strong>Сравнение</strong>: Компаратор проверяет, попадает ли значение в установленный диапазон (например, 190–240В).</li>
+  <li><strong>Решение</strong>:
+    <ul>
+      <li>Если напряжение в норме — реле остаётся замкнутым, питание подаётся на нагрузку.</li>
+      <li>Если напряжение вышло за пределы — компаратор отправляет сигнал на размыкание.</li>
+    </ul>
+  </li>
+  <li><strong>Задержка и восстановление</strong>:
+    <ul>
+      <li>После нормализации напряжения РКН ждёт 5–30 секунд (настраивается) и снова замыкает цепь.</li>
+      <li>Если проблема повторяется — цикл отключения возобновляется.</li>
+    </ol>
+  </li>
+</ol>
+
+<p><mark>Критичный нюанс: большинство РКН не защищают от высокочастотных помех (например, от сварочного аппарата). Для этого нужны дополнительные фильтры или сетевые кондиционеры.</mark></p>
+
+<p>Пример работы на практике:
+<p>Допустим, в сети произошло <strong>обрыв нейтрали</strong>, и напряжение подскочило до 280В. РКН с порогом 250В разорвёт цепь через 0,1–0,5 секунды (время зависит от модели). После восстановления нейтрали и падения напряжения до 230В устройство подождёт 10 секунд (заданная задержка) и снова подаст питание.</p></p>
+
+<details class="faq-item"><summary>Что такое обрыв нейтрали и почему он опасен?</summary><div class="faq-answer"><p>Обрыв нейтрали — это разрыв нулевого провода в трёхфазной сети, который приводит к перекосу фаз. В результате на одной из фаз напряжение может подскочить до 300–380В, что выведет из строя всю подключённую технику. РКН защищает от этого, но не устраняет причину — для полной безопасности нужна релейная защита на вводе.</p></div></details>
+
+<h2 id="схемы-подключения-реле-контроля-напряжения">Схемы подключения реле контроля напряжения</h2>
+
+<p>Способ подключения РКН зависит от типа сети (однофазная или трёхфазная) и места установки (розетка, щиток, отдельное оборудование). Рассмотрим три наиболее распространённые схемы.</p>
+
+<h3>1. Подключение в розетку (для отдельных приборов)</h3>
+<p>Самый простой вариант — использовать <em>розеточное РКН</em> (например, <em>ZUBR R16</em>). Устройство вставляется в розетку, а в него подключается вилка защищаемого прибора (холодильник, компьютер). Пороги настраиваются кнопками на корпусе.</p>
+
+<p>⚠️ <strong>Внимание:</strong> Розеточные РКН обычно рассчитаны на ток до 16А (3,5 кВт). Для мощных приборов (электроплиты, котлы) они не подходят — нужно ставить реле в щиток.</p>
+
+<h3>2. Установка в электрощит на DIN-рейку</h3>
+<p>Для защиты всей квартиры или дома РКН монтируется в щиток после вводного автомата, но перед групповыми автоматами. Пример схемы для однофазной сети:</p>
+<pre><code>
+<p>Вводной автомат → Счётчик → РКН → Групповые автоматы → Нагрузка</p>
+</code></pre>
+
+<p>Важные моменты:
+<ul>
+  <li>Сечение провода для подключения РКН должно быть не меньше, чем у вводного кабеля.</li>
+  <li>Если РКН не имеет встроенной защиты от КЗ, перед ним ставится автоматический выключатель.</li>
+</ul>
+</p>
+
+<h3>3. Подключение трёхфазного РКН</h3>
+<p>В трёхфазных сетях (380В) используются специальные модели, например, <em>РНПП-311</em>. Они контролируют напряжение по каждой фазе и отключают все три линии при аварии. Схема:</p>
+<pre><code>
+<p>Вводной 3-х фазный автомат → Счётчик → РКН → 3-х фазные автоматы → Нагрузка</p>
+</code></pre>
+
+<p>⚠️ <strong>Внимание:</strong> Трехфазные РКН часто имеют функцию <strong>контроля чередования фаз</strong>. Если фазы перепутаны (например, после ремонта), устройство не включится — это защита для двигателей и компрессоров.</p>
+
+
+<p>1. Отключить вводной автомат</p>
+<p>2. Проверить номинал РКН (должен быть не меньше суммарного тока нагрузки)</p>
+<p>3. Убедиться, что сечение проводов соответствует току</p>
+<p>4. Настроить пороги срабатывания до установки--></p>
+
+<h2 id="настройка-порогов-срабатывания-инструкция">Настройка порогов срабатывания: инструкция</h2>
+
+<p>Правильно выставленные пороги — залог эффективной защиты. Слишком широкий диапазон (например, 150–270В) не убережёт от скачков, а слишком узкий (210–230В) будет вызывать ложные срабатывания. Оптимальные значения для бытовой сети 220В:</p>
+
+<ul>
+  <li>🔽 <strong>Нижний порог</strong>: 180–190В (защита от просадок).</li>
+  <li>🔼 <strong>Верхний порог</strong>: 240–250В (защита от перенапряжения).</li>
+  <li>⏱️ <strong>Задержка включения</strong>: 5–30 секунд (зависит от типа нагрузки).</li>
+</ul>
+
+<p>Как настроить пороги на примере <em>DigiTOP V-protect 16A</em>:
+<ol>
+  <li>Подключите РКН к сети (без нагрузки).</li>
+  <li>Нажмите и удерживайте кнопку <code>SET</code> 3 секунды, пока не замигает индикатор.</li>
+  <li>Кнопками <code>+</code>/<code>–</code> установите нижний порог (например, 185В).</li>
+  <li>Нажмите <code>SET</code> ещё раз и установите верхний порог (например, 245В).</li>
+  <li>Сохраните настройки, удерживая <code>SET</code> до сигнала.</li>
+</ol>
+</p>
+
+<p>Для трёхфазных РКН (например, <em>РНПП-311М</em>) настройка аналогична, но пороги выставляются отдельно для каждой фазы. Некоторые модели позволяют задать <strong>асимметрию фаз</strong> — разницу напряжений между фазами, при которой произойдёт отключение.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если в вашей сети часто бывают кратковременные просадки (например, при запуске насосов), увеличьте задержку включения до 20–30 секунд. Это уменьшит количество ложных срабатываний.</p></div>
+
+<h2 id="типичные-ошибки-при-установке-и-эксплуатации-ркн">Типичные ошибки при установке и эксплуатации РКН</h2>
+
+<p>Даже простое устройство как РКН можно подключить неправильно, что приведёт к ложным срабатываниям или отсутствию защиты. Вот самые распространённые ошибки:</p>
+
+<ul>
+  <li>❌ <strong>Неверный выбор номинала</strong>: РКН на 16А не выдержит нагрузку в 25А (например, электроплиту). Последствие — оплавление контактов.</li>
+  <li>❌ <strong>Отсутствие заземления</strong>: Без заземления корректная работа электронных РКН не гарантируется.</li>
+  <li>❌ <strong>Игнорирование задержки</strong>: Если не настроить задержку включения, РКН будет «моргать» при малейших колебаниях.</li>
+  <li>❌ <strong>Подключение после УЗО</strong>: РКН должно стоять <strong>до</strong> УЗО, иначе при срабатывании защиты УЗО может ложно отключиться.</li>
+</ul>
+
+<p>⚠️ <strong>Внимание:</strong> Если РКН срабатывает слишком часто (раз в 1–2 часа), это признак проблем в сети. Возможные причины:
+<ul>
+  <li>Нестабильное напряжение от поставщика электроэнергии.</li>
+  <li>Перегрузка одной из фаз (в трёхфазной сети).</li>
+  <li>Плохой контакт в распределительном щите.</li>
+</ul>
+<p>В таких случаях лучше обратиться к электрику для диагностики.</p>
+</p>
+
+<p>Ещё одна типичная проблема — <strong>РКН не включается после срабатывания</strong>. Причины:
+<ul>
+  <li>Напряжение не нормализовалось (проверьте мультиметром).</li>
+  <li>Заклинило механические контакты (нужен ремонт).</li>
+  <li>Сработала тепловая защита (подождите 1–2 минуты).</li>
+</ul>
+</p>
+
+<h2 id="сравнение-ркн-с-другими-устройствами-защиты">Сравнение РКН с другими устройствами защиты</h2>
+
+<p>Реле контроля напряжения — не единственное решение для защиты от скачков. Рассмотрим, чем оно отличается от альтернатив:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Устройство</th>
+      <th>Принцип работы</th>
+      <th>Плюсы</th>
+      <th>Минусы</th>
+      <th>Когда выбрать</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Реле контроля напряжения (РКН)</td>
+      <td>Отключает нагрузку при выходе напряжения за пределы</td>
+      <td>Низкая цена, простота, надёжность</td>
+      <td>Не корректирует напряжение, задержка при включении</td>
+      <td>Для защиты отдельных приборов или всего дома от критичных скачков</td>
+    </tr>
+    <tr>
+      <td>Стабилизатор напряжения</td>
+      <td>Выравнивает напряжение до 220В ±5%</td>
+      <td>Поддерживает стабильное питание</td>
+      <td>Дорогой, требует обслуживания, ограниченная мощность</td>
+      <td>Для чувствительной техники (аудиоаппаратура, медицинское оборудование)</td>
+    </tr>
+    <tr>
+      <td>Источник бесперебойного питания (ИБП)</td>
+      <td>Подаёт питание от аккумуляторов при отключении сети</td>
+      <td>Защита от отключений, фильтрация помех</td>
+      <td>Высокая цена, ограниченное время автономии</td>
+      <td>Для компьютеров, серверов, систем безопасности</td>
+    </tr>
+    <tr>
+      <td>Сетевой фильтр</td>
+      <td>Подавляет высокочастотные помехи</td>
+      <td>Дёшев, компактен</td>
+      <td>Не защищает от скачков напряжения</td>
+      <td>Для защиты от импульсных помех (например, от сварочного аппарата)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>✅ <strong>Когда достаточно РКН:</strong>
+<ul>
+  <li>В сети редкие скачки, но они критичны для техники.</li>
+  <li>Нужна защита для всего дома с минимальными затратами.</li>
+  <li>Стабилизатор слишком дорог или не нужен (например, для холодильника).</li>
+</ul>
+</p>
+
+<p>❌ <strong>Когда РКН не подходит:</strong>
+<ul>
+  <li>В сети постоянное низкое напряжение (менее 180В) — нужен стабилизатор.</li>
+  <li>Требуется резервное питание — нужен ИБП.</li>
+  <li>Нужна защита от высокочастотных помех — нужен сетевой фильтр.</li>
+</ul>
+</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>РКН — это «страховка» от экстренных ситуаций, а не решение для постоянных проблем с сетью. Если в вашем доме напряжение регулярно выходит за 190–240В, обратитесь в энергосбыт или установите стабилизатор.</p></div>
+
+<h2 id="faq-частые-вопросы-о-реле-контроля-напряжения">FAQ: Частые вопросы о реле контроля напряжения</h2>
+
+<details>
+  <summary>Можно ли подключить РКН самому или нужен электрик?</summary>
+  <p>Если у вас есть опыт работы с электрощитовыми устройствами, подключить РКН в щиток можно самостоятельно, соблюдая правила безопасности (отключить вводной автомат, использовать инструмент с изолированными ручками). Для установки в розетку навыков не требуется. Однако для трёхфазных сетей или если щиток под пломбой, лучше пригласить специалиста.</p>
+</details>
+
+<details>
+  <summary>Сколько стоит реле контроля напряжения?</summary>
+  <p>Цена зависит от типа и мощности:
+  <ul>
+    <li>Розеточные модели (16А) — от 1 500 до 3 000 руб. (например, <em>ZUBR R16</em>).</li>
+    <li>Однофазные на DIN-рейку (до 63А) — от 2 500 до 6 000 руб. (например, <em>Новатек-Электро UBK-16</em>).</li>
+    <li>Трёхфазные (до 100А) — от 5 000 до 15 000 руб. (например, <em>РНПП-311М</em>).</li>
+  </ul>
+  </p>
+</details>
+
+<details>
+  <summary>Что делать, если РКН срабатывает слишком часто?</summary>
+  <p>Частые срабатывания указывают на проблемы в сети. Действия:
+  <ol>
+    <li>Проверьте текущее напряжение мультиметром в течение суток.</li>
+    <li>Если просадки/скачки подтверждаются, обратитесь в энергосбыт с заявлением на проверку качества электроэнергии.</li>
+    <li>Увеличьте задержку включения в настройках РКН (если срабатывания кратковременные).</li>
+    <li>Для критичной техники (например, котла отопления) добавьте стабилизатор.</li>
+  </ol>
+  </p>
+</details>
+
+<details>
+  <summary>Можно ли использовать РКН для защиты солнечных батарей или ветрогенераторов?</summary>
+  <p>Да, но нужно выбирать модели, рассчитанные на работу с <strong>нестабильными источниками</strong> (например, <em>ССН-100</em>). Обычные РКН могут ложно срабатывать из-за частых колебаний напряжения в автономных системах. Также убедитесь, что РКН совместим с инвертором вашей системы.</p>
+</details>
+
+<details>
+  <summary>Как проверить, работает ли РКН?</summary>
+  <p>Простой тест:
+  <ol>
+    <li>Подключите РКН к сети (без нагрузки).</li>
+    <li>Искусственно создайте скачок напряжения (например, подключите мощный прибор, вызывающий просадку).</li>
+    <li>РКН должно сработать (отключиться) и включиться обратно после нормализации.</li>
+    <li>Проверьте индикацию: на дисплее или светодиодах должно отображаться текущее напряжение.</li>
+  </ol>
+<p>Для точной проверки используйте <strong>автотрансформатор</strong> (ЛАТР), чтобы плавно менять напряжение.</p>
+  </p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-реле-контроля-напряжения-и-зачем-оно-нужно">Что такое реле контроля напряжения и зачем оно нужно</a></li><li><a href="#устройство-реле-контроля-напряжения-из-чего-состоит-ркн">Устройство реле контроля напряжения: из чего состоит РКН</a></li><li><a href="#принцип-работы-реле-контроля-напряжения-пошагово">Принцип работы реле контроля напряжения: пошагово</a></li><li><a href="#схемы-подключения-реле-контроля-напряжения">Схемы подключения реле контроля напряжения</a></li><li><a href="#настройка-порогов-срабатывания-инструкция">Настройка порогов срабатывания: инструкция</a></li><li><a href="#типичные-ошибки-при-установке-и-эксплуатации-ркн">Типичные ошибки при установке и эксплуатации РКН</a></li><li><a href="#сравнение-ркн-с-другими-устройствами-защиты">Сравнение РКН с другими устройствами защиты</a></li><li><a href="#faq-частые-вопросы-о-реле-контроля-напряжения">FAQ: Частые вопросы о реле контроля напряжения</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sk/skhema-podklyucheniya-difavtomata-v-odnofaznoj-seti-s-avtomatami.html" class="related-card">Схема подключения дифавтомата в однофазной сети с автоматами: пошагово</a></li><li><a href="/articles/p/po/podklyuchenie-vvodnogo-kabelya-k-schetchiku.html" class="related-card">Как подключить вводной кабель к счетчику: схема и правила 2026</a></li><li><a href="/articles/m/mo/mozhno-li-perevorachivat-avtomaty-v-shchitke.html" class="related-card">Можно ли переворачивать автоматы в щитке: правила и риски</a></li><li><a href="/articles/e/es/est-li-raznitsa-s-kakoj-storony-podklyuchat-avtomaty.html" class="related-card">С какой стороны подключать автоматы: есть ли разница и почему</a></li><li><a href="/articles/s/sk/skhema-podklyucheniya-uzo-na-gruppu-avtomatov.html" class="related-card">Схема подключения УЗО на группу автоматов: пошаговое руководство 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sk/skhema-podklyucheniya-difavtomata-v-odnofaznoj-seti-s-avtomatami.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения дифавтомата в однофазной сети с автоматами: пошагово</span><span class="related-bottom-desc">Как правильно подключить дифавтомат в щитке с групповыми автоматами? Схемы, ошибки, выбор номинала и</span></a><a href="/articles/p/po/podklyuchenie-vvodnogo-kabelya-k-schetchiku.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить вводной кабель к счетчику: схема и правила 2026</span><span class="related-bottom-desc">Пошаговая инструкция по подключению вводного кабеля к электросчетчику: выбор кабеля, схемы, ошибки и</span></a><a href="/articles/m/mo/mozhno-li-perevorachivat-avtomaty-v-shchitke.html" class="related-bottom-card"><span class="related-bottom-title">Можно ли переворачивать автоматы в щитке: правила и риски</span><span class="related-bottom-desc">Ответ на вопрос, можно ли переворачивать автоматы. Разбор ГОСТ, риски для безопасности, особенности </span></a><a href="/articles/e/es/est-li-raznitsa-s-kakoj-storony-podklyuchat-avtomaty.html" class="related-bottom-card"><span class="related-bottom-title">С какой стороны подключать автоматы: есть ли разница и почему</span><span class="related-bottom-desc">Разбираемся, влияет ли верхнее или нижнее подключение автоматов на безопасность и работу электрощита</span></a><a href="/articles/s/sk/skhema-podklyucheniya-uzo-na-gruppu-avtomatov.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения УЗО на группу автоматов: пошаговое руководство 2026</span><span class="related-bottom-desc">Как правильно подключить УЗО к группе автоматов: схемы, ошибки, выбор параметров и требования ПУЭ. И</span></a><a href="/articles/k/ka/kak-pravilno-sobirat-kvartirnyj-shchitok.html" class="related-bottom-card"><span class="related-bottom-title">Как собрать квартирный щиток: пошаговое руководство 2026</span><span class="related-bottom-desc">Полная инструкция по сборке квартирного электрощитка: схемы, выбор автоматов, монтаж и подключение. </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

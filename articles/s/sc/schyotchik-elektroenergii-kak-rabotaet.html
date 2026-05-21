@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Как работает счетчик электроэнергии: устройство и принцип — Электро Гид</title>
+    <meta name="description" content="Подробный разбор того, как работает электросчетчик. Индуктивные и электронные модели, схемы подключения, классы точности и защита от воровства.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/s/sc/schyotchik-elektroenergii-kak-rabotaet.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как работает счетчик электроэнергии: устройство и принцип">
+    <meta property="og:description" content="Подробный разбор того, как работает электросчетчик. Индуктивные и электронные модели, схемы подключения, классы точности и защита от воровства.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/instrumenty-i-zamery/">Инструменты и замеры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как работает счетчик электроэнергии: устройство и принцип</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как работает счетчик электроэнергии: устройство, типы и принцип действия</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#физический-принцип-работы-индукционных-приборов">Физический принцип работы индукционных приборов</a></li><li><a href="#устройство-и-логика-электронных-счетчиков">Устройство и логика электронных счетчиков</a></li><li><a href="#сравнительная-таблица-характеристик-приборов-учета">Сравнительная таблица характеристик приборов учета</a></li><li><a href="#схема-подключения-и-учет-в-разных-сетях">Схема подключения и учет в разных сетях</a></li><li><a href="#защита-от-вмешательства-и-современные-функции">Защита от вмешательства и современные функции</a></li><li><a href="#погрешности-и-срок-службы-электросчетчиков">Погрешности и срок службы электросчетчиков</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>В каждом доме, квартире или производственном помещении можно встретить прибор, который неустанно фиксирует потребление энергии. <strong>Электросчетчик</strong> является основным узлом учета, без которого невозможно ни коммерческое взаимодействие с поставщиком ресурса, ни контроль за расходом в быту. Принцип его работы базируется на преобразовании электрической энергии в механическое вращение или цифровой сигнал, который затем трансформируется в понятные киловатт-часы.</p>
+
+<p>Многие пользователи воспринимают это устройство как «черный ящик»: показания снял, деньги заплатил. Однако понимание внутренней механики помогает не только выбрать подходящую модель при замене, но и обезопасить себя от некорректных показаний или поломок. Современные <em>умные счетчики</em> (АИИС КУЭ) и классические индукционные аппараты используют совершенно разные физические законы для достижения одной цели.</p>
+
+<p>В этой статье мы детально разберем физические процессы, происходящие внутри корпуса, рассмотрим эволюцию технологий учета и выясним, почему цифровые приборы вытесняют механические аналоги. Знание устройства прибора позволит вам лучше ориентироваться в тарифах и технических характеристиках.</p>
+
+<h2 id="физический-принцип-работы-индукционных-приборов">Физический принцип работы индукционных приборов</h2>
+
+<p>Классические счетчики с крутящимся алюминиевым диском, которые до сих пор можно встретить во многих старых домах, работают на основе электромагнитной индукции. Это механические устройства, не требующие внешнего питания для работы самого механизма учета. Основным элементом здесь выступает <strong>индукционный механизм</strong>, состоящий из двух электромагнитов, расположенных под углом 90 градусов друг к другу.</p>
+
+<p>Первый электромагнит создает магнитный поток, пропорциональный напряжению в сети, а второй — току, протекающему через нагрузку потребителя. В зазоре между этими магнитопроводами находится легкий алюминиевый диск. Когда по катушкам течет ток, в диске наводятся вихревые токи. Взаимодействие магнитных полей катушек с этими вихревыми токами создает вращающий момент.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Скорость вращения диска напрямую зависит от мощности потребляемой энергии. Чем больше вы включаете приборов, тем быстрее крутится диск. Если диск вращается при выключенных потребителях, это свидетельствует о неисправности прибора или хищении электроэнергии, что требует немедленного вмешательства специалиста.</p>
+</blockquote>
+
+<p>Для того чтобы скорость вращения соответствовала реальному потреблению, используется постоянный магнит. Он создает тормозной момент, противодействующий вращению. Когда вращающий и тормозной моменты уравновешиваются, диск вращается с постоянной скоростью, пропорциональной мощности. Через систему зубчатых колес (редуктор) вращение передается на <strong>механический счетчик</strong>, который суммирует обороты.</p>
+
+<ul>
+<li>🌀 Высокая надежность и долговечность благодаря отсутствию сложной электроники.</li>
+<li>🛡️ Устойчивость к кратковременным перегрузкам и скачкам напряжения в сети.</li>
+<li>💰 Низкая стоимость производства и эксплуатации по сравнению с электронными аналогами.</li>
+<li>📉 Низкий класс точности (обычно 2.5), что не позволяет учитывать малые токи потребления.</li>
+</ul>
+
+<p>Несмотря на простоту, такие приборы имеют существенный недостаток: они не способны вести учет по разным тарифам и часто имеют высокий собственный порог чувствительности. Механический износ трущихся частей со временем приводит к увеличению погрешности показаний.</p>
+
+<h2 id="устройство-и-логика-электронных-счетчиков">Устройство и логика электронных счетчиков</h2>
+
+<p>Современный <strong>электронный счетчик</strong> лишен вращающихся частей. Его работа построена на твердотельных элементах и микропроцессорной технике. Основу устройства составляет специализированная микросхема, которая выполняет функцию измерителя. Она принимает аналоговые сигналы с датчиков тока и напряжения и преобразует их в цифровую последовательность импульсов.</p>
+
+<p>Ключевым элементом здесь является <em>импульсный выход</em>. Частота следования импульсов пропорциональна потребляемой мощности. Эти импульсы суммируются микропроцессором, и результат отображается на дисплее. В отличие от механики, электроника позволяет реализовать сложные алгоритмы учета, такие как многотарифность, хранение архивов данных и удаленная передача показаний.</p>
+
+<div class="poll-widget" id="poll-c6f6b3cf"><div class="poll-widget-question">📊 Какой счетчик установлен у вас дома?</div><div class="poll-widget-option" data-poll="c6f6b3cf" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Индукционный (с диском)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c6f6b3cf" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Электронный (цифровой)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c6f6b3cf" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю / Не видел</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c6f6b3cf" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Умный счетчик от энергосбыта</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Важной особенностью является наличие встроенного источника питания, который позволяет сохранять данные в памяти даже при отключении электричества. Современные модели оснащаются интерфейсами для подключения к системам <strong>АСКУЭ</strong> (Автоматизированная система коммерческого учета электроэнергии). Это позволяет поставщику энергии снимать показания дистанционно, без участия абонента.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При выборе электронного счетчика обращайте внимание на наличие сертификата соответствия и госповерки. Отсутствие печати поверителя на корпусе делает прибор юридически непригодным для расчетов.</p></div>
+
+<p>Электронные приборы делятся на однофазные и трехфазные. Трехфазные модели могут работать как в трехпроводных, так и в четырехпроводных сетях, обеспечивая точный учет даже при перекосе фаз, что часто встречается в частном секторе или на предприятиях.</p>
+
+<h2 id="сравнительная-таблица-характеристик-приборов-учета">Сравнительная таблица характеристик приборов учета</h2>
+
+<p>Чтобы лучше понять разницу между технологиями, рассмотрим их основные параметры в сравнении. Выбор между типами устройств часто диктуется не только желанием владельца, но и техническими требованиями энергоснабжающей организации.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Индукционный (Механический)</th>
+<th>Электронный (Цифровой)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Принцип действия</td>
+<td>Вращение диска под действием магнитного поля</td>
+<td>Цифровая обработка сигналов микропроцессором</td>
+</tr>
+<tr>
+<td>Класс точности</td>
+<td>Низкий (обычно 2.5)</td>
+<td>Высокий (1.0, 0.5S и выше)</td>
+</tr>
+<tr>
+<td>Тарифность</td>
+<td>Один тариф</td>
+<td>Многотарифный учет (день/ночь/пик)</td>
+</tr>
+<tr>
+<td>Срок службы</td>
+<td>10-15 лет (износ механики)</td>
+<td>16-30 лет (стабильная электроника)</td>
+</tr>
+<tr>
+<td>Защита от краж</td>
+<td>Минимальная</td>
+<td>Высокая (фиксация магнитного воздействия)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Как видно из таблицы, цифровые устройства выигрывают по функционалу и точности. Однако в условиях сильных электромагнитных помех или экстремальных температур некоторые простые индукционные модели могут показывать большую стабильность, хотя их время безвозвратно уходит.</p>
+
+<h2 id="схема-подключения-и-учет-в-разных-сетях">Схема подключения и учет в разных сетях</h2>
+
+<p>Принцип работы счетчика неразрывно связан с правильностью его подключения. Для однофазной сети (220 Вольт) используется схема с четырьмя контактами: вход фазы, выход фазы, вход нуля и выход нуля. Внутри прибора фаза проходит через токовую катушку, а ноль — через обмотку напряжения (в электронных моделях схема может отличаться, но логика остается).</p>
+
+<p>В трехфазных сетях (380 Вольт) подключение может осуществляться двумя способами: прямого включения или через <strong>трансформаторы тока</strong>. Прямое включение применяется при токах до 100 Ампер. Если нагрузка превышает этот предел, что характерно для промышленных объектов, используются измерительные трансформаторы, которые уменьшают ток до безопасного для счетчика значения (обычно 5 Ампер).</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Самостоятельное вмешательство в схему подключения счетчика, срыв пломб или изменение порядка следования фаз категорически запрещено и влечет за собой крупные штрафы. Все работы по монтажу и замене должны проводить квалифицированные специалисты с допуском.</p>
+</blockquote>
+
+<p>При использовании трансформаторов тока показания счетчика умножаются на коэффициент трансформации. Например, если трансформатор имеет соотношение 100/5, коэффициент равен 20. Это позволяет использовать стандартные приборы учета на объектах с огромным энергопотреблением.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка корректности работы</h4><label class="check-item"><input type="checkbox"><span>Сравнить показания с потреблением мощного прибора</span></label><label class="check-item"><input type="checkbox"><span>Проверить отсутствие вращения диска при выключенной нагрузке</span></label><label class="check-item"><input type="checkbox"><span>Убедиться в целостности пломб</span></label><label class="check-item"><input type="checkbox"><span>Проверить соответствие показаний на дисплее и в квитанции</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="защита-от-вмешательства-и-современные-функции">Защита от вмешательства и современные функции</h2>
+
+<p>С развитием технологий росло и желание потребителей сэкономить, иногда незаконными методами. В ответ на это производители внедряют сложные системы защиты. В электронных счетчиках установлены датчики магнитного поля. При попытке воздействовать на прибор мощным магнитом, в журнале событий фиксируется запись «Вскрытие корпуса» или «Воздействие магнитом».</p>
+
+<p><mark>Современные приборы учета способны передавать эти события в диспетчерский центр энергосбытовой компании в режиме реального времени.</mark> Кроме того, многие модели имеют функцию ограничения мощности. Если потребление превышает установленный лимит, счетчик может автоматически отключить подачу электроэнергии через встроенное реле.</p>
+
+<p>Функция многотарифного учета позволяет разделять потребление по временным зонам. Внутри процессора заложено точное время (часто синхронизируемое по радиоканалу или сети), и счетчик переключает тарифные планы (Т1, Т2, Т3) автоматически. Это стимулирует население использовать энергоемкие приборы ночью, когда сеть менее нагружена.</p>
+
+<ul>
+<li>📡 Дистанционное снятие показаний без участия жильцов.</li>
+<li>🔋 Встроенная батарея для хранения настроек и архива при отключении света.</li>
+<li>📉 Индикация качества электроэнергии (скачки напряжения, частоты).</li>
+<li>🔒 Журнал событий, фиксирующий все попытки несанкционированного доступа.</li>
+</ul>
+
+<h2 id="погрешности-и-срок-службы-электросчетчиков">Погрешности и срок службы электросчетчиков</h2>
+
+<p>Ни один измерительный прибор не работает идеально. <strong>Погрешность</strong> — это нормируемая характеристика, показывающая допустимое отклонение показаний от реального значения. Для бытовых счетчиков класс точности обычно составляет 1.0 или 2.0, что означает погрешность не более 1% или 2% соответственно. Однако со временем характеристики могут меняться.</p>
+
+<p>У индукционных счетчиков основной причиной изменения показаний становится износ опоры диска и изменение свойств магнитов. У электронных — старение элементов в измерительной цепи, хотя происходит это гораздо медленнее. Именно поэтому существует понятие межповерочного интервала.</p>
+
+<details class="faq-item"><summary>Что такое межповерочный интервал?</summary><div class="faq-answer"><p>Это период времени, в течение которого производитель гарантирует соответствие прибора заявленному классу точности. Для электронных счетчиков он составляет обычно 16 лет, после чего прибор необходимо сдать на поверку или заменить.</p></div></details>
+
+<p>Если счетчик начал «крутить» быстрее без увеличения нагрузки, это может быть вызвано не только хищением, но и неисправностью. Например, пробой изоляции в проводке или неисправность самого прибора учета. В таких случаях требуется вызов мастера для проведения поверки.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Своевременная замена счетчиков с истекшим сроком поверки обязательна по закону. Показания приборов с истекшим интервалом поверки не принимаются к расчету, и начисления могут производиться по нормативу с повышающим коэффициентом.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Почему счетчик щелкает или трещит?</summary>
+<p>В электронных счетчиках щелчки издает встроенное реле, которое может переключаться при изменении тарифа или при скачках напряжения. Также звук может издавать импульсный индикатор. Если щелчки слишком частые или громкие, это может указывать на плохой контакт в клеммной коробке, что требует проверки электриком во избежание пожара.</p>
+</details>
+
+<details>
+<summary>Можно ли остановить электронный счетчик магнитом?</summary>
+<p>Современные модели оснащены антимагнитной защитой. Попытка воздействия сильным неодимовым магнитом приведет не к остановке, а к фиксации нарушения в журнале событий и, возможно, к выходу прибора из строя. Кроме того, на корпус часто устанавливаются пломбы, меняющие цвет при магнитном воздействии.</p>
+</details>
+
+<details>
+<summary>Как часто нужно менять электросчетчик?</summary>
+<p>Срок службы прибора указан в его паспорте. Обычно электронные счетчики служат до 30 лет. Однако, если истек межповерочный интервал (МПИ), прибор нужно либо поверить, либо заменить. Энергосбытовые компании часто инициируют замену старых индукционных моделей на новые «умные» счетчики в плановом порядке.</p>
+</details>
+
+<details>
+<summary>Что делать, если счетчик насчитал слишком много?</summary>
+<p>Сначала проведите самостоятельный тест: выключите все приборы в доме и посмотрите, крутится ли диск или мигает ли индикатор. Если учета нет, но цифры растут — вызывайте специалиста. Если техника работает, возможно, изменился тариф или появились новые мощные потребители. В случае сомнений в исправности прибора, инициируйте его внеочередную поверку.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#физический-принцип-работы-индукционных-приборов">Физический принцип работы индукционных приборов</a></li><li><a href="#устройство-и-логика-электронных-счетчиков">Устройство и логика электронных счетчиков</a></li><li><a href="#сравнительная-таблица-характеристик-приборов-учета">Сравнительная таблица характеристик приборов учета</a></li><li><a href="#схема-подключения-и-учет-в-разных-сетях">Схема подключения и учет в разных сетях</a></li><li><a href="#защита-от-вмешательства-и-современные-функции">Защита от вмешательства и современные функции</a></li><li><a href="#погрешности-и-срок-службы-электросчетчиков">Погрешности и срок службы электросчетчиков</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/p/pr/proverka-napryazheniya-na-multimetre.html" class="related-card">Как проверить напряжение мультиметром: пошаговая инструкция</a></li><li><a href="/articles/r/ru/ruchnoj-generator-toka.html" class="related-card">Ручной генератор тока: выбор, устройство и применение</a></li><li><a href="/articles/k/ka/kak-nazyvayutsya-ploskogubtsy-s-ostrymi-kontsami.html" class="related-card">Плоскогубцы с острыми концами: как называются и где применяются</a></li><li><a href="/articles/i/iz/izmeritel-sily-toka.html" class="related-card">Измеритель силы тока: как выбрать и пользоваться правильно (2026)</a></li><li><a href="/articles/n/na/nabor-priborov-dlya-elektrika.html" class="related-card">Набор приборов для электрика 2026: полный список с ценами и советами</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/p/pr/proverka-napryazheniya-na-multimetre.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить напряжение мультиметром: пошаговая инструкция</span><span class="related-bottom-desc">Полный гайд: измерение напряжения мультиметром. Настройка прибора, выбор диапазона, техника безопасн</span></a><a href="/articles/r/ru/ruchnoj-generator-toka.html" class="related-bottom-card"><span class="related-bottom-title">Ручной генератор тока: выбор, устройство и применение</span><span class="related-bottom-desc">Полный обзор ручных генераторов тока. Принцип работы, технические характеристики, сферы применения и</span></a><a href="/articles/k/ka/kak-nazyvayutsya-ploskogubtsy-s-ostrymi-kontsami.html" class="related-bottom-card"><span class="related-bottom-title">Плоскогубцы с острыми концами: как называются и где применяются</span><span class="related-bottom-desc">Узнайте правильное название плоскогубцев с острыми концами, их виды, применение в электромонтаже и к</span></a><a href="/articles/i/iz/izmeritel-sily-toka.html" class="related-bottom-card"><span class="related-bottom-title">Измеритель силы тока: как выбрать и пользоваться правильно (2026)</span><span class="related-bottom-desc">Подробный гид по измерителям тока: виды (мультиметры, клещи), как измерять Амперы в цепи 220В и 380В</span></a><a href="/articles/n/na/nabor-priborov-dlya-elektrika.html" class="related-bottom-card"><span class="related-bottom-title">Набор приборов для электрика 2026: полный список с ценами и советами</span><span class="related-bottom-desc">Какой инструмент должен быть у электрика? ТОП-10 обязательных приборов, сравнение брендов, цены и со</span></a><a href="/articles/k/ka/kak-rabotaet-wago.html" class="related-bottom-card"><span class="related-bottom-title">Как работает WAGO: принцип действия и устройство клемм</span><span class="related-bottom-desc">Подробный разбор того, как работает клемма WAGO. Устройство пружинного зажима, технология PUSH WIRE </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

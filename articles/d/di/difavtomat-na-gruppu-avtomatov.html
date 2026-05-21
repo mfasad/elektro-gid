@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Дифавтомат на группу автоматов: схема, подключение, ошибки — Электро Гид</title>
+    <meta name="description" content="Как правильно установить дифавтомат на группу автоматов: схемы подключения, выбор номинала, типичные ошибки и советы электриков. Пошаговая инструкция с примерами.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/d/di/difavtomat-na-gruppu-avtomatov.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Дифавтомат на группу автоматов: схема, подключение, ошибки">
+    <meta property="og:description" content="Как правильно установить дифавтомат на группу автоматов: схемы подключения, выбор номинала, типичные ошибки и советы электриков. Пошаговая инструкция с примерами.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Дифавтомат на группу автоматов: схема, подключение, ошибки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Дифавтомат на группу автоматов: 5 схем подключения и правила выбора</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#когда-нужен-дифавтомат-на-группу-автоматов-3-ключевых-случая">Когда нужен дифавтомат на группу автоматов: 3 ключевых случая</a></li><li><a href="#схемы-подключения-дифавтомата-на-группу-автоматов-5-проверенных-вариантов">Схемы подключения дифавтомата на группу автоматов: 5 проверенных вариантов</a></li><li><a href="#как-выбрать-дифавтомат-для-группы-автоматов-4-ключевых-параметра">Как выбрать дифавтомат для группы автоматов: 4 ключевых параметра</a></li><li><a href="#типичные-ошибки-при-подключении-дифавтомата-на-группу-автоматов">Типичные ошибки при подключении дифавтомата на группу автоматов</a></li><li><a href="#расчёт-дифавтомата-для-группы-автоматов-пример-для-квартиры">Расчёт дифавтомата для группы автоматов: пример для квартиры</a></li><li><a href="#тестирование-дифавтомата-после-установки-пошаговая-инструкция">Тестирование дифавтомата после установки: пошаговая инструкция</a></li><li><a href="#частые-вопросы-о-дифавтоматах-на-группу-автоматов">Частые вопросы о дифавтоматах на группу автоматов</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Подключение <strong>дифавтомата на группу автоматов</strong> — распространённое решение для защиты нескольких линий электропроводки от утечек тока и перегрузок. Такой подход экономит место в щитке, упрощает монтаж и снижает затраты по сравнению с установкой отдельных УЗО на каждую линию. Однако неправильный выбор параметров или ошибки в схеме могут привести к ложным срабатываниям, отказу защиты или даже пожару.</p>
+
+<p>В этой статье разберём, когда целесообразно устанавливать один дифавтомат на несколько автоматов, как правильно рассчитать его номинал, какие схемы подключения существуют и какие <strong>критические ошибки</strong> допускают даже опытные электрики. Особое внимание уделим нюансам селективности, выбору между <em>электромеханическими</em> и <em>электронными</em> моделями, а также приведём примеры расчётов для типового дома или квартиры.</p>
+
+<h2 id="когда-нужен-дифавтомат-на-группу-автоматов-3-ключевых-случая">Когда нужен дифавтомат на группу автоматов: 3 ключевых случая</h2>
+
+<p>Установка одного дифференциального автомата на несколько линий оправдана не всегда. Вот ситуации, в которых такой вариант будет оптимальным:</p>
+
+<ul>
+  <li>🏠 <strong>Квартиры и небольшие дома</strong> с ограниченным местом в щитке. Например, если нужно защитить 3-4 розеточные группы в однокомнатной квартире, но места для отдельных УЗО нет.</li>
+  <li>💰 <strong>Бюджетные проекты</strong>, где важно сэкономить без потери безопасности. Дифавтомат на группу обходится дешевле, чем несколько УЗО + автоматические выключатели.</li>
+  <li>🔌 <strong>Группы нагрузок с похожими характеристиками</strong>. Например, все розетки в комнате рассчитаны на <code>16А</code> и подключены кабелем <code>2.5 мм²</code> — их можно объединить под один дифавтомат.</li>
+</ul>
+
+<p>Однако есть и <strong>противопоказания</strong>:</p>
+<ul>
+  <li>⚡ <strong>Мощные потребители</strong> (электроплиты, бойлеры, кондиционеры) — для них лучше ставить отдельные дифавтоматы или УЗО.</li>
+  <li>🛠️ <strong>Линии с разным сечением кабеля</strong>. Например, если одна группа идет кабелем <code>1.5 мм²</code> (освещение), а другая — <code>4 мм²</code> (розетки для плиты), объединять их под один дифавтомат нельзя.</li>
+  <li>🔍 <strong>Помещения с повышенной влажностью</strong> (ванная, кухня). Здесь требуется более чувствительная защита (ток утечки <code>10 мА</code>), чем для обычных комнат.</li>
+</ul>
+
+<div class="poll-widget" id="poll-5c301e58"><div class="poll-widget-question">📊 Какой тип защиты у вас установлен в щитке?</div><div class="poll-widget-option" data-poll="5c301e58" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Отдельные УЗО + автоматы</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5c301e58" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Дифавтоматы на каждую линию</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5c301e58" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Дифавтомат на группу автоматов</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5c301e58" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет дифзащиты</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="схемы-подключения-дифавтомата-на-группу-автоматов-5-проверенных-вариантов">Схемы подключения дифавтомата на группу автоматов: 5 проверенных вариантов</h2>
+
+<p>Выбор схемы зависит от количества линий, их мощности и требований к селективности. Рассмотрим самые надёжные варианты.</p>
+
+<h3>1. Дифавтомат на вводе + автоматы на группы</h3>
+<p>Самая простая схема: один дифавтомат устанавливается <strong>после счётчика</strong> и защищает всю квартиру, а обычные автоматы делят нагрузку по группам. Подходит для небольших объектов (студии, дачи).</p>
+<p><strong>Плюсы:</strong> минимальные затраты, простота монтажа.<br>
+<strong>Минусы:</strong> при утечке отключается вся квартира, сложно найти неисправность.</p>
+
+<h3>2. Дифавтомат на розеточные группы</h3>
+<p>Один дифавтомат защищает все розетки в квартире, а освещение и мощные приборы подключены через отдельные автоматы. Оптимально для типовых квартир с 3-4 комнатами.</p>
+<p><strong>Пример:</strong> дифавтомат <em>ABB DS201 C16/30мА</em> + 3 автомата <em>Schneider Electric C16</em> на розетки кухни, зала и спальни.</p>
+
+<h3>3. Дифавтомат на этаж или часть дома</h3>
+<p>Актуально для <strong>частных домов</strong>, где на каждом этаже устанавливается свой дифавтомат на группы автоматов. Например, первый этаж — дифавтомат <code>40А/100мА</code>, второй этаж — <code>25А/30мА</code>.</p>
+
+<h3>4. Каскадная схема (селективность)</h3>
+<p>Используется в сложных щитках, где нужен <strong>многоуровневый контроль</strong>. Например:</p>
+<ul>
+  <li>Вводной дифавтомат <code>63А/300мА</code> (тип <em>S</em> — селективный).</li>
+  <li>Групповые дифавтоматы <code>25А/30мА</code> на розетки и <code>16А/10мА</code> на ванную.</li>
+</ul>
+<p>При утечке срабатывает только проблемная группа, а не вся сеть.</p>
+
+<h3>5. Гибридная схема (дифавтомат + УЗО)</h3>
+<p>Дифавтомат защищает основные группы, а для особо опасных зон (например, стиральная машина) устанавливается отдельное УЗО. Такой подход сочетает экономию и безопасность.</p>
+
+<details class="faq-item"><summary>Что такое селективность в дифавтоматах?</summary><div class="faq-answer"><p>
+<p>Селективность — это свойство защиты, при котором при аварии отключается только проблемный участок, а не вся сеть. Достигается за счёт:</p>
+<p>1. Разного времени срабатывания (селективные дифавтоматы типа <em>S</em> или <em>G</em> имеют задержку 0.1–0.5 с).</p>
+<p>2. Разных номиналов по току утечки (например, вводной <code>300мА</code>, групповые <code>30мА</code>).</p>
+<p>3. Правильного подбора характеристик (кривая <em>C</em> для освещения, <em>D</em> для двигателей).</p>
+<p></p></div></details></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Схема</th>
+      <th>Применение</th>
+      <th>Плюсы</th>
+      <th>Минусы</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Дифавтомат на вводе</td>
+      <td>Маленькие квартиры, дачи</td>
+      <td>Дешево, просто</td>
+      <td>Отключает всё при утечке</td>
+    </tr>
+    <tr>
+      <td>Дифавтомат на розетки</td>
+      <td>Типовые квартиры</td>
+      <td>Баланс цены и безопасности</td>
+      <td>Не подходит для мощных приборов</td>
+    </tr>
+    <tr>
+      <td>Каскадная (селективная)</td>
+      <td>Частные дома, офисы</td>
+      <td>Точное отключение проблемной зоны</td>
+      <td>Дорого, сложный монтаж</td>
+    </tr>
+    <tr>
+      <td>Гибридная (дифавтомат + УЗО)</td>
+      <td>Квартиры с опасными зонами</td>
+      <td>Надёжность + экономия</td>
+      <td>Требует грамотного расчёта</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="как-выбрать-дифавтомат-для-группы-автоматов-4-ключевых-параметра">Как выбрать дифавтомат для группы автоматов: 4 ключевых параметра</h2>
+
+<p>Ошибки в выборе номиналов приводят к двум проблемам: либо дифавтомат <strong>не срабатывает при утечке</strong>, либо <strong>ложно отключается</strong> при нормальной работе. Разберём, на что обращать внимание.</p>
+
+<h3>1. Номинальный ток (In)</h3>
+<p>Дифавтомат должен быть <strong>на ступень выше</strong>, чем суммарный ток автоматов в группе. Например:</p>
+<ul>
+  <li>Если в группе 3 автомата по <code>16А</code>, общий ток <code>48А</code>, но дифавтомат берём на <code>40А</code> (ближайший стандартный номинал).</li>
+  <li>Для 2 автоматов по <code>25А</code> подойдёт дифавтомат <code>40А</code>.</li>
+</ul>
+<p><mark>Критическая ошибка: устанавливать дифавтомат с номиналом равным сумме автоматов (например, 3×16А = 48А → дифавтомат 50А). Это приведёт к перегреву и ложным срабатываниям!</mark></p>
+
+<h3>2. Ток утечки (IΔn)</h3>
+<p>Зависит от типа нагрузки:</p>
+<ul>
+  <li>🔌 <strong>Розетки в жилых комнатах</strong>: <code>30 мА</code>.</li>
+  <li>🚿 <strong>Ванная, кухня (мокрые зоны)</strong>: <code>10 мА</code>.</li>
+  <li>⚡ <strong>Вводной дифавтомат</strong>: <code>100–300 мА</code> (только для селективных схем!).</li>
+</ul>
+<p>Для группы автоматов, защищающих смешанные нагрузки (розетки + освещение), оптимален <code>30 мА</code>.</p>
+
+<h3>3. Тип дифавтомата: электромеханический vs электронный</h3>
+<p><strong>Электромеханические</strong> (например, <em>Hager AD14</em>, <em>Legrand DX³</em>) надёжнее:</p>
+<ul>
+  <li>🔋 Работают без напряжения (срабатывают даже при обрыве нуля).</li>
+  <li>🕒 Дольше служат (ресурс до 20 000 срабатываний).</li>
+</ul>
+<p><strong>Электронные</strong> (например, <em>IEK АД12</em>) дешевле, но:</p>
+<ul>
+  <li>⚡ Требуют питания для работы (при обрыве нуля не сработают!).</li>
+  <li>🔄 Меньший ресурс (до 10 000 срабатываний).</li>
+</ul>
+
+<h3>4. Характеристика срабатывания (кривая)</h3>
+<p>Выбирайте в зависимости от типа нагрузки:</p>
+<ul>
+  <li><strong>C</strong> — для освещения и розеток (самый универсальный вариант).</li>
+  <li><strong>D</strong> — для линий с двигателями (например, насосы, компрессоры).</li>
+  <li><strong>B</strong> — для длинных кабелей (редко используется в быту).</li>
+</ul>
+
+
+<p>Номинальный ток дифавтомата ≥ сумме токов автоматов в группе</p>
+<p>Ток утечки 30 мА для жилых комнат, 10 мА для ванной</p>
+<p>Тип электромеханический (если критична надёжность)</p>
+<p>Характеристика C для розеток, D для двигателей</p>
+<p>Совместимость с фазностью сети (1P+N или 3P+N)</p>
+<p>--></p>
+
+<h2 id="типичные-ошибки-при-подключении-дифавтомата-на-группу-автоматов">Типичные ошибки при подключении дифавтомата на группу автоматов</h2>
+
+<p>Даже опытные электрики допускают ошибки, которые сводят на нет всю защиту. Вот самые опасные из них:</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если дифавтомат срабатывает без видимой причины, <strong>не увеличивайте ток утечки</strong> (например, с 30 мА до 100 мА)! Это может привести к поражению током. Сначала проверьте утечку мультиметром или вызовите специалиста.</blockquote>
+
+<h3>1. Неправильное подключение нуля</h3>
+<p>Самая распространённая ошибка — <strong>объединение нулей</strong> от разных дифавтоматов или групп. Это приводит к ложным срабатываниям.</p>
+<p><strong>Правильно:</strong> Ноль каждой группы должен проходить <strong>только через свой дифавтомат</strong> и не смешиваться с другими!</p>
+
+<h3>2. Перегрузка по току</h3>
+<p>Если суммарный ток автоматов превышает номинал дифавтомата, он будет греться и отключаться. Например:</p>
+<ul>
+  <li>❌ <strong>Ошибка:</strong> 4 автомата по <code>16А</code> (сумма <code>64А</code>) + дифавтомат <code>40А</code>.</li>
+  <li>✅ <strong>Решение:</strong> Разбить на 2 группы по 2 автомата или взять дифавтомат <code>63А</code>.</li>
+</ul>
+
+<h3>3. Игнорирование селективности</h3>
+<p>Если не соблюдать иерархию по току утечки, при аварии будет отключаться вся сеть, а не проблемная линия. Например:</p>
+<ul>
+  <li>❌ <strong>Ошибка:</strong> Вводной дифавтомат <code>30 мА</code> + групповые <code>30 мА</code> → сработают все сразу.</li>
+  <li>✅ <strong>Решение:</strong> Вводной <code>100–300 мА</code> (тип <em>S</em>), групповые <code>30 мА</code>.</li>
+</ul>
+
+<h3>4. Подключение заземления к дифавтомату</h3>
+<p>Дифавтомат <strong>не нуждается в заземлении</strong> для работы! Подключение <code>PE</code>-проводника к его клеммам приведёт к мгновенному срабатыванию.</p>
+<p><strong>Исключение:</strong> Если дифавтомат используется в системе <em>TN-C-S</em>, заземление подключается к шине <code>PE</code>, но <strong>не к самому устройству</strong>.</p>
+
+<h3>5. Несоблюдение полярности</h3>
+<p>На корпусе дифавтомата всегда указаны клеммы для фазы (<code>L</code>) и нуля (<code>N</code>). Если перепутать их местами, устройство либо не будет работать, либо сгорит.</p>
+<p><strong>Пример:</strong> У <em>ABB DS201</em> фаза подключается сверху слева, ноль — сверху справа. На выходе — снизу в том же порядке.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед подключением сфотографируйте схему щитка на телефон. Если дифавтомат начнёт срабатывать, вы сможете быстро вернуть исходную конфигурацию и проверить ошибки.</p></div>
+
+<h2 id="расчёт-дифавтомата-для-группы-автоматов-пример-для-квартиры">Расчёт дифавтомата для группы автоматов: пример для квартиры</h2>
+
+<p>Рассмотрим типовую задачу: в квартире 5 групп нагрузки, нужно защитить их одним дифавтоматом. Исходные данные:</p>
+<ul>
+  <li>🔌 Розетки кухни: автомат <code>16А</code>, кабель <code>2.5 мм²</code>.</li>
+  <li>🔌 Розетки зала: автомат <code>16А</code>, кабель <code>2.5 мм²</code>.</li>
+  <li>🔌 Розетки спальни: автомат <code>16А</code>, кабель <code>2.5 мм²</code>.</li>
+  <li>💡 Освещение: автомат <code>10А</code>, кабель <code>1.5 мм²</code>.</li>
+  <li>🚿 Ванная (стиральная машина): автомат <code>16А</code>, кабель <code>2.5 мм²</code>.</li>
+</ul>
+
+<h3>Шаг 1: Суммируем токи автоматов</h3>
+<p><code>16 + 16 + 16 + 10 + 16 = 74А</code>.</p>
+<p>Ближайший стандартный номинал дифавтомата — <code>80А</code>. Но это <strong>слишком много</strong> для бытовой сети! Оптимальное решение — разбить на 2 группы:</p>
+<ul>
+  <li>Группа 1: розетки кухни + зала + спальни → <code>16+16+16=48А</code> → дифавтомат <code>50А/30мА</code>.</li>
+  <li>Группа 2: освещение + ванная → <code>10+16=26А</code> → дифавтомат <code>32А/10мА</code> (для ванной нужен <code>10 мА</code>).</li>
+</ul>
+
+<h3>Шаг 2: Проверяем сечение кабеля</h3>
+<p>Вводной кабель должен выдерживать суммарный ток. Для <code>50А</code> минимальное сечение меди — <code>10 мм²</code>, для <code>32А</code> — <code>6 мм²</code>.</p>
+
+<h3>Шаг 3: Выбираем тип и производителя</h3>
+<p>Для жилых помещений оптимальны электромеханические дифавтоматы с характеристикой <em>C</em>:</p>
+<ul>
+  <li>🏆 <strong>Премиум:</strong> <em>ABB DS201</em>, <em>Legrand DX³</em> (надёжность, долгий срок службы).</li>
+  <li>💰 <strong>Средний сегмент:</strong> <em>Schneider Electric Acti9</em>, <em>Hager AD14</em>.</li>
+  <li>🔧 <strong>Бюджет:</strong> <em>IEK АД12</em>, <em>KEAZ OptiDin</em> (только для временных схем!).</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для группы из 3–4 автоматов по 16А оптимален дифавтомат 40–50А с током утечки 30 мА. Если в группе есть ванная или кухня, ток утечки снижают до 10 мА.</p></div>
+
+<h2 id="тестирование-дифавтомата-после-установки-пошаговая-инструкция">Тестирование дифавтомата после установки: пошаговая инструкция</h2>
+
+<p>После монтажа обязательно проверьте работоспособность защиты. Вот как это сделать правильно:</p>
+
+<ol>
+  <li><strong>Визуальный осмотр:</strong>
+    <ul>
+      <li>Проверьте, что все провода затянуты (момент затяжки для <em>ABB</em> — <code>2.5 Н·м</code>).</li>
+      <li>Убедитесь, что нули не перепутаны между группами.</li>
+    </ol>
+  </li>
+  <li><strong>Тест кнопкой «Т»:</strong>
+    <p>Нажмите кнопку <code>ТЕСТ</code> на дифавтомате — он должен <strong>мгновенно отключиться</strong>. Если не срабатывает, устройство неисправно!</p>
+  </li>
+  <li><strong>Проверка мультиметром:</strong>
+    <p>Измерьте ток утечки в каждой группе. Для этого:</p>
+    <pre><code>1. Переведите мультиметр в режим измерения тока утечки (если есть).
+<p>2. Подключите щупы к фазе и нулю после дифавтомата.</p>
+<p>3. Включите нагрузку (например, лампу).</p>
+<p>4. Ток утечки должен быть ≤ 30% от номинала (например, для <code>30 мА</code> — не более <code>10 мА</code>).</code></pre></p>
+  </li>
+  <li><strong>Имитация утечки:</strong>
+    <p>Подключите резистор <code>10 кОм</code> между фазой и землёй — дифавтомат должен сработать.</p>
+  </li>
+</ol>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если дифавтомат срабатывает при включении стиральной машины или холодильника, <strong>не спешите его менять</strong>. Возможно, в приборе есть естественная утечка (например, из-за нагревательного элемента). Проверьте ток утечки мультиметром — если он стабилен и не превышает <code>15 мА</code>, можно оставить <code>30 мА</code> дифавтомат или установить <code>100 мА</code> на вводе.</blockquote>
+
+<h2 id="частые-вопросы-о-дифавтоматах-на-группу-автоматов">Частые вопросы о дифавтоматах на группу автоматов</h2>
+
+<details>
+  <summary>Можно ли подключить дифавтомат на группу автоматов с разным сечением кабеля?</summary>
+  <p>Нет! Дифавтомат защищает <strong>самую слабую линию</strong> в группе. Например, если одна ветка идёт кабелем <code>1.5 мм²</code> (максимум <code>16А</code>), а другая — <code>4 мм²</code> (<code>25А</code>), то при перегрузке слабая линия перегреется, а дифавтомат может не сработать вовремя. Решение: разбить группы по сечению кабеля.</p>
+</details>
+
+<details>
+  <summary>Что делать, если дифавтомат срабатывает без нагрузки?</summary>
+  <p>Причины могут быть следующими:</p>
+  <ol>
+    <li>Повреждена изоляция кабеля (проверьте мегаомметром).</li>
+    <li>Неправильное подключение нуля (общий ноль для нескольких дифавтоматов).</li>
+    <li>Неисправен сам дифавтомат (проверьте кнопкой <code>ТЕСТ</code>).</li>
+    <li>В сети есть паразитные токи (например, от импульсных блоков питания).</li>
+  </ol>
+  <p>Сначала отключите все автоматы в группе и включите дифавтомат. Если он не срабатывает — поочерёдно подключайте линии, чтобы найти проблемную.</p>
+</details>
+
+<details>
+  <summary>Какой дифавтомат выбрать для группы из 5 автоматов по 16А?</summary>
+  <p>Суммарный ток: <code>5 × 16А = 80А</code>. Оптимальные варианты:</p>
+  <ul>
+    <li>Один дифавтомат <code>80А/30мА</code> (если кабель ввода выдерживает).</li>
+    <li>Два дифавтомата: <code>50А/30мА</code> (3 автомата) + <code>32А/30мА</code> (2 автомата).</li>
+  </ul>
+  <p>Рекомендуемые модели: <em>Legrand DX³ 80A</em> или <em>ABB DS201 63A</em> (если разбиваете на группы).</p>
+</details>
+
+<details>
+  <summary>Можно ли использовать дифавтомат вместо УЗО и автомата?</summary>
+  <p>Да, дифавтомат <strong>объединяет функции УЗО и автоматического выключателя</strong>. Преимущества:</p>
+  <ul>
+    <li>Экономия места в щитке.</li>
+    <li>Упрощение монтажа.</li>
+  </ul>
+  <p>Недостатки:</p>
+  <ul>
+    <li>При срабатывании сложнее определить причину (утечка или перегрузка).</li>
+    <li>Дифавтомат дороже, чем УЗО + автомат (но дешевле, чем несколько УЗО).</li>
+  </ul>
+</details>
+
+<details>
+  <summary>Нужно ли ставить дифавтомат на освещение?</summary>
+  <p>Для освещения дифавтомат <strong>не обязателен</strong>, так как риск поражения током минимален. Достаточно обычного автомата. Исключения:</p>
+  <ul>
+    <li>Если освещение в ванной или на улице.</li>
+    <li>Если используются металлические светильники в сырых помещениях.</li>
+  </ul>
+  <p>Для жилых комнат достаточно автомата <code>10А</code> типа <em>B</em> или <em>C</em>.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#когда-нужен-дифавтомат-на-группу-автоматов-3-ключевых-случая">Когда нужен дифавтомат на группу автоматов: 3 ключевых случая</a></li><li><a href="#схемы-подключения-дифавтомата-на-группу-автоматов-5-проверенных-вариантов">Схемы подключения дифавтомата на группу автоматов: 5 проверенных вариантов</a></li><li><a href="#как-выбрать-дифавтомат-для-группы-автоматов-4-ключевых-параметра">Как выбрать дифавтомат для группы автоматов: 4 ключевых параметра</a></li><li><a href="#типичные-ошибки-при-подключении-дифавтомата-на-группу-автоматов">Типичные ошибки при подключении дифавтомата на группу автоматов</a></li><li><a href="#расчёт-дифавтомата-для-группы-автоматов-пример-для-квартиры">Расчёт дифавтомата для группы автоматов: пример для квартиры</a></li><li><a href="#тестирование-дифавтомата-после-установки-пошаговая-инструкция">Тестирование дифавтомата после установки: пошаговая инструкция</a></li><li><a href="#частые-вопросы-о-дифавтоматах-на-группу-автоматов">Частые вопросы о дифавтоматах на группу автоматов</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/c/ch/chto-oznachaet-rele.html" class="related-card">Реле: что это такое, виды и принцип работы в электрике</a></li><li><a href="/articles/c/ch/chto-takoe-uzo-v-elektrichestve-prostymi-slovami.html" class="related-card">УЗО в электрике: что это и зачем нужно простыми словами</a></li><li><a href="/articles/a/av/avtomat-s25-na-kakuyu-moshchnost.html" class="related-card">Автомат С25: на какую мощность рассчитан и как выбрать правильно</a></li><li><a href="/articles/k/ka/kakie-avtomaty-nuzhno-stavit-v-chastnom-dome.html" class="related-card">Какие автоматы ставить в частном доме: схемы и расчеты 2026</a></li><li><a href="/articles/s/sn/snachala-schetchik-ili-avtomat.html" class="related-card">Что сначала: счетчик или автомат? Правильный порядок монтажа 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/c/ch/chto-oznachaet-rele.html" class="related-bottom-card"><span class="related-bottom-title">Реле: что это такое, виды и принцип работы в электрике</span><span class="related-bottom-desc">Подробное объяснение, что такое реле, как оно работает в электрических схемах, виды реле и где их пр</span></a><a href="/articles/c/ch/chto-takoe-uzo-v-elektrichestve-prostymi-slovami.html" class="related-bottom-card"><span class="related-bottom-title">УЗО в электрике: что это и зачем нужно простыми словами</span><span class="related-bottom-desc">УЗО — устройство защитного отключения: принцип работы, виды, как выбрать и подключить. Объясняем сло</span></a><a href="/articles/a/av/avtomat-s25-na-kakuyu-moshchnost.html" class="related-bottom-card"><span class="related-bottom-title">Автомат С25: на какую мощность рассчитан и как выбрать правильно</span><span class="related-bottom-desc">Разбираемся, какую нагрузку выдерживает автомат С25 (25А), как рассчитать мощность для однофазной и </span></a><a href="/articles/k/ka/kakie-avtomaty-nuzhno-stavit-v-chastnom-dome.html" class="related-bottom-card"><span class="related-bottom-title">Какие автоматы ставить в частном доме: схемы и расчеты 2026</span><span class="related-bottom-desc">Подробный гайд по выбору автоматических выключателей для частного дома: типы, номиналы, схемы подклю</span></a><a href="/articles/s/sn/snachala-schetchik-ili-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Что сначала: счетчик или автомат? Правильный порядок монтажа 2026</span><span class="related-bottom-desc">Подробный разбор последовательности подключения: счетчик → автомат или автомат → счетчик? Нормы ПУЭ,</span></a><a href="/articles/k/ka/kak-podobrat-difavtomat-po-moshchnosti.html" class="related-bottom-card"><span class="related-bottom-title">Как подобрать дифавтомат по мощности: расчёт и таблица 2026</span><span class="related-bottom-desc">Пошаговая инструкция по выбору дифавтомата по мощности нагрузки: формулы, таблицы номиналов, ошибки </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

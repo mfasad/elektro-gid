@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Почему 380В, а между фазами 220В: разбор электрических схем — Электро Гид</title>
+    <meta name="description" content="Подробное объяснение, почему в трёхфазной сети 380В, а напряжение между фазами — 220В. Схемы, расчёты и практические примеры для электриков и домашних мастеров.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/p/po/pochemu-380-volt-a-mezhdu-fazami-220.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Почему 380В, а между фазами 220В: разбор электрических схем">
+    <meta property="og:description" content="Подробное объяснение, почему в трёхфазной сети 380В, а напряжение между фазами — 220В. Схемы, расчёты и практические примеры для электриков и домашних мастеров.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/normy-i-standarty/">Нормы и стандарты</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Почему 380В, а между фазами 220В: разбор электрических схем</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Почему в трёхфазной сети 380 Вольт, а между фазами — 220? Разбираемся в основах электротехники</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-что-такое-трёхфазная-сеть-и-как-она-работает">1. Что такое трёхфазная сеть и как она работает?</a></li><li><a href="#2-фазное-vs-линейное-напряжение-в-чём-разница">2. Фазное vs линейное напряжение: в чём разница?</a></li><li><a href="#3-почему-мультиметр-показывает-220-в-между-фазами">3. Почему мультиметр показывает 220 В между фазами?</a></li><li><a href="#4-как-правильно-измерять-напряжение-в-трёхфазной-сети">4. Как правильно измерять напряжение в трёхфазной сети?</a></li><li><a href="#5-практические-примеры-когда-380-в-становится-220-в">5. Практические примеры: когда 380 В становится 220 В?</a></li><li><a href="#6-мифы-и-заблуждения-о-380-и-220-вольт">6. Мифы и заблуждения о 380 и 220 Вольт</a></li><li><a href="#7-безопасность-при-работе-с-трёхфазными-сетями">7. Безопасность при работе с трёхфазными сетями</a></li><li><a href="#faq-частые-вопросы-о-380-и-220-вольт">FAQ: Частые вопросы о 380 и 220 Вольт</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Вы когда-нибудь задумывались, почему в технических характеристиках трёхфазной сети указывают <strong>380 Вольт</strong>, а при измерении мультиметром между двумя фазами получаете <strong>220 Вольт</strong>? Этот вопрос ставит в тупик даже опытных электриков, не говоря о домашних мастерах. На самом деле, здесь нет ошибки — всё дело в особенностях трёхфазных систем и способах измерения напряжения.</p>
+
+<p>В этой статье мы разберёмся, как устроена трёхфазная сеть, почему номинальное напряжение называют <em>380/220 В</em>, и какие физические законы стоят за этими цифрами. Вы узнаете, как правильно измерять напряжение в таких сетях, какие ошибки чаще всего допускают новички, и почему знание этих нюансов критично для безопасности и корректной работы оборудования. А ещё — развенчаем мифы о "потере напряжения" и объясним, почему в некоторых случаях между фазами может быть не 220, а совсем другие значения.</p>
+
+<h2 id="1-что-такое-трёхфазная-сеть-и-как-она-работает">1. Что такое трёхфазная сеть и как она работает?</h2>
+
+<p>Трёхфазная сеть — это система передачи электроэнергии, где используются <strong>три фазных провода</strong> (L1, L2, L3) и один нулевой (N). В отличие от однофазной сети (220 В), где есть только фаза и ноль, здесь энергия передаётся по трём каналам одновременно, что позволяет:</p>
+
+<ul>
+  <li>🔌 Повысить мощность передачи при тех же сечениях проводов</li>
+  <li>🔄 Создать вращающееся магнитное поле (основа работы электродвигателей)</li>
+  <li>⚡ Уменьшить потери энергии на нагрев проводов</li>
+</ul>
+
+<p>Генераторы на электростанциях вырабатывают три синусоидальных напряжения, сдвинутых друг относительно друга на <code>120°</code>. Это означает, что в любой момент времени хотя бы в одной фазе напряжение близко к максимальному, что обеспечивает стабильную подачу энергии.</p>
+
+<p>Важно понимать: в трёхфазной сети есть два ключевых напряжения:
+  <strong>линейное</strong> (между фазами) и <strong>фазное</strong> (между фазой и нулём). Именно их соотношение и вызывает путаницу с цифрами <em>380</em> и <em>220</em>.</p>
+
+<div class="poll-widget" id="poll-5812dd16"><div class="poll-widget-question">📊 Как вы обычно измеряете напряжение в трёхфазной сети?</div><div class="poll-widget-option" data-poll="5812dd16" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Между фазой и нулём</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5812dd16" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Между двумя фазами</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5812dd16" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Использую специальный анализатор</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5812dd16" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не измеряю сам</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="2-фазное-vs-линейное-напряжение-в-чём-разница">2. Фазное vs линейное напряжение: в чём разница?</h2>
+
+<p>Here’s where the confusion starts. В трёхфазной сети принято обозначать:</p>
+
+<ul>
+  <li>🔹 <strong>Фазное напряжение (Uф)</strong> — между любой фазой (L1, L2, L3) и нулевым проводом (N). В бытовых сетях это <em>220 В</em>.</li>
+  <li>🔸 <strong>Линейное напряжение (Uл)</strong> — между двумя фазами (например, L1 и L2). В классической системе это <em>380 В</em>.</li>
+</ul>
+
+<p>Но почему тогда при измерении между фазами мультиметр показывает <strong>не 380, а 220 Вольт</strong>? Ответ кроется в схеме подключения — <em>"звезда"</em> или <em>"треугольник"</em>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Параметр</th>
+      <th>Схема "Звезда"</th>
+      <th>Схема "Треугольник"</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Соотношение Uл и Uф</td>
+      <td>Uл = √3 × Uф ≈ 1.73 × Uф</td>
+      <td>Uл = Uф</td>
+    </tr>
+    <tr>
+      <td>Типичное применение</td>
+      <td>Бытовые сети, освещение</td>
+      <td>Промышленные двигатели</td>
+    </tr>
+    <tr>
+      <td>Пример напряжений</td>
+      <td>220 В (фаза-ноль), 380 В (фаза-фаза)</td>
+      <td>220 В (фаза-фаза), 127 В (фаза-ноль)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><mark>Ключевой момент: в бытовых сетях используется схема "звезда" с глухозаземлённой нейтралью, где линейное напряжение всегда в √3 раз больше фазного.</mark> Поэтому при фазном 220 В линейное будет 220 × 1.73 ≈ 380 В. Но если сеть собрана по схеме "треугольник", то линейное и фазное напряжения равны!</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Чтобы быстро проверить схему подключения, измерьте напряжение между фазой и нулём, а затем между двумя фазами. Если второе значение в 1.73 раза больше — это "звезда". Если равно — "треугольник".</p></div>
+
+<h2 id="3-почему-мультиметр-показывает-220-в-между-фазами">3. Почему мультиметр показывает 220 В между фазами?</h2>
+
+<p>Если вы взяли мультиметр, подключили его к двум фазам (например, L1 и L2) и увидели <strong>220 В вместо ожидаемых 380 В</strong>, причины могут быть следующими:</p>
+
+<ol>
+  <li><strong>Ошибка подключения нуля.</strong> Возможно, в вашей сети отсутствует нулевой провод, или он оборван. В этом случае между фазами напряжение будет равно фазному (220 В), так как сеть фактически работает как однофазная с удвоенным напряжением.</li>
+  <li><strong>Несимметричная нагрузка.</strong> Если одна из фаз сильно нагружена (например, включён мощный потребитель), а другие — нет, напряжения могут "проседать" неравномерно, что искажает показания.</li>
+  <li><strong>Проблемы с трансформатором.</strong> На подстанции мог произойти сбой в работе трансформатора, из-за чего вместо 380 В на выходе получилось 220 В.</li>
+  <li><strong>Ошибочная схема подключения.</strong> Если сеть собрана по схеме "треугольник", но ошибочно считается "звездой", напряжения будут совпадать.</li>
+</ol>
+
+<p>Чтобы диагностировать проблему, выполните следующие шаги:</p>
+
+
+<p>Измерьте напряжение между каждой фазой и нулём (должно быть ~220 В)|Проверьте напряжение между всеми парами фаз (должно быть ~380 В)|Убедитесь, что нулевой провод не оборван (прозвоните цепь)|Оцените нагрузку на каждой фазе (не должно быть сильных перекосов)|Проверьте состояние автоматов и предохранителей на щитке--></p>
+
+<blockquote>⚠️ Внимание: Если между фазами напряжение ниже 350 В, а между фазой и нулём — выше 230 В, это признак <strong>обрыва нуля</strong>. В такой ситуации немедленно отключите нагрузку: это может привести к выходу из строя бытовой техники!</blockquote>
+
+<h2 id="4-как-правильно-измерять-напряжение-в-трёхфазной-сети">4. Как правильно измерять напряжение в трёхфазной сети?</h2>
+
+<p>Для точных измерений вам понадобится:</p>
+<ul>
+  <li>🔧 Мультиметр с диапазоном до 500 В (например, <em>Fluke 17B+</em> или <em>Mastech MS8233D</em>)</li>
+  <li>🔌 Изолированные щупы с защитой от пробоя</li>
+  <li>🧤 Диэлектрические перчатки (класс напряжения не ниже 1000 В)</li>
+</ul>
+
+<p>Порядок действий:</p>
+<ol>
+  <li>Установите на мультиметре режим измерения переменного напряжения (<code>AC 500V</code>).</li>
+  <li>Подключите чёрный щуп к нулевому проводу (N), красный — поочерёдно к каждой фазе (L1, L2, L3). Запишите значения (должны быть близки к 220 В).</li>
+  <li>Измерьте напряжение между всеми парами фаз: L1-L2, L1-L3, L2-L3. Значения должны быть в пределах 380 ± 10 В.</li>
+  <li>Сравните результаты. Допустимый разброс между фазами — не более 5%.</li>
+</ol>
+
+<p>Если показания выходят за норму:</p>
+<ul>
+  <li>🔴 Между фазами < 350 В → Проверьте подключение нуля или трансформатор.</li>
+  <li>🔴 Между фазой и нулём > 230 В → Возможен обрыв нуля или перекос фаз.</li>
+  <li>🔴 Разница между фазами > 10% → Несимметричная нагрузка или проблемы на подстанции.</li>
+</ul>
+
+<blockquote>⚠️ Внимание: В сетях с <strong>изолированной нейтралью</strong> (например, в некоторых промышленных установках) напряжение между фазой и "землёй" может отличаться от 220 В. Не путайте такие сети с бытовыми!</blockquote>
+
+<h2 id="5-практические-примеры-когда-380-в-становится-220-в">5. Практические примеры: когда 380 В становится 220 В?</h2>
+
+<p>Рассмотрим реальные ситуации, когда линейное напряжение может оказаться равным фазному:</p>
+
+<details class="faq-item"><summary>Пример 1</summary><div class="faq-answer"><p> Обрыв нуля в частном доме:
+<p>В частном доме с трёхфазным вводом обгорел нулевой провод в щитке. В результате:</p>
+<p>- Напряжение между фазами стало ~220 В (вместо 380 В).</p>
+<p>- На одной фазе напряжение подскочило до 300 В, на другой упало до 150 В.</p>
+<p>- Сгорели холодильник и микроволновка, подключённые к "перегруженной" фазе.</p>
+<p>Причина: Без нуля фазы оказались соединены через нагрузку, и напряжения перераспределились пропорционально сопротивлению потребителей.</p></div></details></p>
+
+<p>Ещё один распространённый случай — <strong>неправильное подключение электродвигателя</strong>. Если двигатель, рассчитанный на "звезду" (380 В), ошибочно подключить по схеме "треугольник" к сети 220 В, то:</p>
+<ul>
+  <li>На каждую обмотку придётся 220 В вместо расчётных 220/√3 ≈ 127 В.</li>
+  <li>Обмотки перегреются и сгорят в течение нескольких минут.</li>
+  <li>Пусковой ток возрастёт в 3 раза, что может выбить автоматы или повредить пускатель.</li>
+</ul>
+
+<p>Чтобы избежать таких ошибок, всегда проверяйте:</p>
+<ol>
+  <li>Маркировку на шильдике двигателя (например, <code>Δ/Y 220/380V</code> означает, что для 220 В нужна схема "треугольник", а для 380 В — "звезда").</li>
+  <li>Напряжение сети мультиметром перед подключением.</li>
+  <li>Соответствие схемы подключения паспорту оборудования.</li>
+</ol>
+
+<h2 id="6-мифы-и-заблуждения-о-380-и-220-вольт">6. Мифы и заблуждения о 380 и 220 Вольт</h2>
+
+<p>Вокруг трёхфазных сетей ходит множество мифов. Разберём самые популярные:</p>
+
+<ul>
+  <li>🔹 <strong>Миф 1:</strong> "380 В — это опаснее, чем 220 В".
+    <br><em>Реальность:</em> Опасность зависит не от напряжения, а от силы тока и пути его прохождения через тело. При одинаковом сопротивлении человека ток при 380 В будет выше, но основной риск — в неправильном обращении с оборудованием.</li>
+  <li>🔸 <strong>Миф 2:</strong> "Если между фазами 220 В, значит, сеть однофазная".
+    <br><em>Реальность:</em> Это признак неисправности (обрыв нуля или перекос фаз). В нормальной трёхфазной сети между фазами должно быть 380 В.</li>
+  <li>🔹 <strong>Миф 3:</strong> "Можно подключить трёхфазный двигатель к одной фазе через конденсаторы и получить полную мощность".
+    <br><em>Реальность:</em> Мощность упадёт на 30–50%, а пусковой момент снизится. Конденсаторный запуск — временное решение для маломощных двигателей.</li>
+</ul>
+
+<p>Ещё одно распространённое заблуждение — что <strong>"в Европе напряжение 220 В, а у нас 230 В"</strong>. На самом деле:</p>
+<ul>
+  <li>С 2003 года в России и ЕС действует стандарт <em>IEC 60038</em>, где номинальное напряжение однофазной сети — <strong>230 В</strong> (допуск ±10%).</li>
+  <li>Раньше в СССР было 220 В, но с обновлением стандартов значение сдвинулось ближе к европейскому.</li>
+  <li>Трёхфазное напряжение теперь официально считается <strong>400 В</strong> (вместо 380 В), но на практике оба значения используются как синонимы.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Современные стандарты допускают отклонения напряжения до ±10%. Это значит, что 207–253 В для однофазной сети и 360–440 В для трёхфазной считаются нормой.</p></div>
+
+<h2 id="7-безопасность-при-работе-с-трёхфазными-сетями">7. Безопасность при работе с трёхфазными сетями</h2>
+
+<p>Трёхфазные сети требуют особой осторожности. Вот ключевые правила:</p>
+
+<ul>
+  <li>🔌 <strong>Всегда отключайте питание</strong> перед работой, даже если нужно просто заменить автомат. Используйте <em>индикатор напряжения</em> (например, <em>MS-18S</em>) для проверки отсутствия тока.</li>
+  <li>🧲 <strong>Не доверяйте цветам проводов.</strong> В старых сетях фазы могли быть промаркированы не по стандарту (например, все чёрные). Всегда проверяйте фазировку прибором.</li>
+  <li>⚡ <strong>Избегайте работы в одиночку.</strong> При поражении током рядом должен быть человек, который сможет отключить питание и оказать помощь.</li>
+  <li>🔧 <strong>Используйте инструмент с изоляцией.</strong> Отвёртки, плоскогубцы и ключи должны иметь маркировку <code>1000V</code> и не иметь повреждений.</li>
+</ul>
+
+<p>Особое внимание уделите <strong>защите от перекоса фаз</strong>. Если в доме или на предприятии используется трёхфазный ввод, но нагрузка распределена неравномерно (например, одна фаза "загружена" электроплитой, а другие — нет), это может привести к:</p>
+<ul>
+  <li>Перегреву нулевого провода (риск пожара!).</li>
+  <li>Выходу из строя бытовой техники из-за повышенного напряжения.</li>
+  <li>Ложным срабатываниям автоматов.</li>
+</ul>
+
+<p>Чтобы избежать проблем:</p>
+<ol>
+  <li>Распределяйте нагрузку равномерно по фазам (например, розетки на кухне — на одну фазу, в зале — на другую).</li>
+  <li>Установите <em>реле контроля фаз</em> (например, <em>РКФ-1М</em>), которое отключит питание при перекосе.</li>
+  <li>Регулярно проверяйте напряжение мультиметром (раз в 3–6 месяцев).</li>
+</ol>
+
+<blockquote>⚠️ Внимание: В сетях с <strong>изолированной нейтралью</strong> (например, в некоторых цехах или на судах) прикосновение к одной фазе может не вызвать поражения током, но прикосновение к двум фазам одновременно всегда смертельно опасно! В бытовых сетях нейтраль заземлена, поэтому любое касание фазы чревато ударом.</blockquote>
+
+<h2 id="faq-частые-вопросы-о-380-и-220-вольт">FAQ: Частые вопросы о 380 и 220 Вольт</h2>
+
+<details>
+  <summary>Почему в некоторых странах напряжение 110 В, а у нас 220/380 В?</summary>
+  <p>Это исторически сложившаяся разница стандартов. В начале XX века в США и Японии выбрали 110 В как более безопасное для бытового использования, но менее эффективное для передачи на большие расстояния. В Европе и СССР остановились на 220/380 В, так как это позволяло снизить потери в сетях. Сегодня 220–240 В стало мировым стандартом (кроме США, Японии и некоторых стран Латинской Америки).</p>
+</details>
+
+<details>
+  <summary>Можно ли подключить трёхфазный двигатель к однофазной сети?</summary>
+  <p>Да, но с потерей мощности. Для этого используют <strong>пусковые и рабочие конденсаторы</strong>, которые создают сдвиг фазы, имитирующий трёхфазное питание. Мощность двигателя при этом снизится на 30–50%, а пусковой момент упадёт. Для двигателей мощностью выше 2–3 кВт такой способ неэффективен — лучше использовать <em>частотный преобразователь</em>.</p>
+</details>
+
+<details>
+  <summary>Что будет, если перепутать фазу и ноль при подключении розетки?</summary>
+  <p>В большинстве случаев бытовая техника будет работать, но это опасно:
+  <ul>
+    <li>🔌 Выключатель разрывает ноль, а не фазу → прибор остаётся под напряжением даже в выключенном состоянии.</li>
+    <li>⚡ Риск поражения током при замене ламп или ремонте.</li>
+    <li>🔥 Некоторые устройства (например, газовые котлы с электронным розжигом) могут работать некорректно.</li>
+  </ul>
+<p>Всегда проверяйте фазировку <em>индикаторной отвёрткой</em>!</p></p>
+</details>
+
+<details>
+  <summary>Почему в некоторых домах между фазами 400 В, а не 380 В?</summary>
+  <p>Это связано с обновлением стандартов. С 2003 года в России и ЕС номинальное трёхфазное напряжение считается <strong>400 В</strong> (вместо 380 В), а однофазное — <strong>230 В</strong> (вместо 220 В). На практике разница несущественна, так как допуск составляет ±10%. То есть 380 В и 400 В — это одно и то же с точки зрения оборудования.</p>
+</details>
+
+<details>
+  <summary>Как защитить технику от перекоса фаз?</summary>
+  <p>Используйте следующие устройства:
+  <ul>
+    <li>🔹 <strong>Реле контроля фаз</strong> (например, <em>РКФ-1М</em>) — отключает питание при дисбалансе.</li>
+    <li>🔹 <strong>Стабилизаторы напряжения</strong> с трёхфазным входом (например, <em>Штиль IS3500</em>).</li>
+    <li>🔹 <strong>УЗО с защитой от перенапряжения</strong> (например, <em>ABB F202</em>).</li>
+    <li>🔹 <strong>Разделительные трансформаторы</strong> для критически важного оборудования.</li>
+  </ul>
+<p>Также регулярно проверяйте распределение нагрузки по фазам и состояние нулевого провода.</p></p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-что-такое-трёхфазная-сеть-и-как-она-работает">1. Что такое трёхфазная сеть и как она работает?</a></li><li><a href="#2-фазное-vs-линейное-напряжение-в-чём-разница">2. Фазное vs линейное напряжение: в чём разница?</a></li><li><a href="#3-почему-мультиметр-показывает-220-в-между-фазами">3. Почему мультиметр показывает 220 В между фазами?</a></li><li><a href="#4-как-правильно-измерять-напряжение-в-трёхфазной-сети">4. Как правильно измерять напряжение в трёхфазной сети?</a></li><li><a href="#5-практические-примеры-когда-380-в-становится-220-в">5. Практические примеры: когда 380 В становится 220 В?</a></li><li><a href="#6-мифы-и-заблуждения-о-380-и-220-вольт">6. Мифы и заблуждения о 380 и 220 Вольт</a></li><li><a href="#7-безопасность-при-работе-с-трёхфазными-сетями">7. Безопасность при работе с трёхфазными сетями</a></li><li><a href="#faq-частые-вопросы-о-380-и-220-вольт">FAQ: Частые вопросы о 380 и 220 Вольт</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/p/po/pochemu-v-trekhfaznoj-seti-380-volt.html" class="related-card">Почему в трехфазной сети 380 В: физика, стандарты и практика</a></li><li><a href="/articles/k/ka/kakie-vidy-obsluzhivaniya-elektricheskikh-setej-predusmatrivaet-pue.html" class="related-card">Виды обслуживания электрических сетей по ПУЭ: полный разбор 2026</a></li><li><a href="/articles/c/ch/chto-takoe-bajbas.html" class="related-card">Что такое байпас: устройство, принцип работы и применение</a></li><li><a href="/articles/p/po/polozhenie-klavishi-vyklyuchatelya-pri-vklyuchenii-i-otklyuchenii.html" class="related-card">Положение клавиши выключателя: верх или низ — как правильно?</a></li><li><a href="/articles/t/tr/trebovaniya-pravil-ustrojstva-elektroustanovok-rasprostranyayutsya.html" class="related-card">ПУЭ 2026: на какие электроустановки распространяются правила?</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/p/po/pochemu-v-trekhfaznoj-seti-380-volt.html" class="related-bottom-card"><span class="related-bottom-title">Почему в трехфазной сети 380 В: физика, стандарты и практика</span><span class="related-bottom-desc">Разбираемся, откуда берется напряжение 380 В в трехфазных сетях: связь с 220 В, фазное/линейное напр</span></a><a href="/articles/k/ka/kakie-vidy-obsluzhivaniya-elektricheskikh-setej-predusmatrivaet-pue.html" class="related-bottom-card"><span class="related-bottom-title">Виды обслуживания электрических сетей по ПУЭ: полный разбор 2026</span><span class="related-bottom-desc">Какие виды обслуживания электрических сетей предусмотрены ПУЭ? Техническое, плановое, аварийное — ра</span></a><a href="/articles/c/ch/chto-takoe-bajbas.html" class="related-bottom-card"><span class="related-bottom-title">Что такое байпас: устройство, принцип работы и применение</span><span class="related-bottom-desc">Подробный гид по байпасу: что это, зачем нужен и как работает. Разбор схем обхода в отоплении, элект</span></a><a href="/articles/p/po/polozhenie-klavishi-vyklyuchatelya-pri-vklyuchenii-i-otklyuchenii.html" class="related-bottom-card"><span class="related-bottom-title">Положение клавиши выключателя: верх или низ — как правильно?</span><span class="related-bottom-desc">Какое положение клавиши выключателя соответствует включенному свету? Разбор норм ГОСТ, ПУЭ, логики р</span></a><a href="/articles/t/tr/trebovaniya-pravil-ustrojstva-elektroustanovok-rasprostranyayutsya.html" class="related-bottom-card"><span class="related-bottom-title">ПУЭ 2026: на какие электроустановки распространяются правила?</span><span class="related-bottom-desc">Разбираемся, где обязательны требования ПУЭ: частные дома, квартиры, промышленные объекты. Кто контр</span></a><a href="/articles/p/pr/pravila-montazha-elektroustanovok.html" class="related-bottom-card"><span class="related-bottom-title">Правила монтажа электроустановок 2026: ПУЭ и ГОСТ для дома</span><span class="related-bottom-desc">Актуальные требования ПУЭ 7-го издания к монтажу электроустановок в жилых и коммерческих помещениях.</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

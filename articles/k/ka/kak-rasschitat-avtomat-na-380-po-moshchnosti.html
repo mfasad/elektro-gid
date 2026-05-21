@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Расчёт автомата на 380В по мощности: формулы, таблицы, примеры — Электро Гид</title>
+    <meta name="description" content="Как правильно подобрать автоматический выключатель для трёхфазной сети 380В? Пошаговые расчёты, формулы, таблицы мощности и тока, ошибки выбора.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/k/ka/kak-rasschitat-avtomat-na-380-po-moshchnosti.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Расчёт автомата на 380В по мощности: формулы, таблицы, примеры">
+    <meta property="og:description" content="Как правильно подобрать автоматический выключатель для трёхфазной сети 380В? Пошаговые расчёты, формулы, таблицы мощности и тока, ошибки выбора.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Расчёт автомата на 380В по мощности: формулы, таблицы, примеры</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как рассчитать автомат на 380В по мощности: формулы, таблицы и примеры для трёхфазной сети</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-основные-параметры-для-расчёта-автомата-на-380в">1. Основные параметры для расчёта автомата на 380В</a></li><li><a href="#2-формулы-расчёта-тока-для-трёхфазной-сети">2. Формулы расчёта тока для трёхфазной сети</a></li><li><a href="#3-учёт-пусковых-токов-и-коэффициента-спроса">3. Учёт пусковых токов и коэффициента спроса</a></li><li><a href="#4-таблица-выбора-автомата-по-мощности-для-380в">4. Таблица выбора автомата по мощности для 380В</a></li><li><a href="#5-типичные-ошибки-при-выборе-автомата-на-380в">5. Типичные ошибки при выборе автомата на 380В</a></li><li><a href="#6-практические-примеры-расчёта">6. Практические примеры расчёта</a></li><li><a href="#7-как-проверить-правильность-выбора-автомата">7. Как проверить правильность выбора автомата?</a></li><li><a href="#8-часто-задаваемые-вопросы-faq">8. Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Выбор автоматического выключателя для трёхфазной сети 380В — задача, с которой сталкиваются как профессиональные электрики, так и владельцы частных домов или небольших предприятий. Ошибка в расчётах может привести к двум критичным последствиям: <strong>автомат будет срабатывать ложно</strong> (при нормальной нагрузке) или, что опаснее, <strong>не отключит цепь при перегрузке</strong>, спровоцировав пожар или выход оборудования из строя.</p>
+
+<p>В отличие от однофазной сети 220В, где расчёт ведётся по простой формуле <code>P = U × I</code>, трёхфазная сеть требует учёта коэффициента мощности (<em>cosφ</em>), типа подключения (звезда/треугольник) и возможных пусковых токов. В этой статье разберём <strong>пошаговый алгоритм расчёта</strong>, приведём готовые таблицы для популярных нагрузок и покажем на реальных примерах, как избежать типичных ошибок.</p>
+
+<p>Особенность трёхфазных сетей — возможность подключать как симметричные (равномерно распределённые по фазам), так и несимметричные нагрузки. Например, электродвигатель на 5 кВт создаёт равномерную нагрузку на все три фазы, а сварочный аппарат на 380В может задействовать только две фазы, что требует корректировки расчётов. Без учёта этих нюансов даже профессионалы иногда ошибаются в выборе номинала автомата.
+
+<h2 id="1-основные-параметры-для-расчёта-автомата-на-380в">1. Основные параметры для расчёта автомата на 380В</h2>
+
+<p>Прежде чем приступать к вычислениям, необходимо собрать исходные данные. Их можно разделить на три группы:
+
+<p><strong>1. Параметры сети:</strong>
+<ul>
+  <li>🔌 <strong>Номинальное напряжение</strong> — 380В (линейное) или 220В (фазное). В расчётах для трёхфазных сетей всегда используется <em>линейное напряжение</em> (U<sub>л</sub> = 380В).</li>
+  <li>🔄 <strong>Тип подключения нагрузки</strong> — "звезда" (Y) или "треугольник" (Δ). От этого зависит формула расчёта тока.</li>
+  <li>⚡ <strong>Частота сети</strong> — в России и СНГ стандарт 50 Гц, но некоторые импортные устройства могут требовать 60 Гц (уточняйте в паспорте оборудования).</li>
+</ul>
+
+<p><strong>2. Параметры нагрузки:</strong>
+<ul>
+  <li>⚖️ <strong>Мощность (P)</strong> — указывается в паспорте устройства в ваттах (Вт) или киловаттах (кВт). Для трёхфазных потребителей может быть указана <em>полная мощность (S)</em> в вольт-амперах (ВА).</li>
+  <li>📊 <strong>Коэффициент мощности (cosφ)</strong> — безразмерная величина от 0 до 1, показывающая соотношение активной и реактивной мощности. Для большинства электродвигателей <em>cosφ</em> = 0.7–0.8, для нагревательных приборов — 0.95–1.</li>
+  <li>🔄 <strong>КПД (η)</strong> — учитывается для электродвигателей (обычно 0.75–0.9). В формулах мощность делится на КПД, так как часть энергии теряется на нагрев и трение.</li>
+</ul>
+
+<p><strong>3. Параметры автомата:</strong>
+<ul>
+  <li>🔢 <strong>Номинальный ток (I<sub>н</sub>)</strong> — основная характеристика, по которой выбирается автомат. Должен быть <em>больше или равен</em> расчётному току нагрузки.</li>
+  <li>🛡️ <strong>Характеристика срабатывания</strong> — для трёхфазных сетей чаще используются автоматы с <em>характеристикой C</em> (для умеренных пусковых токов) или <em>D</em> (для высоких пусковых токов, например, у двигателей).</li>
+  <li>🔥 <strong>Отключающая способность</strong> — должна превышать возможный ток короткого замыкания в сети (для бытовых сетей обычно достаточно 4.5–6 кА).</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если в паспорте оборудования указана <em>полная мощность (S)</em> в ВА, а не активная (P) в Вт, для расчёта тока используйте формулу: <code>I = S / (√3 × U)</code>. Коэффициент мощности (<em>cosφ</em>) в этом случае уже учтён в значении <em>S</em>.</blockquote>
+
+<h2 id="2-формулы-расчёта-тока-для-трёхфазной-сети">2. Формулы расчёта тока для трёхфазной сети</h2>
+
+<p>Для трёхфазных сетей используются две основные формулы, зависящие от типа подключения нагрузки:
+
+<p><strong>1. Подключение "звезда" (Y):</strong>
+<p>При соединении обмоток или нагрузки по схеме "звезда" линейный ток (<em>I<sub>л</sub></em>) равен фазному (<em>I<sub>ф</sub></em>). Формула для расчёта тока:
+<pre><code>I = P / (√3 × U<sub>л</sub> × cosφ × η)</code></pre>
+<p>где:</p>
+<ul>
+  <li><code>P</code> — активная мощность нагрузки (Вт);</li>
+  <li><code>U<sub>л</sub></code> — линейное напряжение (380В);</li>
+  <li><code>cosφ</code> — коэффициент мощности;</li>
+  <li><code>η</code> — КПД (для нагревательных приборов η = 1).</li>
+</ul>
+
+<p><strong>2. Подключение "треугольник" (Δ):</strong>
+<p>При соединении "треугольник" линейный ток в <code>√3</code> раз больше фазного. Формула:
+<pre><code>I = P / (3 × U<sub>ф</sub> × cosφ × η)</code></pre>
+<p>где <code>U<sub>ф</sub></code> — фазное напряжение (220В).</p>
+
+<p>На практике большинство трёхфазных потребителей (электродвигатели, трансформаторы) подключаются по схеме "звезда", поэтому первая формула используется чаще.
+
+<p><strong>Пример расчёта:</strong>
+<p>Допустим, у нас есть электродвигатель мощностью 7.5 кВт, <em>cosφ</em> = 0.8, КПД = 0.85, подключённый "звездой". Рассчитаем ток:
+<pre><code>I = 7500 / (1.73 × 380 × 0.8 × 0.85) ≈ 7500 / 420.6 ≈ 17.8 А</code></pre>
+<p>Таким образом, для этого двигателя нужен автомат с номинальным током <strong>не менее 18А</strong>. Однако учитывая пусковые токи (они могут превышать номинальные в 5–7 раз), рекомендуется выбрать автомат с характеристикой <em>D</em> и номиналом <strong>25А</strong>.
+
+<div class="poll-widget" id="poll-a0ca301d"><div class="poll-widget-question">📊 Какой тип нагрузки вы подключаете к 380В?</div><div class="poll-widget-option" data-poll="a0ca301d" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Электродвигатель</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a0ca301d" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Сварочный аппарат</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a0ca301d" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Нагревательное оборудование</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a0ca301d" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Офисная техника</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a0ca301d" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Другой вариант</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="3-учёт-пусковых-токов-и-коэффициента-спроса">3. Учёт пусковых токов и коэффициента спроса</h2>
+
+<p>Один из самых распространённых ошибок при выборе автомата для 380В — игнорирование пусковых токов. Например, асинхронный электродвигатель в момент запуска потребляет ток в <strong>5–7 раз больше номинального</strong>. Если автомат подобран без запаса, он будет срабатывать при каждом включении оборудования.
+
+<p><strong>Как учесть пусковые токи?</strong>
+<ul>
+  <li>📈 Для двигателей с <em>прямым пуском</em> (без мягкого стартера или частотного преобразователя) номинал автомата увеличивают в <strong>1.5–2 раза</strong> по сравнению с расчётным током.</li>
+  <li>🔄 Для двигателей с <em>мягким пуском</em> или преобразователем достаточно запаса в <strong>1.2–1.3 раза</strong>.</li>
+  <li>⚡ Для трансформаторов и ламп накаливания пусковые токи незначительны (запас не требуется).</li>
+</ul>
+
+<p><strong>Коэффициент спроса (K<sub>с</sub>):</strong>
+<p>Если к автомату подключено несколько потребителей, которые <em>не работают одновременно</em>, используется коэффициент спроса. Он показывает, какая часть от суммарной мощности всех устройств будет задействована в пиковом режиме. Например:
+<ul>
+  <li>Для 2–3 потребителей K<sub>с</sub> = 0.8–0.9;</li>
+  <li>Для 4–6 потребителей K<sub>с</sub> = 0.7–0.8;</li>
+  <li>Для 10+ потребителей K<sub>с</sub> = 0.5–0.6.</li>
+</ul>
+
+<p><strong>Пример с коэффициентом спроса:</strong>
+<p>В мастерской подключены:
+<ul>
+  <li>Сварочный аппарат 5 кВт (<em>cosφ</em> = 0.7);</li>
+  <li>Токарный станок 3 кВт (<em>cosφ</em> = 0.8);</li>
+  <li>Освещение 1 кВт (<em>cosφ</em> = 1).</li>
+</ul>
+<p>Суммарная мощность: 5 + 3 + 1 = 9 кВт. С учётом K<sub>с</sub> = 0.8 (3 потребителя):
+<pre><code>P<sub>расч</sub> = 9 × 0.8 = 7.2 кВт</code></pre>
+<p>Далее рассчитываем ток для "звезды":
+<pre><code>I = 7200 / (1.73 × 380 × 0.8) ≈ 7200 / 514.6 ≈ 14 А</code></pre>
+<p>С учётом пусковых токов сварочного аппарата выбираем автомат на <strong>25А</strong> с характеристикой <em>C</em>.
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если в цепи присутствуют <em>однофазные потребители</em> (например, розетки 220В, подключённые к одной из фаз трёхфазной сети), их мощность учитывается отдельно. Для такой смешанной нагрузки рекомендуется использовать <strong>трёхполюсный автомат с нейтралью (4P)</strong>, если нейтральный провод задействован.</blockquote>
+
+<h2 id="4-таблица-выбора-автомата-по-мощности-для-380в">4. Таблица выбора автомата по мощности для 380В</h2>
+
+<p>Для удобства ниже приведена таблица с готовыми значениями номинальных токов автоматов для распространённых мощностей трёхфазных потребителей. Расчёты выполнены для <em>cosφ</em> = 0.8 (типичное значение для электродвигателей) и схемы подключения "звезда".
+
+<table>
+  <thead>
+    <tr>
+      <th>Мощность нагрузки (кВт)</th>
+      <th>Расчётный ток (А)</th>
+      <th>Рекомендуемый номинал автомата (А)</th>
+      <th>Характеристика срабатывания</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2.2</td>
+      <td>4.1</td>
+      <td>6</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <td>4.0</td>
+      <td>7.5</td>
+      <td>10</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <td>5.5</td>
+      <td>10.3</td>
+      <td>16</td>
+      <td>C/D</td>
+    </tr>
+    <tr>
+      <td>7.5</td>
+      <td>14.1</td>
+      <td>20</td>
+      <td>D</td>
+    </tr>
+    <tr>
+      <td>11.0</td>
+      <td>20.6</td>
+      <td>25</td>
+      <td>D</td>
+    </tr>
+    <tr>
+      <td>15.0</td>
+      <td>28.2</td>
+      <td>32</td>
+      <td>D</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Для нагревательных приборов (<em>cosφ</em> ≈ 1) ток будет на 20–25% меньше. Например, для ТЭНа мощностью 10 кВт:
+<pre><code>I = 10000 / (1.73 × 380 × 1) ≈ 15.2 А → автомат 20А (C)</code></pre>
+
+<p><mark>Критическая ошибка: использование однофазных таблиц для трёхфазных сетей. Например, для двигателя 5.5 кВт по однофазной таблице можно ошибочно выбрать автомат на 32А, тогда как для 380В достаточно 16А.</mark>
+
+
+<p>Определил тип подключения (звезда/треугольник)|Уточнил cosφ и КПД в паспорте оборудования|Рассчитал ток с учётом пусковых нагрузок|Проверил сечение кабеля на соответствие току|Выбрал характеристику срабатывания (C или D)|Убедился, что отключающая способность автомата выше возможного тока КЗ--></p>
+
+<h2 id="5-типичные-ошибки-при-выборе-автомата-на-380в">5. Типичные ошибки при выборе автомата на 380В</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки, которые приводят к ложным срабатываниям или, что хуже, к отсутствию защиты. Рассмотрим самые распространённые:
+
+<p><strong>1. Игнорирование пусковых токов</strong>
+<p>Как уже упоминалось, электродвигатели в момент запуска потребляют ток в 5–7 раз выше номинального. Если выбрать автомат "впритык" (например, 16А для двигателя с расчётным током 15А), он будет срабатывать при каждом включении. <strong>Решение:</strong> использовать автоматы с характеристикой <em>D</em> или увеличивать номинал на 50–100%.
+
+<p><strong>2. Неправильный учёт коэффициента мощности</strong>
+<p>Многие берут <em>cosφ</em> = 1 для всех типов нагрузки, что приводит к занижению тока. Например, для двигателя 7.5 кВт с <em>cosφ</em> = 0.8 реальный ток составит 17.8А, а при <em>cosφ</em> = 1 — только 14.2А. Разница в 3.6А может стать критичной!
+<p><strong>Решение:</strong> всегда уточнять <em>cosφ</em> в паспорте устройства.
+
+<p><strong>3. Подключение однофазных потребителей к трёхфазному автомату без балансировки</strong>
+<p>Если к трёхфазному автомату подключены однофазные нагрузки (например, розетки), но они распределены неравномерно (например, 90% нагрузки на одну фазу), это приведёт к перекосу фаз и ложным срабатываниям.
+<p><strong>Решение:</strong> использовать <strong>трёхполюсный автомат с нейтралью (4P)</strong> и следить за равномерным распределением нагрузки.
+
+<p><strong>4. Выбор автомата по мощности, а не по току</strong>
+<p>Многие ориентируются только на киловатты, забывая, что автомат защищает от <strong>превышения тока</strong>, а не мощности. Например, для нагрузки 10 кВт при <em>cosφ</em> = 0.7 ток составит 24.7А, а при <em>cosφ</em> = 0.9 — только 19.6А. В обоих случаях мощность одинаковая, но ток разный!
+<p><strong>Решение:</strong> всегда рассчитывать <strong>ток</strong>, а не мощность.
+
+<p><strong>5. Пренебрежение сечением кабеля</strong>
+<p>Автомат защищает не только оборудование, но и кабель. Если сечение провода не соответствует току, кабель будет греться, даже если автомат не срабатывает. Например, для тока 25А нужен кабель сечением не менее 4 мм² (медь).
+<p><strong>Решение:</strong> сверяться с таблицами допустимых токовых нагрузок для кабелей (ПУЭ, таблица 1.3.4).
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы подключаете <em>частотный преобразователь</em> или <em>мягкий стартер</em>, ток в цепи может содержать высокочастотные гармоники, которые приводят к дополнительному нагреву кабеля. В этом случае рекомендуется увеличивать сечение кабеля на 20–30% или использовать специализированные автоматы (например, <em>Moeller PKZM</em> или <em>ABB MS116</em>).</blockquote>
+
+<h2 id="6-практические-примеры-расчёта">6. Практические примеры расчёта</h2>
+
+<p>Разберём три реальных сценария подключения оборудования к сети 380В.
+
+<p><strong>Пример 1: Электродвигатель 11 кВт для станка</strong>
+<ul>
+  <li>Мощность (P) = 11 кВт;</li>
+  <li>cosφ = 0.85;</li>
+  <li>КПД (η) = 0.88;</li>
+  <li>Подключение — "звезда".</li>
+</ul>
+<p>Расчёт тока:
+<pre><code>I = 11000 / (1.73 × 380 × 0.85 × 0.88) ≈ 11000 / 450.6 ≈ 24.4 А</code></pre>
+<p>С учётом пускового тока (7×) кратковременный ток составит ~171А. Выбираем автомат:
+<ul>
+  <li>Номинал: <strong>32А</strong> (ближайший стандартный);</li>
+  <li>Характеристика: <em>D</em> (для высоких пусковых токов);</li>
+  <li>Отключающая способность: 6 кА.</li>
+</ul>
+
+<p><strong>Пример 2: Трёхфазный сварочный аппарат 8 кВт</strong>
+<ul>
+  <li>Мощность (P) = 8 кВт;</li>
+  <li>cosφ = 0.7 (типично для сварочников);</li>
+  <li>Подключение — "треугольник".</li>
+</ul>
+<p>Расчёт тока:
+<pre><code>I = 8000 / (3 × 220 × 0.7) ≈ 8000 / 462 ≈ 17.3 А</code></pre>
+<p>Пусковые токи у сварочников умеренные, поэтому достаточно автомата:
+<ul>
+  <li>Номинал: <strong>20А</strong>;</li>
+  <li>Характеристика: <em>C</em>;</li>
+  <li>Тип: <strong>трёхполюсный (3P)</strong>.</li>
+</ul>
+
+<p><strong>Пример 3: Офис с серверным оборудованием (3 фазы)</strong>
+<ul>
+  <li>3 сервера по 2 кВт (<em>cosφ</em> = 0.95);</li>
+  <li>Кондиционер 3 кВт (<em>cosφ</em> = 0.85);</li>
+  <li>Освещение 1 кВт (<em>cosφ</em> = 1).</li>
+</ul>
+<p>Суммарная мощность: 3×2 + 3 + 1 = 10 кВт.
+<p>Коэффициент спроса (K<sub>с</sub>) = 0.8 (не все устройства работают одновременно).
+<p>Расчётная мощность: 10 × 0.8 = 8 кВт.
+<p>Ток для "звезды":
+<pre><code>I = 8000 / (1.73 × 380 × 0.9) ≈ 8000 / 584.7 ≈ 13.7 А</code></pre>
+<p>Выбираем автомат:
+<ul>
+  <li>Номинал: <strong>16А</strong>;</li>
+  <li>Характеристика: <em>C</em> (нет высоких пусковых токов);</li>
+  <li>Тип: <strong>трёхполюсный + нейтраль (4P)</strong> (так как есть однофазные потребители).</li>
+</ul>
+
+<details class="faq-item"><summary>Почему нельзя использовать однофазные автоматы в трёхфазной сети?</summary><div class="faq-answer"><p>
+<p>Однофазные автоматы (1P) разрывают только один провод (фазу), тогда как в трёхфазной сети необходимо отключать все три фазы одновременно. Если использовать три однофазных автомата, при КЗ на одной фазе две другие останутся под напряжением, что создаёт опасность поражения током и повреждения оборудования. Кроме того, трёхфазные автоматы (3P или 4P) обеспечивают синхронное отключение всех фаз, что критично для двигателей и другого трёхфазного оборудования.</p></div></details></p>
+
+<h2 id="7-как-проверить-правильность-выбора-автомата">7. Как проверить правильность выбора автомата?</h2>
+
+<p>После установки автомата необходимо убедиться, что он работает корректно. Вот несколько способов проверки:
+
+<p><strong>1. Измерение тока клещами</strong>
+<p>С помощью <em>токовых клещей</em> (например, <em>Fluke 323</em> или <em>Mastech MS2108A</em>) измерьте ток на каждой фазе при максимальной нагрузке. Он не должен превышать номинал автомата более чем на 10%. Например, для автомата 25А максимальный допустимый ток — 27.5А.
+
+<p><strong>2. Проверка срабатывания</strong>
+<p>Искусственно создайте перегрузку (например, подключите дополнительную нагрузку) и убедитесь, что автомат срабатывает в течение времени, указанного в его время-токовой характеристике (обычно 1–2 часа при 1.45×I<sub>н</sub>).
+
+<p><strong>3. Контроль нагрева кабеля</strong>
+<p>После 1–2 часов работы под нагрузкой проверьте температуру кабеля вручную или с помощью <em>пирометра</em>. Если кабель заметно нагрелся (более 50°C), это признак того, что его сечение недостаточно или автомат подобран неверно.
+
+<p><strong>4. Проверка баланса фаз</strong>
+<p>Для трёхфазных сетей критично равномерное распределение нагрузки. Если ток на одной фазе превышает другие более чем на 30%, это может приводить к перекосу напряжений и ложным срабатываниям. В этом случае требуется перераспределить нагрузку или использовать <strong>реле контроля фаз</strong> (например, <em>ABB CM-MPS</em>).
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если автомат срабатывает без видимой причины, не спешите увеличивать его номинал! Возможные причины:
+<ul>
+  <li>🔌 Короткое замыкание в цепи (проверьте изоляцию кабеля мегаомметром);</li>
+  <li>⚡ Перекос фаз (измерьте ток на каждой фазе);</li>
+  <li>🔄 Неисправность самого автомата (проверьте на другой нагрузке).</li>
+</ul>
+<p>Увеличение номинала автомата без устранения причины срабатывания может привести к пожару!</blockquote></p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При подключении нового оборудования всегда фиксируйте ток холостого хода и номинальный ток под нагрузкой. Эти данные помогут быстро диагностировать проблемы в будущем.</p></div>
+
+<h2 id="8-часто-задаваемые-вопросы-faq">8. Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+  <summary>Можно ли использовать автомат на 25А для нагрузки 20А?</summary>
+  <p>Да, но с оговорками. Автомат выбирается <strong>не по нагрузке, а по току кабеля</strong>. Если кабель выдерживает 25А, а нагрузка стабильно не превышает 20А, такой выбор допустим. Однако учитывайте, что автоматы имеют <em>время-токовую характеристику</em>: при токе 1.13×I<sub>н</sub> (28.25А для 25А) автомат может не отключаться в течение часа. Для точной защиты лучше выбирать номинал ближе к расчётному току (например, 20А для нагрузки 18А).</p>
+</details>
+
+<details>
+  <summary>Какой автомат нужен для трёхфазного компрессора 4 кВт?</summary>
+  <p>Для компрессора мощностью 4 кВт с <em>cosφ</em> ≈ 0.8 и КПД ≈ 0.85:
+  <pre><code>I = 4000 / (1.73 × 380 × 0.8 × 0.85) ≈ 4000 / 420.6 ≈ 9.5 А</code></pre>
+<p>С учётом пусковых токов (до 5×) кратковременный ток составит ~47.5А. Рекомендуемый автомат:</p>
+  <ul>
+    <li>Номинал: <strong>16А</strong>;</li>
+    <li>Характеристика: <em>D</em> (для компрессоров с высокими пусковыми токами);</li>
+    <li>Тип: <strong>трёхполюсный (3P)</strong>.</li>
+  </ul>
+  </p>
+</details>
+
+<details>
+  <summary>Чем отличаются автоматы 3P и 4P для 380В?</summary>
+  <p>Автоматы <strong>3P</strong> (трёхполюсные) разрывают только фазные провода (L1, L2, L3), а <strong>4P</strong> (четырёхполюсные) — ещё и нейтраль (N). Выбор зависит от типа нагрузки:
+  <ul>
+    <li>🔌 <strong>3P</strong> — для чисто трёхфазных нагрузок (двигатели, нагреватели), где нейтраль не используется.</li>
+    <li>🔌 <strong>4P</strong> — если в цепи есть однофазные потребители (розетки, освещение) или оборудование с электронными блоками (частотные преобразователи, серверы), где нейтраль нагружена.</li>
+  </ul>
+<p>В бытовых сетях (например, вводной автомат в дом) всегда используется <strong>4P</strong>, так как нейтраль является рабочим проводником.</p></p>
+</details>
+
+<details>
+  <summary>Можно ли поставить автомат с характеристикой B для трёхфазной сети?</summary>
+  <p>Технически можно, но <strong>не рекомендуется</strong>. Автоматы с характеристикой <em>B</em> срабатывают при токах 3–5×I<sub>н</sub>, что подходит для осветительных сетей или розеток с малыми пусковыми токами. Для трёхфазных сетей, где часто подключаются двигатели или сварочные аппараты, используются автоматы с характеристиками:
+  <ul>
+    <li>🔹 <em>C</em> — для умеренных пусковых токов (6–10×I<sub>н</sub>);</li>
+    <li>🔹 <em>D</em> — для высоких пусковых токов (10–20×I<sub>н</sub>).</li>
+  </ul>
+<p>Автомат <em>B</em> в трёхфазной сети будет ложно срабатывать при запуске оборудования.</p></p>
+</details>
+
+<details>
+  <summary>Как рассчитать автомат для группы трёхфазных розеток?</summary>
+  <p>Для группы розеток (например, в мастерской) расчёт ведётся по <strong>суммарной мощности</strong> с учётом коэффициента спроса. Пример:
+  <ul>
+    <li>3 розетки по 3.5 кВт (<em>cosφ</em> = 1, так как подключаются нагреватели или инструмент).</li>
+    <li>Суммарная мощность: 3 × 3.5 = 10.5 кВт.</li>
+    <li>Коэффициент спроса (K<sub>с</sub>) = 0.7 (не все розетки используются одновременно).</li>
+    <li>Расчётная мощность: 10.5 × 0.7 = 7.35 кВт.</li>
+    <li>Ток: <code>I = 7350 / (1.73 × 380 × 1) ≈ 11.2 А</code>.</li>
+  </ul>
+<p>Выбираем автомат:</p>
+  <ul>
+    <li>Номинал: <strong>16А</strong>;</li>
+    <li>Характеристика: <em>C</em>;</li>
+    <li>Тип: <strong>4P</strong> (так как розетки могут питать однофазные приборы).</li>
+  </ul>
+  </p>
+</details>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главное правило: автомат защищает не оборудование, а кабель. Поэтому его номинал должен соответствовать <strong>допустимому току кабеля</strong>, а не мощности нагрузки. Если кабель выдерживает 25А, а нагрузка требует 32А, необходимо либо увеличить сечение кабеля, либо разбить нагрузку на несколько линий.</p></div></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-основные-параметры-для-расчёта-автомата-на-380в">1. Основные параметры для расчёта автомата на 380В</a></li><li><a href="#2-формулы-расчёта-тока-для-трёхфазной-сети">2. Формулы расчёта тока для трёхфазной сети</a></li><li><a href="#3-учёт-пусковых-токов-и-коэффициента-спроса">3. Учёт пусковых токов и коэффициента спроса</a></li><li><a href="#4-таблица-выбора-автомата-по-мощности-для-380в">4. Таблица выбора автомата по мощности для 380В</a></li><li><a href="#5-типичные-ошибки-при-выборе-автомата-на-380в">5. Типичные ошибки при выборе автомата на 380В</a></li><li><a href="#6-практические-примеры-расчёта">6. Практические примеры расчёта</a></li><li><a href="#7-как-проверить-правильность-выбора-автомата">7. Как проверить правильность выбора автомата?</a></li><li><a href="#8-часто-задаваемые-вопросы-faq">8. Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-proverit-avtomaticheskij-vyklyuchatel.html" class="related-card">Как проверить автоматический выключатель: 5 способов тестирования</a></li><li><a href="/articles/r/ra/raschet-avtomata-po-moshchnosti-i-secheniya-kabelya.html" class="related-card">Расчет автомата и сечения кабеля по мощности: таблицы и формулы</a></li><li><a href="/articles/k/ka/kak-podklyuchit-odnofaznyj-avtomat.html" class="related-card">Как подключить однофазный автомат: схема и пошаговая инструкция</a></li><li><a href="/articles/a/av/avtomat-na-16-a-na-kakuyu-moshchnost-vyderzhivaet.html" class="related-card">Автомат на 16 А: какую мощность выдерживает и как рассчитать нагрузку</a></li><li><a href="/articles/k/ka/kakie-avtomaty-stavit-v-kvartire.html" class="related-card">Какие автоматы ставить в квартире: выбор по мощности и безопасности</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-proverit-avtomaticheskij-vyklyuchatel.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить автоматический выключатель: 5 способов тестирования</span><span class="related-bottom-desc">Пошаговая инструкция по проверке работоспособности автомата в щитке: визуальный осмотр, мультиметром</span></a><a href="/articles/r/ra/raschet-avtomata-po-moshchnosti-i-secheniya-kabelya.html" class="related-bottom-card"><span class="related-bottom-title">Расчет автомата и сечения кабеля по мощности: таблицы и формулы</span><span class="related-bottom-desc">Как правильно подобрать автоматический выключатель и сечение кабеля по мощности нагрузки? Пошаговые </span></a><a href="/articles/k/ka/kak-podklyuchit-odnofaznyj-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить однофазный автомат: схема и пошаговая инструкция</span><span class="related-bottom-desc">Детальное руководство по подключению однофазного автоматического выключателя в щитке: схемы, инструм</span></a><a href="/articles/a/av/avtomat-na-16-a-na-kakuyu-moshchnost-vyderzhivaet.html" class="related-bottom-card"><span class="related-bottom-title">Автомат на 16 А: какую мощность выдерживает и как рассчитать нагрузку</span><span class="related-bottom-desc">Полный расчет мощности автомата 16А для однофазной и трехфазной сети. Таблицы нагрузок, выбор сечени</span></a><a href="/articles/k/ka/kakie-avtomaty-stavit-v-kvartire.html" class="related-bottom-card"><span class="related-bottom-title">Какие автоматы ставить в квартире: выбор по мощности и безопасности</span><span class="related-bottom-desc">Подробный гайд по выбору автоматических выключателей для квартиры: расчет мощности, типы автоматов (</span></a><a href="/articles/p/po/pochemu-vyrubaet-avtomat-bez-nagruzki.html" class="related-bottom-card"><span class="related-bottom-title">Почему выбивает автомат без нагрузки: 7 причин и решения</span><span class="related-bottom-desc">Разбираемся, почему срабатывает автоматический выключатель в щитке при отсутствии нагрузки: неисправ</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

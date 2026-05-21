@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Калькулятор тока утечки: расчёт и нормы для УЗО и дифавтоматов — Электро Гид</title>
+    <meta name="description" content="Как правильно рассчитать ток утечки для защиты электросети? Формулы, нормы ПУЭ, примеры расчёта для квартиры и дома. Онлайн-калькулятор + таблицы.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/k/ka/kalkulyator-toka-utechki.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Калькулятор тока утечки: расчёт и нормы для УЗО и дифавтоматов">
+    <meta property="og:description" content="Как правильно рассчитать ток утечки для защиты электросети? Формулы, нормы ПУЭ, примеры расчёта для квартиры и дома. Онлайн-калькулятор + таблицы.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/bezopasnost-i-zazemlenie/">Безопасность и заземление</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Калькулятор тока утечки: расчёт и нормы для УЗО и дифавтоматов</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Калькулятор тока утечки: как рассчитать и подобрать УЗО по нормам ПУЭ</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-ток-утечки-и-почему-его-нужно-рассчитывать">Что такое ток утечки и почему его нужно рассчитывать</a></li><li><a href="#формулы-расчёта-тока-утечки-от-теории-к-практике">Формулы расчёта тока утечки: от теории к практике</a></li><li><a href="#нормы-тока-утечки-по-пуэ-и-гост">Нормы тока утечки по ПУЭ и ГОСТ</a></li><li><a href="#как-пользоваться-калькулятором-тока-утечки-пошаговая-инструкция">Как пользоваться калькулятором тока утечки: пошаговая инструкция</a></li><li><a href="#типичные-ошибки-при-расчёте-и-выбора-узо">Типичные ошибки при расчёте и выбора УЗО</a></li><li><a href="#практические-примеры-расчёта-для-разных-объектов">Практические примеры расчёта для разных объектов</a></li><li><a href="#как-проверить-ток-утечки-в-существующей-сети">Как проверить ток утечки в существующей сети</a></li><li><a href="#faq-частые-вопросы-о-токах-утечки-и-узо">FAQ: Частые вопросы о токах утечки и УЗО</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Ток утечки — один из ключевых параметров, от которого зависит безопасность электросети в доме или квартире. Неправильный расчёт может привести к ложным срабатываниям <strong>УЗО</strong> (устройства защитного отключения) или, что хуже, к отсутствию защиты при реальной угрозе поражения электрическим током. В этой статье разберём, как работает <strong>калькулятор тока утечки</strong>, какие формулы используются для расчётов, и как подобрать защитное оборудование по нормам <strong>ПУЭ 7-го издания</strong>.</p>
+
+<p>Многие ошибочно считают, что достаточно установить УЗО с минимальным порогом срабатывания — например, <strong>10 мА</strong> для ванной комнаты. Однако на практике суммарный фоновый ток утечки в сети может превышать этот порог, особенно в домах с большой нагрузкой или устаревшей проводкой. Поэтому важно учитывать не только требования безопасности, но и реальные условия эксплуатации.</p>
+
+<p>Далее вы найдёте пошаговые инструкции, примеры расчётов для разных типов помещений, а также <strong>онлайн-калькулятор</strong>, который поможет подобрать оптимальные параметры УЗО или дифавтомата. Если вы монтируете электропроводку самостоятельно или просто хотите проверить работу электрика — эта информация будет полезна.
+
+<h2 id="что-такое-ток-утечки-и-почему-его-нужно-рассчитывать">Что такое ток утечки и почему его нужно рассчитывать</h2>
+
+<p>Ток утечки — это электрический ток, который «уходит» из цепи не по предназначенному для него пути (например, через повреждённую изоляцию, влажные поверхности или корпус прибора). В нормальных условиях он минимален, но при неисправностях может достигать опасных значений.
+
+<p>Основные причины возникновения тока утечки:
+<ul>
+  <li>🔌 Повреждение изоляции проводов или кабелей (механическое, термическое, старение).</li>
+  <li>💧 Попадание влаги на токоведущие части (в розетках, распределительных коробках, электроприборах).</li>
+  <li>🔧 Неисправности бытовой техники (пробитый ТЭН, повреждённый шнур питания).</li>
+  <li>🏗️ Ошибки монтажа (например, неправильное подключение заземления).</li>
+</ul>
+
+<p>Почему расчёт тока утечки критичен? Потому что от него зависит:
+<ol>
+  <li><strong>Безопасность людей</strong> — УЗО должно срабатывать при токе утечки, опасном для жизни (обычно от <code>30 мА</code>).</li>
+  <li><strong>Стабильность работы сети</strong> — слишком чувствительное УЗО будет ложно отключать питание при малейших помехах.</li>
+  <li><strong>Срок службы оборудования</strong> — постоянные утечки ускоряют износ изоляции и контактов.</li>
+</ol>
+
+<p><strong>Нормы ПУЭ (п. 7.1.83)</strong> гласят, что суммарный ток утечки в сети не должен превышать <code>1/3</code> от номинального тока срабатывания УЗО. Например, для УЗО на <code>30 мА</code> фоновая утечка должна быть не более <code>10 мА</code>.
+
+<div class="poll-widget" id="poll-f571794a"><div class="poll-widget-question">📊 Как часто у вас срабатывает УЗО без видимой причины?</div><div class="poll-widget-option" data-poll="f571794a" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f571794a" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Раз в несколько месяцев</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f571794a" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Часто, приходится отключать</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f571794a" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю, нет УЗО</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="формулы-расчёта-тока-утечки-от-теории-к-практике">Формулы расчёта тока утечки: от теории к практике</h2>
+
+<p>Для расчёта тока утечки используют две основные формулы:
+
+<p><strong>1. Для одиночного прибора:</strong>
+<pre><code>IΔ = Iн × 0.0004 + 0.01</code></pre>
+<p>где:</p>
+<ul>
+  <li><code>IΔ</code> — ток утечки прибора (в мА),</li>
+  <li><code>Iн</code> — номинальный ток нагрузки (в А).</li>
+</ul>
+
+<p><strong>2. Для группы приборов (например, всей квартиры):</strong>
+<pre><code>IΔΣ = (Iн1 × 0.0004 + 0.01) + (Iн2 × 0.0004 + 0.01) + ... + 0.01 × L</code></pre>
+<p>где <code>L</code> — длина фазного провода в метрах (учитывает утечку по изоляции).</p>
+
+<p>Пример расчёта для стиральной машины мощностью <code>2.2 кВт</code> (<code>~10 А</code>):
+<pre><code>IΔ = 10 × 0.0004 + 0.01 = 0.014 мА</code></pre>
+<p>Это минимальная утечка. В реальности она может быть выше из-за старения изоляции или влажности.</p>
+
+<p><mark>Критическая ошибка: игнорировать утечку по длине кабеля. Например, в частном доме с проводкой длиной 50 м дополнительная утечка составит 0.5 мА — это 5% от порога срабатывания УЗО на 10 мА!</mark>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если в сети много электроники (компьютеры, телевизоры, зарядные устройства), добавьте к расчёту +10–15% на импульсные блоки питания — они создают высокочастотные утечки.</p></div>
+
+<h2 id="нормы-тока-утечки-по-пуэ-и-гост">Нормы тока утечки по ПУЭ и ГОСТ</h2>
+
+<p>В России действуют следующие нормативы (актуальны для жилых и административных зданий):
+
+<table>
+  <thead>
+    <tr>
+      <th>Тип помещения/оборудования</th>
+      <th>Максимальный ток утечки (мА)</th>
+      <th>Рекомендуемый номинал УЗО (мА)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ванная комната, душевая</td>
+      <td>10</td>
+      <td>10 или 30</td>
+    </tr>
+    <tr>
+      <td>Кухня (розетки для бытовой техники)</td>
+      <td>30</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>Жилые комнаты (освещение, розетки)</td>
+      <td>30</td>
+      <td>30 или 100</td>
+    </tr>
+    <tr>
+      <td>Частный дом (вводной автомат)</td>
+      <td>100–300</td>
+      <td>100–300</td>
+    </tr>
+    <tr>
+      <td>Промышленное оборудование</td>
+      <td>От 300</td>
+      <td>Индивидуальный расчёт</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Важно: для <strong>дифавтоматов</strong> (АВДТ) и <strong>УЗО</strong> (ВДТ) нормы одинаковы, но дифавтоматы часто имеют меньшую чувствительность из-за встроенной защиты от перегрузок.
+
+<p><blockquote>⚠️ Внимание: В домах с алюминиевой проводкой старше 20 лет фоновая утечка может превышать нормы ПУЭ в 2–3 раза. Перед установкой УЗО обязательно проверьте состояние изоляции мегаомметром!</blockquote>
+
+<h2 id="как-пользоваться-калькулятором-тока-утечки-пошаговая-инструкция">Как пользоваться калькулятором тока утечки: пошаговая инструкция</h2>
+
+<p>Для упрощения расчётов используйте онлайн-калькуляторы (например, на сайтах производителей электрооборудования). Алгоритм работы с ними:
+
+<ol>
+  <li><strong>Введите данные о нагрузке:</strong>
+    <ul>
+      <li>📌 Мощность каждого прибора (в ваттах или киловаттах).</li>
+      <li>📌 Количество приборов в группе.</li>
+      <li>📌 Длина кабеля от щита до самой дальней розетки.</li>
+    </ol>
+  </li>
+  <li><strong>Укажите тип помещения:</strong> ванная, кухня, жилая комната и т.д. (это влияет на коэффициенты).</li>
+  <li><strong>Выберите тип УЗО:</strong> электромеханическое или электронное (последнее может давать ложные срабатывания при скачках напряжения).</li>
+  <li><strong>Получите результат:</strong> калькулятор покажет рекомендуемый номинал УЗО и ожидаемую фоновую утечку.</li>
+</ol>
+
+<p><div class="checklist-block"><h4>☑️ Что нужно знать перед расчётом</h4><label class="check-item"><input type="checkbox"><span>Проверьте паспортные данные приборов (мощность и cosφ)</span></label><label class="check-item"><input type="checkbox"><span>Учтите длину кабеля с запасом +10–15%</span></label><label class="check-item"><input type="checkbox"><span>Оцените возраст проводки (алюминий/медь, год монтажа)</span></label><label class="check-item"><input type="checkbox"><span>Помните о сезонных факторах (влажность зимой выше)</span></label><label class="check-item"><input type="checkbox"><span></span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Пример расчёта для квартиры:
+<ul>
+  <li>🍳 Кухня: холодильник (<code>150 Вт</code>), микроволновка (<code>1000 Вт</code>), посудомоечная машина (<code>2000 Вт</code>).</li>
+  <li>🚿 Ванная: стиральная машина (<code>2200 Вт</code>), водонагреватель (<code>1500 Вт</code>).</li>
+  <li>📺 Гостовая: телевизор (<code>200 Вт</code>), компьютер (<code>500 Вт</code>).</li>
+  <li>🔌 Длина проводки: 30 м.</li>
+</ul>
+
+<p>Результат калькулятора:
+<ul>
+  <li>Суммарная утечка: <code>~12 мА</code>.</li>
+  <li>Рекомендуемое УЗО: <code>30 мА</code> (для кухни и ванной — отдельные на <code>10 мА</code>).</li>
+</ul>
+
+<details class="faq-item"><summary>Что делать, если калькулятор показывает утечку больше нормы?</summary><div class="faq-answer"><p>
+<p>Если расчётная утечка превышает 1/3 от номинала УЗО, необходимо:</p>
+<p>1. Разделить нагрузку на несколько групп с отдельными УЗО.</p>
+<p>2. Заменить старую проводку (особенно алюминиевую).</p>
+<p>3. Проверить приборы на неисправности (например, ТЭНы в водонагревателях часто «пробивает»).</p>
+<p>4. Использовать УЗО с большим номиналом (но не более 300 мА для жилых помещений).</p></div></details></p>
+
+<h2 id="типичные-ошибки-при-расчёте-и-выбора-узо">Типичные ошибки при расчёте и выбора УЗО</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки. Вот самые распространённые:
+
+<ul>
+  <li>❌ <strong>Игнорирование фоновой утечки.</strong> Например, в сети с 10 приборами суммарная утечка может достигать <code>5–7 мА</code>, что вызовет ложные срабатывания УЗО на <code>10 мА</code>.</li>
+  <li>❌ <strong>Неправильный выбор типа УЗО.</strong> Электронные УЗО дешевле, но не работают при обрыве нуля (в отличие от электромеханических).</li>
+  <li>❌ <strong>Подключение нагрузки без учёта cosφ.</strong> Приборы с реактивной мощностью (например, насосы, компрессоры) создают дополнительные утечки.</li>
+  <li>❌ <strong>Отсутствие резерва.</strong> Если УЗО на <code>30 мА</code> срабатывает при утечке <code>25 мА</code>, любая помеха вызовет отключение.</li>
+</ul>
+
+<p><blockquote>⚠️ Внимание: В домах с системой заземления <code>TN-C</code> (где нет отдельного PE-проводника) установка УЗО бессмыслена — оно не сможет отличить утечку от нормального тока. В таких случаях требуется модернизация до <code>TN-C-S</code>.</blockquote>
+
+<p><div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для защиты от пожара используйте УЗО с номиналом 100–300 мА, но обязательно дополняйте их автоматическими выключателями (УЗО не защищает от короткого замыкания!).</p></div>
+
+<h2 id="практические-примеры-расчёта-для-разных-объектов">Практические примеры расчёта для разных объектов</h2>
+
+<p><strong>1. Квартира в новостройке (проводка медь, длина 20 м):</strong>
+<ul>
+  <li>Нагрузка: 5 кВт (25 А).</li>
+  <li>Расчётная утечка: <code>25 × 0.0004 + 0.01 × 20 = 0.03 мА</code> (на прибор) + <code>0.2 мА</code> (по длине) = <code>~0.5 мА</code>.</li>
+  <li>Рекомендация: УЗО на <code>30 мА</code> (с запасом).</li>
+</ul>
+
+<p><strong>2. Частный дом (проводка алюминий, длина 80 м, старая изоляция):</strong>
+<ul>
+  <li>Нагрузка: 10 кВт (50 А).</li>
+  <li>Расчётная утечка: <code>50 × 0.0004 + 0.01 × 80 = 0.12 мА</code> (устаревшая изоляция может давать до <code>1–2 мА</code>).</li>
+  <li>Рекомендация: УЗО на <code>100 мА</code> + замена проводки.</li>
+</ul>
+
+<p><strong>3. Офис с серверным оборудованием (20 компьютеров):</strong>
+<ul>
+  <li>Нагрузка: 3 кВт (15 А), но высокие импульсные утечки.</li>
+  <li>Расчётная утечка: <code>~5–10 мА</code> (из-за блоков питания).</li>
+  <li>Рекомендация: УЗО на <code>30 мА</code> типа <em>A</em> (для переменного и пульсирующего тока).</li>
+</ul>
+
+<p><div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для гаража или мастерской с мощным инструментом (сварка, компрессор) используйте УЗО типа <em>B</em> — оно реагирует на постоянный и переменный ток утечки.</p></div>
+
+<h2 id="как-проверить-ток-утечки-в-существующей-сети">Как проверить ток утечки в существующей сети</h2>
+
+<p>Если УЗО уже установлено, но часто срабатывает, или вы подозреваете утечку, выполните проверку:
+
+<ol>
+  <li><strong>Отключите все приборы</strong> от розеток и выключите автоматы.</li>
+  <li><strong>Измерьте фоновую утечку:</strong>
+    <ul>
+      <li>🔧 Используйте <em>мегаомметр</em> (напряжение <code>500–1000 В</code>) для проверки изоляции.</li>
+      <li>🔌 Или <em>токовые клещи</em> (в режиме измерения утечки).</li>
+    </ol>
+  </li>
+  <li><strong>Поочерёдно включайте приборы</strong>, фиксируя изменения тока утечки.</li>
+  <li><strong>Сравните с нормативами:</strong> если утечка превышает <code>1/3</code> от номинала УЗО — ищите неисправность.</li>
+</ol>
+
+<p>Пример: если при включении стиральной машины утечка вырастает с <code>2 мА</code> до <code>15 мА</code>, проблема в её ТЭНе или проводке.
+
+<p><blockquote>⚠️ Внимание: Измерения мегаомметром проводите только на отключённой сети! Напряжение <code>1000 В</code> может повредить чувствительную электронику (например, в LED-лампах или smart-розетках).</blockquote>
+
+<h2 id="faq-частые-вопросы-о-токах-утечки-и-узо">FAQ: Частые вопросы о токах утечки и УЗО</h2>
+
+<details>
+  <summary>Можно ли установить УЗО на 10 мА для всей квартиры?</summary>
+  <p>Нет, это приведёт к постоянным ложным срабатываниям. УЗО на <code>10 мА</code> устанавливают только на отдельные линии (например, розетку для ванной). Для общей защиты используйте <code>30 мА</code> или <code>100 мА</code>.</p>
+</details>
+
+<details>
+  <summary>Почему УЗО срабатывает без нагрузки?</summary>
+  <p>Возможные причины:
+  <ul>
+    <li>Повреждена изоляция проводки (особенно если дом старый).</li>
+    <li>Утечка по длине кабеля (актуально для длинных линий).</li>
+    <li>Неисправно само УЗО (проверьте кнопкой «Тест»).</li>
+    <li>В сети есть приборы с импульсными блоками питания (даже в выключенном состоянии).</li>
+  </ul>
+  </p>
+</details>
+
+<details>
+  <summary>Какой тип УЗО выбрать: электромеханическое или электронное?</summary>
+  <p>Электромеханическое надёжнее — оно срабатывает при любой утечке, даже если в сети нет напряжения. Электронное дешевле, но зависит от питания и может не сработать при обрыве нуля. Для жилых помещений рекомендуется первый тип.</p>
+</details>
+
+<details>
+  <summary>Нужно ли УЗО в доме с системой заземления TT?</summary>
+  <p>Да, но с особенностями: в системе <code>TT</code> УЗО является основной защитой от поражения током (так как автоматы не отключают утечку на землю). Номинал УЗО должен быть не более <code>30 мА</code>, а сопротивление заземления — менее <code>50 Ом</code>.</p>
+</details>
+
+<details>
+  <summary>Можно ли подключить УЗО без заземления?</summary>
+  <p>Да, УЗО будет работать и в двухпроводной сети (<code>TN-C</code>), но его эффективность снизится. Оно сработает только при утечке на корпус прибора, к которому кто-то прикоснётся. Для полноценной защиты требуется заземление (<code>TN-S</code> или <code>TN-C-S</code>).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-ток-утечки-и-почему-его-нужно-рассчитывать">Что такое ток утечки и почему его нужно рассчитывать</a></li><li><a href="#формулы-расчёта-тока-утечки-от-теории-к-практике">Формулы расчёта тока утечки: от теории к практике</a></li><li><a href="#нормы-тока-утечки-по-пуэ-и-гост">Нормы тока утечки по ПУЭ и ГОСТ</a></li><li><a href="#как-пользоваться-калькулятором-тока-утечки-пошаговая-инструкция">Как пользоваться калькулятором тока утечки: пошаговая инструкция</a></li><li><a href="#типичные-ошибки-при-расчёте-и-выбора-узо">Типичные ошибки при расчёте и выбора УЗО</a></li><li><a href="#практические-примеры-расчёта-для-разных-объектов">Практические примеры расчёта для разных объектов</a></li><li><a href="#как-проверить-ток-утечки-в-существующей-сети">Как проверить ток утечки в существующей сети</a></li><li><a href="#faq-частые-вопросы-о-токах-утечки-и-узо">FAQ: Частые вопросы о токах утечки и УЗО</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-vyglyadit-zazemlenie.html" class="related-card">Как выглядит заземление: фото, схемы и признаки правильного монтажа</a></li><li><a href="/articles/c/ch/chto-takoe-nol-i-zazemlenie-v-elektrike.html" class="related-card">Ноль и заземление в электрике: разница, схема, подключение</a></li><li><a href="/articles/l/li/linejnoe-zazemlenie-v-chastnom-dome-svoimi-rukami.html" class="related-card">Линейное заземление в частном доме своими руками: схема и монтаж</a></li><li><a href="/articles/p/po/podklyuchenie-zemli-k-shchitku.html" class="related-card">Подключение земли к щитку: пошаговая инструкция и нормы</a></li><li><a href="/articles/z/za/zazemlenie-rozetki-v-chastnom-dome.html" class="related-card">Заземление розеток в частном доме: схема, нормы и монтаж 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-vyglyadit-zazemlenie.html" class="related-bottom-card"><span class="related-bottom-title">Как выглядит заземление: фото, схемы и признаки правильного монтажа</span><span class="related-bottom-desc">Разбираем визуальные признаки заземления в розетках, щитках и на оборудовании. Фото реальных примеро</span></a><a href="/articles/c/ch/chto-takoe-nol-i-zazemlenie-v-elektrike.html" class="related-bottom-card"><span class="related-bottom-title">Ноль и заземление в электрике: разница, схема, подключение</span><span class="related-bottom-desc">Что такое ноль и заземление в электрике: отличие от фазы, как определить провода, схемы подключения </span></a><a href="/articles/l/li/linejnoe-zazemlenie-v-chastnom-dome-svoimi-rukami.html" class="related-bottom-card"><span class="related-bottom-title">Линейное заземление в частном доме своими руками: схема и монтаж</span><span class="related-bottom-desc">Подробная инструкция по монтажу линейного заземления в частном доме. Расчет материалов, выбор схемы,</span></a><a href="/articles/p/po/podklyuchenie-zemli-k-shchitku.html" class="related-bottom-card"><span class="related-bottom-title">Подключение земли к щитку: пошаговая инструкция и нормы</span><span class="related-bottom-desc">Как правильно сделать заземление в щитке частного дома. Схемы TN-C-S, TT, выбор шины PE и расчет сеч</span></a><a href="/articles/z/za/zazemlenie-rozetki-v-chastnom-dome.html" class="related-bottom-card"><span class="related-bottom-title">Заземление розеток в частном доме: схема, нормы и монтаж 2026</span><span class="related-bottom-desc">Как правильно сделать заземление розеток в частном доме: пошаговая инструкция, выбор схемы (TN-C-S, </span></a><a href="/articles/z/za/zazemlenie-rozetki-chto-eto.html" class="related-bottom-card"><span class="related-bottom-title">Заземление розетки: что это, зачем нужно и как сделать</span><span class="related-bottom-desc">Подробный гид по заземлению розеток: принцип работы, отличие от зануления, нормы ПУЭ и пошаговая инс</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>ВТХ автомата: как читать время-токовую характеристику правильно — Электро Гид</title>
+    <meta name="description" content="Разбираемся в графиках ВТХ автоматических выключателей: типы B, C, D, кривые срабатывания, расшифровка параметров и выбор под нагрузку. Пошаговая инструкция с примерами.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/k/ka/kak-chitat-vremya-tokovuyu-kharakteristiku-avtomaticheskogo-vyklyuchatelya.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ВТХ автомата: как читать время-токовую характеристику правильно">
+    <meta property="og:description" content="Разбираемся в графиках ВТХ автоматических выключателей: типы B, C, D, кривые срабатывания, расшифровка параметров и выбор под нагрузку. Пошаговая инструкция с примерами.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">ВТХ автомата: как читать время-токовую характеристику правильно</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как читать время-токовую характеристику автоматического выключателя: полный разбор для электриков и домашних мастеров</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-что-такое-время-токовая-характеристика-втх-автомата-и-зачем-она-нужна">1. Что такое время-токовая характеристика (ВТХ) автомата и зачем она нужна</a></li><li><a href="#2-типы-втх-b-c-d-k-z-в-чём-разница-и-где-применяются">2. Типы ВТХ: B, C, D, K, Z — в чём разница и где применяются</a></li><li><a href="#3-как-читать-график-втх-пошаговая-расшифровка">3. Как читать график ВТХ: пошаговая расшифровка</a></li><li><a href="#4-практические-примеры-как-втх-влияет-на-работу-автомата">4. Практические примеры: как ВТХ влияет на работу автомата</a></li><li><a href="#5-как-выбрать-втх-для-конкретной-нагрузки-таблица-соответствия">5. Как выбрать ВТХ для конкретной нагрузки: таблица соответствия</a></li><li><a href="#6-распространённые-ошибки-при-работе-с-втх">6. Распространённые ошибки при работе с ВТХ</a></li><li><a href="#7-как-проверить-втх-автомата-на-практике">7. Как проверить ВТХ автомата на практике</a></li><li><a href="#8-втх-и-современные-стандарты-что-изменилось-в-последнее-время">8. ВТХ и современные стандарты: что изменилось в последнее время</a></li><li><a href="#faq-частые-вопросы-о-время-токовых-характеристиках">FAQ: Частые вопросы о время-токовых характеристиках</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Вы когда-нибудь задумывались, почему один и тот же автомат на <strong>16А</strong> может сработать мгновенно при коротком замыкании, но спокойно «держать» часовой ток в <strong>20А</strong>? Или почему для холодильника рекомендуют <em>автомат типа B</em>, а для сварочного аппарата — <em>типа D</em>? Ответ кроется в <strong>время-токовой характеристике (ВТХ)</strong>, которую производители рисуют на корпусе каждого выключателя в виде загадочной буквы и графика.</p>
+
+<p>Эта статья не про сухую теорию из учебников, а про <mark>практические нюансы выбора и интерпретации ВТХ</mark>, которые редко рассказывают даже опытные электрики. Мы разберём:</p>
+<ul>
+  <li>🔍 Что такое <strong>кривая срабатывания</strong> и как её читать по графику (с реальными примерами для типов B, C, D, K, Z).</li>
+  <li>⚡ Почему <em>номинальный ток</em> на корпусе автомата — это не предел его работоспособности, а лишь условная точка отсчёта.</li>
+  <li>⚠️ Какие <strong>опасные ошибки</strong> допускают при выборе ВТХ для бытовых и промышленных сетей (и как их избежать).</li>
+  <li>📊 Как сопоставить ВТХ автомата с <strong>пусковыми токами</strong> двигателей, трансформаторов и другой индуктивной нагрузки.</li>
+</ul>
+
+<p>Если вы хоть раз сталкивались с ситуацией, когда автомат «выбивает» без видимой причины или, наоборот, не срабатывает при явной перегрузке — эта статья поможет разобраться в причинах и подобрать правильное решение.</p>
+
+<div class="poll-widget" id="poll-65b65c33"><div class="poll-widget-question">📊 Какой тип автомата у вас стоит на вводе в квартиру?</div><div class="poll-widget-option" data-poll="65b65c33" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Тип B</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="65b65c33" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Тип C</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="65b65c33" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Тип D</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="65b65c33" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="65b65c33" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Другой</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="1-что-такое-время-токовая-характеристика-втх-автомата-и-зачем-она-нужна">1. Что такое время-токовая характеристика (ВТХ) автомата и зачем она нужна</h2>
+
+<p>Время-токовая характеристика (ВТХ) — это <strong>график зависимости времени срабатывания автомата от величины тока</strong>, протекающего через него. Она показывает, как быстро выключатель отреагирует на перегрузку или короткое замыкание (КЗ). Без понимания ВТХ невозможно:</p>
+<ul>
+  <li>🔌 Правильно подобрать автомат для защиты конкретной линии (розетки, освещения, двигателя).</li>
+  <li>⚡ Обеспечить селективность срабатывания (чтобы при КЗ отключался только проблемный участок, а не весь дом).</li>
+  <li>🛠️ Диагностировать причины ложных срабатываний или, наоборот, «залипания» автомата.</li>
+</ul>
+
+<p>Проще говоря, ВТХ отвечает на два ключевых вопроса:</p>
+<ol>
+  <li><strong>Сколько времени</strong> автомат будет «терпеть» ток выше номинального (например, 1,13×<em>I<sub>n</sub></em> или 5×<em>I<sub>n</sub></em>).</li>
+  <li><strong>При каком токе</strong> он сработает мгновенно (электромагнитный расцепитель) или с задержкой (тепловой расцепитель).</li>
+</ol>
+
+<p>Например, автомат <em>C16</em> при токе <strong>16А</strong> может работать неограниченно долго (в теории), но при <strong>23А</strong> (1,45×<em>I<sub>n</sub></em>) отключится через <strong>1 час</strong>, а при <strong>80А</strong> (5×<em>I<sub>n</sub></em>) — меньше чем за <strong>0,1 секунды</strong>. Эти значения не выдуманы, а строго регламентированы стандартами (например, <code>ГОСТ Р 50345-2010</code> для бытовых автоматов).</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если на корпусе автомата указана только буква (например, <em>C</em>) без графика — это не значит, что ВТХ отсутствует. Производитель обязан придерживаться стандартных кривых для данного типа, даже если не рисует их явно.</p></div>
+
+<h2 id="2-типы-втх-b-c-d-k-z-в-чём-разница-и-где-применяются">2. Типы ВТХ: B, C, D, K, Z — в чём разница и где применяются</h2>
+
+<p>Буква на корпусе автомата (<em>B, C, D, K, Z</em>) обозначает <strong>класс время-токовой характеристики</strong> и определяет <strong>диапазон токов мгновенного срабатывания</strong> (электромагнитного расцепителя). Вот ключевые отличия:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Тип ВТХ</th>
+      <th>Диапазон срабатывания электромагнитного расцепителя</th>
+      <th>Типичное применение</th>
+      <th>Пример нагрузки</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>B</strong></td>
+      <td>3–5×<em>I<sub>n</sub></em></td>
+      <td>Линии с активной нагрузкой, длинные кабели</td>
+      <td>Освещение, розетки для бытовой техники, холодильники</td>
+    </tr>
+    <tr>
+      <td><strong>C</strong></td>
+      <td>5–10×<em>I<sub>n</sub></em></td>
+      <td>Универсальный тип для бытовых и коммерческих сетей</td>
+      <td>Розетки, кондиционеры, водонагреватели, офисное оборудование</td>
+    </tr>
+    <tr>
+      <td><strong>D</strong></td>
+      <td>10–20×<em>I<sub>n</sub></em></td>
+      <td>Сеть с высокими пусковыми токами</td>
+      <td>Двигатели, трансформаторы, сварочные аппараты, насосы</td>
+    </tr>
+    <tr>
+      <td><strong>K</strong></td>
+      <td>8–12×<em>I<sub>n</sub></em> (для переменного тока)<br>12–18×<em>I<sub>n</sub></em> (для постоянного)</td>
+      <td>Индуктивные нагрузки с высокими пиковыми токами</td>
+      <td>Электродвигатели, компрессоры, промышленное оборудование</td>
+    </tr>
+    <tr>
+      <td><strong>Z</strong></td>
+      <td>2–3×<em>I<sub>n</sub></em></td>
+      <td>Электронные устройства, чувствительные к перегрузкам</td>
+      <td>Серверы, медицинское оборудование, полупроводниковые приборы</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Например, автомат <em>C16</em> сработает мгновенно при токе <strong>80–160А</strong>, а <em>D16</em> — только при <strong>160–320А</strong>. Это критично для двигателей: если поставить <em>C16</em> на насос с пусковым током <strong>100А</strong>, автомат будет выбивать при каждом запуске. А <em>D16</em> «пропустит» этот ток как нормальный.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Тип ВТХ выбирают не по «привычке», а по характеристикам нагрузки. Например, для гаражной мастерской с болгаркой и компрессором тип <em>C</em> часто оказывается слишком чувствительным — нужен <em>D</em>.</p></div>
+
+<h2 id="3-как-читать-график-втх-пошаговая-расшифровка">3. Как читать график ВТХ: пошаговая расшифровка</h2>
+
+<p>График ВТХ обычно представляет собой логарифмическую кривую с двумя осями:</p>
+<ul>
+  <li><strong>Горизонтальная ось (X)</strong> — кратность тока к номиналу (<em>I/I<sub>n</sub></em>). Например, <strong>1</strong> — это <em>I<sub>n</sub></em>, <strong>5</strong> — это 5×<em>I<sub>n</sub></em>.</li>
+  <li><strong>Вертикальная ось (Y)</strong> — время срабатывания в секундах (от <strong>0,01с</strong> до <strong>10 000с</strong> и более).</li>
+</ul>
+
+<p>Разберём график на примере автомата <em>C16</em>:</p>
+<ol>
+  <li><strong>Зона теплового расцепителя</strong> (плавная кривая):
+    <ul>
+      <li>🔥 При токе <strong>1,13×<em>I<sub>n</sub></strong></strong> (~18А) автомат отключится через <strong>1–2 часа</strong>.</li>
+      <li>🔥 При <strong>1,45×<em>I<sub>n</sub></strong></strong> (~23А) — через <strong>1 час</strong> (стандартное значение для всех типов).</li>
+    </ul>
+  </li>
+  <li><strong>Зона электромагнитного расцепителя</strong> (вертикальный «обрыв» кривой):
+    <ul>
+      <li>⚡ При токе <strong>5×<em>I<sub>n</sub></strong></strong> (~80А) срабатывание произойдёт за <strong>0,01–0,1с</strong>.</li>
+      <li>⚡ При <strong>10×<em>I<sub>n</sub></strong></strong> (~160А) — мгновенно (менее <strong>0,01с</em>).</li>
+    </ol>
+  </li>
+</ol>
+
+<p>Важно: графики для разных типов (<em>B, C, D</em>) пересекаются в зоне <strong>1,13–1,45×<em>I<sub>n</sub></strong></strong> — здесь время срабатывания одинаково (это требование стандартов). Разница проявляется только при <strong>больших перегрузках</strong>.</p>
+
+<details class="faq-item"><summary>Почему на графике нет точных значений времени?</summary><div class="faq-answer"><p>Производители указывают <strong>диапазон</em> времени срабатывания (например, 0,1–10с), а не точную цифру, потому что на скорость влияют температура окружающей среды, состояние контактов и даже положение автомата в щитке. Реальные значения могут отличаться на ±20%.</p></div></details>
+
+<h2 id="4-практические-примеры-как-втх-влияет-на-работу-автомата">4. Практические примеры: как ВТХ влияет на работу автомата</h2>
+
+<p>Рассмотрим две типичные ситуации, где незнание ВТХ приводит к проблемам:</p>
+
+<h3>Пример 1: Автомат «выбивает» при включении стиральной машины</h3>
+<p>Симптомы: автомат <em>C16</em> отключается при запуске стиральной машины (мотор на <strong>2,2 кВт</strong>).</p>
+<p>Причина: пусковой ток двигателя достигает <strong>30–40А</strong> (что соответствует <strong>2–2,5×<em>I<sub>n</sub></strong></em> для <em>C16</em>). По графику ВТХ, автомат должен «держать» такой ток <strong>несколько секунд</strong>, но если контакты подгорели или кабель тонкий — срабатывание происходит быстрее.</p>
+<p>Решение: заменить автомат на <em>D16</em> (диапазон срабатывания электромагнитного расцепителя — <strong>160–320А</strong>, поэтому <strong>40А</strong> не вызовут ложного отключения).</p>
+
+<h3>Пример 2: Автомат не срабатывает при коротком замыкании</h3>
+<p>Симптомы: при КЗ в розетке автомат <em>B25</em> не отключается, а кабель начинает плавиться.</p>
+<p>Причина: ток КЗ в сети оказался <strong>70А</strong> (например, из-за высокого сопротивления петли фаза-ноль). Для <em>B25</em> диапазон мгновенного срабатывания — <strong>75–125А</strong>, поэтому автомат «не видит» КЗ как аварийную ситуацию.</p>
+<p>Решение: заменить на <em>C25</em> (диапазон <strong>125–250А</strong>) или проверить петлю фаза-ноль (возможно, требуется уменьшить длину кабеля или увеличить сечение).</p>
+
+
+<p>Измерить реальный ток в линии клещами|Проверить температуру автомата (перегрев ускоряет срабатывание)|Осмотреть контакты на подгар|Убедиться, что пусковой ток нагрузки не превышает 10×<em>I<sub>n</sub></em> для типа C--></p>
+
+<h2 id="5-как-выбрать-втх-для-конкретной-нагрузки-таблица-соответствия">5. Как выбрать ВТХ для конкретной нагрузки: таблица соответствия</h2>
+
+<p>Чтобы не гадать, какой автомат поставить на ту или иную линию, воспользуйтесь этой таблицей:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Тип нагрузки</th>
+      <th>Рекомендуемый тип ВТХ</th>
+      <th>Примечания</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Освещение (лампы накаливания, LED)</td>
+      <td><strong>B</strong></td>
+      <td>Низкие пусковые токи, чувствительность к перегрузкам некритична.</td>
+    </tr>
+    <tr>
+      <td>Розетки для бытовой техники (чайник, микроволновка)</td>
+      <td><strong>C</strong></td>
+      <td>Универсальный вариант. Для холодильников с компрессором лучше <em>B</em>.</td>
+    </tr>
+    <tr>
+      <td>Электродвигатели (насосы, вентиляторы, станки)</td>
+      <td><strong>D</strong> или <strong>K</strong></td>
+      <td>Пусковой ток может превышать номинальный в <strong>5–7 раз</strong>.</td>
+    </tr>
+    <tr>
+      <td>Трансформаторы, сварочные аппараты</td>
+      <td><strong>D</strong></td>
+      <td>Высокие пиковые токи при включении.</td>
+    </tr>
+    <tr>
+      <td>Электронные устройства (компьютеры, телевизоры)</td>
+      <td><strong>B</strong> или <strong>Z</strong></td>
+      <td>Чувствительны к даже кратковременным перегрузкам.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Для точного подбора автомата под двигатель используйте формулу:</p>
+<p><strong><em>I<sub>н.авт</sub></em> ≥ <em>I<sub>пуск</sub></em> / <em>k</strong></em>, где:</p>
+<ul>
+  <li><em>I<sub>н.авт</sub></em> — номинальный ток автомата;</li>
+  <li><em>I<sub>пуск</sub></em> — пусковой ток двигателя (указан в паспорте или рассчитывается как <strong>5–7×<em>I<sub>ном</sub></strong></em>);</li>
+  <li><em>k</em> — коэффициент (для типа <em>D</em> = 10, для <em>C</em> = 5).</li>
+</ul>
+
+<p>Пример: если пусковой ток насоса <strong>35А</strong>, то для автомата типа <em>C</em>:
+<strong><em>I<sub>н.авт</sub></strong> ≥ 35 / 5 = 7А</em> → выбираем <em>C10</em>.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для линий с несколькими потребителями (например, кухонные розетки) ориентируйтесь на <strong>самую мощную нагрузку</strong>. Автомат должен выдерживать суммарный ток всех приборов + 20% запас.</p></div>
+
+<h2 id="6-распространённые-ошибки-при-работе-с-втх">6. Распространённые ошибки при работе с ВТХ</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки, связанные с неправильной интерпретацией ВТХ. Вот самые опасные из них:</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы заменяете автомат на более «мощный» (например, <em>C16</em> на <em>C25</em>) из-за частых срабатываний, сначала проверьте <strong>сечение кабеля</strong>. Автомат защищает не нагрузку, а <strong>проводку</strong>! Увеличение номинала без замены кабеля ведёт к пожару.</blockquote>
+
+<ul>
+  <li>🔥 <strong>Игнорирование температуры</strong>: ВТХ снимается при <strong>30°C</strong>. Если автомат стоит в жарком щитке (например, рядом с пускателем), его ток срабатывания снижается на <strong>10–20%</strong>. Решение: использовать автоматы с маркировкой <code>TH30</code> (термостойкие) или увеличивать номинал.</li>
+  <li>⚡ <strong>Путаница с типами <em>K</em> и <em>Z</strong></em>: Автоматы типа <em>K</em> часто ставят вместо <em>D</em> для двигателей, но они имеют <strong>разные кривые для переменного и постоянного тока</strong>. Для бытовых сетей (переменный ток) <em>K</em> ведёт себя как «урезанный» <em>D</em>.</li>
+  <li>📉 <strong>Некорректный расчёт селективности</strong>: Если на вводе стоит <em>C63</em>, а на линии — <em>C16</em>, при КЗ может сработать вводной автомат. Правило: номинал вышестоящего автомата должен быть <strong>минимум в 2 раза больше</strong> (например, <em>C32</em> на вводе и <em>C16</em> на линии).</li>
+</ul>
+
+<p>Ещё одна типичная ошибка — выбор автомата по <strong>мощности нагрузки</strong>, а не по <strong>току</strong>. Например, для электроплиты на <strong>7 кВт</strong> (ток ~32А) ставят <em>C32</em>, но если кабель сечением <strong>4 мм²</strong> (максимальный ток <strong>27А</strong>), это приведёт к перегреву. Правильно: сначала выбираем кабель по току, потом автомат.</p>
+
+<h2 id="7-как-проверить-втх-автомата-на-практике">7. Как проверить ВТХ автомата на практике</h2>
+
+<p>Если вы сомневаетесь в работоспособности автомата, его ВТХ можно проверить двумя способами:</p>
+
+<h3>Способ 1: С помощью токовых клещей и нагрузочного устройства</h3>
+<p>Порядок действий:</p>
+<ol>
+  <li>Подключите к линии нагрузочное устройство (например, <em>реостат</em> или <em>трансформатор</em>).</li>
+  <li>Установите ток на уровне <strong>1,2×<em>I<sub>n</sub></strong></strong> и засеките время до срабатывания (должно быть <strong>>1 часа</strong> для исправного автомата).</li>
+  <li>Увеличьте ток до <strong>5×<em>I<sub>n</sub></strong></strong> — автомат должен сработать за <strong><0,1с</strong>.</li>
+</ol>
+
+<h3>Способ 2: Визуальный осмотр и тест кнопкой «Тест»</h3>
+<p>На большинстве автоматов есть кнопка <code>TEST</code>, которая имитирует ток перегрузки. При нажатии исправный автомат должен:</p>
+<ul>
+  <li>✅ Мгновенно отключиться (проверяется работа <strong>электромагнитного расцепителя</em>).</li>
+  <li>✅ После включения удерживать номинальный ток без нагрева.</li>
+</ul>
+<p>Если автомат не срабатывает на <code>TEST</code> или греется при номинальной нагрузке — его нужно заменить.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для точной проверки ВТХ используйте <em>анализаторы качества электроэнергии</em> (например, <em>Fluke 435</em> или <em>HT Italia AE 30</em>). Они строят реальную кривую срабатывания и сравнивают её с паспортными данными.</p></div>
+
+<h2 id="8-втх-и-современные-стандарты-что-изменилось-в-последнее-время">8. ВТХ и современные стандарты: что изменилось в последнее время</h2>
+
+<p>С 2010 года в России действует <code>ГОСТ Р 50345-2010</code>, который гармонизирован с международным стандартом <code>IEC 60898-1</code>. Главные изменения, влияющие на ВТХ:</p>
+<ul>
+  <li>📋 Введены <strong>более жёсткие требования</strong> к разбросу времени срабатывания (раньше допуск был ±30%, теперь ±20%).</li>
+  <li>🔧 Появились <strong>автоматы с маркировкой <em>MA</strong></em> (только электромагнитный расцепитель, без теплового) для специфических нагрузок.</li>
+  <li>⚡ Для типов <em>B, C, D</em> уточнены <strong>границы токов мгновенного срабатывания</strong> (раньше производители могли «rounded» значения).</li>
+</ul>
+
+<p>Также стоит учитывать, что некоторые европейские бренды (например, <em>ABB</em> или <em>Schneider Electric</em>) в паспортах автоматов указывают <strong>дополнительные кривые</strong> для низких температур (до <strong>−25°C</strong>) и высоких (до <strong>+60°C</strong>). Это актуально для уличных щитков или неотапливаемых помещений.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Стандарты на ВТХ периодически обновляются. Если вы работаете с импортными автоматами (особенно китайскими), сверяйтесь с <strong>актуальной документацией производителя</strong> — некоторые бренды (например, <em>Chint</em> или <em>IEK</em>) могут использовать упрощённые кривые.</blockquote>
+
+<h2 id="faq-частые-вопросы-о-время-токовых-характеристиках">FAQ: Частые вопросы о время-токовых характеристиках</h2>
+
+<details>
+  <summary>Можно ли ставить автомат типа <em>D</em> на обычные розетки?</summary>
+  <p>Технически можно, но <strong>нецелесообразно</strong>. Автомат <em>D</em> имеет высокий порог срабатывания (10–20×<em>I<sub>n</sub></em>), поэтому при перегрузке (например, включении обогревателя) он не защитит кабель от перегрева. Для розеток оптимален тип <em>C</em>.</p>
+</details>
+
+<details>
+  <summary>Почему автомат <em>B16</em> срабатывает при токе 20А, хотя по графику должен держать?</summary>
+  <p>Вероятные причины:</p>
+  <ul>
+    <li>🔥 Автомат нагрет (например, стоит в тесном щитке) — тепловой расцепитель срабатывает быстрее.</li>
+    <li>⚡ Кабель тонкий или повреждён — растёт сопротивление, и автомат «видит» ток выше реального.</li>
+    <li>📉 Бракованный автомат (встречается у недорогих брендов).</li>
+  </ul>
+  <p>Решение: проверьте температуру корпуса автомата и кабеля, а также протестируйте его на стенде.</p>
+</details>
+
+<details>
+  <summary>Какой автомат выбрать для компрессора с пусковым током 60А?</summary>
+  <p>Рассчитываем:</p>
+  <ol>
+    <li>Номинальный ток компрессора: <strong>60А / 5 (пусковой коэффициент) = 12А</strong>.</li>
+    <li>Для типа <em>D</em> коэффициент <em>k</em> = 10 → <strong>60А / 10 = 6А</strong>.</li>
+    <li>Ближайший номинал — <em>D10</em> (но проверьте сечение кабеля!)</li>
+  </ol>
+  <p>Если кабель выдерживает <strong>16А</strong>, можно поставить <em>D16</em> для запаса.</p>
+</details>
+
+<details>
+  <summary>Чем отличаются ВТХ автоматов <em>IEC 60898</em> и <em>IEC 60947-2</em>?</summary>
+  <p>Стандарт <code>IEC 60898</code> регламентирует <strong>бытовые автоматы</strong> (ток до <strong>125А</strong>), а <code>IEC 60947-2</code> — <strong>промышленные</strong> (ток до <strong>6300А</strong>). Основные различия:</p>
+  <ul>
+    <li>📊 В <em>IEC 60947-2</em> допускаются <strong>более пологие кривые</strong> для токов выше <strong>10×<em>I<sub>n</sub></strong></strong>.</li>
+    <li>⚡ Промышленные автоматы могут иметь <strong>регулируемую ВТХ</em> (например, <em>Micrologic</em> от <em>Schneider</em>).</li>
+  </ul>
+</details>
+
+<details>
+  <summary>Можно ли использовать автомат с ВТХ типа <em>Z</em> для защиты LED-освещения?</summary>
+  <p>Да, но с оговорками:</p>
+  <ul>
+    <li>✅ Тип <em>Z</em> подходит для <strong>чувствительной электроники</strong>, так как срабатывает при <strong>2–3×<em>I<sub>n</sub></strong></strong>.</li>
+    <li>⚠️ Учтите, что LED-драйверы часто имеют <strong>импульсные токи</em> при включении, которые могут вызвать ложные срабатывания.</li>
+    <li>💡 Оптимальный вариант — автомат типа <em>B</em> с <strong>дополнительным УЗО</strong>.</li>
+  </ul>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-что-такое-время-токовая-характеристика-втх-автомата-и-зачем-она-нужна">1. Что такое время-токовая характеристика (ВТХ) автомата и зачем она нужна</a></li><li><a href="#2-типы-втх-b-c-d-k-z-в-чём-разница-и-где-применяются">2. Типы ВТХ: B, C, D, K, Z — в чём разница и где применяются</a></li><li><a href="#3-как-читать-график-втх-пошаговая-расшифровка">3. Как читать график ВТХ: пошаговая расшифровка</a></li><li><a href="#4-практические-примеры-как-втх-влияет-на-работу-автомата">4. Практические примеры: как ВТХ влияет на работу автомата</a></li><li><a href="#5-как-выбрать-втх-для-конкретной-нагрузки-таблица-соответствия">5. Как выбрать ВТХ для конкретной нагрузки: таблица соответствия</a></li><li><a href="#6-распространённые-ошибки-при-работе-с-втх">6. Распространённые ошибки при работе с ВТХ</a></li><li><a href="#7-как-проверить-втх-автомата-на-практике">7. Как проверить ВТХ автомата на практике</a></li><li><a href="#8-втх-и-современные-стандарты-что-изменилось-в-последнее-время">8. ВТХ и современные стандарты: что изменилось в последнее время</a></li><li><a href="#faq-частые-вопросы-о-время-токовых-характеристиках">FAQ: Частые вопросы о время-токовых характеристиках</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sc/schetchik-odnotarifnyj-i-dvukhtarifnyj-v-chem-raznitsa.html" class="related-card">Однотарифный и двухтарифный счетчик: разница, плюсы и минусы</a></li><li><a href="/articles/p/pr/printsip-raboty-trekhkontaktnogo-rele.html" class="related-card">Трехконтактное реле: устройство, схема и принцип работы</a></li><li><a href="/articles/u/uz/uzo-30-ili-100-ma.html" class="related-card">УЗО 30 или 100 мА: что выбрать для дома и почему?</a></li><li><a href="/articles/n/no/nominalnyj-otklyuchayushchij-differentsialnyj-tok.html" class="related-card">Номинальный отключающий дифференциальный ток: что это и как выбрать</a></li><li><a href="/articles/k/ka/kak-podklyuchit-k-avtomatu-neskolko-provodov.html" class="related-card">Как подключить к автомату несколько проводов: инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sc/schetchik-odnotarifnyj-i-dvukhtarifnyj-v-chem-raznitsa.html" class="related-bottom-card"><span class="related-bottom-title">Однотарифный и двухтарифный счетчик: разница, плюсы и минусы</span><span class="related-bottom-desc">Чем отличается однотарифный счетчик от двухтарифного? Сравнение тарифов, экономия, установка и выбор</span></a><a href="/articles/p/pr/printsip-raboty-trekhkontaktnogo-rele.html" class="related-bottom-card"><span class="related-bottom-title">Трехконтактное реле: устройство, схема и принцип работы</span><span class="related-bottom-desc">Как работает трехконтактное реле: подробный разбор конструкции, схем подключения и нюансов применени</span></a><a href="/articles/u/uz/uzo-30-ili-100-ma.html" class="related-bottom-card"><span class="related-bottom-title">УЗО 30 или 100 мА: что выбрать для дома и почему?</span><span class="related-bottom-desc">Сравнение УЗО на 30 мА и 100 мА: где и когда применять, нормы ПУЭ, схемы подключения и ошибки выбора</span></a><a href="/articles/n/no/nominalnyj-otklyuchayushchij-differentsialnyj-tok.html" class="related-bottom-card"><span class="related-bottom-title">Номинальный отключающий дифференциальный ток: что это и как выбрать</span><span class="related-bottom-desc">Разбираемся, что такое номинальный отключающий дифференциальный ток (ΔIₙ) в УЗО и дифавтоматах, как </span></a><a href="/articles/k/ka/kak-podklyuchit-k-avtomatu-neskolko-provodov.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить к автомату несколько проводов: инструкция</span><span class="related-bottom-desc">Правильное подключение нескольких проводов к автомату. Шина гребенка или скрутка? Ошибки монтажа, пр</span></a><a href="/articles/k/ka/kategorii-avtomatov-a-b-c-d-eto.html" class="related-bottom-card"><span class="related-bottom-title">Категории автоматов A, B, C, D: как выбрать правильный для дома</span><span class="related-bottom-desc">Разбираемся в характеристиках автоматических выключателей A, B, C, D: отличие по току срабатывания, </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Соединение нуля и земли: правила, схемы и ошибки (ПУЭ 7) — Электро Гид</title>
+    <meta name="description" content="Когда можно объединять ноль и землю в электрощите, а когда это опасно? Разбираем схемы заземления TN-C, TN-S, TT, нормы ПУЭ и типичные ошибки монтажа.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/s/so/soedinenie-nulya-s-zemlej.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Соединение нуля и земли: правила, схемы и ошибки (ПУЭ 7)">
+    <meta property="og:description" content="Когда можно объединять ноль и землю в электрощите, а когда это опасно? Разбираем схемы заземления TN-C, TN-S, TT, нормы ПУЭ и типичные ошибки монтажа.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/bezopasnost-i-zazemlenie/">Безопасность и заземление</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Соединение нуля и земли: правила, схемы и ошибки (ПУЭ 7)</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Соединение нуля с землей: когда это разрешено, а когда смертельно опасно</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-почему-вообще-возникает-идея-соединить-ноль-с-землёй">1. Почему вообще возникает идея соединить ноль с землёй?</a></li><li><a href="#2-нормативная-база-что-говорит-пуэ-и-гост">2. Нормативная база: что говорит ПУЭ и ГОСТ?</a></li><li><a href="#3-когда-соединение-n-и-pe-допустимо-и-как-это-делать-правильно">3. Когда соединение N и PE допустимо (и как это делать правильно)?</a></li><li><a href="#4-типичные-ошибки-и-их-последствия">4. Типичные ошибки и их последствия</a></li><li><a href="#5-как-проверить-соединены-ли-ноль-и-земля-в-вашей-сети">5. Как проверить, соединены ли ноль и земля в вашей сети?</a></li><li><a href="#6-что-делать-если-в-доме-нет-заземления">6. Что делать, если в доме нет заземления?</a></li><li><a href="#7-мифы-и-заблуждения-о-соединении-нуля-и-земли">7. Мифы и заблуждения о соединении нуля и земли</a></li><li><a href="#faq-частые-вопросы-о-соединении-нуля-и-земли">FAQ: Частые вопросы о соединении нуля и земли</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Вопрос соединения рабочего нуля (<strong>N</strong>) с защитным заземлением (<strong>PE</strong>) вызывает жаркие споры даже среди опытных электриков. Одни утверждают, что это грубейшее нарушение, другие — что без такого соединения не обойтись в старых домах. Где правда? В этой статье разберём <em>нормативную базу</em> (ПУЭ 7, ГОСТ Р 50571.2-94), анализируем схемы заземления <code>TN-C</code>, <code>TN-S</code> и <code>TT</code>, а также покажем, какие ошибки приводят к поражению током или выходу техники из строя.</p>
+
+<p>Сразу предупредим: <mark>в современных системах TN-S и TT объединять N и PE в щитке категорически запрещено</mark> — это нарушает принцип разделения защитного и рабочего нуля. Однако в унаследованных сетях <code>TN-C</code> (где ноль и земля совмещены в <em>PEN-проводнике</em>) иногда приходится идти на компромиссы. Главное — понимать последствия и соблюдать меры безопасности.</p>
+
+<p>Статья будет полезна:</p>
+<ul>
+  <li>🏠 Владельцам частных домов и дач с устаревшей электропроводкой</li>
+  <li>🔧 Электрикам, монтирующим щиты в квартирах со схемой <code>TN-C</code></li>
+  <li>💡 Тем, кто хочет разобраться в различиях между <strong>занулением</strong> и <strong>заземлением</strong></li>
+  <li>⚡ Специалистам, проверяющим электробезопасность на объектах</li>
+</ul>
+
+<div class="poll-widget" id="poll-6e18e373"><div class="poll-widget-question">📊 Какая система заземления у вас в доме?</div><div class="poll-widget-option" data-poll="6e18e373" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">TN-C (старая двухпроводка)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6e18e373" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">TN-S (современная трёхпроводка)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6e18e373" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">TT (индивидуальный контур)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6e18e373" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6e18e373" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Другая</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="1-почему-вообще-возникает-идея-соединить-ноль-с-землёй">1. Почему вообще возникает идея соединить ноль с землёй?</h2>
+
+<p>В 90% случаев желание объединить <strong>N</strong> и <strong>PE</strong> возникает из-за двух проблем:</p>
+
+<ol>
+  <li><strong>Устаревшая схема <code>TN-C</code></strong> — когда в дом заходит только два провода: фаза (<code>L</code>) и совмещённый ноль/земля (<code>PEN</code>). В таких случаях хозяева пытаются "разделить" <em>PEN</em> на <em>N</em> и <em>PE</em> прямо в щитке, чтобы подключить современные розетки с заземлением.</li>
+  <li><strong>Отсутствие заземляющего контура</strong> — в частных домах или на дачах, где нет организованного заземления, владельцы ищут "быстрые решения", не понимая рисков.</li>
+</ol>
+
+<p>На практике это выглядит так: в щитке ставят перемычку между шиной рабочего нуля и шиной заземления. Казалось бы, проблема решена — в розетках появляется "земля". Но здесь кроются <mark>три критические опасности</mark>:</p>
+
+<ul>
+  <li>🔌 <strong>Потеря защиты при обрыве PEN</strong> — если нулевой провод отгорит на подстанции, корпуса приборов окажутся под напряжением 220В.</li>
+  <li>⚡ <strong>Удар током при КЗ</strong> — в случае короткого замыкания фазы на корпус ток пойдёт через "землю" обратно в ноль, что может привести к поражению.</li>
+  <li>🔥 <strong>Выгорание нейтрали</strong> — из-за неравномерной нагрузки по фазам в <code>PEN</code>-проводнике возникают токи утечки, которые греют соединения.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> В многоквартирных домах с системой <code>TN-C</code> (типично для хрущёвок и сталинок) самостоятельное разделение <em>PEN</em> на <em>N</em> и <em>PE</em> в квартирном щитке <strong>запрещено</strong> без согласования с управляющей компанией. Это может привести к аварии на всём стояке!</blockquote>
+
+<h2 id="2-нормативная-база-что-говорит-пуэ-и-гост">2. Нормативная база: что говорит ПУЭ и ГОСТ?</h2>
+
+<p>Основные документы, регулирующие соединение нуля и земли:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Документ</th>
+      <th>Пункт</th>
+      <th>Суть требования</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>ПУЭ 7</em></td>
+      <td>1.7.132</td>
+      <td>В системе <code>TN</code> открытые проводящие части должны быть соединены с заземлённой нейтралью источника (<strong>зануление</strong>).</td>
+    </tr>
+    <tr>
+      <td><em>ПУЭ 7</em></td>
+      <td>1.7.135</td>
+      <td>В системе <code>TT</code> открытые проводящие части заземляются независимо от заземления нейтрали.</td>
+    </tr>
+    <tr>
+      <td><em>ГОСТ Р 50571.2-94</em></td>
+      <td>413.1.3.1</td>
+      <td>В системе <code>TN-S</code> <strong>запрещено</strong> объединять <em>N</em> и <em>PE</em> после точки их разделения.</td>
+    </tr>
+    <tr>
+      <td><em>ГОСТ 30331.1-95</em></td>
+      <td>4.4.2</td>
+      <td>В электроустановках до 1 кВ с глухозаземлённой нейтралью <em>PEN-проводник</em> должен быть повторно заземлён на вводе в здание.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ключевой вывод: <strong>объединение N и PE разрешено только в одной точке</strong> — на вводном распределительном устройстве (ВРУ) здания. Далее по схеме они должны идти раздельно. Исключение — система <code>TN-C</code>, где <em>PEN</em> не разделяется вообще.</p>
+
+<p>При этом даже в <code>TN-C</code> есть жёсткие ограничения:</p>
+<ul>
+  <li>📌 <strong>Повторное заземление PEN</strong> обязательно на вводе в здание (сопротивление не более 30 Ом).</li>
+  <li>📌 <strong>Сечение PEN-проводника</strong> должно быть не меньше 10 мм² для меди или 16 мм² для алюминия.</li>
+  <li>📌 <strong>Запрещено</strong> использовать <em>PEN</em> в качестве <em>PE</em> для розеток в ванных комнатах и других помещениях с повышенной опасностью.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> В частных домах с системой <code>TT</code> (где заземление сделано через индивидуальный контур) <strong>категорически запрещено</strong> соединять <em>PE</em> с <em>N</em>. Это приведёт к ложным срабатываниям УЗО и риску поражения током.</blockquote>
+
+<h2 id="3-когда-соединение-n-и-pe-допустимо-и-как-это-делать-правильно">3. Когда соединение N и PE допустимо (и как это делать правильно)?</h2>
+
+<p>Есть <strong>единственный легальный случай</strong>, когда ноль и земля соединяются — это <strong>повторное заземление PEN-проводника</strong> на вводе в здание. Но и здесь есть нюансы:</p>
+
+
+<p>Сечение заземляющего проводника ≥ 6 мм² (медь) или 16 мм² (алюминий)|</p>
+<p>Сопротивление заземляющего устройства ≤ 30 Ом|</p>
+<p>Заземлитель должен быть расположен не дальше 5 м от ввода в здание|</p>
+<p>Соединение PEN с заземлителем выполняется <strong>до</strong> вводного автомата|</p>
+<p>Материал заземлителя — сталь (оцинкованная или покрытая медью) длиной ≥ 2.5 м--></p>
+
+<p>На практике это выглядит так:</p>
+<ol>
+  <li>На опоре линии электропередачи (ЛЭП) или на стене дома устанавливается <em>контур заземления</em> (например, три металлических стержня, соединённых полосой).</li>
+  <li><em>PEN-проводник</em> от ЛЭП подключается к главной заземляющей шине (ГЗШ) в ВРУ.</li>
+  <li>От ГЗШ отдельными проводами идёт <em>N</em> (рабочий ноль) и <em>PE</em> (защитное заземление).</li>
+</ol>
+
+<p>Важно: после точки разделения <em>N</em> и <em>PE</em> <strong>не должны пересекаться</strong> нигде в доме! Иначе при обрыве нуля на корпусах приборов появится опасный потенциал.</p>
+
+<p>Пример правильной схемы для частного дома с системой <code>TN-C-S</code>:</p>
+<pre><code>
+<p>ЛЭП (PEN)</p>
+<p>│</p>
+<p>▼</p>
+<p>[Вводной автомат] → [ГЗШ] ――┬― [N-шина] → Рабочий ноль</p>
+<p>└― [PE-шина] → Защитное заземление</p>
+</code></pre>
+
+<p>Если у вас в доме <strong>уже разделены N и PE</strong> (система <code>TN-S</code> или <code>TN-C-S</code>), но вы обнаружили, что они где-то соединены — это <strong>грубая ошибка</strong>, которую нужно устранить. Исключение — специальные устройства, например, <em>реле контроля напряжения</em>, которые кратковременно замыкают ноль и землю для проверки цепи.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если в вашем щитке уже есть перемычка между N и PE, ни в коем случае не удаляйте её сразу! Сначала проверьте, не используется ли она для работы УЗО или диффавтоматов. Отключите все приборы и измерьте напряжение между N и PE — если оно больше 5В, значит, где-то в сети есть утечка, и разрыв соединения приведёт к аварии.</p></div>
+
+<h2 id="4-типичные-ошибки-и-их-последствия">4. Типичные ошибки и их последствия</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки при работе с нулем и землёй. Рассмотрим самые опасные из них:</p>
+
+<h3>Ошибка 1: Соединение N и PE в розетке</h3>
+<p>Некоторые "мастера" в двухпроводных домах (<code>TN-C</code>) подключают заземляющий контакт розетки к рабочему нулю. Это приводит к:</p>
+<ul>
+  <li>🔌 Поражению током при прикосновении к корпусу прибора, если обгорит ноль на подстанции.</li>
+  <li>📉 Ложным срабатываниям УЗО (если оно установлено).</li>
+  <li>🔥 Пожару из-за перегрева нулевого провода при неравномерной нагрузке.</li>
+</ul>
+
+<h3>Ошибка 2: Заземление на трубы отопления или водопровод</h3>
+<p>В старых домах часто можно встретить "заземление" через батареи или водопроводные трубы. Это смертельно опасно:</p>
+<ul>
+  <li>💀 При пробое фазы на корпус стиральной машины ток пойдёт по трубам, и ваши соседи могут получить удар через кран.</li>
+  <li>🚫 Нарушаются нормы <em>ПУЭ 1.7.110</em>, запрещающие использовать трубопроводы в качестве заземлителей.</li>
+  <li>🔧 При ремонте труб (замена на пластик) заземление пропадёт, но розетки останутся "подключёнными" к несуществующей земле.</li>
+</ul>
+
+<h3>Ошибка 3: Неправильное разделение PEN в щитке</h3>
+<p>Если разделить <em>PEN</em> на <em>N</em> и <em>PE</em> <strong>после</strong> вводного автомата или счетчика, это приведёт к:</p>
+<ul>
+  <li>⚡ Потере защиты при обрыве <em>PEN</em> до точки разделения.</li>
+  <li>📊 Неправильной работе УЗО и диффавтоматов.</li>
+  <li>🔌 Возникновению блуждающих токов в металлических корпусах приборов.</li>
+</ul>
+
+<p>Правильное разделение <em>PEN</em> должно выглядеть так:</p>
+<pre><code>
+<p>[Вводной кабель PEN]</p>
+<p>│</p>
+<p>▼</p>
+<p>[Главная заземляющая шина (ГЗШ)] ――┬― [N] → Счётчик → Автоматы</p>
+<p>└― [PE] → Заземляющие проводники</p>
+</code></pre>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если в вашем щитке установлено УЗО, а ноль и земля где-то соединены, устройство будет <strong>ложно срабатывать</strong> при включении любой нагрузки. Это признак неправильного монтажа!</blockquote>
+
+<h2 id="5-как-проверить-соединены-ли-ноль-и-земля-в-вашей-сети">5. Как проверить, соединены ли ноль и земля в вашей сети?</h2>
+
+<p>Если вы подозреваете, что в вашем щитке или проводке ноль и земля соединены, есть несколько способов это проверить:</p>
+
+<h3>Способ 1: Визуальный осмотр щитка</h3>
+<p>Откройте электрощит и обратите внимание:</p>
+<ul>
+  <li>🔍 Есть ли <strong>перемычка</strong> между шиной рабочего нуля (<em>N</em>) и шиной заземления (<em>PE</em>)?</li>
+  <li>🔍 Подключены ли к одной шине и синие (<em>N</em>), и жёлто-зелёные (<em>PE</em>) провода?</li>
+  <li>🔍 Есть ли на вводе <em>главная заземляющая шина (ГЗШ)</em> с подключённым заземляющим проводником от контура?</li>
+</ul>
+
+<h3>Способ 2: Проверка мультиметром</h3>
+<p>Возьмите мультиметр и выполните следующие замеры:</p>
+<ol>
+  <li>Измерьте напряжение между <strong>фазой и нулем (L-N)</strong> — должно быть ~220В.</li>
+  <li>Измерьте напряжение между <strong>фазой и землёй (L-PE)</strong> — должно быть ~220В.</li>
+  <li>Измерьте напряжение между <strong>нулем и землёй (N-PE)</strong>:
+    <ul>
+      <li>Если <strong>0В</strong> — ноль и земля соединены (или заземление не работает).</li>
+      <li>Если <strong>0.5–5В</strong> — это норма для <code>TN-S</code> или <code>TN-C-S</code>.</li>
+      <li>Если <strong>>10В</strong> — в сети есть утечка или обрыв нуля!</li>
+    </ol>
+  </li>
+</ol>
+
+<details class="faq-item"><summary>Что делать, если между N и PE напряжение 100–220В?</summary><div class="faq-answer"><p>
+<p>Это означает, что <strong>оборван нулевой провод</strong> на вводе в дом или на трансформаторной подстанции. Немедленно отключите все приборы от сети и вызовите электрика! Прикосновение к корпусам приборов в этом случае равносильно прикосновению к фазе!</p></div></details></p>
+
+<h3>Способ 3: Проверка индикаторной отвёрткой</h3>
+<p>Если мультиметра нет, можно использовать индикаторную отвёртку:</p>
+<ol>
+  <li>Прикоснитесь индикатором к <strong>фазе (L)</strong> — он должен светиться.</li>
+  <li>Прикоснитесь к <strong>нулю (N)</strong> — он <strong>не должен</strong> светиться.</li>
+  <li>Прикоснитесь к <strong>земле (PE)</strong>:
+    <ul>
+      <li>Если <strong>светится</strong> — ноль и земля соединены, либо есть утечка фазы на корпус.</li>
+      <li>Если <strong>не светится</strong> — заземление в порядке (при условии, что оно правильно смонтировано).</li>
+    </ol>
+  </li>
+</ol>
+
+<p>Если индикатор светится на <em>PE</em>, это <strong>не всегда означает ошибку</strong>. Например, в системе <code>TN-C-S</code> после повторного заземления <em>PEN</em> на вводе небольшое напряжение на <em>PE</em> может появляться из-за токов утечки. Но если напряжение превышает 10В — это повод для беспокойства.</p>
+
+<h2 id="6-что-делать-если-в-доме-нет-заземления">6. Что делать, если в доме нет заземления?</h2>
+
+<p>Если у вас старая двухпроводная сеть (<code>TN-C</code>) и нет возможности перейти на <code>TN-S</code> или <code>TT</code>, есть несколько решений:</p>
+
+<h3>Решение 1: Установка УЗО</h3>
+<p>Устройство защитного отключения (УЗО) не заменяет заземление, но <strong>снижает риск поражения током</strong>. Принцип работы:</p>
+<ul>
+  <li>🔄 Сравнивает ток в фазе и нуле.</li>
+  <li>⚡ Если есть утечка (например, фаза пробила на корпус стиральной машины), УЗО отключает питание.</li>
+</ul>
+<p>Для защиты розеток выбирайте УЗО с током утечки <strong>10–30 мА</strong>.</p>
+
+<h3>Решение 2: Монтаж индивидуального заземляющего контура (<code>TT</code>)</h3>
+<p>В частном доме можно сделать свой контур заземления:</p>
+<ul>
+  <li>🏗️ Вкапываете в землю три металлических стержня (длиной 2–3 м) на расстоянии 1.5–2 м друг от друга.</li>
+  <li>🔗 Соединяете их стальной полосой (40×4 мм).</li>
+  <li>🔌 Подключаете к главной заземляющей шине в щитке.</li>
+</ul>
+<p>Важно: в системе <code>TT</code> <strong>обязательно</strong> устанавливать УЗО на все группы!</p>
+
+<h3>Решение 3: Переход на <code>TN-C-S</code> (разделение PEN)</h3>
+<p>Если в ваш дом заходит <em>PEN-проводник</em>, его можно разделить на <em>N</em> и <em>PE</em> <strong>только на вводе</strong>:</p>
+<ol>
+  <li>Устанавливаете <em>главную заземляющую шину (ГЗШ)</em>.</li>
+  <li>Подключаете к ней <em>PEN</em> от ввода и заземляющий проводник от контура.</li>
+  <li>От ГЗШ отдельными проводами ведёте <em>N</em> (к счётчику) и <em>PE</em> (к заземляющим контактам розеток).</li>
+</ol>
+
+<p>Это решение требует согласования с энергоснабжающей организацией!</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> В многоквартирных домах самостоятельное разделение <em>PEN</em> в квартирном щитке <strong>запрещено</strong>. Это может привести к аварии на всём стояке! Решение должно приниматься на уровне всего дома (например, модернизация до <code>TN-C-S</code> с повторным заземлением на вводе).</blockquote>
+
+<h2 id="7-мифы-и-заблуждения-о-соединении-нуля-и-земли">7. Мифы и заблуждения о соединении нуля и земли</h2>
+
+<p>Вокруг темы заземления ходит множество мифов. Разберём самые распространённые:</p>
+
+<h3>Миф 1: "Соединение N и PE улучшает защиту"</h3>
+<p>На самом деле:</p>
+<ul>
+  <li>❌ В системе <code>TN-S</code> это приводит к <strong>ложным срабатываниям УЗО</strong>.</li>
+  <li>❌ В системе <code>TN-C</code> это <strong>не даёт никакой защиты</strong>, а только маскирует проблемы.</li>
+  <li>✅ Правильное решение — <strong>разделение PEN на вводе</strong> с повторным заземлением.</li>
+</ul>
+
+<h3>Миф 2: "Заземление через трубы отопления безопасно"</h3>
+<p>Реальность:</p>
+<ul>
+  <li>⚡ При пробое фазы на корпус ток пойдёт по трубам, и ваши соседи могут получить удар через кран или батарею.</li>
+  <li>🔧 При замене металлических труб на пластик заземление пропадёт, но розетки останутся "подключёнными" к несуществующей земле.</li>
+  <li>📜 Это прямое нарушение <em>ПУЭ 1.7.110</em>.</li>
+</ul>
+
+<h3>Миф 3: "УЗО защищает даже без заземления"</h3>
+<p>Частично верно, но:</p>
+<ul>
+  <li>✅ УЗО сработает при <strong>прямом прикосновении</strong> к фазе (если ток утечки превысит порог).</li>
+  <li>❌ УЗО <strong>не сработает</strong>, если фаза пробьёт на корпус прибора, но никто к нему не прикасается (пожарная опасность!).</li>
+  <li>✅ Заземление + УЗО дают <strong>максимальную защиту</strong>.</li>
+</ul>
+
+<h3>Миф 4: "В старых домах заземление не нужно"</h3>
+<p>Это опасное заблуждение:</p>
+<ul>
+  <li>📺 Современная техника (стиральные машины, компьютеры, холодильники) требует заземления для корректной работы.</li>
+  <li>⚡ Без заземления риск поражения током при пробое изоляции возрастает в разы.</li>
+  <li>🔥 Отсутствие заземления увеличивает вероятность пожара из-за утечек тока.</li>
+</ul>
+
+<p>Если в вашем доме старая проводка, это не значит, что нужно мириться с отсутствием защиты. Решения есть — от установки УЗО до модернизации системы до <code>TN-C-S</code>.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Соединение нуля и земли оправдано <strong>только в одной точке</strong> — на вводе в здание при переходе с <code>TN-C</code> на <code>TN-C-S</code>. Во всех других случаях это нарушение норм безопасности, ведущее к риску поражения током или пожара.</p></div>
+
+<h2 id="faq-частые-вопросы-о-соединении-нуля-и-земли">FAQ: Частые вопросы о соединении нуля и земли</h2>
+
+<details>
+  <summary>❓ Можно ли соединять ноль и землю в щитке, если у меня система <code>TN-C</code>?</summary>
+  <p>Нет, даже в <code>TN-C</code> <strong>нельзя</strong> соединять <em>N</em> и <em>PE</em> в квартирном щитке. Единственное допустимое место для разделения <em>PEN</em> — <strong>вводное распределительное устройство (ВРУ)</strong> дома. В квартире такое соединение приведёт к риску поражения током при обрыве нуля на стояке.</p>
+</details>
+
+<details>
+  <summary>❓ Что будет, если в розетке перепутать ноль и землю?</summary>
+  <p>Если в розетке <strong>поменять местами N и PE</strong>, то:</p>
+  <ul>
+    <li>🔌 Приборы будут работать (если ноль исправен).</li>
+    <li>⚡ Но при обрыве нуля корпуса приборов окажутся под напряжением 220В!</li>
+    <li>📉 УЗО может ложно срабатывать.</li>
+  </ul>
+  <p>Это <strong>грубая ошибка</strong>, которую нужно исправить.</p>
+</details>
+
+<details>
+  <summary>❓ Почему между нулем и землёй появляется напряжение?</summary>
+  <p>Напряжение между <em>N</em> и <em>PE</em> (обычно 1–10В) возникает из-за:</p>
+  <ul>
+    <li>🔌 <strong>Токов утечки</strong> в сети (например, через фильтры помех в блоках питания).</li>
+    <li>📉 <strong>Неравномерной нагрузки</strong> по фазам (в трёхфазных сетях).</li>
+    <li>⚡ <strong>Повреждения изоляции</strong> где-то в проводке.</li>
+  </ul>
+  <p>Если напряжение превышает 10В — это признак <strong>серьёзной проблемы</strong> (обрыв нуля или утечка фазы).</p>
+</details>
+
+<details>
+  <summary>❓ Как правильно заземлить стиральную машину, если в доме нет заземления?</summary>
+  <p>Варианты (от лучшего к худшему):</p>
+  <ol>
+    <li>🏠 <strong>Сделать индивидуальный контур заземления</strong> (для частного дома).</li>
+    <li>🔌 <strong>Установить УЗО 10 мА</strong> на розетку стиральной машины.</li>
+    <li>⚡ <strong>Использовать розетку с <em>защитным отключением</strong></strong> (встроенное УЗО).</li>
+    <li>❌ <strong>Не подключать</strong> заземляющий контакт к трубам или нулю — это опасно!</li>
+  </ol>
+</details>
+
+<details>
+  <summary>❓ Можно ли использовать УЗО вместо заземления?</summary>
+  <p>УЗО <strong>не заменяет</strong> заземление, но <strong>дополняет</strong> его. Разница:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Заземление</th>
+        <th>УЗО</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Отводит ток утечки в землю.</td>
+        <td>Отключает питание при утечке.</td>
+      </tr>
+      <tr>
+        <td>Защищает от пожара при пробое изоляции.</td>
+        <td>Не защищает от пожара, если утечка мала (например, через пыль).</td>
+      </tr>
+      <tr>
+        <td>Не срабатывает при прямом прикосновении к фазе.</td>
+        <td>Срабатывает при прикосновении (если ток утечки > порога).</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Идеально — <strong>использовать и заземление, и УЗО</em>.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-почему-вообще-возникает-идея-соединить-ноль-с-землёй">1. Почему вообще возникает идея соединить ноль с землёй?</a></li><li><a href="#2-нормативная-база-что-говорит-пуэ-и-гост">2. Нормативная база: что говорит ПУЭ и ГОСТ?</a></li><li><a href="#3-когда-соединение-n-и-pe-допустимо-и-как-это-делать-правильно">3. Когда соединение N и PE допустимо (и как это делать правильно)?</a></li><li><a href="#4-типичные-ошибки-и-их-последствия">4. Типичные ошибки и их последствия</a></li><li><a href="#5-как-проверить-соединены-ли-ноль-и-земля-в-вашей-сети">5. Как проверить, соединены ли ноль и земля в вашей сети?</a></li><li><a href="#6-что-делать-если-в-доме-нет-заземления">6. Что делать, если в доме нет заземления?</a></li><li><a href="#7-мифы-и-заблуждения-о-соединении-нуля-и-земли">7. Мифы и заблуждения о соединении нуля и земли</a></li><li><a href="#faq-частые-вопросы-о-соединении-нуля-и-земли">FAQ: Частые вопросы о соединении нуля и земли</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/m/mo/mozhno-li-stavit-uzo-bez-zazemleniya-v-kvartire.html" class="related-card">Можно ли ставить УЗО без заземления в квартире? Ответ эксперта</a></li><li><a href="/articles/s/sp/spaset-li-uzo-ot-udara-tokom.html" class="related-card">Спасёт ли УЗО от удара током? Разбираем мифы и факты</a></li><li><a href="/articles/z/za/zazemlenie-na-vilke.html" class="related-card">Заземление на вилке: как проверить и подключить правильно</a></li><li><a href="/articles/m/mo/mozhno-li-postavit-rozetku-bez-zazemleniya-vmesto-rozetki-s-zazemleniem.html" class="related-card">Можно ли ставить розетку без заземления вместо заземленной?</a></li><li><a href="/articles/p/po/podklyuchenie-difavtomata-v-odnofaznoj-seti-bez-zazemleniya.html" class="related-card">Подключение дифавтомата в однофазной сети без заземления: схема и правила</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/m/mo/mozhno-li-stavit-uzo-bez-zazemleniya-v-kvartire.html" class="related-bottom-card"><span class="related-bottom-title">Можно ли ставить УЗО без заземления в квартире? Ответ эксперта</span><span class="related-bottom-desc">Разбираемся, работает ли УЗО без заземления в квартире, как правильно подключить и какие риски возни</span></a><a href="/articles/s/sp/spaset-li-uzo-ot-udara-tokom.html" class="related-bottom-card"><span class="related-bottom-title">Спасёт ли УЗО от удара током? Разбираем мифы и факты</span><span class="related-bottom-desc">УЗО защищает от поражения электрическим током — но не всегда. Узнайте, в каких случаях устройство ср</span></a><a href="/articles/z/za/zazemlenie-na-vilke.html" class="related-bottom-card"><span class="related-bottom-title">Заземление на вилке: как проверить и подключить правильно</span><span class="related-bottom-desc">Разбираемся, зачем нужно заземление на вилке, как его проверить мультиметром и что делать, если конт</span></a><a href="/articles/m/mo/mozhno-li-postavit-rozetku-bez-zazemleniya-vmesto-rozetki-s-zazemleniem.html" class="related-bottom-card"><span class="related-bottom-title">Можно ли ставить розетку без заземления вместо заземленной?</span><span class="related-bottom-desc">Замена розетки с заземлением на обычную: риски, схемы подключения и правила безопасности. Ответы экс</span></a><a href="/articles/p/po/podklyuchenie-difavtomata-v-odnofaznoj-seti-bez-zazemleniya.html" class="related-bottom-card"><span class="related-bottom-title">Подключение дифавтомата в однофазной сети без заземления: схема и правила</span><span class="related-bottom-desc">Подробная инструкция по монтажу дифференциального автомата в сети TN-C. Схема подключения, выбор УЗО</span></a><a href="/articles/z/za/zachem-nuzhno-zazemlenie-v-rozetke-prostymi-slovami.html" class="related-bottom-card"><span class="related-bottom-title">Зачем нужно заземление в розетке: просто о сложном</span><span class="related-bottom-desc">Разбираемся, почему заземление в розетке — не прихоть, а необходимость для безопасности. Простыми сл</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

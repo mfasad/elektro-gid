@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Разогнал процессор и выбивает пробки: поиск неисправности — Электро Гид</title>
+    <meta name="description" content="Почему выбивает автомат после разгона CPU? Реальные причины, диагностика БП, КЗ в сокете и защита сети от перегрузки.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/r/ra/razognal-protsessor-vybivaet-probki.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Разогнал процессор и выбивает пробки: поиск неисправности">
+    <meta property="og:description" content="Почему выбивает автомат после разгона CPU? Реальные причины, диагностика БП, КЗ в сокете и защита сети от перегрузки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/poisk-neispravnostej/">Поиск неисправностей</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Разогнал процессор и выбивает пробки: поиск неисправности</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Разогнал процессор и выбивает пробки: поиск неисправности</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#физика-процесса-почему-растет-ток-потребления">Физика процесса: почему растет ток потребления</a></li><li><a href="#дифференциация-проблемы-пк-или-проводка">Дифференциация проблемы: ПК или проводка?</a></li><li><a href="#неисправности-блока-питания-как-основная-причина">Неисправности блока питания как основная причина</a></li><li><a href="#короткое-замыкание-в-сокете-и-на-материнской-плате">Короткое замыкание в сокете и на материнской плате</a></li><li><a href="#слабость-домашней-проводки-и-автоматов">Слабость домашней проводки и автоматов</a></li><li><a href="#практические-шаги-по-устранению-и-таблица-диагностики">Практические шаги по устранению и таблица диагностики</a></li><li><a href="#безопасность-и-итоговые-рекомендации">Безопасность и итоговые рекомендации</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Ситуация, когда после внесения изменений в BIOS и разгона процессора в квартире гаснет свет, а щиток щелкает, выбивая автомат, вызывает панику даже у опытных энтузиастов. Это не просто программный сбой или синий экран смерти, это физическая реакция домашней электросети на аномалию. Компьютер перестал быть просто устройством, потребляющим энергию, и превратился в источник опасности или критической перегрузки для проводки.</p>
+
+<p>Многие ошибочно полагают, что разгон влияет только на стабильность работы Windows или температуру кулера, забывая о фундаментальных законах физики. Увеличение напряжения на ядре и повышение частоты шины ведут к экспоненциальному росту энергопотребления. Если ваша домашняя сеть слабая, а блок питания компьютера не имеет запаса мощности, система защиты реагирует мгновенно.</p>
+
+<p>В этой статье мы детально разберем, почему <strong>разогнанный процессор</strong> может стать причиной выбивания пробок, как отличить программный краш от реального короткого замыкания и что делать, если автомат на щитке сработал именно в момент стресс-теста. Мы рассмотрим технические аспекты работы импульсных блоков питания и их влияние на домовую сеть.</p>
+
+<h2 id="физика-процесса-почему-растет-ток-потребления">Физика процесса: почему растет ток потребления</h2>
+
+<p>Когда вы повышаете частоту <em>CPU</em>, транзисторы внутри кристалла должны переключаться быстрее. Для обеспечения стабельного переключения при высоких частотах необходимо повышать напряжение. Формула мощности гласит, что потребление энергии растет пропорционально квадрату напряжения и линейно зависит от частоты. Даже небольшое увеличение вольтажа в BIOS может привести к скачку потребления на 50-100 Ватт.</p>
+
+<p>Если ваш <strong>блок питания</strong> (БП) работал на пределе своих возможностей до разгона, то после него он попытается выдать ток, превышающий его номинал. В дешевых моделях без качественной защиты это может привести к просадкам напряжения во всей сети, что воспринимается автоматическим выключателем как аварийная ситуация. Особенно критичны скачки тока в момент включения или резкого изменения нагрузки.</p>
+
+<p>Существует также понятие <em>пускового тока</em>. При разгоне процессора скачки потребления могут быть настолько резкими и глубокими, что вызывают гармоники в сети. Автоматические выключатели типа <code>C</code> или <code>B</code>, установленные в квартирах, чувствительны не только к длительной перегрузке, но и к резким броскам тока, которые могут имитировать короткое замыкание.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте ваттметр (розетку с счетчиком) перед разгоном, чтобы знать реальное потребление вашей системы в пике и иметь запас по мощности у автомата.</p></div>
+
+<h2 id="дифференциация-проблемы-пк-или-проводка">Дифференциация проблемы: ПК или проводка?</h2>
+
+<p>Первое, что нужно понять, — выбивает ли автомат именно из-за компьютера или совпадение произошло с включением другой мощной нагрузки. Если свет гаснет во всем доме или квартире одновременно с запуском стресс-теста (например, <em>Prime95</em> или <em>AIDA64</em>), проблема почти наверняка в суммарной нагрузке. Однако, если выбивает только УЗО (устройство защитного отключения), а не автомат по току, это указывает на утечку тока.</p>
+
+<p>Утечка тока часто возникает при повреждении изоляции внутри блока питания или при пробое на корпус. Разгон увеличивает нагрев компонентов БП, что может привести к тепловому расширению и контакту высоковольтной части с заземлением. В этом случае срабатывает защита от поражения электрическим током, а не от перегрузки. Это более опасная ситуация, требующая немедленного отключения устройства от сети.</p>
+
+<p>Для диагностики попробуйте подключить компьютер в другую розетку, желательно на другую фазу или через удлинитель с собственной защитой. Если ситуация повторяется, проверьте, не греется ли вилка блока питания или розетка. Нагрев контактов — верный признак плохого соединения, которое при возросшем токе разгона начинает искрить и вызывать срабатывание защиты.</p>
+
+<div class="poll-widget" id="poll-dc1f755a"><div class="poll-widget-question">📊 Что происходит у вас при разгоне?</div><div class="poll-widget-option" data-poll="dc1f755a" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Выбивает автомат в щитке</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="dc1f755a" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Вырубается только ПК</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="dc1f755a" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Срабатывает УЗО (кнопка Тест)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="dc1f755a" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Ничего не происходит</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="неисправности-блока-питания-как-основная-причина">Неисправности блока питания как основная причина</h2>
+
+<p>Блок питания — это сердце системы, и именно он принимает на себя удар при разгоне. Дешевые модели часто не имеют реальных заявленных характеристик. Если на наклейке написано 500 Вт, это не значит, что блок отдаст их в пике. При разгоне процессора потребление по линии <code>+12V</code> резко возрастает. Если БП не может обеспечить нужный ток, он уходит в защиту, но иногда этот уход в защиту сопровождается броском тока в первичную сеть (220В), что и выбивает пробки.</p>
+
+<p>Внутри блока питания находятся конденсаторы, которые со временем высыхают. При штатной работе они еще справляются, но при повышенной нагрузке от разогнанного CPU их емкость падает, и они не могут сглаживать пульсации. Это приводит к тому, что блок питания начинает потреблять ток рывками, создавая помехи и перегрузку для автомата. Старый или некачественный <strong>импульсный блок</strong> — главный кандидат на замену.</p>
+
+<p>Также стоит обратить внимание на систему <em>PFC</em> (коррекция коэффициента мощности). В бюджетных БП она может работать некорректно при высоких нагрузках, создавая перекос фаз или генерируя реактивную мощность, на которую чувствительны некоторые типы автоматических выключателей. Если ваш автомат чувствителен к реактивной составляющей, он может сработать даже без реальной перегрузки по активной мощности.</p>
+
+<details class="faq-item"><summary>Как проверить БП без замены?</summary><div class="faq-answer"><p>Существует метод"скрепки", замыкающий зеленый и черный контакты в разъеме 24-pin для запуска БП без материнской платы. Однако он проверяет только старт, а не работу под нагрузкой. Для точной диагностики нужен нагрузочный стенд или замена на заведомо исправный мощный блок.</p></div></details>
+
+<h2 id="короткое-замыкание-в-сокете-и-на-материнской-плате">Короткое замыкание в сокете и на материнской плате</h2>
+
+<p>Самый страшный сценарий — физическое повреждение процессора или сокета. При экстремальном разгоне с повышением напряжения существует риск теплового пробоя транзисторов внутри CPU. Если происходит короткое замыкание внутри процессора, блок питания пытается отдать огромный ток. Современные БП имеют защиту <em>OCP</em> (Over Current Protection), но она может сработать не мгновенно, и скачок тока уйдет в сеть, выбивая автомат.</p>
+
+<p>Еще одна причина — некачественная система питания материнской платы (<em>VRM</em>). При разгоне через фазы питания процессора проходят токи в десятки ампер. Если компоненты VRM (мосфеты, дроссели) перегреваются или имеют дефект, может произойти их пробой. В результате напряжение с линии 12В может попасть на низковольтные части платы или даже на корпус, вызывая короткое замыкание.</p>
+
+<p>Внимательно осмотрите сокет процессора. При установке тяжелых систем охлаждения или неаккуратном монтаже можно повредить ножки (в сокетах Intel) или контакты в процессоре (AMD AM4/AM5). Микроскопическое замыкание соседних контактов при подаче высокого напряжения разгона гарантированно приведет к аварийному отключению электричества. В этом случае <mark>замена процессора может не помочь, если пробой прошел на материнскую плату</mark>.</p>
+
+<div class="checklist-block"><h4>☑️ Диагностика КЗ</h4><label class="check-item"><input type="checkbox"><span>Выключить ПК из розетки</span></label><label class="check-item"><input type="checkbox"><span>Снять боковую крышку</span></label><label class="check-item"><input type="checkbox"><span>Осмотреть сокет на загнутые ножки</span></label><label class="check-item"><input type="checkbox"><span>Проверить запах гари около VRM</span></label><label class="check-item"><input type="checkbox"><span>Попробовать запустить без процессора (если поддерживает BIOS)</span></label><label class="check-item"><input type="checkbox"><span>Замерить сопротивление мультиметром</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 6</div></div>
+
+<h2 id="слабость-домашней-проводки-и-автоматов">Слабость домашней проводки и автоматов</h2>
+
+<p>Не стоит сбрасывать со счетов состояние самой электропроводки. В старых домах алюминиевая проводка не рассчитана на современные нагрузки. Один современный игровой ПК с разогнанным процессором и видеокартой может потреблять 400-600 Вт, а в пике — еще больше. Если на этой же линии (в одной комнате) работают другие приборы, суммарный ток может превысить номинал автомата (обычно 16А).</p>
+
+<p>Автоматические выключатели имеют время-токовую характеристику. Автомат типа <code>C16</code> может выдержать кратковременную перегрузку, но если разгон процессора вызывает постоянную работу на пределе, тепловой расцепитель внутри автомата нагревается и размыкает цепь. Это штатная работа защиты, предотвращающая пожар. В данном случае проблема не в ПК, а в том, что проводка не выдерживает такую мощность.</p>
+
+<p>Также возможен плохой контакт в самом автомате или в распределительной коробке. Окисленные контакты имеют высокое переходное сопротивление. При увеличении тока от разогнанного компьютера место плохого контакта начинает греться, что может привести к тепловой защите или даже оплавлению, что спровоцирует выбивание пробок. Проверка затяжки винтов в щитке — обязательная процедура.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если автомат выбивает только при разгоне, значит, ваша проводка или автомат не имеют запаса мощности для экстремальных режимов работы ПК.</p></div>
+
+<h2 id="практические-шаги-по-устранению-и-таблица-диагностики">Практические шаги по устранению и таблица диагностики</h2>
+
+<p>Для решения проблемы необходимо действовать методично. Сначала верните настройки BIOS к заводским (<em>Load Optimized Defaults</em>). Если свет перестало выбивать, значит, причина именно в разгоне. Далее следует проверить температуру компонентов и потребление. Используйте программы мониторинга, но помните, что они показывают программные значения. Реальную картину даст только мультиметр или ваттметр.</p>
+
+<p>Если проблема сохраняется даже на стандартных частотах, но только под нагрузкой, замените блок питания на более мощный и качественный (сертификат <em>80 Plus Gold</em> или выше). Убедитесь, что все кабели плотно сидят в разъемах. Проверьте розетку: она не должна греться. Если автомат старый (советский или просто очень старый современный), замените его на новый с характеристикой <code>C</code>.</p>
+
+<p>Ниже приведена таблица, помогающая классифицировать симптомы и найти корень проблемы:</p>
+
+<table>
+<thead>
+<tr>
+<th>Симптом</th>
+<th>Вероятная причина</th>
+<th>Действие</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Выбивает сразу при включении ПК</td>
+<td>КЗ в БП или кабеле</td>
+<td>Замена кабеля питания, диагностика БП</td>
+</tr>
+<tr>
+<td>Выбивает только в играх/тестах</td>
+<td>Перегрузка по току</td>
+<td>Снизить разгон, проверить проводку</td>
+</tr>
+<tr>
+<td>Срабатывает УЗО (с кнопкой Тест)</td>
+<td>Утечка тока на корпус</td>
+<td>Срочно проверить заземление и БП</td>
+</tr>
+<tr>
+<td>Греется розетка или вилка</td>
+<td>Плохой контакт</td>
+<td>Замена розетки, подтяжка контактов</td>
+</tr>
+</tbody>
+</table>
+
+<details class="faq-item"><summary>Можно ли использовать стабилизатор?</summary><div class="faq-answer"><p>Стабилизатор напряжения может помочь, если проблема в низком напряжении сети, но он не спасет от короткого замыкания внутри ПК. Более того, дешевые релейные стабилизаторы сами могут создавать помехи. Лучше использовать качественный ИБП с синусоидой.</p></div></details>
+
+<h2 id="безопасность-и-итоговые-рекомендации">Безопасность и итоговые рекомендации</h2>
+
+<p>Эксперименты с разгоном всегда несут риски. Главное правило электробезопасности: если устройство вызывает срабатывание защиты, его дальнейшая эксплуатация без выяснения причины запрещена. Игнорирование выбивания автоматов может привести к возгоранию проводки внутри стен или полному выходу из строя дорогостоящего оборудования.</p>
+
+<p>Не используйте «жучки» или проволоку вместо предохранителей и не заклинивайте рычаг автомата в положении «включено». Это прямой путь к пожару. Если вы не обладаете навыками работы с электричеством, для проверки проводки и щитка пригласите профессионального электрика. Компьютер — это лишь нагрузка, и если сеть не держит нагрузку, менять нужно инфраструктуру, а не только настройки BIOS.</p>
+
+<p>В заключение: разгон — это тонкая настройка, требующая не только знаний софта, но и понимания (железа) и электрики. Начните с малого, следите за температурами и токами. Если ваш блок питания стар или проводка в доме оставляет желать лучшего, откажитесь от экстремального разгона. Стабильность и безопасность важнее лишних 10% производительности.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Самое безопасное решение — вернуть частоты к стоковым значениям и заменить блок питания на модель с запасом мощности 30-40%.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Может ли разгон процессора сжечь проводку в стене?</summary>
+<p>Сам по себе разгон не сжигает проводку, если она исправна и соответствует нормам. Однако, если проводка старая, алюминиевая или имеет плохие скрутки, возросший ток может вызвать нагрев в местах плохих контактов, что приведет к оплавлению изоляции и пожару. Автомат должен защитить проводку, но если он неисправен — риск велик.</p>
+</details>
+
+<details>
+<summary>Почему выбивает УЗО, а не автомат при разгоне?</summary>
+<p>УЗО срабатывает при утечке тока, то есть когда ток уходит не через ноль, а через землю (например, на корпус ПК или через человека). Это значит, что в блоке питания или материнской плате есть пробой изоляции, который усилился при повышении напряжения разгона. Это опаснее, чем простая перегрузка.</p>
+</details>
+
+<details>
+<summary>Какой запас мощности БП нужен для разгона?</summary>
+<p>Для стабильного разгона рекомендуется, чтобы блок питания был загружен не более чем на 70-80% от своей номинальной мощности в пике. Если система потребляет 400 Вт, БП должен быть минимум на 550-600 Вт, а лучше 650-700 Вт, чтобы иметь запас для скачков и работать в тихом режиме.</p>
+</details>
+
+<details>
+<summary>Опасно ли продолжать пользоваться ПК, если он выбивает пробки?</summary>
+<p>Категически опасно. Это сигнал о критической неисправности: либо коротком замыкании, либо перегрузке, которая может привести к пожару. Эксплуатацию нужно прекратить до полной диагностики электрической части и замены неисправных компонентов (БП, проводки, автомата).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#физика-процесса-почему-растет-ток-потребления">Физика процесса: почему растет ток потребления</a></li><li><a href="#дифференциация-проблемы-пк-или-проводка">Дифференциация проблемы: ПК или проводка?</a></li><li><a href="#неисправности-блока-питания-как-основная-причина">Неисправности блока питания как основная причина</a></li><li><a href="#короткое-замыкание-в-сокете-и-на-материнской-плате">Короткое замыкание в сокете и на материнской плате</a></li><li><a href="#слабость-домашней-проводки-и-автоматов">Слабость домашней проводки и автоматов</a></li><li><a href="#практические-шаги-по-устранению-и-таблица-диагностики">Практические шаги по устранению и таблица диагностики</a></li><li><a href="#безопасность-и-итоговые-рекомендации">Безопасность и итоговые рекомендации</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-najti-trubu-v-stene-s-pomoshchyu-smartfona.html" class="related-card">Как найти трубу в стене смартфоном: 5 работающих методов</a></li><li><a href="/articles/k/ka/kak-prosvetit-provoda-v-stene.html" class="related-card">Как найти провода в стене: 7 проверенных способов 2026</a></li><li><a href="/articles/s/sl/slozhnye-voprosy-po-elektrike.html" class="related-card">Сложные вопросы по электрике: ответы эксперта для дома и дачи</a></li><li><a href="/articles/k/ka/kak-uznat-napryazhenie-v-seti-doma.html" class="related-card">Как проверить напряжение в розетке дома: 5 безопасных способов</a></li><li><a href="/articles/k/ka/kak-proverit-obryv-provoda-multimetrom-na-avtomobile.html" class="related-card">Как проверить обрыв провода мультиметром в авто</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-najti-trubu-v-stene-s-pomoshchyu-smartfona.html" class="related-bottom-card"><span class="related-bottom-title">Как найти трубу в стене смартфоном: 5 работающих методов</span><span class="related-bottom-desc">Пошаговая инструкция с приложениями и лайфхаками, как обнаружить скрытые трубы в стене без детектора</span></a><a href="/articles/k/ka/kak-prosvetit-provoda-v-stene.html" class="related-bottom-card"><span class="related-bottom-title">Как найти провода в стене: 7 проверенных способов 2026</span><span class="related-bottom-desc">Пошаговая инструкция по поиску скрытой проводки без повреждений: от дешевых методов до профессиональ</span></a><a href="/articles/s/sl/slozhnye-voprosy-po-elektrike.html" class="related-bottom-card"><span class="related-bottom-title">Сложные вопросы по электрике: ответы эксперта для дома и дачи</span><span class="related-bottom-desc">Разбираем нестандартные ситуации в электромонтаже: от заземления до выбора кабелей. Пошаговые инстру</span></a><a href="/articles/k/ka/kak-uznat-napryazhenie-v-seti-doma.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить напряжение в розетке дома: 5 безопасных способов</span><span class="related-bottom-desc">Узнайте, как правильно измерить напряжение в сети 220В мультиметром, индикатором или без приборов. П</span></a><a href="/articles/k/ka/kak-proverit-obryv-provoda-multimetrom-na-avtomobile.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить обрыв провода мультиметром в авто</span><span class="related-bottom-desc">Пошаговая инструкция по поиску обрыва проводки мультиметром. Проверка целостности цепи, прозвонка жг</span></a><a href="/articles/k/ka/kak-proverit-est-tok-v-provode-ili-net.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить ток в проводе: 7 безопасных способов без риска</span><span class="related-bottom-desc">Пошаговая инструкция, как определить наличие тока в проводе мультиметром, индикаторной отвёрткой и б</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

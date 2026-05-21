@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Расчет вводного автомата на 380В по мощности: формулы и примеры — Электро Гид</title>
+    <meta name="description" content="Как правильно подобрать вводной автомат для трехфазной сети 380В по мощности нагрузки? Пошаговые расчеты, таблицы и нюансы выбора с учетом ПУЭ.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/k/ka/kak-rasschitat-vvodnoj-avtomat-na-380v-po-moshchnosti.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Расчет вводного автомата на 380В по мощности: формулы и примеры">
+    <meta property="og:description" content="Как правильно подобрать вводной автомат для трехфазной сети 380В по мощности нагрузки? Пошаговые расчеты, таблицы и нюансы выбора с учетом ПУЭ.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Расчет вводного автомата на 380В по мощности: формулы и примеры</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Расчет вводного автомата на 380В по мощности: формулы, таблицы и ошибки выбора</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#почему-важно-правильно-рассчитать-вводной-автомат-для-380в">Почему важно правильно рассчитать вводной автомат для 380В</a></li><li><a href="#основные-параметры-для-расчета-вводного-автомата">Основные параметры для расчета вводного автомата</a></li><li><a href="#формула-расчета-номинала-вводного-автомата-по-мощности">Формула расчета номинала вводного автомата по мощности</a></li><li><a href="#таблица-выбора-вводного-автомата-по-мощности-для-380в">Таблица выбора вводного автомата по мощности для 380В</a></li><li><a href="#учет-пусковых-токов-и-несимметричной-нагрузки">Учет пусковых токов и несимметричной нагрузки</a></li><li><a href="#проверка-сечения-вводного-кабеля">Проверка сечения вводного кабеля</a></li><li><a href="#типичные-ошибки-при-выборе-вводного-автомата-на-380в">Типичные ошибки при выборе вводного автомата на 380В</a></li><li><a href="#faq-частые-вопросы-по-расчету-вводного-автомата">FAQ: Частые вопросы по расчету вводного автомата</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><h2 id="почему-важно-правильно-рассчитать-вводной-автомат-для-380в">Почему важно правильно рассчитать вводной автомат для 380В</h2>
+
+<p>Выбор вводного автоматического выключателя для трехфазной сети 380В — задача, где ошибка может обернуться не только постоянными отключениями электроэнергии, но и пожаром. Многие ошибочно считают, что достаточно взять автомат с запасом по току или ориентироваться на мощность «на глаз». Однако такой подход игнорирует ключевые параметры: <strong>коэффициент спроса</strong>, <strong>пусковые токи</strong> оборудования и <strong>сечение вводного кабеля</strong>.</p>
+
+<p>В отличие от однофазных сетей (220В), где расчеты проще, трехфазная сеть 380В требует учета распределения нагрузки по фазам. Несбалансированная нагрузка или заниженный номинал автомата приведет к перегреву проводки, а завышенный — не защитит от короткого замыкания. Далее разберем, как избежать этих проблем и рассчитать вводной автомат по мощности с учетом всех нюансов.</p>
+
+<p>⚠️ <strong>Предупреждение:</strong> Правила устройства электроустановок (ПУЭ) запрещают использовать вводные автоматы с номиналом выше 250А в бытовых сетях без согласования с энергоснабжающей организацией. Превышение этого порога требует проекта и разрешительной документации.</p>
+
+<h2 id="основные-параметры-для-расчета-вводного-автомата">Основные параметры для расчета вводного автомата</h2>
+
+<p>Чтобы правильно подобрать вводной автомат для сети 380В, необходимо учитывать следующие данные:</p>
+
+<ul>
+  <li>🔹 <strong>Суммарная мощность</strong> всех потребителей (кВт) — включает освещение, розетки, электроплиты, кондиционеры и прочее оборудование.</li>
+  <li>🔹 <strong>Коэффициент спроса</strong> — показывает, какая часть мощности будет использоваться одновременно (обычно 0.7–0.8 для жилых домов).</li>
+  <li>🔹 <strong>Напряжение сети</strong> — 380В (линейное) и 220В (фазное).</li>
+  <li>🔹 <strong>Тип нагрузки</strong> — активная (нагреватели, лампы) или реактивная (двигатели, трансформаторы).</li>
+  <li>🔹 <strong>Сечение и материал вводного кабеля</strong> — медь или алюминий, так как от этого зависит допустимый ток.</li>
+</ul>
+
+<p>Особое внимание уделите <em>пусковым токам</em> оборудования с электродвигателями (например, насосы, компрессоры). Их стартовый ток может в 3–7 раз превышать номинальный, что требует корректировки расчетов или использования автоматов с характеристикой <code>D</code> вместо <code>C</code>.</p>
+
+<p>⚠️ <strong>Внимание:</strong> Если в доме установлен электрический котел или мощное производственное оборудование, расчет вводного автомата должен выполняться с учетом <strong>пиковых нагрузок</strong> в зимний период. В таких случаях рекомендуется использовать автоматы с <em>тепловой защитой</em> (например, серии <em>ABB S200</em> или <em>Schneider Electric Multi9</em>).</p>
+
+<div class="poll-widget" id="poll-b2d9888e"><div class="poll-widget-question">📊 Какую нагрузку планируете подключать к 380В?</div><div class="poll-widget-option" data-poll="b2d9888e" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Только бытовые приборы</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="b2d9888e" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Электрокотел или теплый пол</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="b2d9888e" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Мастерская с станками</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="b2d9888e" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Сельскохозяйственное оборудование</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="b2d9888e" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Другое</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="формула-расчета-номинала-вводного-автомата-по-мощности">Формула расчета номинала вводного автомата по мощности</h2>
+
+<p>Основная формула для расчета тока в трехфазной сети 380В:</p>
+
+<pre><code>I = (P × Kс) / (√3 × Uл × cosφ)</code></pre>
+
+<p>Где:</p>
+<ul>
+  <li><code>I</code> — расчетный ток (А)</li>
+  <li><code>P</code> — суммарная мощность потребителей (кВт)</li>
+  <li><code>Kс</code> — коэффициент спроса (0.7–0.8 для жилых домов, 0.9–1.0 для производств)</li>
+  <li><code>Uл</code> — линейное напряжение (380В)</li>
+  <li><code>cosφ</code> — коэффициент мощности (0.95 для бытовых сетей, 0.8–0.85 для двигателей)</li>
+  <li><code>√3</code> ≈ 1.73 — константа для трехфазных сетей</li>
+</ul>
+
+<p>Пример расчета для дома с суммарной мощностью 20 кВт (котел 6 кВт, остальное — бытовые приборы):</p>
+<pre><code>I = (20 × 0.8) / (1.73 × 0.38 × 0.95) ≈ 27.4 А</code></pre>
+
+<p>Исходя из расчета, номинал автомата должен быть <strong>32А</strong> (ближайшее стандартное значение). Однако это <mark>не окончательный результат</mark> — необходимо проверить сечение вводного кабеля и учесть пусковые токи.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка перед покупкой автомата</h4><label class="check-item"><input type="checkbox"><span>Уточнить суммарную мощность всех приборов</span></label><label class="check-item"><input type="checkbox"><span>Проверить сечение вводного кабеля</span></label><label class="check-item"><input type="checkbox"><span>Учесть пусковые токи двигателей</span></label><label class="check-item"><input type="checkbox"><span>Выбрать автомат с характеристикой C или D</span></label><label class="check-item"><input type="checkbox"><span>Сверить номинал с таблицами ПУЭ</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<h2 id="таблица-выбора-вводного-автомата-по-мощности-для-380в">Таблица выбора вводного автомата по мощности для 380В</h2>
+
+<p>Для упрощения расчетов используйте готовую таблицу, где учтены типичные коэффициенты спроса и <code>cosφ</code> для бытовых и производственных сетей. Значения округлены до стандартных номиналов автоматов (16А, 25А, 32А и т.д.).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Суммарная мощность (кВт)</th>
+      <th>Рекомендуемый номинал автомата (А)</th>
+      <th>Минимальное сечение кабеля (мм²), медь</th>
+      <th>Примеры нагрузки</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>до 10</td>
+      <td>16–25</td>
+      <td>4</td>
+      <td>Частный дом без электрокотла, гараж</td>
+    </tr>
+    <tr>
+      <td>10–15</td>
+      <td>25–32</td>
+      <td>6</td>
+      <td>Дом с электрокотлом 6–9 кВт</td>
+    </tr>
+    <tr>
+      <td>15–25</td>
+      <td>40–50</td>
+      <td>10</td>
+      <td>Коттедж с теплыми полами, мастерская</td>
+    </tr>
+    <tr>
+      <td>25–40</td>
+      <td>63–80</td>
+      <td>16</td>
+      <td>Производственный цех, ферма</td>
+    </tr>
+    <tr>
+      <td>40–60</td>
+      <td>100–125</td>
+      <td>25</td>
+      <td>Промышленное оборудование, сварочные аппараты</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>⚠️ <strong>Критическое замечание:</strong> Если суммарная мощность превышает 50 кВт, требуется <em>трехфазный счетчик прямого включения</em> (например, <em>Меркурий 230</em> или <em>Энергомера ЦЭ6803В</em>) и согласование с энергоснабжающей организацией. Вводной автомат в таких случаях устанавливается <strong>после счетчика</strong> и пломбируется.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если мощность нагрузки близка к пограничному значению (например, 24 кВт), выбирайте автомат с запасом (50А вместо 40А) и проверяйте, выдержит ли кабель такой ток. Лучше slightly перестраховаться, чем менять проводку через год.</p></div>
+
+<h2 id="учет-пусковых-токов-и-несимметричной-нагрузки">Учет пусковых токов и несимметричной нагрузки</h2>
+
+<p>Одно из самых распространенных упущений при расчете вводного автомата — игнорирование <strong>пусковых токов</strong>. Например, асинхронный двигатель насосной станции при запуске потребляет ток в 5–7 раз выше номинального. Если автомат подобран без учета этого, он будет срабатывать при каждом включении оборудования.</p>
+
+<p>Решения:</p>
+<ul>
+  <li>🔧 Использовать автоматы с <strong>характеристикой D</strong> (например, <em>IEK BA47-63 D40</em>), которые менее чувствительны к кратковременным перегрузкам.</li>
+  <li>🔧 Установить <strong>мягкий пускатель</strong> или частотный преобразователь для двигателей мощностью свыше 3 кВт.</li>
+  <li>🔧 Разделить нагрузку на несколько автоматов с задержкой включения (через реле времени).</li>
+</ul>
+
+<p>Еще одна проблема — <strong>несимметричная нагрузка</strong> по фазам. Если одна фаза перегружена (например, из-за подключения сварочного аппарата), а другие нет, вводной автомат может не сработать, хотя проводка будет греться. Чтобы избежать этого:</p>
+<ol>
+  <li>Распределяйте мощные потребители (плиты, котлы) равномерно по фазам.</li>
+  <li>Используйте <em>трехполюсные автоматы</em> (например, <em>Legrand DX³ 63A</em>), которые отключают все фазы одновременно.</li>
+  <li>Установите <strong>реле контроля фаз</strong> (например, <em>РКФ-3М</em>), если в сети возможны обрывы или перекосы.</li>
+</ol>
+
+<details class="faq-item"><summary>Что будет если проигнорировать пусковые токи?</summary><div class="faq-answer"><p>Автомат будет ложно срабатывать при включении насосов, компрессоров или станков. Со временем это приведет к износу механизма расцепителя и необходимости замены автомата. В худшем случае — к перегреву кабеля и пожару, если автомат "залипнет" в включенном состоянии.</p></div></details>
+
+<h2 id="проверка-сечения-вводного-кабеля">Проверка сечения вводного кабеля</h2>
+
+<p>Даже идеально рассчитанный автомат бесполезен, если сечение вводного кабеля не соответствует току. Согласно ПУЭ, длительно допустимый ток для медных проводов:</p>
+
+<ul>
+  <li>🔌 4 мм² — до 32А</li>
+  <li>🔌 6 мм² — до 40А</li>
+  <li>🔌 10 мм² — до 50А</li>
+  <li>🔌 16 мм² — до 70А</li>
+</ul>
+
+<p>Пример: если расчетный ток составил 45А, а вводной кабель — 6 мм² (максимум 40А), необходимо либо <strong>увеличить сечение до 10 мм²</strong>, либо <strong>уменьшить номинал автомата до 40А</strong> и пересмотреть нагрузку.</p>
+
+<p>⚠️ <strong>Внимание:</strong> Алюминиевые кабели выдерживают на 30% меньший ток, чем медные того же сечения. Их использование в современных сетях 380В не рекомендуется из-за риска окисления и ухудшения контакта.</p>
+
+<p>Для проверки используйте формулу:</p>
+<pre><code>S = I / J</code></pre>
+<p>Где <code>S</code> — сечение (мм²), <code>I</code> — ток (А), <code>J</code> — плотность тока (8 А/мм² для меди, 5 А/мм² для алюминия).</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сечение вводного кабеля должно соответствовать не только току автомата, но и <strong>длительно допустимой нагрузке</strong> по ПУЭ. Если кабель проложен в земле или в горючих конструкциях, его сечение увеличивают на 25%.</p></div>
+
+<h2 id="типичные-ошибки-при-выборе-вводного-автомата-на-380в">Типичные ошибки при выборе вводного автомата на 380В</h2>
+
+<p>Даже опытные электрики иногда допускают ошибки, которые приводят к авариям. Вот самые распространенные:</p>
+
+<ol>
+  <li><strong>Игнорирование коэффициента спроса</strong>. Многие суммируют паспортные мощности всех приборов, не учитывая, что они не будут работать одновременно. Например, в доме с мощностью 30 кВт реальная нагрузка редко превышает 20 кВт.</li>
+  <li><strong>Выбор автомата "с запасом"</strong>. Автомат на 100А для нагрузки 15 кВт — это не безопасность, а риск. При коротком замыкании такой автомат может не сработать вовремя.</li>
+  <li><strong>Неучет температуры окружающей среды</strong>. Если щиток установлен в неотапливаемом помещении, номинал автомата снижают на 10–15% (см. поправочные коэффициенты в ПУЭ, таблица 1.3.3).</li>
+  <li><strong>Использование однофазных автоматов в трехфазной сети</strong>. Это грубое нарушение — вводной автомат должен быть <strong>трех- или четырехполюсным</strong> (с учетом нейтрали).</li>
+  <li><strong>Покупка дешевых автоматов неизвестных брендов</strong>. Автоматы <em>IEK</em>, <em>KEAZ</em> или <em>DEKraft</em> могут не соответствовать заявленным характеристикам. Для вводных автоматов лучше выбирать <em>ABB</em>, <em>Schneider Electric</em> или <em>Legrand</em>.</li>
+</ol>
+
+<p>⚠️ <strong>Предупреждение:</strong> Если вводной автомат срабатывает без видимой причины, не спешите увеличивать его номинал. Сначала проверьте:</p>
+<ul>
+  <li>🔍 Состояние контактов (подгоревшие клеммы увеличивают сопротивление).</li>
+  <li>🔍 Баланс нагрузки по фазам (используйте токоизмерительные клещи).</li>
+  <li>🔍 Пусковые токи (подключите осциллограф или анализатор сети).</li>
+</ul>
+
+<h2 id="faq-частые-вопросы-по-расчету-вводного-автомата">FAQ: Частые вопросы по расчету вводного автомата</h2>
+
+<details>
+  <summary>Можно ли использовать автомат на 25А для нагрузки 15 кВт?</summary>
+  <p>Нет. При напряжении 380В и коэффициенте мощности 0.95 ток для 15 кВт составит ~24А. Автомат на 25А будет работать на пределе, что приведет к его перегреву и ложным срабатываниям. Минимальный номинал для такой нагрузки — 32А (с учетом запаса).</p>
+</details>
+
+<details>
+  <summary>Какой автомат поставить на ввод в гараж с сварочным аппаратом 5 кВт?</summary>
+  <p>Сварочные аппараты имеют высокие пусковые токи. Для 5 кВт (20А номинального тока) нужен автомат на <strong>32–40А с характеристикой D</strong> (например, <em>Schneider Electric C60D 40A</em>). Также убедитесь, что сечение кабеля не менее 6 мм² (медь).</p>
+</details>
+
+<details>
+  <summary>Нужно ли согласовывать вводной автомат на 63А с энергоснабжающей организацией?</summary>
+  <p>Если суммарная мощность не превышает 15 кВт (для частных домов), согласование обычно не требуется. Однако для автоматов свыше 50А или мощности выше 20 кВт необходимо предоставлять проект и получать разрешение. Уточните локальные требования в вашей энергосбытовой компании.</p>
+</details>
+
+<details>
+  <summary>Чем отличаются автоматы с характеристиками B, C и D?</summary>
+  <p>
+    <ul>
+      <li><strong>B</strong> — срабатывает при токе 3–5×Iн (для осветительных сетей).</li>
+      <li><strong>C</strong> — 5–10×Iн (универсальный вариант для бытовых сетей).</li>
+      <li><strong>D</strong> — 10–20×Iн (для двигателей и нагрузок с высокими пусковыми токами).</li>
+    </ul>
+<p>Для вводного автомата в дом с смешанной нагрузкой оптимален вариант <code>C</code>, для производственных помещений — <code>D</code>.</p>
+  </p>
+</details>
+
+<details>
+  <summary>Можно ли заменить вводной автомат самостоятельно?</summary>
+  <p>Технически — да, но <strong>запрещено законом</strong>, если автомат опломбирован энергоснабжающей организацией. Для замены необходимо:</p>
+  <ol>
+    <li>Подать заявку в энергосбыт.</li>
+    <li>Оплатить работу их специалиста (или согласовать самостоятельную замену с последующей опломбировкой).</li>
+    <li>Использовать автомат с теми же характеристиками, что указаны в договоре на электроснабжение.</li>
+  </ol>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#почему-важно-правильно-рассчитать-вводной-автомат-для-380в">Почему важно правильно рассчитать вводной автомат для 380В</a></li><li><a href="#основные-параметры-для-расчета-вводного-автомата">Основные параметры для расчета вводного автомата</a></li><li><a href="#формула-расчета-номинала-вводного-автомата-по-мощности">Формула расчета номинала вводного автомата по мощности</a></li><li><a href="#таблица-выбора-вводного-автомата-по-мощности-для-380в">Таблица выбора вводного автомата по мощности для 380В</a></li><li><a href="#учет-пусковых-токов-и-несимметричной-нагрузки">Учет пусковых токов и несимметричной нагрузки</a></li><li><a href="#проверка-сечения-вводного-кабеля">Проверка сечения вводного кабеля</a></li><li><a href="#типичные-ошибки-при-выборе-вводного-автомата-на-380в">Типичные ошибки при выборе вводного автомата на 380В</a></li><li><a href="#faq-частые-вопросы-по-расчету-вводного-автомата">FAQ: Частые вопросы по расчету вводного автомата</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kakim-secheniem-provoda-soedinyat-avtomaty-v-elektroshchite-220.html" class="related-card">Сечение провода для автоматов в щите 220В: таблица и правила</a></li><li><a href="/articles/d/dl/dlya-chego-nuzhen-avtomaticheskij-vyklyuchatel.html" class="related-card">Для чего нужен автоматический выключатель: функции, типы и выбор</a></li><li><a href="/articles/s/so/sobiraem-elektricheskij-shchitok-v-chastnom-dome.html" class="related-card">Сборка электрощита в частном доме: пошаговая инструкция</a></li><li><a href="/articles/1/16/16-a-avtomat-na-kakuyu-moshchnost-rasschitan.html" class="related-card">16А автомат: на какую мощность рассчитан и как выбрать</a></li><li><a href="/articles/m/ma/markirovka-uzo-na-skheme.html" class="related-card">Маркировка УЗО на схеме: расшифровка обозначений и примеры</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kakim-secheniem-provoda-soedinyat-avtomaty-v-elektroshchite-220.html" class="related-bottom-card"><span class="related-bottom-title">Сечение провода для автоматов в щите 220В: таблица и правила</span><span class="related-bottom-desc">Какое сечение провода выбрать для соединения автоматов в электрощите 220В? Разбираем ПУЭ, таблицы се</span></a><a href="/articles/d/dl/dlya-chego-nuzhen-avtomaticheskij-vyklyuchatel.html" class="related-bottom-card"><span class="related-bottom-title">Для чего нужен автоматический выключатель: функции, типы и выбор</span><span class="related-bottom-desc">Полный разбор функций автомата: защита от короткого замыкания и перегрузки. Как выбрать устройство д</span></a><a href="/articles/s/so/sobiraem-elektricheskij-shchitok-v-chastnom-dome.html" class="related-bottom-card"><span class="related-bottom-title">Сборка электрощита в частном доме: пошаговая инструкция</span><span class="related-bottom-desc">Как собрать электрощиток своими руками: схемы, выбор автоматов, порядок подключения. Полное руководс</span></a><a href="/articles/1/16/16-a-avtomat-na-kakuyu-moshchnost-rasschitan.html" class="related-bottom-card"><span class="related-bottom-title">16А автомат: на какую мощность рассчитан и как выбрать</span><span class="related-bottom-desc">Подробный расчет мощности для автомата 16А. Какую нагрузку выдержит однофазный и трехфазный автомат </span></a><a href="/articles/m/ma/markirovka-uzo-na-skheme.html" class="related-bottom-card"><span class="related-bottom-title">Маркировка УЗО на схеме: расшифровка обозначений и примеры</span><span class="related-bottom-desc">Как правильно читать маркировку УЗО на электрических схемах? Разбор условных обозначений, стандартов</span></a><a href="/articles/k/ka/kak-podklyuchit-dvukhpolyusnoe-uzo.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить двухполюсное УЗО: схема, ошибки, пошаговая инструкция</span><span class="related-bottom-desc">Пошаговое руководство по подключению двухполюсного УЗО в однофазной сети: схемы, выбор параметров, т</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

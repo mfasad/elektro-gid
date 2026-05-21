@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Соединять ли ноль с землей? Правила TN-C-S и PEN — Электро Гид</title>
+    <meta name="description" content="Нужно ли соединять ноль с заземлением? Разбор схемы TN-C-S, правил ПУЭ, рисков обрыва PEN и безопасного расщепления в щите.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/n/nu/nuzhno-li-nol-soedinyat-s-zazemleniem.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Соединять ли ноль с землей? Правила TN-C-S и PEN">
+    <meta property="og:description" content="Нужно ли соединять ноль с заземлением? Разбор схемы TN-C-S, правил ПУЭ, рисков обрыва PEN и безопасного расщепления в щите.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/bezopasnost-i-zazemlenie/">Безопасность и заземление</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Соединять ли ноль с землей? Правила TN-C-S и PEN</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Нужно ли соединять ноль с заземлением: полный разбор безопасности</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#физическая-суть-нуля-и-заземления">Физическая суть нуля и заземления</a></li><li><a href="#анализ-систем-заземления-tn-c-tn-s-и-tn-c-s">Анализ систем заземления TN-C, TN-S и TN-C-S</a></li><li><a href="#где-разрешено-соединять-pen-проводник">Где разрешено соединять PEN проводник</a></li><li><a href="#опасности-неправильного-соединения-в-квартире">Опасности неправильного соединения в квартире</a></li><li><a href="#правильное-расщепление-pen-во-вводном-щите">Правильное расщепление PEN во вводном щите</a></li><li><a href="#роль-узо-и-дифавтоматов-в-системе-с-заземлением">Роль УЗО и дифавтоматов в системе с заземлением</a></li><li><a href="#частые-ошибки-и-мифы-электриков">Частые ошибки и мифы электриков</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Вопрос о том, можно ли и нужно ли соединять рабочий ноль с защитным заземлением, является одним из самых острых в бытовой электротехнике. Часто неопытные электрики или домашние мастера, видя две разные шины в щитке, пытаются их объединить перемычкой, не понимая физических процессов, происходящих в сети. Такое необдуманное вмешательство в схему <strong>электроснабжения</strong> может привести к катастрофическим последствиям, включая пожар или поражение током.</p>
+<p>Ситуация усугубляется тем, что в разных типах зданий и в разное время применялись различные системы заземления. В старых домах с двухпроводной проводкой соединение нуля и земли на розетке смертельно опасно, тогда как в современных новостройках это разделение является обязательным условием безопасности. Понимание разницы между системами <em>TN-C</em>, <em>TN-S</em> и <em>TN-C-S</em> критически важно для любого, кто берет в руки отвертку.</p>
+<p>В данной статье мы подробно разберем физические принципы работы нейтрали и заземления, объясним, где именно допускается их соединение и почему это запрещено делать в квартирных розетках. Вы узнаете, как правильно выполнить расщепление PEN-проводника в вводном щите и какие риски несет неправильный монтаж.</p>
+
+<h2 id="физическая-суть-нуля-и-заземления">Физическая суть нуля и заземления</h2>
+<p>Для начала необходимо четко разграничить функции проводников. Рабочий ноль (N) предназначен для протекания <strong>рабочего тока</strong>, обеспечивая замкнутый контур для электроприборов. Заземление (PE) — это защитный проводник, который в нормальном режиме не имеет потенциала и не пропускает ток, выполняя функцию отвода опасного напряжения на землю при пробое изоляции.</p>
+<p>Соединение этих двух проводников допустимо только в одной строго определенной точке — на главном заземляющем входе в здание или в трансформаторной подстанции. Это создает систему с глухозаземленной нейтралью. Если вы соедините ноль и землю в розетке или распределительной коробке квартиры, вы создадите параллельный путь для тока.</p>
+<p>В результате часть рабочего тока потечет по заземляющим проводникам, трубам водопровода и корпусам приборов. Это приводит к ложным срабатываниям УЗО, нагреву контактов и появлению напряжения на корпусах бытовой техники у соседей в случае обрыва нуля.</p>
+<blockquote>
+<p>⚠️ Внимание: Категорически запрещается соединять ноль и землю в розетке или внутри квартирной проводки, если у вас двухпроводная система. Это превращает заземляющий провод в токонесущий, что смертельно опасно!</p>
+</blockquote>
+
+<h2 id="анализ-систем-заземления-tn-c-tn-s-и-tn-c-s">Анализ систем заземления TN-C, TN-S и TN-C-S</h2>
+<p>Ответ на вопрос о соединении напрямую зависит от типа системы заземления, приходящей в ваш дом. В системе <em>TN-C</em>, характерной для советского жилья, раздельных проводников N и PE не существует — их функции выполняет один совмещенный проводник <strong>PEN</strong>. Здесь соединять нечего, так как разделения физически нет, а организовывать его внутри квартиры запрещено.</p>
+<p>Система <em>TN-S</em> предполагает, что разделение произошло еще на подстанции, и в квартиру приходят три (для однофазной) или пять (для трехфазной) независимых жил. В этом случае соединять ноль и землю внутри щита или квартиры нельзя, так как они уже разделены и выполняют свои уникальные функции.</p>
+<p>Наиболее распространенная современная схема — <em>TN-C-S</em>. Она подразумевает, что до ввода в здание идет совмещенный PEN, а внутри вводно-распределительного устройства (ВРУ) он разделяется на отдельные N и PE. Именно в этой точке разделения и происходит их соединение через главную заземляющую шину.</p>
+<p>Для наглядности сравним характеристики систем:</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>TN-C (Старый фонд)</th>
+<th>TN-S (Современный стандарт)</th>
+<th>TN-C-S (Модернизированная)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Количество жил к дому</td>
+<td>2 (1 фаза) / 4 (3 фазы)</td>
+<td>3 (1 фаза) / 5 (3 фаз)</td>
+<td>2 или 4 (до ВРУ)</td>
+</tr>
+<tr>
+<td>Наличие PE в квартире</td>
+<td>Отсутствует</td>
+<td>Есть</td>
+<td>Есть (после разделения)</td>
+</tr>
+<tr>
+<td>Место соединения N и PE</td>
+<td>На подстанции</td>
+<td>На подстанции</td>
+<td>Во вводном щите (ВРУ)</td>
+</tr>
+<tr>
+<td>Безопасность</td>
+<td>Низкая</td>
+<td>Высокая</td>
+<td>Высокая</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="где-разрешено-соединять-pen-проводник">Где разрешено соединять PEN проводник</h2>
+<p>Согласно правилам <strong>ПУЭ</strong> (Правила Устройства Электроустановок), разделение совмещенного нулевого и защитного проводника (PEN) должно производиться во вводно-распределительном устройстве (ВРУ) здания. Это точка, где магистральный кабель входит в дом. Именно здесь устанавливается шина, к которой подключается повторное заземление и откуда идут раздельные линии N и PE по стоякам.</p>
+<p>Если вы живете в частном доме, то местом для такого соединения является ваш вводной щит, расположенный на фасаде или в тамбуре, до счетчика электроэнергии. Здесь вы имеете полное право (и обязанность) сделать повторное заземление и соединить приходящий PEN с контуром заземления, разделив его на две шины.</p>
+<p>После точки разделения дальнейшее соединение нейтрали и защитного проводника запрещается. Они должны идти независимо друг от друга. Любое их повторное объединение после ВРУ или вводного щита частного дома приведет к тому, что токи утечки и рабочие токи потекут по непредназначенным для этого путям.</p>
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При монтаже вводного щита в частном доме используйте медную шину для соединения PEN и контура заземления. Сечение перемычки должно быть не меньше сечения приходящего PEN-проводника.</p></div>
+
+<h2 id="опасности-неправильного-соединения-в-квартире">Опасности неправильного соединения в квартире</h2>
+<p>Попытка соединить ноль и землю непосредственно в квартирной розетке или распределительной коробке создает иллюзию наличия заземления, но на деле превращает всю систему в бомбу замедленного действия. В нормальном режиме, пока все исправно, приборы будут работать, и даже УЗО может не сработать сразу, создавая ложное чувство безопасности.</p>
+<p>Однако, при обрыве нуля (что является распространенной аварией в старых сетях) на всех заземленных через такую перемычку корпусах приборов появится фазное напряжение 220 Вольт. Прикосновение к холодильнику или стиральной машине в этот момент станет смертельным.</p>
+<p>Кроме того, если у соседей по стояку возникнет перекос фаз или утечка тока, через вашу "землю" потечет чужой ток. Это может привести к возгоранию проводки, не рассчитанной на такие нагрузки, и выходу из строя чувствительной электроники.</p>
+<blockquote>
+<p>⚠️ Внимание: Использование перемычки между N и PE в розетке как способа "сделать заземление" в доме без PE — это грубейшее нарушение, которое ставит под угрозу жизнь всех жильцов подъезда.</p>
+</blockquote>
+
+<div class="poll-widget" id="poll-1b3d9329"><div class="poll-widget-question">📊 Какая у вас проводка в квартире?</div><div class="poll-widget-option" data-poll="1b3d9329" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Двухпроводная (ноль и фаза)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1b3d9329" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Трехпроводная (есть земля)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1b3d9329" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю, нужно смотреть щиток</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1b3d9329" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Частный дом, свой ввод</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="правильное-расщепление-pen-во-вводном-щите">Правильное расщепление PEN во вводном щите</h2>
+<p>Если вы владелец частного дома или имеете доступ к этажному щиту (что редкость в многоквартирных домах), процедура расщепления должна быть выполнена грамотно. Сначала устанавливается главная заземляющая шина (ГЗШ), к которой подключается контур заземления здания.</p>
+<p>Затем приходящий PEN-проводник подключается к этой же шине. От шины ГЗШ делаются два независимых отвода: один идет на нулевую шину (N), второй — на шину заземления (PE). С этого момента они больше никогда не должны соединяться.</p>
+<p>Для выполнения работ потребуется следующий инструмент и материалы:</p>
+<ul>
+<li>⚡ Медная шина для разводки (латунная или бронзовая)</li>
+<li>🔩 Болтовые соединения и шайбы для надежного контакта</li>
+<li>🔧 Динамометрический ключ для контроля усилия затяжки</li>
+<li>📏 Кабель сечением не менее 10 мм² по меди для перемычек</li>
+</ul>
+<p>Важно обеспечить надежный контакт в месте соединения. Алюминиевый PEN-проводник нельзя напрямую соединять с медной шиной без использования алюмомедных переходников или специальной смазки, чтобы избежать электрохимической коррозии.</p>
+<div class="checklist-block"><h4>☑️ Проверка расщепления PEN</h4><label class="check-item"><input type="checkbox"><span>Визуальный осмотр контактов</span></label><label class="check-item"><input type="checkbox"><span>Проверка сечения проводников</span></label><label class="check-item"><input type="checkbox"><span>Замер сопротивления заземления</span></label><label class="check-item"><input type="checkbox"><span>Проверка отсутствия тока на PE</span></label><label class="check-item"><input type="checkbox"><span>Фиксация болтовых соединений</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<h2 id="роль-узо-и-дифавтоматов-в-системе-с-заземлением">Роль УЗО и дифавтоматов в системе с заземлением</h2>
+<p>Наличие правильного заземления тесно связано с работой устройств защитного отключения (<strong>УЗО</strong>). УЗО сравнивает токи, ушедшие по фазе и вернувшиеся по нулю. Если часть тока ушла через корпус прибора на землю (пробой), УЗО фиксирует разницу и отключает питание.</p>
+<p>Без заземления УЗО сработает только в момент, когда человек коснется неисправного прибора и через него потечет ток. При наличии заземления ток утечки пойдет по проводнику PE сразу при пробое, и УЗО отключит линию мгновенно, часто даже до того, как кто-то заметит неисправность.</p>
+<p>Однако, если вы неправильно соединили ноль и землю после УЗО, устройство будет срабатывать постоянно, так как часть рабочего тока будет уходить в обход нулевого провода через землю. Это делает эксплуатацию сети невозможной.</p>
+<details class="faq-item"><summary>Почему УЗО выбивает при неправильном соединении?</summary><div class="faq-answer"><p>Если вы соединили N и PE после УЗО, ток разделяется на два пути. Часть идет по нулю, часть по земле. Для УЗО это выглядит как утечка, и оно разрывает цепь, думая, что ток уходит в человека.</p></div></details>
+
+<h2 id="частые-ошибки-и-мифы-электриков">Частые ошибки и мифы электриков</h2>
+<p>Один из самых стойких мифов гласит, что "батарея отопления — это отличное заземление". В современных условиях, когда металлические трубы заменяют на полипропилен, это утверждение не просто ложно, но и опасно. Вы можете посадить фазу на весь стояк воды, если произойдет авария.</p>
+<p>Другая ошибка — использование нуля как заземления в трехфазных сетях с неравномерной нагрузкой. В таких сетях по нулевому проводу течет ток небаланса, создающий падение напряжения. Корпуса приборов окажутся под потенциалом в несколько десятков вольт, что неприятно и опасно.</p>
+<p>Также распространено мнение, что если в щитке есть земля, то можно кинуть перемычку в розетке. Но часто оказывается, что земля в щитке висит в воздухе или подключена к корпусу щита, который, в свою очередь, не имеет связи с реальным контуром заземления здания.</p>
+<blockquote>
+<p>⚠️ Внимание: Нормы и правила электромонтажа могут обновляться. Перед началом работ в общих щитовых многоквартирных домов обязательно согласуйте свои действия с управляющей компанией или энергоснабжающей организацией, так как несанкционированное вмешательство запрещено законом.</p>
+</blockquote>
+
+<h2 id="faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</h2>
+<details>
+<summary>Можно ли использовать ноль как заземление для стиральной машины?</summary>
+<p>Категорически нет. Это смертельно опасно. При обрыве нуля корпус машины окажется под напряжением 220В. Заземление должно идти отдельной жилой от щита.</p>
+</details>
+<details>
+<summary>Что делать, если в доме только два провода (фаза и ноль)?</summary>
+<p>В этом случае система <em>TN-C</em>. Организовывать заземление в квартире нельзя. Необходимо дождаться модернизации электросетей дома или использовать УЗО для защиты от поражения током, понимая риски.</p>
+</details>
+<details>
+<summary>Где именно в щитке соединять ноль и землю?</summary>
+<p>Соединение происходит только в точке входа в здание (ВРУ) на главной заземляющей шине. В квартирном щитке они должны быть уже разделены и идти отдельно.</p>
+</details>
+<details>
+<summary>Почему искрит при касании нуля и земли?</summary>
+<p>Это означает, что по нулевому проводу течет ток и на нем есть падение напряжения (потенциал). Земля же имеет нулевой потенциал. Разница потенциалов вызывает искрение.</p>
+</details>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Запомните: Соединение N и PE разрешено ТОЛЬКО до вводного автомата и счетчика (в точке входа в здание). После этой точки — только раздельные линии.</p></div></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#физическая-суть-нуля-и-заземления">Физическая суть нуля и заземления</a></li><li><a href="#анализ-систем-заземления-tn-c-tn-s-и-tn-c-s">Анализ систем заземления TN-C, TN-S и TN-C-S</a></li><li><a href="#где-разрешено-соединять-pen-проводник">Где разрешено соединять PEN проводник</a></li><li><a href="#опасности-неправильного-соединения-в-квартире">Опасности неправильного соединения в квартире</a></li><li><a href="#правильное-расщепление-pen-во-вводном-щите">Правильное расщепление PEN во вводном щите</a></li><li><a href="#роль-узо-и-дифавтоматов-в-системе-с-заземлением">Роль УЗО и дифавтоматов в системе с заземлением</a></li><li><a href="#частые-ошибки-и-мифы-электриков">Частые ошибки и мифы электриков</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/e/es/esli-rozetka-ne-zazemlena.html" class="related-card">Розетка без заземления: опасно ли это и что делать в 2026 году</a></li><li><a href="/articles/z/za/zazemlyayushchij-kontakt-eto.html" class="related-card">Заземляющий контакт: что это, как работает и зачем нужен</a></li><li><a href="/articles/u/uz/uzo-eto-prostymi-slovami.html" class="related-card">УЗО простыми словами: как работает, зачем нужно и как выбрать</a></li><li><a href="/articles/t/ti/tip-modulya-differentsialnoj-zashchity.html" class="related-card">Тип модуля дифференциальной защиты: выбор, маркировка, схемы</a></li><li><a href="/articles/k/kr/kran-bet-tokom-prichina.html" class="related-card">Кран бьет током: 7 причин и что делать в 2026 году</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/e/es/esli-rozetka-ne-zazemlena.html" class="related-bottom-card"><span class="related-bottom-title">Розетка без заземления: опасно ли это и что делать в 2026 году</span><span class="related-bottom-desc">Чем грозит отсутствие заземления в розетке, как проверить и исправить проблему. Советы электриков по</span></a><a href="/articles/z/za/zazemlyayushchij-kontakt-eto.html" class="related-bottom-card"><span class="related-bottom-title">Заземляющий контакт: что это, как работает и зачем нужен</span><span class="related-bottom-desc">Подробный разбор заземляющего контакта в розетках: принцип работы, виды, отличие от зануления, как п</span></a><a href="/articles/u/uz/uzo-eto-prostymi-slovami.html" class="related-bottom-card"><span class="related-bottom-title">УЗО простыми словами: как работает, зачем нужно и как выбрать</span><span class="related-bottom-desc">Что такое УЗО в электрике и зачем оно нужно? Объясняем простым языком принцип работы, типы устройств</span></a><a href="/articles/t/ti/tip-modulya-differentsialnoj-zashchity.html" class="related-bottom-card"><span class="related-bottom-title">Тип модуля дифференциальной защиты: выбор, маркировка, схемы</span><span class="related-bottom-desc">Какой тип модуля дифференциальной защиты выбрать для щитка? Разбор классов A, AC, B, F, селективност</span></a><a href="/articles/k/kr/kran-bet-tokom-prichina.html" class="related-bottom-card"><span class="related-bottom-title">Кран бьет током: 7 причин и что делать в 2026 году</span><span class="related-bottom-desc">Почему кран в ванной или на кухне бьет током? Разбираем причины утечки напряжения, проверяем заземле</span></a><a href="/articles/k/ka/kalkulyator-toka-utechki.html" class="related-bottom-card"><span class="related-bottom-title">Калькулятор тока утечки: расчёт и нормы для УЗО и дифавтоматов</span><span class="related-bottom-desc">Как правильно рассчитать ток утечки для защиты электросети? Формулы, нормы ПУЭ, примеры расчёта для </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

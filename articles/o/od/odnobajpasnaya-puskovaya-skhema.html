@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Однобайпасная пусковая схема: устройство, принцип работы и ошибки — Электро Гид</title>
+    <meta name="description" content="Подробный разбор однобайпасной пусковой схемы для мощных двигателей. Принцип действия, отличие от двухбайпасной, схемы подключения и выбор оборудования.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/o/od/odnobajpasnaya-puskovaya-skhema.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Однобайпасная пусковая схема: устройство, принцип работы и ошибки">
+    <meta property="og:description" content="Подробный разбор однобайпасной пусковой схемы для мощных двигателей. Принцип действия, отличие от двухбайпасной, схемы подключения и выбор оборудования.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Однобайпасная пусковая схема: устройство, принцип работы и ошибки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Однобайпасная пусковая схема: устройство, принцип работы и ошибки</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#принцип-действия-и-логика-работы-схемы">Принцип действия и логика работы схемы</a></li><li><a href="#ключевые-компоненты-системы-управления">Ключевые компоненты системы управления</a></li><li><a href="#отличия-однобайпасной-схемы-от-двухбайпасной">Отличия однобайпасной схемы от двухбайпасной</a></li><li><a href="#пошаговая-инструкция-по-подключению-оборудования">Пошаговая инструкция по подключению оборудования</a></li><li><a href="#типичные-ошибки-при-монтаже-и-настройке">Типичные ошибки при монтаже и настройке</a></li><li><a href="#преимущества-использования-байпасирования">Преимущества использования байпасирования</a></li><li><a href="#диагностика-неисправностей-и-обслуживание">Диагностика неисправностей и обслуживание</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Запуск мощных электрических двигателей в промышленных условиях и системах жизнеобеспечения зданий всегда сопряжен с высокими токовыми нагрузками, которые могут повредить электрические сети. Для решения этой проблемы инженеры разработали специальные алгоритмы коммутации, среди которых <strong>однобайпасная пусковая схема</strong> занимает особое место благодаря своей надежности и простоте реализации. В отличие от более сложных систем, она позволяет использовать компактные устройства плавного пуска (УПП) для управления двигателями, мощность которых значительно превышает номинал самого регулятора.</p>
+
+<p>Суть метода заключается в том, что после завершения разгона ротора электродвигателя и выхода на номинальные обороты, силовой ток переключается напрямую через байпасный контактор, минуя силовые ключи УПП. <em>Soft-starter</em> в этот момент отключается от цепи питания двигателя, что исключает его перегрев и позволяет использовать аппарат меньшей мощности. Это фундаментальный принцип, который необходимо понимать перед проектированием любого щита управления.</p>
+
+<p>Внедрение такой логики работы требует строгого соблюдения последовательности операций и правильного подбора компонентов. Ошибки в настройке временных задержек или выборе контакторов могут привести к аварийным ситуациям. Далее мы детально разберем архитектуру системы, чтобы вы могли грамотно спроектировать узел управления.</p>
+
+<h2 id="принцип-действия-и-логика-работы-схемы">Принцип действия и логика работы схемы</h2>
+
+<p>Функционирование системы строится на четком разделении этапов запуска и штатной работы. На начальном этапе <strong>устройство плавного пуска</strong> подает на обмотки двигателя нарастающее напряжение, ограничивая бросок тока. Как только двигатель достигает заданной скорости (обычно 95-98% от номинала), контроллер подает сигнал на включение шунтирующего контактора. Этот элемент является сердцем однобайпасной конфигурации.</p>
+
+<p>После замыкания контактов байпаса ток течет напрямую от сети к двигателю, минуя тиристорные модули УПП. В этот момент <mark>силовые полупроводниковые элементы полностью отключаются от нагрузки</mark>, что кардинально снижает тепловыделение внутри корпуса регулятора. Такая логика позволяет использовать компактные и дешевые модели пускателей для управления мощными агрегатами, например, насосами или вентиляторами.</p>
+
+<p>Важно понимать, что управление контактором осуществляется самим УПП через специальный выход, часто обозначаемый как"Bypass" или"Run". Это обеспечивает синхронизацию: контактор никогда не включится, пока двигатель не разгонится, и не выключится, пока не поступит команда на остановку. Без этой блокировки возникли бы опасные переходные процессы.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При проектировании схемы всегда учитывайте, что байпасный контактор должен иметь категорию применения AC-3, так как он коммутирует работающий двигатель, хотя и без пусковых бросков тока, характерных для прямого включения.</p></div>
+
+<h2 id="ключевые-компоненты-системы-управления">Ключевые компоненты системы управления</h2>
+
+<p>Для реализации надежной схемы недостаточно просто купить УПП. Вам потребуется сформировать комплект оборудования, где каждый элемент выполняет критически важную функцию. Основным компонентом, безусловно, является <strong>устройство плавного пуска</strong>, которое контролирует весь процесс и принимает решение о переключении на байпас.</p>
+
+<p>Вторым важнейшим элементом является байпасный контактор. Его номинальный ток должен быть равен или превышать номинальный ток двигателя (Iн), но не обязательно учитывать пусковые токи, так как в момент коммутации двигатель уже разогнан. Третьим компонентом является <strong>автоматический выключатель</strong> или предохранитель, защищающий цепь от коротких замыканий.</p>
+
+<ul>
+<li>🔌 <strong>Устройство плавного пуска (УПП):</strong> Регулирует напряжение и контролирует момент переключения на прямую сеть.</li>
+<li>⚡ <strong>Байпасный контактор:</strong> Шунтирует силовую цепь после разгона, снимая нагрузку с тиристоров.</li>
+<li>🛡️ <strong>Защитная аппаратура:</strong> Автоматы или предохранители, подобраны под номинальный ток двигателя, а не пусковой.</li>
+</ul>
+
+<p>Также в цепи управленияны кнопки"Пуск" и"Стоп", а также тепловое реле (если оно не встроено в УПП или автомат). Все эти элементы должны быть правильно согласованы по токовым характеристикам. Использование компонентов с запасом по току в 1.5-2 раза для контактора — распространенная, но часто избыточная практика для байпасной линии, если УПП подобрано верно.</p>
+
+<h2 id="отличия-однобайпасной-схемы-от-двухбайпасной">Отличия однобайпасной схемы от двухбайпасной</h2>
+
+<p>Часто при выборе оборудования возникает путаница между однобайпасной и двухбайпасной схемами. Главное отличие кроется в количестве используемых контакторов и логике их работы. В однобайпасной схеме используется один контактор, который замыкается после разгона и размыкается только при остановке двигателя. Это стандартное решение для 90% применений.</p>
+
+<p>Двухбайпасная схема предполагает использование двух контакторов: один для включения двигателя (пуск), второй для шунтирования (работа). Такая схема сложнее, дороже и требует более тщательной настройки временных задержек, чтобы избежать одновременного включения контакторов. <strong>Однобайпасная схема</strong> выигрывает за счет простоты и меньшего количества коммутирующих элементов.</p>
+
+<div class="poll-widget" id="poll-97bd8f6d"><div class="poll-widget-question">📊 Какой тип пусковой схемы вы чаще встречаете в своей практике?</div><div class="poll-widget-option" data-poll="97bd8f6d" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Однобайпасная (стандартная)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="97bd8f6d" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Двухбайпасная (редкая)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="97bd8f6d" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Прямой пуск (DOL)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="97bd8f6d" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Частотный преобразователь</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Выбор между схемами зависит от требований конкретного технологического процесса. Если вам не требуется реверс через контакторы или специфическое переключение обмоток, однобайпасный вариант является оптимальным. Он минимизирует количество соединений, что повышает общую надежность системы и упрощает поиск неисправностей.</p>
+
+<h2 id="пошаговая-инструкция-по-подключению-оборудования">Пошаговая инструкция по подключению оборудования</h2>
+
+<p>Монтаж силовой части схемы требует внимательности и соблюдения правил электробезопасности. Перед началом работ убедитесь, что напряжение полностью снято и проверено индикатором. Подключение осуществляется в строгой последовательности, чтобы избежать ошибок в фазировке.</p>
+
+<p>Сначала подключите входные фазы сети (L1, L2, L3) к входным клеммам УПП. Затем от выходных клемм УПП проведите провода к клеммам байпасного контактора. Важно: выходные клеммы контактора соединяются параллельно с выходными клеммами УПП и идут непосредственно к двигателю. Таким образом, ток может течь либо через тиристоры, либо через замкнутые контакты контактора.</p>
+
+<div class="checklist-block"><h4>☑️ Контрольный список подключения</h4><label class="check-item"><input type="checkbox"><span>Проверка отсутствия напряжения на клеммах</span></label><label class="check-item"><input type="checkbox"><span>Затяжка контактов динамометрическим ключом</span></label><label class="check-item"><input type="checkbox"><span>Проверка сопротивления изоляции</span></label><label class="check-item"><input type="checkbox"><span>Настройка номинального тока двигателя в меню УПП</span></label><label class="check-item"><input type="checkbox"><span>Тестовый запуск без нагрузки</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Цепь управления требует подключения кнопок и сигнальных линий. Выход"Bypass" на УПП подключается к катушке контактора. При подаче сигнала с этого выхода контактор включается. Не забудьте предусмотреть блокировку или логическую защиту, исключающую работу контактора в нештатных режимах, хотя современные УПП делают это автоматически.</p>
+
+<pre><code>Схема соединений (упрщенно):
+<p>Сеть (R,S,T) -> Вход УПП</p>
+<p>Выход УПП (U,V,W) -> Вход Контактора</p>
+<p>Выход Контактора -> Двигатель</p>
+<p>Управление: Выход Bypass УПП -> Катушка Контактора</code></pre></p>
+
+<h2 id="типичные-ошибки-при-монтаже-и-настройке">Типичные ошибки при монтаже и настройке</h2>
+
+<p>Несмотря на кажущуюся простоту, монтажники часто допускают ошибки, которые приводят к выходу оборудования из строя. Самая распространенная ошибка — неправильный выбор номинала контактора. Если поставить контактор с категорией AC-1 (для активных нагрузок), он может залипнуть при коммутации индуктивной нагрузки, даже если ток номинальный.</p>
+
+<p>Вторая ошибка — игнирование времени разгона. Если время переключения на байпас настроено слишком коротким, двигатель не успеет набрать обороты, и контактор включится под нагрузкой с высоким током. Это приведет к свариванию контактов. Настройка должна производиться опытным путем или по осциллограмме тока.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Категорически запрещается подавать напряжение на выход УПП (клеммы двигателя) до включения входного рубильника. Это может привести к мгновенному сгоранию тиристоров из-за подачи напряжения в обратном направлении.</p>
+</blockquote>
+
+<p>Также часто забывают про защиту цепи управления. Катушка контактора должна быть защищена соответствующим предохранителем или автоматом, чтобы при коротком замыкании в цепи управления не выгорела плата управления самого УПП. Правильная <strong>схема подключения</strong> всегда включает в себя развязку цепей управления и питания.</p>
+
+<h2 id="преимущества-использования-байпасирования">Преимущества использования байпасирования</h2>
+
+<p>Использование байпасной линии дает ряд экономических и технических преимуществ. В первую очередь, это возможность использования УПП меньшего габарита. Поскольку в рабочем режиме тиристоры не участвуют в передаче тока, они не греются. Это позволяет ставить"маленький" регулятор на"большой" двигатель, экономя место в шкафу и бюджет.</p>
+
+<p>Во-вторых, увеличивается срок службы самого устройства плавного пуска. Тиристоры не подвергаются постоянной тепловой нагрузке, что снижает риск их деградации со временем. Третье преимущество — снижение гармонических искажений в сети во время работы, так как в штатном режиме ток идет через механические контакты, а не через нелинейные элементы.</p>
+
+<p>| Параметр | Прямой пуск (DOL) | Пуск через УПП (без байпаса) | Однобайпасная схема |</p>
+<p>|:--- |:--- |:--- |:--- |</p>
+<p>| Пусковой ток | 6-8 Iн | 2-4 Iн | 2-4 Iн |</p>
+<p>| Нагрев при работе | Низкий | Высокий (требует охлаждения) | Отсутствует (контактор холодный) |</p>
+<p>| Габариты УПП | Не требуется | По мощности двигателя | Можно занизить (по току) |</p>
+<p>| Стоимость | Минимальная | Высокая | Оптимальная |</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главное преимущество однобайпасной схемы — возможность использования менее мощного и более дешевого УПП, так как в рабочем режиме оно полностью отключено от силовой цепи.</p></div>
+
+<h2 id="диагностика-неисправностей-и-обслуживание">Диагностика неисправностей и обслуживание</h2>
+
+<p>В процессе эксплуатации система требует периодического контроля. Основному износу подвергается байпасный контактор, так как он является механическим устройством. Периодически, раз в полгода или год, необходимо проверять состояние контактов и при необходимости проводить их чистку или замену.</p>
+
+<p>Если двигатель не запускается или не переходит в режим байпаса, проверьте сигналы управления. Часто проблема кроется в сгоревшей катушке контактора или отсутствии сигнала на выходе"Run" у УПП. Диагностика начинается с проверки напряжения на катушке контактора в момент предполагаемого переключения.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> При проверке контактора под напряжением соблюдайте предельную осторожность. Дуга, возникающая при размыкании цепи под нагрузкой (если вдруг схема сбоит), может быть опасна для зрения и кожи. Используйте защитные очки.</p>
+</blockquote>
+
+<p>Также стоит обращать внимание на температуру корпуса УПП. Если он греется в режиме ожидания или работы (когда должен быть холодным), это признак того, что байпас не включился или тиристоры"текут". Это требует немедленного вмешательства и перенастройки или ремонта.</p>
+
+<details class="faq-item"><summary>Что делать, если контактор гудит?</summary><div class="faq-answer"><p>Гудение контактора может указывать на недостаточное напряжение питания катушки, перекос магнитопровода или попадание грязи. Попробуйте почистить магнитопровод и проверить напряжение на катушке — оно должно быть в пределах +/-10% от номинала.</p></div></details>
+
+<details>
+<summary>Можно ли использовать однобайпасную схему для реверсивного двигателя?</summary>
+<p>Да, можно. Для этого байпасный контактор устанавливается после реверсивной пары контакторов (или реверсивного пускателя). В этом случае УПП управляет разгоном в любую сторону, а байпас включается после набора скорости. Схема становится сложнее, но принцип работы УПП остается прежним.</p>
+</details>
+
+<details>
+<summary>Нужен ли отдельный автомат защиты двигателя, если есть автомат защиты УПП?</summary>
+<p>Да, нужен. Автомат перед УПП защищает в первую очередь сам регулятор и кабель до него. Для защиты обмоток двигателя от перегрузки лучше использовать тепловое реле или настроить встроенную электронную защиту в самом УПП, так как номиналы автоматов могут отличаться.</p>
+</details>
+
+<details>
+<summary>Почему УПП греется, даже если включен байпас?</summary>
+<p>Это указывает на неисправность. Либо не включился байпасный контактор (проверьте катушку и сигнал управления), либо произошел пробой тиристоров, и ток течет через них параллельно контактору. Во втором случае УПП требует замены.</p>
+</details>
+
+<details>
+<summary>Какой запас по току брать для байпасного контактора?</summary>
+<p>Для однобайпасной схемы достаточно запаса 10-20% от номинального тока двигателя (категория AC-3). Брать контактор с двукратным запасом, как для прямого пуска, не требуется, так как коммутация происходит при уже работающем двигателе.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#принцип-действия-и-логика-работы-схемы">Принцип действия и логика работы схемы</a></li><li><a href="#ключевые-компоненты-системы-управления">Ключевые компоненты системы управления</a></li><li><a href="#отличия-однобайпасной-схемы-от-двухбайпасной">Отличия однобайпасной схемы от двухбайпасной</a></li><li><a href="#пошаговая-инструкция-по-подключению-оборудования">Пошаговая инструкция по подключению оборудования</a></li><li><a href="#типичные-ошибки-при-монтаже-и-настройке">Типичные ошибки при монтаже и настройке</a></li><li><a href="#преимущества-использования-байпасирования">Преимущества использования байпасирования</a></li><li><a href="#диагностика-неисправностей-и-обслуживание">Диагностика неисправностей и обслуживание</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/u/uz/uzo-v-elektrichestve.html" class="related-card">УЗО в электрике: принцип работы, выбор и подключение 2026</a></li><li><a href="/articles/a/av/avtomat-ot-korotkogo-zamykaniya.html" class="related-card">Автомат от короткого замыкания: принцип работы, выбор и монтаж</a></li><li><a href="/articles/k/ka/kak-podklyuchit-vkhodnoj-avtomat.html" class="related-card">Как подключить входной автомат: схема + пошаговая инструкция 2026</a></li><li><a href="/articles/s/sk/skhema-shchita-v-dome.html" class="related-card">Схема щита в доме: правила сборки, расчеты и чертежи</a></li><li><a href="/articles/s/sk/skolki-ampernyj-avtomat-nuzhen-dlya-chastnogo-doma.html" class="related-card">Какой автомат поставить в частный дом: расчёт по мощности и току</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/u/uz/uzo-v-elektrichestve.html" class="related-bottom-card"><span class="related-bottom-title">УЗО в электрике: принцип работы, выбор и подключение 2026</span><span class="related-bottom-desc">Что такое УЗО, как оно защищает от поражения током и пожаров. Схемы подключения, расчет параметров и</span></a><a href="/articles/a/av/avtomat-ot-korotkogo-zamykaniya.html" class="related-bottom-card"><span class="related-bottom-title">Автомат от короткого замыкания: принцип работы, выбор и монтаж</span><span class="related-bottom-desc">Как работает автоматический выключатель при КЗ? Правила выбора, установки и тестирования защиты от к</span></a><a href="/articles/k/ka/kak-podklyuchit-vkhodnoj-avtomat.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить входной автомат: схема + пошаговая инструкция 2026</span><span class="related-bottom-desc">Правильное подключение входного автомата в щитке: выбор номинала, схема подключения, ошибки и нормы </span></a><a href="/articles/s/sk/skhema-shchita-v-dome.html" class="related-bottom-card"><span class="related-bottom-title">Схема щита в доме: правила сборки, расчеты и чертежи</span><span class="related-bottom-desc">Профессиональная схема щита в доме: выбор автоматов, УЗО, дифов. Примеры компоновки, таблица сечений</span></a><a href="/articles/s/sk/skolki-ampernyj-avtomat-nuzhen-dlya-chastnogo-doma.html" class="related-bottom-card"><span class="related-bottom-title">Какой автомат поставить в частный дом: расчёт по мощности и току</span><span class="related-bottom-desc">Сколько ампер должен быть вводной автомат для дома 15 кВт, 10 кВт или 3 фазы? Подробный расчёт номин</span></a><a href="/articles/s/sk/skhema-odnofaznogo-shchita.html" class="related-bottom-card"><span class="related-bottom-title">Схема однофазного щита: пошаговое руководство для дома и квартиры</span><span class="related-bottom-desc">Как правильно собрать однофазный щит: схемы подключения, выбор автоматов, УЗО и счетчика. Пошаговая </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

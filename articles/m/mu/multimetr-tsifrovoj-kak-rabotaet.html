@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Как работает цифровой мультиметр: принцип действия и схема — Электро Гид</title>
+    <meta name="description" content="Подробный разбор работы цифрового мультиметра: как измеряет напряжение, ток и сопротивление, устройство АЦП, погрешности и выбор режимов для точных замеров.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/m/mu/multimetr-tsifrovoj-kak-rabotaet.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как работает цифровой мультиметр: принцип действия и схема">
+    <meta property="og:description" content="Подробный разбор работы цифрового мультиметра: как измеряет напряжение, ток и сопротивление, устройство АЦП, погрешности и выбор режимов для точных замеров.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/instrumenty-i-zamery/">Инструменты и замеры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как работает цифровой мультиметр: принцип действия и схема</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Цифровой мультиметр: как он работает изнутри и почему показывает точные значения</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-устройство-цифрового-мультиметра-блок-схема-и-ключевые-элементы">1. Устройство цифрового мультиметра: блок-схема и ключевые элементы</a></li><li><a href="#2-принцип-работы-ацп-как-аналоговый-сигнал-становится-цифрой">2. Принцип работы АЦП: как аналоговый сигнал становится цифрой</a></li><li><a href="#3-как-мультиметр-измеряет-напряжение-ток-и-сопротивление">3. Как мультиметр измеряет напряжение, ток и сопротивление</a></li><li><a href="#4-автоматический-и-ручной-выбор-диапазонов-что-лучше">4. Автоматический и ручной выбор диапазонов: что лучше?</a></li><li><a href="#5-погрешности-измерений-почему-мультиметр-врёт">5. Погрешности измерений: почему мультиметр врёт</a></li><li><a href="#6-защита-мультиметра-что-сгорит-первым-и-как-этого-избежать">6. Защита мультиметра: что сгорит первым и как этого избежать</a></li><li><a href="#7-дополнительные-функции-что-умеют-современные-мультиметры">7. Дополнительные функции: что умеют современные мультиметры</a></li><li><a href="#faq-частые-вопросы-о-работе-цифровых-мультиметров">FAQ: Частые вопросы о работе цифровых мультиметров</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Цифровой мультиметр — это универсальный прибор, без которого не обходится ни один электрик, радиолюбитель или мастер по ремонту техники. В отличие от стрелочных аналогов, он показывает результаты на экране с точностью до сотых или тысячных долей, автоматически выбирает диапазоны и защищён от перегрузок. Но как именно он преобразует электрические сигналы в цифры? Почему одни модели стоят 300 рублей, а другие — 20 000? И почему при измерении тока нужно переключать щупы, а при проверке сопротивления — нет?</p>
+
+<p>В этой статье мы разберём <strong>принцип работы цифрового мультиметра</strong> на уровне схемы: от входного сигнала до отображения на дисплее. Вы узнаете, как устроен <em>аналого-цифровой преобразователь (АЦП)</em>, почему важна разрядность прибора, и какие ошибки приводят к неточным замерам. А ещё — как правильно интерпретировать показания, чтобы не спалить прибор или проверяемую схему.</p>
+
+<h2 id="1-устройство-цифрового-мультиметра-блок-схема-и-ключевые-элементы">1. Устройство цифрового мультиметра: блок-схема и ключевые элементы</h2>
+
+<p>Снаружи мультиметр выглядит как коробка с экраном, переключателем режимов и гнёздами для щупов. Но внутри него скрывается сложная электронная схема, которая преобразует аналоговые сигналы (напряжение, ток, сопротивление) в цифровые данные. Основные компоненты:</p>
+
+<ul>
+  <li>🔌 <strong>Входные цепи</strong> — делители напряжения, шунты для тока, защитные диоды и предохранители. Они адаптируют сигнал под диапазон измерений и защищают АЦП от перегрузок.</li>
+  <li>📊 <em>Аналого-цифровой преобразователь (АЦП)</em> — "сердце" прибора. Преобразует непрерывный электрический сигнал в дискретный цифровой код (например, 3.3 В → 10110010).</li>
+  <li>🧠 <strong>Микроконтроллер</strong> — обрабатывает данные от АЦП, управляет переключением диапазонов (в моделях с <code>Auto-Ranging</code>) и выводит результат на дисплей.</li>
+  <li>📱 <strong>Дисплей</strong> — жидкокристаллический (LCD) или светодиодный (LED). Показывает измеренные значения, единицы (В, А, Ом) и дополнительную информацию (например, значок батареи).</li>
+  <li>🔋 <strong>Источник питания</strong> — батарейка (обычно "Крона" 9 В) или аккумулятор. В дешёвых моделях при разряде батареи растёт погрешность!</li>
+</ul>
+
+<p>Важно понимать, что <strong>цифровой мультиметр не измеряет ток или напряжение напрямую</strong>. Он преобразует их в напряжение (например, через шунт для тока или мостовую схему для сопротивления), а затем оцифровывает его. Именно поэтому при неправильном подключении щупов (например, в режим тока вместо напряжения) прибор может сгореть — входные цепи не рассчитаны на высокие напряжения.</p>
+
+<div class="poll-widget" id="poll-1dc665de"><div class="poll-widget-question">📊 Какой мультиметр вы используете?</div><div class="poll-widget-option" data-poll="1dc665de" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Дешёвый китаец (до 1000 ₽)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1dc665de" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Бюджетный бренд (Mastech, UNI-T)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1dc665de" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Профессиональный (Fluke, Keysight)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1dc665de" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Самодельный/советский</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1dc665de" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Не пользуюсь</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="2-принцип-работы-ацп-как-аналоговый-сигнал-становится-цифрой">2. Принцип работы АЦП: как аналоговый сигнал становится цифрой</h2>
+
+<p>Главное отличие цифрового мультиметра от стрелочного — использование <em>АЦП (ADC, Analog-to-Digital Converter)</em>. Этот чип преобразует плавно меняющееся напряжение в дискретный двоичный код, который микроконтроллер может обработать и вывести на экран. Рассмотрим, как это работает на примере популярной схемы <strong>дельта-сигма АЦП</strong> (используется в большинстве современных мультиметров):</p>
+
+<ol>
+  <li><strong>Дискретизация</strong>: Непрерывный сигнал (например, 2.5 В) "режется" на отдельные отсчёты с фиксированной частотой (например, 1000 раз в секунду).</li>
+  <li><strong>Квантование</strong>: Каждый отсчёт округляется до ближайшего уровня из доступных (зависит от разрядности АЦП). Например, 8-битный АЦП делит диапазон на 256 уровней, а 24-битный — на 16 миллионов!</li>
+  <li><strong>Кодирование</strong>: Полученный уровень преобразуется в двоичный код (например, 2.5 В → 10011100).</li>
+</ol>
+
+<p>От разрядности АЦП зависит <strong>точность мультиметра</strong>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Разрядность АЦП</th>
+      <th>Количество уровней</th>
+      <th>Погрешность (для диапазона 0–10 В)</th>
+      <th>Пример моделей</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8 бит</td>
+      <td>256</td>
+      <td>±39 мВ</td>
+      <td>Дешёвые китайские мультиметры</td>
+    </tr>
+    <tr>
+      <td>10 бит</td>
+      <td>1024</td>
+      <td>±9.8 мВ</td>
+      <td><em>Mastech MS8268</em></td>
+    </tr>
+    <tr>
+      <td>16 бит</td>
+      <td>65 536</td>
+      <td>±153 мкВ</td>
+      <td><em>UNI-T UT61E</em></td>
+    </tr>
+    <tr>
+      <td>24 бит</td>
+      <td>16 777 216</td>
+      <td>±0.6 мкВ</td>
+      <td><em>Fluke 8846A</em>, <em>Keysight 34465A</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><mark>Критическая особенность: дешёвые мультиметры с 8–10-битными АЦП могут показывать "плавающие" значения (например, 1.99 В → 2.01 В) из-за низкого разрешения. Профессиональные приборы используют методы усреднения и фильтрации, чтобы сгладить помехи.</mark></p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если ваш мультиметр "дрожит" при измерении постоянного напряжения, попробуйте включить режим усреднения (если есть) или уменьшить длину щупов — они могут улавливать наводки.</p></div>
+
+<h2 id="3-как-мультиметр-измеряет-напряжение-ток-и-сопротивление">3. Как мультиметр измеряет напряжение, ток и сопротивление</h2>
+
+<p>Несмотря на универсальность, мультиметр использует <strong>разные схемы измерений</strong> для каждого параметра. Разберём их подробно.</p>
+
+<h3>3.1. Измерение напряжения (V)</h3>
+<p>Прибор подключается <strong>параллельно</strong> цепи. Входное напряжение подаётся на делитель (для высоких напряжений) или напрямую на АЦП. Например:</p>
+<ul>
+  <li>🔋 Для диапазона <code>0–200 мВ</code> сигнал идёт на АЦП без изменений.</li>
+  <li>⚡ Для <code>0–1000 В</code> используется делитель на резисторах (например, 1 МОм + 10 кОм), который уменьшает напряжение в 100 раз.</li>
+</ul>
+
+<p><strong>Ошибка новичков:</strong> при измерении напряжения в розетке (220 В) дешёвые мультиметры могут показывать 230–240 В из-за нелинейности делителя. Это нормально — реальное напряжение в сети редко бывает ровно 220 В.</p>
+
+<h3>3.2. Измерение тока (A)</h3>
+<p>Мультиметр подключается <strong>последовательно</strong> в цепь. Ток проходит через <em>шунт</em> (резистор с очень низким сопротивлением, обычно 0.1–0.01 Ом), на котором создаётся падение напряжения. Это напряжение и измеряет АЦП.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если случайно подключить щупы к гнездам для тока (10 А) и попробовать измерить напряжение в розетке, шунт сгорит мгновенно! В большинстве мультиметров для защиты используется плавкий предохранитель, но он не всегда срабатывает вовремя.</blockquote>
+
+<h3>3.3. Измерение сопротивления (Ω)</h3>
+<p>Мультиметр подаёт <strong>тестовое напряжение</strong> (обычно 0.3–1 В) на проверяемый резистор и измеряет ток через него. По закону Ома (<code>R = U/I</code>) вычисляется сопротивление. В дешёвых приборах используется простая схема с одним источником напряжения, в профессиональных — <em>мостовая схема</em> для повышения точности.</p>
+
+<p>Почему при измерении сопротивления нельзя касаться щупов руками? Потому что сопротивление тела (~100 кОм) будет включено параллельно измеряемому резистору, искажая результат!</p>
+
+
+<p>Убедиться, что цепь обесточена|Выбрать правильный диапазон (мА или А)|Подключить чёрный щуп в COM, красный в гнездо 10 А|Проверить целостность предохранителя (если есть)|Не касаться оголённых частей щупов во время измерения--></p>
+
+<h2 id="4-автоматический-и-ручной-выбор-диапазонов-что-лучше">4. Автоматический и ручной выбор диапазонов: что лучше?</h2>
+
+<p>Бюджетные мультиметры требуют <strong>ручного переключения диапазонов</strong> (например, 200 мВ / 2 В / 20 В). Это неудобно, но позволяет точнее контролировать процесс. Дорогие модели оснащены функцией <code>Auto-Ranging</code> — они сами определяют диапазон. Как это работает?</p>
+
+<p>Алгоритм <em>автоподстройки</em>:</p>
+<ol>
+  <li>Прибор начинает с самого грубого диапазона (например, 1000 В для напряжения).</li>
+  <li>АЦП оценивает уровень сигнала. Если он слишком мал (например, 0.5 В при диапазоне 1000 В), переключается на более чувствительный диапазон (200 В).</li>
+  <li>Процесс повторяется, пока не будет найден оптимальный диапазон (например, 2 В для сигнала 1.2 В).</li>
+</ol>
+
+<p>Преимущества <code>Auto-Ranging</code>:</p>
+<ul>
+  <li>✅ Быстрота — не нужно крутить переключатель.</li>
+  <li>✅ Меньше ошибок — прибор не "зашкалит" из-за неправильного диапазона.</li>
+</ul>
+<p>Недостатки:</p>
+<ul>
+  <li>❌ Дольше время измерения (0.5–2 секунды против 0.1 с в ручном режиме).</li>
+  <li>❌ Дороже и сложнее в ремонте.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Автоматический выбор диапазонов удобен для быстрых замеров, но в критических схемы (например, при поиске короткого замыкания) лучше использовать ручной режим — он реагирует мгновенно.</p></div>
+
+<h2 id="5-погрешности-измерений-почему-мультиметр-врёт">5. Погрешности измерений: почему мультиметр врёт</h2>
+
+<p>Даже самый точный мультиметр даёт погрешность. Она указывается в паспорте прибора в формате <code>±(X% + Y)</code>, где:</p>
+<ul>
+  <li><strong>X%</strong> — относительная погрешность (зависит от диапазона). Например, ±0.5% при измерении 10 В означает ±0.05 В.</li>
+  <li><strong>Y</strong> — абсолютная погрешность (в младших разрядах). Например, ±2 для диапазона 200 В означает ±0.02 В.</li>
+</ul>
+
+<p>Источники погрешностей:</p>
+<ul>
+  <li>🔥 <strong>Температурный дрейф</strong>: При нагреве или охлаждении изменяются параметры резисторов и конденсаторов внутри прибора. В дешёвых мультиметрах это может давать ошибку до 1–2%.</li>
+  <li>🔋 <strong>Разряд батареи</strong>: При напряжении питания ниже 7.5 В (для "Кроны") точность падает в 2–3 раза.</li>
+  <li>📶 <strong>Наводки</strong>: Помехи от близлежащих кабелей или радиочастотных устройств (например, Wi-Fi роутера). Особенно критично при измерении малых сигналов (мВ, мкА).</li>
+  <li>⏱️ <strong>Время измерения</strong>: Быстрые импульсные сигналы (например, в блоках питания) могут "пролететь" между отсчётами АЦП.</li>
+</ul>
+
+<p><strong>Как минимизировать погрешность?</strong></p>
+<ul>
+  <li>🔹 Используйте короткие щупы с экранированными проводами.</li>
+  <li>🔹 Перед ответственными замерами прогрейте прибор 10–15 минут.</li>
+  <li>🔹 Для точных измерений сопротивления отключите питание цепи — даже остаточный заряд конденсаторов исказит результат.</li>
+</ul>
+
+<details class="faq-item"><summary>Почему дешёвые мультиметры "врут" на высоких частотах?</summary><div class="faq-answer"><p>
+<p>Большинство бюджетных моделей имеют полосу пропускания АЦП не более 1–5 кГц. При измерении сигналов выше этой частоты (например, ШИМ или высокочастотные наводки) прибор покажет среднее значение, а не реальную амплитуду. Для таких задач нужны осциллографы или специализированные мультиметры с True RMS (истинное среднеквадратичное значение).</p></div></details></p>
+
+<h2 id="6-защита-мультиметра-что-сгорит-первым-и-как-этого-избежать">6. Защита мультиметра: что сгорит первым и как этого избежать</h2>
+
+<p>Цифровые мультиметры имеют несколько уровней защиты, но они не абсолютны. Рассмотрим слабые места:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Режим</th>
+      <th>Уязвимый элемент</th>
+      <th>Максимально допустимое значение</th>
+      <th>Что произойдёт при превышении</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Напряжение (V)</td>
+      <td>Делитель напряжения, защитные диоды</td>
+      <td>Обычно 500–1000 В (указано на корпусе)</td>
+      <td>Пробой диодов, выход из строя АЦП</td>
+    </tr>
+    <tr>
+      <td>Ток (A), гнездо 10 А</td>
+      <td>Шунт, предохранитель</td>
+      <td>10–20 А (кратковременно)</td>
+      <td>Перегорание шунта, оплавление дорожек платы</td>
+    </tr>
+    <tr>
+      <td>Ток (A), гнездо мА</td>
+      <td>Тонкоплёночный резистор (шунт)</td>
+      <td>0.2–0.5 А</td>
+      <td>Необратимое разрушение шунта</td>
+    </tr>
+    <tr>
+      <td>Сопротивление (Ω)</td>
+      <td>Источник опорного напряжения</td>
+      <td>—</td>
+      <td>При подаче внешнего напряжения > 0.5 В — выход из строя</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><blockquote>⚠️ <strong>Внимание:</strong> Если вы измеряете ток в цепи с индуктивной нагрузкой (например, катушка реле, двигатель), при разрыве цепи щупами может возникнуть <em>импульс высокого напряжения</em> (до нескольких киловольт!). Это мгновенно уничтожит мультиметр. Всегда отключайте питание перед переподключением щупов!</blockquote></p>
+
+<p>Как проверить, жив ли предохранитель в мультиметре? Переключитесь в режим "прозвонки" и замкните щупы. Если звукового сигнала нет — предохранитель сгорел.</p>
+
+<h2 id="7-дополнительные-функции-что-умеют-современные-мультиметры">7. Дополнительные функции: что умеют современные мультиметры</h2>
+
+<p>Помимо базовых измерений, многие мультиметры оснащены полезными функциями:</p>
+
+<ul>
+  <li>🔊 <strong>Прозвонка</strong> — проверка целостности цепи со звуковым сигналом. Порог срабатывания обычно 30–50 Ом.</li>
+  <li>📈 <strong>Измерение ёмкости (F)</strong> — для конденсаторов. Точность зависит от качества АЦП (в дешёвых моделях погрешность до 20%).</li>
+  <li>🔄 <strong>Проверка диодов</strong> — подаёт ток ~1 мА и измеряет падение напряжения на p-n переходе (для кремниевых диодов ~0.6–0.7 В).</li>
+  <li>🌡️ <strong>Измерение температуры</strong> — через термопару (обычно тип K). Требует калибровки!</li>
+  <li>🔋 <strong>Тест транзисторов (hFE)</strong> — определяет коэффициент усиления биполярных транзисторов.</li>
+  <li>📡 <strong>Измерение частоты (Hz)</strong> — полезно для проверки генераторов или ШИМ-сигналов.</li>
+</ul>
+
+<p>В профессиональных моделях (например, <em>Fluke 289</em> или <em>Keysight U1273A</em>) есть ещё:</p>
+<ul>
+  <li>📊 <strong>Графический дисплей</strong> с отображением трендов (изменение сигнала во времени).</li>
+  <li>🔌 <strong>Бесконтактное измерение тока</strong> (через токовые клещи).</li>
+  <li>📤 <strong>Экспорт данных</strong> на ПК через USB или Bluetooth.</li>
+</ul>
+
+<p><strong>Совет:</strong> Если вам нужна проверка конденсаторов в схеме (без выпаивания), ищите мультиметр с функцией <code>Low-Z</code> (низкоомный режим). Он подаёт тестовый сигнал с низким выходным сопротивлением, что уменьшает влияние других элементов цепи.</p>
+
+<h2 id="faq-частые-вопросы-о-работе-цифровых-мультиметров">FAQ: Частые вопросы о работе цифровых мультиметров</h2>
+
+<details>
+  <summary>Можно ли измерить переменное напряжение постоянным щупом?</summary>
+  <p>Нет, это приведёт к некорректным показаниям. В режиме DC (постоянный ток) мультиметр измеряет среднее значение сигнала, а для AC (переменный ток) используется выпрямление + усреднение с учётом формы волны. Для точных замеров переменного напряжения выбирайте режим <code>ACV</code> (обозначен волнистой линией ~).</p>
+</details>
+
+<details>
+  <summary>Почему мультиметр показывает отрицательное напряжение?</summary>
+  <p>Это значит, что полярность подключения щупов обратна ожидаемой. Например, если красный щуп подключён к "минусу" источника, а чёрный — к "плюсу", прибор покажет -12 В вместо +12 В. Для переменного напряжения полярность не важна.</p>
+</details>
+
+<details>
+  <summary>Как проверить мультиметр на точность без эталона?</summary>
+  <p>Можно использовать следующие методы:</p>
+  <ol>
+    <li>Измерьте напряжение новой батарейки AA (должно быть ~1.5–1.6 В).</li>
+    <li>Проверьте сопротивление резистора с маркировкой (например, 1 кОм ±5%).</li>
+    <li>Замкните щупы в режиме сопротивления — показания должны быть близки к 0 Ом (учитывайте сопротивление самих щупов, обычно 0.2–0.5 Ом).</li>
+  </ol>
+  <p>Если погрешность превышает ±2% — прибор требует калибровки.</p>
+</details>
+
+<details>
+  <summary>Чем отличается True RMS от обычного мультиметра?</summary>
+  <p><strong>True RMS</strong> (истинное среднеквадратичное значение) корректно измеряет переменные сигналы <em>любой формы</em> (синус, меандр, пилообразный). Обычные мультиметры рассчитаны только на синусоидальные сигналы и дадут ошибку до 40% при измерении ШИМ или импульсных источников питания.</p>
+  <p>Пример: при проверке блока питания компьютера (где используются высокочастотные импульсы) дешёвый мультиметр может показать 12 В, а <em>True RMS</em> — 11.7 В.</p>
+</details>
+
+<details>
+  <summary>Можно ли ремонтировать сгоревший мультиметр?</summary>
+  <p>Зависит от повреждений:</p>
+  <ul>
+    <li>🔧 <strong>Предохранитель</strong> — легко заменить (обычно 250 мА/10 А, высоковольтный).</li>
+    <li>🔥 <strong>Шунт</strong> — в большинстве случаев неремонтопригоден (требуется паяльная станция и точный резистор).</li>
+    <li>📱 <strong>АЦП/микроконтроллер</strong> — ремонт нерентабелен (дешевле купить новый прибор).</li>
+  </ul>
+  <p>Если сгорел только предохранитель, перед заменой проверьте цепь на короткое замыкание!</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-устройство-цифрового-мультиметра-блок-схема-и-ключевые-элементы">1. Устройство цифрового мультиметра: блок-схема и ключевые элементы</a></li><li><a href="#2-принцип-работы-ацп-как-аналоговый-сигнал-становится-цифрой">2. Принцип работы АЦП: как аналоговый сигнал становится цифрой</a></li><li><a href="#3-как-мультиметр-измеряет-напряжение-ток-и-сопротивление">3. Как мультиметр измеряет напряжение, ток и сопротивление</a></li><li><a href="#4-автоматический-и-ручной-выбор-диапазонов-что-лучше">4. Автоматический и ручной выбор диапазонов: что лучше?</a></li><li><a href="#5-погрешности-измерений-почему-мультиметр-врёт">5. Погрешности измерений: почему мультиметр врёт</a></li><li><a href="#6-защита-мультиметра-что-сгорит-первым-и-как-этого-избежать">6. Защита мультиметра: что сгорит первым и как этого избежать</a></li><li><a href="#7-дополнительные-функции-что-умеют-современные-мультиметры">7. Дополнительные функции: что умеют современные мультиметры</a></li><li><a href="#faq-частые-вопросы-о-работе-цифровых-мультиметров">FAQ: Частые вопросы о работе цифровых мультиметров</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-na-testere-proverit-napryazhenie.html" class="related-card">Как проверить напряжение мультиметром: пошаговое руководство 2026</a></li><li><a href="/articles/c/ch/chem-izmeryayut-moshchnost-toka.html" class="related-card">Чем измеряют мощность тока: приборы и методы для дома и производства</a></li><li><a href="/articles/d/dl/dlya-chego-bokorezy.html" class="related-card">Бокорезы: для чего нужны и как выбрать правильный инструмент</a></li><li><a href="/articles/k/ka/kak-podklyuchit-multimetr-dlya-izmereniya-napryazheniya.html" class="related-card">Как подключить мультиметр для измерения напряжения: пошагово</a></li><li><a href="/articles/c/ch/chem-proverit-napryazhenie-v-rozetke.html" class="related-card">Как проверить напряжение в розетке: 5 безопасных способов</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-na-testere-proverit-napryazhenie.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить напряжение мультиметром: пошаговое руководство 2026</span><span class="related-bottom-desc">Узнайте, как правильно измерить напряжение в розетке, аккумуляторе или проводах с помощью тестера. П</span></a><a href="/articles/c/ch/chem-izmeryayut-moshchnost-toka.html" class="related-bottom-card"><span class="related-bottom-title">Чем измеряют мощность тока: приборы и методы для дома и производства</span><span class="related-bottom-desc">Подробный обзор инструментов для измерения мощности электрического тока: от бытовых ваттметров до пр</span></a><a href="/articles/d/dl/dlya-chego-bokorezy.html" class="related-bottom-card"><span class="related-bottom-title">Бокорезы: для чего нужны и как выбрать правильный инструмент</span><span class="related-bottom-desc">Подробный разбор применения бокорезов в электромонтаже: от зачистки кабелей до резки металла. Сравне</span></a><a href="/articles/k/ka/kak-podklyuchit-multimetr-dlya-izmereniya-napryazheniya.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить мультиметр для измерения напряжения: пошагово</span><span class="related-bottom-desc">Детальная инструкция по подключению мультиметра для измерения постоянного и переменного напряжения с</span></a><a href="/articles/c/ch/chem-proverit-napryazhenie-v-rozetke.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить напряжение в розетке: 5 безопасных способов</span><span class="related-bottom-desc">Пошаговая инструкция с фото и видео, как измерить напряжение в розетке 220В мультиметром, индикаторо</span></a><a href="/articles/k/ka/kak-obzhat-avtomobilnye-klemmy-bez-krimpera.html" class="related-bottom-card"><span class="related-bottom-title">Как обжать клеммы авто без кримпера: способы и инструменты</span><span class="related-bottom-desc">Срочно нужно обжать клемму? Узнайте, как сделать надежный контакт без обжимных клещей, используя мол</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

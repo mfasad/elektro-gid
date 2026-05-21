@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>Как проверить микросхему мультиметром: пошаговая инструкция — Электро Гид</title>
+    <meta name="description" content="Подробное руководство по диагностике микросхем мультиметром: режимы измерений, распиновка, типичные ошибки. Проверка питания, сопротивления и транзисторов в SMD-корпусах.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/k/ka/kak-proverit-multimetrom-mikroskhemu.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как проверить микросхему мультиметром: пошаговая инструкция">
+    <meta property="og:description" content="Подробное руководство по диагностике микросхем мультиметром: режимы измерений, распиновка, типичные ошибки. Проверка питания, сопротивления и транзисторов в SMD-корпусах.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/poisk-neispravnostej/">Поиск неисправностей</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как проверить микросхему мультиметром: пошаговая инструкция</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Проверка микросхем мультиметром: полное руководство для новичков и профессионалов</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-подготовка-к-проверке-инструменты-и-меры-безопасности">1. Подготовка к проверке: инструменты и меры безопасности</a></li><li><a href="#2-визуальный-осмотр-что-может-рассказать-внешний-вид-микросхемы">2. Визуальный осмотр: что может рассказать внешний вид микросхемы</a></li><li><a href="#3-основные-методы-проверки-мультиметром">3. Основные методы проверки мультиметром</a></li><li><a href="#4-проверка-популярных-типов-микросхем">4. Проверка популярных типов микросхем</a></li><li><a href="#5-типичные-ошибки-при-проверке-микросхем">5. Типичные ошибки при проверке микросхем</a></li><li><a href="#6-проверка-без-выпаивания-когда-это-возможно">6. Проверка без выпаивания: когда это возможно</a></li><li><a href="#7-практические-примеры-разбор-реальных-случаев">7. Практические примеры: разбор реальных случаев</a></li><li><a href="#8-часто-задаваемые-вопросы-faq">8. Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Микросхемы — основа любой современной электроники, от бытовых приборов до промышленного оборудования. Когда устройство перестаёт работать, первая мысль — проверить целостность микросхем. Но как это сделать правильно, не имея дорогостоящего лабораторного оборудования? Обычный <strong>мультиметр</strong> станет вашим главным помощником, если знать нюансы диагностики. В этой статье мы разберём <em>пошаговые методы проверки</em> интегральных схем (ИС) разного типа: от простейших логических элементов до сложных микроконтроллеров.</p>
+
+<p>Важно понимать, что универсального способа проверки всех микросхем не существует. Методика зависит от типа корпуса (<em>DIP</em>, <em>SMD</em>, <em>BGA</em>), функционального назначения (аналоговые, цифровые, смешанные) и даже от производителя. Например, <strong>проверка стабилизаторов напряжения</strong> (типа <em>LM7805</em>) кардинально отличается от диагностики <strong>логических микросхем</strong> серии <em>74HC</em>. Мы рассмотрим общие принципы и конкретные примеры, которые покроют 90% бытовых случаев.</p>
+
+<p>Прежде чем браться за мультиметр, запомните: <mark>большинство микросхем не подлежат ремонту — их можно только заменить</mark>. Цель проверки — подтвердить или опровергнуть неисправность, а не «починить» схему. Исключение составляют редкие случаи с «холодной пайкой» или обрывом дорожек, которые ещё можно восстановить паяльником.</p>
+
+<div class="poll-widget" id="poll-1dc665de"><div class="poll-widget-question">📊 Какой мультиметр вы используете?</div><div class="poll-widget-option" data-poll="1dc665de" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Цифровой (DT-830, Mastech)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1dc665de" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Аналоговый (стрелочный)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1dc665de" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Профессиональный (Fluke, UNI-T)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1dc665de" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет мультиметра</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1dc665de" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Другой</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="1-подготовка-к-проверке-инструменты-и-меры-безопасности">1. Подготовка к проверке: инструменты и меры безопасности</h2>
+
+<p>Перед тем как прикасаться щупами мультиметра к выводам микросхемы, подготовьте рабочее место и инструменты. Вам понадобятся:</p>
+<ul>
+ <li>🔧 <strong>Мультиметр</strong> с режимами измерения сопротивления, напряжения и проверки диодов (подойдёт даже бюджетная модель <em>DT-832</em> или <em>AN8002</em>).</li>
+ <li>🔍 <strong>Лупа</strong> или USB-микроскоп для осмотра <em>SMD</em>-компонентов (увеличение ×10–×20).</li>
+ <li>🛠️ <strong>Паяльная станция</strong> с отсосом припоя (если требуется выпаивать микросхему).</li>
+ <li>📄 <strong>Даташит</strong> (technical datasheet) на проверяемую микросхему — его можно найти на сайтах <em>Alldatasheet</em>, <em>Digi-Key</em> или у производителя.</li>
+</ul>
+
+<p>Без даташита проверка превращается в гадание на кофейной гуще. Например, у микросхемы <em>NE555</em> (таймер) и <em>LM358</em> (операционный усилитель) одинаковый корпус <em>DIP-8</em>, но распиновка и принципы работы радикально отличаются. Не поленитесь скачать PDF-файл с описанием — это сэкономит часы времени.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если микросхема находится под напряжением (например, в блоке питания или материнской плате), <strong>отключите питание и разрядите конденсаторы</strong> перед проверкой. Даже остаточный заряд в 10 В может вывести мультиметр из строя или вызвать поражение током.</blockquote>
+
+<p>Для работы с <em>SMD</em>-компонентами пригодится <strong>переходник для щупов</strong> (например, набор игл или зажимы «крокодил»). Стандартные щупы мультиметра слишком громоздки для контактов размером 0.5 мм. Альтернатива — использовать <em>тестовые провода</em> с тонкими наконечниками или даже скрепки, припаянные к щупам.</p>
+
+<table>
+ <thead>
+ <tr>
+ <th>Инструмент</th>
+ <th>Назначение</th>
+ <th>Минимальные требования</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Мультиметр</td>
+ <td>Измерение сопротивления, напряжения, проверка диодов</td>
+ <td>Точность ±1%, разрешение 0.1 Ом</td>
+ </tr>
+ <tr>
+ <td>Паяльник</td>
+ <td>Выпаивание/впаивание микросхем</td>
+ <td>Мощность 30–60 Вт, температура 300–350°C</td>
+ </tr>
+ <tr>
+ <td>Флюс</td>
+ <td>Очистка контактов от окислов</td>
+ <td>Безотмывочный (например, <em>RMA-223</em>)</td>
+ </tr>
+ <tr>
+ <td>Игла или скальпель</td>
+ <td>Прозвонка дорожек под микросхемой</td>
+ <td>Толщина ≤0.3 мм</td>
+ </tr>
+ </tbody>
+</table>
+
+<h2 id="2-визуальный-осмотр-что-может-рассказать-внешний-вид-микросхемы">2. Визуальный осмотр: что может рассказать внешний вид микросхемы</h2>
+
+<p>До того как хвататься за мультиметр, внимательно осмотрите микросхему и плату вокруг неё. <strong>70% неисправностей</strong> можно выявить визуально, если знать, на что смотреть. Возьмите лупу и проверьте:</p>
+
+<ul>
+ <li>🔥 <strong>Почернение или вздутие корпуса</strong> — признак перегрева (часто встречается у стабилизаторов напряжения, например, <em>LM7805</em> или <em>1117</em>).</li>
+ <li>💧 <strong>Следы коррозии или окисления</strong> на выводах — указывают на попадание влаги или электролита из конденсаторов.</li>
+ <li>🕳️ <strong>Микротрещины</strong> на корпусе или пайке — могут привести к обрыву внутренних соединений.</li>
+ <li>🔌 <strong>Холодная пайка</strong> (матовый припой, неполное смачивание контактов) — частая причина нестабильной работы.</li>
+</ul>
+
+<p>Особое внимание уделите <em>электролитическим конденсаторам</em> рядом с микросхемой. Вздутые или протекающие конденсаторы часто выводят из строя соседние компоненты, подавая на них завышенное напряжение. Например, неисправный конденсатор в цепи питания <em>микроконтроллера STM32</em> может вызвать сбой в его работе, хотя сама микросхема будет исправна.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если на плате есть следы сажи или оплавления — <strong>не включайте устройство</strong> до полной диагностики. Такие дефекты часто сопровождаются короткими замыканиями, которые могут вывести из строя блок питания или мультиметр.</blockquote>
+
+<p>Для <em>BGA-микросхем</em> (например, чипов памяти или процессоров) визуальный осмотр усложняется из-за отсутствия видимых выводов. Здесь поможет <strong>рентгеновский контроль</strong> (в сервисных центрах) или проверка на <strong>тепловизоре</strong> — перегрев отдельных зон корпуса укажет на внутренние дефекты.</p>
+
+<details class="faq-item"><summary>Как проверить микросхему без выпаивания?</summary><div class="faq-answer"><p>Если микросхема впаяна в плату, её можно проверить"на месте", но с оговорками:
+<p>1. Отключите питание устройства.</p>
+<p>2. Проверьте сопротивление между выводами питания (VCC/GND) — оно должно быть >100 кОм (иначе возможен пробой).</p>
+<p>3. Измерьте напряжение на выводах питания при включённом устройстве (должно соответствовать даташиту).</p>
+<p>4. Для цифровых микросхем проверьте логические уровни на входах/выходах (0 В или ~3.3/5 В).</p>
+<p>Однако такой метод не даёт 100% гарантии — лучше выпаять микросхему для полной диагностики.</p></div></details></p>
+
+<h2 id="3-основные-методы-проверки-мультиметром">3. Основные методы проверки мультиметром</h2>
+
+<p>Теперь переходим к практической части. Методы проверки делятся на три категории:</p>
+<ol>
+ <li><strong>Проверка питания</strong> (напряжение на выводах <code>VCC</code>/<code>GND</code>).</li>
+ <li><strong>Проверка сопротивления</strong> между выводами (для выявления обрывов или коротких замыканий).</li>
+ <li><strong>Проверка транзисторных структур</strong> (для микросхем с биполярными или MOSFET-транзисторами).</li>
+</ol>
+
+<p>Рассмотрим каждый метод подробно.</p>
+
+<h3>3.1. Проверка напряжения питания</h3>
+<p>Это первый шаг для любой микросхемы. Подключите устройство к питанию и измерьте напряжение на выводах <code>VCC</code> (или <code>VDD</code>) и <code>GND</code>:</p>
+<ul>
+ <li>🔋 Для <em>TTL-логики</em> (например, <em>74HC00</em>) напряжение должно быть <strong>4.75–5.25 В</strong>.</li>
+ <li>🔋 Для <em>CMOS-логики</em> (например, <em>CD4000</em>) — <strong>3–15 В</strong> (зависит от модели).</li>
+ <li>🔋 Для <em>микроконтроллеров</em> (например, <em>ATmega328</em>) — <strong>1.8–5.5 В</strong>.</li>
+</ul>
+
+<p>Если напряжение отсутствует или занижено:</p>
+<ol>
+ <li>Проверьте цепь питания (предохранители, диоды, стабилизаторы).</li>
+ <li>Убедитесь, что нет короткого замыкания на линии <code>VCC</code> (прозвоните мультиметром в режиме сопротивления).</li>
+ <li>Для <em>SMD-микросхем</em> осмотрите дорожки под корпусом — часто они перетираются при механических нагрузках.</li>
+</ol>
+
+<h3>3.2. Проверка сопротивления между выводами</h3>
+<p>Этот метод подходит для <strong>выпаянных</strong> микросхем. Установите мультиметр в режим измерения сопротивления (<code>200 Ом</code> или <code>2 кОм</code>) и проверьте:</p>
+<ul>
+ <li>🔌 <strong>Сопротивление между <code>VCC</code> и <code>GND</code></strong> — должно быть <strong>>100 кОм</strong> (иначе пробой).</li>
+ <li>🔄 <strong>Сопротивление между входом и выходом</strong> (для аналоговых микросхем, например, <em>LM358</em>) — обычно <strong>0.5–10 кОм</strong>.</li>
+ <li>🚫 <strong>Короткое замыкание между любыми выводами</strong> — признак неисправности.</li>
+</ul>
+
+<p>Для <em>цифровых микросхем</em> (например, <em>74HC14</em>) сопротивление между входами и выходами должно быть <strong>>10 МОм</strong> — внутренние транзисторы в выключенном состоянии имеют высокое сопротивление.</p>
+
+
+<p>Выпаять микросхему из платы|Очистить выводы от припоя флюсом|Установить мультиметр в режим 200 Ом или 2 кОм|Прозвонить все пары выводов по даташиту--></p>
+
+<h3>3.3. Проверка транзисторных структур</h3>
+<p>Многие микросхемы содержат внутренние транзисторы, которые можно проверить в режиме <strong>проверки диодов</strong> (обозначен на мультиметре символом диода). Подключите щупы к выводам транзистора:</p>
+<ul>
+ <li>🔴 <strong>Прямое включение</strong> (красный щуп на базу, чёрный на эмиттер/коллектор) — падение напряжения <strong>0.5–0.7 В</strong> (для кремниевых транзисторов).</li>
+ <li>🔵 <strong>Обратное включение</strong> (поменять щупы местами) — должно показывать <strong>OL</strong> (обрыв).</li>
+</ul>
+
+<p>Для <em>MOSFET-транзисторов</em> (например, в микросхемах драйверов <em>IR2104</em>) проверяют сопротивление между стоком и истоком — в закрытом состоянии оно должно быть <strong>>1 МОм</strong>.</p>
+
+<h2 id="4-проверка-популярных-типов-микросхем">4. Проверка популярных типов микросхем</h2>
+
+<p>Разберём конкретные примеры для наиболее распространённых микросхем, с которыми сталкиваются радиолюбители и ремонтники.</p>
+
+<h3>4.1. Стабилизаторы напряжения (LM7805, AMS1117, LDO)</h3>
+<p>Эти микросхемы преобразуют входное напряжение в стабилизированное выходное. Проверка:</p>
+<ol>
+ <li>Подключите входное напряжение (например, 9 В для <em>LM7805</em>).</li>
+ <li>Измерьте выходное напряжение между <code>Vout</code> и <code>GND</code> — должно быть <strong>5 В ±0.25 В</strong>.</li>
+ <li>Если напряжение занижено или отсутствует:
+ <ul>
+ <li>Проверьте входное напряжение (должно быть на <strong>2–3 В выше выходного</strong>).</li>
+ <li>Прозвоните выводы на короткое замыкание.</li>
+ <li>Для <em>LDO-стабилизаторов</em> (например, <em>AMS1117</em>) проверьте ток нагрузки — превышение максимального значения ведёт к срабатыванию защиты.</li>
+ </ol>
+ </li>
+</ol>
+
+<p>Типичная неисправность: пробой между <code>Vin</code> и <code>Vout</code> (сопротивление <1 Ом). В этом случае микросхема греется и не стабилизирует напряжение.</p>
+
+<h3>4.2. Логические микросхемы (74HC00, CD4011, 555 таймер)</h3>
+<p>Цифровые микросхемы проверяют по следующей схеме:</p>
+<ol>
+ <li>Подайте питание (например, 5 В для <em>74HC00</em>).</li>
+ <li>Подключите входы к <code>GND</code> (логический 0) или <code>VCC</code> (логическая 1).</li>
+ <li>Измерьте напряжение на выходах — оно должно соответствовать таблице истинности из даташита.</li>
+</ol>
+
+<p>Пример для <em>74HC00</em> (4 элемента 2И-НЕ):</p>
+<ul>
+ <li>Если на оба входа подать 5 В (логическая 1), на выходе должно быть <strong>0 В</strong>.</li>
+ <li>Если на один вход подать 0 В, а на другой 5 В — на выходе <strong>5 В</strong>.</li>
+</ul>
+
+<p>Для <em>555 таймера</em> проверьте:</p>
+<ul>
+ <li>Напряжение на выводе 8 (<code>VCC</code>) — должно совпадать с питанием.</li>
+ <li>Сопротивление между выводами 2 (<code>TRIG</code>) и 6 (<code>THR</code>) — обычно <strong>5–10 кОм</strong>.</li>
+ <li>Если на выводе 3 (<code>OUT</code>) всегда 0 В или <code>VCC</code> — микросхема неисправна.</li>
+</ul>
+
+<h3>4.3. Операционные усилители (LM358, TL072, NE5532)</h3>
+<p>Проверка ОУ требует подачи тестового сигнала. Минимальный набор действий:</p>
+<ol>
+ <li>Подайте питание (±5 В для <em>TL072</em> или +5 В для <em>LM358</em>).</li>
+ <li>Подключите неинвертирующий вход (<code>+IN</code>) к <code>GND</code>, инвертирующий (<code>-IN</code>) — к средней точке делителя напряжения (например, 2.5 В).</li>
+ <li>Измерьте напряжение на выходе (<code>OUT</code>) — оно должно быть близко к <strong>0 В</strong> (для <em>LM358</em>) или к отрицательному питанию (для <em>TL072</em>).</li>
+</ol>
+
+<p>Если выходное напряжение «залипает» на одном из крайних значений (<code>VCC</code> или <code>GND</code>), это указывает на:</p>
+<ul>
+ <li>🔌 Обрыв во внутренних цепях.</li>
+ <li>🔥 Перегрев и пробой транзисторов выходного каскада.</li>
+</ul>
+
+<h3>4.4. Микроконтроллеры (ATmega, STM32, PIC)</h3>
+<p>Полноценная проверка микроконтроллеров (МК) требует программатора, но мультиметром можно выявить очевидные неисправности:</p>
+<ul>
+ <li>🔌 Проверьте напряжение на выводах питания (<code>VCC</code>, <code>AVCC</code>, <code>VDD</code>) — должно соответствовать даташиту (обычно <strong>3.3 В или 5 В</strong>).</li>
+ <li>🕳️ Измерьте сопротивление между <code>VCC</code> и <code>GND</code> — если оно <100 Ом, МК пробит.</li>
+ <li>🔄 Проверьте кварцевый резонатор (если есть) — сопротивление между выводами <code>XTAL1</code> и <code>XTAL2</code> должно быть <strong>10–100 МОм</strong>.</li>
+</ul>
+
+<p>Для <em>STM32</em> дополнительно:</p>
+<ul>
+ <li>Проверьте напряжение на выводе <code>VRREF</code> (опорное напряжение АЦП) — обычно <strong>3 В</strong>.</li>
+ <li>Убедитесь, что на выводе <code>BOOT0</code> правильный логический уровень (определяет режим загрузки).</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если микроконтроллер не отвечает на прошивку, не спешите его выпаивать. Сначала проверьте цепи <code>RESET</code>, <code>CLK</code> и питание — часто проблема кроется в обвеске, а не в самом МК.</blockquote>
+
+<h2 id="5-типичные-ошибки-при-проверке-микросхем">5. Типичные ошибки при проверке микросхем</h2>
+
+<p>Даже опытные радиолюбители допускают ошибки, которые ведут к ложным выводам или повреждению компонентов. Вот наиболее распространённые:</p>
+
+<ul>
+ <li>🔌 <strong>Проверка без отключения питания</strong> — может привести к повреждению мультиметра или микросхемы. Всегда выпаивайте компонент или хотя бы отключайте плату от сети.</li>
+ <li>📏 <strong>Игнорирование даташита</strong> — без схемы распиновки вы не сможете правильно интерпретировать результаты. Например, вывод <code>EN</code> (включение) у <em>AMS1117</em> часто путают с <code>GND</code>.</li>
+ <li>🔥 <strong>Перегрев при выпаивании</strong> — <em>SMD-микросхемы</em> чувствительны к температуре. Используйте паяльный фен с настройкой <strong>300–350°C</strong> и не держите его дольше 10 секунд на одном месте.</li>
+ <li>🔍 <strong>Некачественная прозвонка</strong> — окисленные выводы или остатки флюса искажают показания мультиметра. Очищайте контакты спиртом или специальной жидкостью.</li>
+</ul>
+
+<p>Ещё одна распространённая ошибка — <strong>проверка микросхемы «на месте» без учёта обвязки</strong>. Например, если на плате установлен резистор подтяжки между <code>VCC</code> и входом микросхемы, мультиметр покажет заниженное сопротивление, хотя сама микросхема исправна. Всегда выпаивайте компонент для точной диагностики.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если выпаиваете микросхему с большим количеством выводов (например, <em>BGA</em>), используйте низкотемпературный припой <em>Sn42Bi58</em> (плавление при 138°C) — это снизит риск повреждения платы.</p></div>
+
+<h2 id="6-проверка-без-выпаивания-когда-это-возможно">6. Проверка без выпаивания: когда это возможно</h2>
+
+<p>В некоторых случаях микросхему можно проверить прямо на плате, не прибегая к выпаиванию. Этот метод подходит для:</p>
+<ul>
+ <li>🔌 <strong>Стабилизаторов напряжения</strong> (например, <em>LM7805</em>) — проверяют входное/выходное напряжение.</li>
+ <li>🔄 <strong>Логических микросхем</strong> с буферными входами (например, <em>74HC125</em>) — подают сигналы и смотрят реакцию.</li>
+ <li>📡 <strong>Драйверов транзисторов</strong> (например, <em>IR2104</em>) — проверяют наличие импульсов на выходах.</li>
+</ul>
+
+<p><strong>Алгоритм проверки «на месте»:</strong></p>
+<ol>
+ <li>Отключите питание устройства.</li>
+ <li>Прозвоните цепи питания микросхемы на обрыв или короткое замыкание.</li>
+ <li>Включите устройство и измерьте напряжения на выводах (сравните с даташитом).</li>
+ <li>Для цифровых микросхем подавайте тестовые сигналы на входы и контролируйте выходы.</li>
+</ol>
+
+<p>Ограничения метода:</p>
+<ul>
+ <li>❌ Невозможно точно измерить сопротивление между выводами из-за параллельных цепей на плате.</li>
+ <li>❌ Риск повреждения мультиметра, если на плате есть высоковольтные цепи (например, в блоках питания).</li>
+ <li>❌ Ложные срабатывания из-за паразитных ёмкостей или индуктивностей.</li>
+</ul>
+
+<p>Пример: при проверке <em>операционного усилителя LM358</em> на плате мультиметр может показывать напряжение на выходе, даже если ОУ неисправен — из-за подтяжки через резисторы обвязки. Поэтому для точной диагностики лучше выпаять микросхему.</p>
+
+<h2 id="7-практические-примеры-разбор-реальных-случаев">7. Практические примеры: разбор реальных случаев</h2>
+
+<p>Рассмотрим двачных сценария из практики ремонта электроники.</p>
+
+<h3>7.1. Не работает блок питания: проверка ШИМ-контроллера</h3>
+<p><strong>Симптомы:</strong> блок питания не включается, светодиод не горит, нет выходного напряжения.</p>
+<p><strong>Диагностика:</strong></p>
+<ol>
+ <li>Проверяем предохранитель — сгорел (признак короткого замыкания).</li>
+ <li>Прозваниваем диодный мост — исправен.</li>
+ <li>Измеряем сопротивление между выводами <code>VCC</code> и <code>GND</code> <em>ШИМ-контроллера</em> (например, <em>TL494</em>) — показывает <strong>5 Ом</strong> (должно быть >100 кОм).</li>
+ <li>Вывод: пробой ШИМ-контроллера. Замена на новый восстановила работоспособность.</li>
+</ol>
+
+<h3>7.2. Не работает аудиоусилитель: проверка ОУ</h3>
+<p><strong>Симптомы:</strong> звук искажён, в динамиках слышен фон 50 Гц.</p>
+<p><strong>Диагностика:</strong></p>
+<ol>
+ <li>Проверяем питание <em>LM386</em> — напряжение в норме (+12 В).</li>
+ <li>Измеряем напряжение на выходе (<code>OUT</code>) — постоянно <strong>11.8 В</strong> (должно быть ~6 В при отсутствии сигнала).</li>
+ <li>Прозваниваем входы — на <code>+IN</code> и <code>-IN</code> сопротивление <strong>0 Ом</strong> (должно быть >1 МОм).</li>
+ <li>Вывод: пробой входного каскада ОУ. Замена микросхемы устранила проблему.</li>
+</ol>
+
+<p>В обоих случаях ключом к успешной диагностике стало <strong>сравнение измеренных значений с эталонными</strong> из даташита. Без этого невозможно отличить неисправность микросхемы от проблем в обвязке.</p>
+
+<h2 id="8-часто-задаваемые-вопросы-faq">8. Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+ <summary>Можно ли проверить микросхему, не выпаивая её из платы?</summary>
+ <p>Да, но с оговорками. Вы можете измерить напряжения на выводах и проверить целостность цепей питания, однако точная диагностика (например, проверка сопротивления между выводами) возможна только после выпаивания. На плате параллельные компоненты (резисторы, конденсаторы, дорожки) искажают показания мультиметра.</p>
+</details>
+
+<details>
+ <summary>Какое сопротивление должно быть между <code>VCC</code> и <code>GND</code> у исправной микросхемы?</summary>
+ <p>Для большинства микросхем сопротивление между выводами питания должно быть <strong>>100 кОм</strong>. Если мультиметр показывает значение <100 Ом, это указывает на пробой внутренних цепей. Исключение — микросхемы с встроенными стабилизаторами или мощными выходными каскадами (например, драйверы моторов), где сопротивление может быть ниже.</p>
+</details>
+
+<details>
+ <summary>Как проверить микросхему памяти (EEPROM, Flash)?</summary>
+ <p>Мультиметром можно только проверить цепи питания и целостность выводов. Для полноценной диагностики нужен <strong>программатор</strong> (например, <em>TL866</em> или <em>CH341A</em>). С его помощью считывают содержимое памяти и сравнивают с эталонным дампом. Если данные не читаются или искажены — микросхема неисправна.</p>
+</details>
+
+<details>
+ <summary>Почему мультиметр показывает напряжение на выходе микросхемы, но она не работает?</summary>
+ <p>Это типичная ситуация для цифровых микросхем. Напряжение на выходе может быть обусловлено подтягивающими резисторами или паразитными цепями на плате. Чтобы убедиться в работоспособности, нужно подать тестовый сигнал на входы и проверить реакцию выходов согласно таблице истинности (для логических микросхем) или осциллографом (для аналоговых).</p>
+</details>
+
+<details>
+ <summary>Можно ли восстановить сгоревшую микросхему?</summary>
+ <p>В 99% случаев — нет. Интегральные схемы представляют собой монолитный кристалл с миллионами транзисторов, и при пробое или перегреве восстановить их невозможно. Исключение — редкие случаи <strong>холодной пайки</strong> или обрыва дорожек под корпусом, которые можно устранить паяльником. В остальных случаях микросхему заменяют на новую.</p>
+</details>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед заменой микросхемы всегда проверяйте цепи её обвязки (резисторы, конденсаторы, кварцы) — часто неисправность кроется в них, а не в самой ИС.</p></div></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-подготовка-к-проверке-инструменты-и-меры-безопасности">1. Подготовка к проверке: инструменты и меры безопасности</a></li><li><a href="#2-визуальный-осмотр-что-может-рассказать-внешний-вид-микросхемы">2. Визуальный осмотр: что может рассказать внешний вид микросхемы</a></li><li><a href="#3-основные-методы-проверки-мультиметром">3. Основные методы проверки мультиметром</a></li><li><a href="#4-проверка-популярных-типов-микросхем">4. Проверка популярных типов микросхем</a></li><li><a href="#5-типичные-ошибки-при-проверке-микросхем">5. Типичные ошибки при проверке микросхем</a></li><li><a href="#6-проверка-без-выпаивания-когда-это-возможно">6. Проверка без выпаивания: когда это возможно</a></li><li><a href="#7-практические-примеры-разбор-реальных-случаев">7. Практические примеры: разбор реальных случаев</a></li><li><a href="#8-часто-задаваемые-вопросы-faq">8. Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-uznat-est-li-elektrichestvo.html" class="related-card">Как проверить наличие электричества в доме: 7 способов</a></li><li><a href="/articles/k/ka/kak-prozvonit-provod-multimetrom-na-obryv-bez-zvuka.html" class="related-card">Как прозвонить провод мультиметром на обрыв без звука — пошагово</a></li><li><a href="/articles/p/po/pochemu-v-dvukhklavishnom-vyklyuchatele-odna-iz-klavish-ne-rabotaet-otdelno.html" class="related-card">Почему не работает одна клавиша выключателя: ремонт и причины</a></li><li><a href="/articles/k/ka/kak-nazyvaetsya-prozvonka-provodov.html" class="related-card">Как называется прозвонка проводов: термины, методы и приборы</a></li><li><a href="/articles/p/po/poisk-provodki-multimetrom.html" class="related-card">Как найти скрытую проводку мультиметром: пошаговая инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-uznat-est-li-elektrichestvo.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить наличие электричества в доме: 7 способов</span><span class="related-bottom-desc">Пошаговая инструкция, как определить есть ли ток в розетке, на проводе или в сети без приборов и с м</span></a><a href="/articles/k/ka/kak-prozvonit-provod-multimetrom-na-obryv-bez-zvuka.html" class="related-bottom-card"><span class="related-bottom-title">Как прозвонить провод мультиметром на обрыв без звука — пошагово</span><span class="related-bottom-desc">Подробная инструкция по проверке целостности проводов мультиметром без звукового сигнала. Схемы, нас</span></a><a href="/articles/p/po/pochemu-v-dvukhklavishnom-vyklyuchatele-odna-iz-klavish-ne-rabotaet-otdelno.html" class="related-bottom-card"><span class="related-bottom-title">Почему не работает одна клавиша выключателя: ремонт и причины</span><span class="related-bottom-desc">Одна из клавиш двухклавишного выключателя не работает? Разбираем причины, схемы подключения и методы</span></a><a href="/articles/k/ka/kak-nazyvaetsya-prozvonka-provodov.html" class="related-bottom-card"><span class="related-bottom-title">Как называется прозвонка проводов: термины, методы и приборы</span><span class="related-bottom-desc">Полный разбор процедуры проверки целостности цепи. Узнайте, как называется прозвонка проводов, какие</span></a><a href="/articles/p/po/poisk-provodki-multimetrom.html" class="related-bottom-card"><span class="related-bottom-title">Как найти скрытую проводку мультиметром: пошаговая инструкция</span><span class="related-bottom-desc">Узнайте, как правильно искать проводку в стене мультиметром: схемы, настройки прибора, ошибки и безо</span></a><a href="/articles/u/uz/uzo-otklyuchilos-i-ne-vklyuchaetsya.html" class="related-bottom-card"><span class="related-bottom-title">УЗО отключилось и не включается: причины и решения 2026</span><span class="related-bottom-desc">Почему УЗО не включается после срабатывания? Пошаговая диагностика, типичные неисправности и способы</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

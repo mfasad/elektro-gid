@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>⚡</text></svg>">
+    <title>ВАХ автоматического выключателя: как читать и применять на практике — Электро Гид</title>
+    <meta name="description" content="Разбираем вольт-амперную характеристику (ВАХ) автоматов: что это, как влияет на защиту сети, сравнение с время-токовыми кривыми и примеры для бытовых сетей 220В/380В.">
+    <link rel="canonical" href="https://elektro-gid.vercel.app/articles/v/vo/volt-ampernaya-kharakteristika-avtomaticheskogo-vyklyuchatelya.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ВАХ автоматического выключателя: как читать и применять на практике">
+    <meta property="og:description" content="Разбираем вольт-амперную характеристику (ВАХ) автоматов: что это, как влияет на защиту сети, сравнение с время-токовыми кривыми и примеры для бытовых сетей 220В/380В.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1779360543">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Электро Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/rozetki-i-vyklyuchateli/" class="nav-link">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="nav-link">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="nav-link">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="nav-link">🔧 Инструменты и замеры</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/rozetki-i-vyklyuchateli/" class="dropdown-item">🔌 Розетки и выключатели</a>
+<a href="/category/elektroshchit-i-avtomaty/" class="dropdown-item">🛡️ Электрощит и автоматы</a>
+<a href="/category/provodka-i-kabeli/" class="dropdown-item">🧵 Проводка и кабели</a>
+<a href="/category/instrumenty-i-zamery/" class="dropdown-item">🔧 Инструменты и замеры</a>
+<a href="/category/bezopasnost-i-zazemlenie/" class="dropdown-item">⚠️ Безопасность и заземление</a>
+<a href="/category/stabilizatory-i-ibp/" class="dropdown-item">🔋 Стабилизаторы и ИБП</a>
+<a href="/category/elektrika-na-kukhne/" class="dropdown-item">🍳 Электрика на кухне</a>
+<a href="/category/chastnyj-dom-i-dacha/" class="dropdown-item">🏡 Частный дом и дача</a>
+<a href="/category/svet-i-osveshchenie/" class="dropdown-item">💡 Свет и освещение</a>
+<a href="/category/poisk-neispravnostej/" class="dropdown-item">🔍 Поиск неисправностей</a>
+<a href="/category/normy-i-standarty/" class="dropdown-item">📜 Нормы и стандарты</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/elektroshchit-i-avtomaty/">Электрощит и автоматы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">ВАХ автоматического выключателя: как читать и применять на практике</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Вольт-амперная характеристика автоматического выключателя: расшифровка, графики и практические примеры</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-вольт-амперная-характеристика-вах-автомата-и-зачем-она-нужна">Что такое вольт-амперная характеристика (ВАХ) автомата и зачем она нужна</a></li><li><a href="#отличие-вах-от-время-токовой-характеристики-втх">Отличие ВАХ от время-токовой характеристики (ВТХ)</a></li><li><a href="#как-считывать-вольт-амперную-характеристику-с-графика">Как считывать вольт-амперную характеристику с графика</a></li><li><a href="#вах-для-бытовых-и-промышленных-автоматов-сравнение">ВАХ для бытовых и промышленных автоматов: сравнение</a></li><li><a href="#практический-пример-выбор-автомата-по-вах-для-сети-с-просадками-напряжения">Практический пример: выбор автомата по ВАХ для сети с просадками напряжения</a></li><li><a href="#ошибки-при-игнорировании-вах-и-как-их-избежать">Ошибки при игнорировании ВАХ и как их избежать</a></li><li><a href="#как-измерить-вах-автомата-самостоятельно">Как измерить ВАХ автомата самостоятельно</a></li><li><a href="#faq-частые-вопросы-о-вах-автоматических-выключателей">FAQ: Частые вопросы о ВАХ автоматических выключателей</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Вольт-амперная характеристика (ВАХ) автоматического выключателя — это один из ключевых параметров, который часто упускают из виду при выборе защиты для электросети. В отличие от время-токовых кривых (которые показывают, как быстро сработает автомат при перегрузке), <strong>ВАХ отображает зависимость тока срабатывания от приложенного напряжения</strong>. Почему это важно? Потому что в реальных условиях напряжение в сети редко бывает стабильным: скачки, просадки или несимметрия фаз в 380В могут кардинально изменить поведение автомата.</p>
+
+<p>Многие электрики ориентируются только на номинальный ток (например, <em>C16</em> или <em>B25</em>), не учитывая, что при пониженном напряжении автомат может не сработать вовремя, а при повышенном — ложно отключиться. В этой статье мы разберём, как читать ВАХ, чем она отличается от стандартных графиков срабатывания, и приведём примеры для бытовых и промышленных сетей. Особое внимание уделим <strong>автоматам с электронными расцепителями</strong>, где ВАХ играет критически важную роль.</p>
+
+<p>Если вы когда-нибудь сталкивались с ситуацией, когда автомат «не видит» короткое замыкание при просадке напряжения или, наоборот, срабатывает без видимой причины — проблема может крыться именно в неучтённой вольт-амперной характеристике. Далее вы узнаете, как этот параметр влияет на выбор автоматов для разных типов нагрузок: от холодильника до мощного станка.
+
+<h2 id="что-такое-вольт-амперная-характеристика-вах-автомата-и-зачем-она-нужна">Что такое вольт-амперная характеристика (ВАХ) автомата и зачем она нужна</h2>
+
+<p>Вольт-амперная характеристика (ВАХ) — это график, показывающий, как меняется <strong>ток срабатывания автоматического выключателя</strong> в зависимости от приложенного напряжения. В отличие от время-токовых кривых (например, <em>B, C, D</em>), которые описывают поведение автомата при перегрузке, ВАХ демонстрирует его реакцию на изменения напряжения в сети.
+
+<p>Почему это важно? Представьте ситуацию: в вашей сети произошло короткое замыкание, но напряжение просело до 180В вместо стандартных 230В. Автомат с номиналом <em>C16</em> может не сработать, потому что ток КЗ при пониженном напряжении оказался ниже порога срабатывания. Или другой случай: при скачке напряжения до 250В ток через нагрузку вырос, и автомат ложно отключился, хотя перегрузки не было. Именно здесь ВАХ помогает предсказать поведение защиты.
+
+<p>Особенно критична вольт-амперная характеристика для:
+<ul>
+  <li>🔌 <strong>Электронных расцепителей</strong> (встречаются в автоматах <em>ABB S800</em>, <em>Schneider Electric Multi9</em> и др.), где срабатывание зависит от измеренного напряжения.</li>
+  <li>🏭 <strong>Промышленных сетей 380В</strong> с несимметричной нагрузкой, где напряжения на фазах могут отличаться.</li>
+  <li>⚡ <strong>Сетей с частыми скачками напряжения</strong> (например, в сельской местности или при подключении мощных двигателей).</li>
+</ul>
+
+<p>ВАХ обычно представляют в виде графика, где по оси X отложено напряжение (В), а по оси Y — ток срабатывания (А). Для механических расцепителей (большинство бытовых автоматов) этот график почти линейный, а для электронных — может иметь нелинейные участки, особенно в зоне низких напряжений.
+
+<div class="poll-widget" id="poll-696f8b49"><div class="poll-widget-question">📊 Какой тип автоматов вы используете в щитке?</div><div class="poll-widget-option" data-poll="696f8b49" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Механические (обычные)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="696f8b49" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Электронные (с дисплеем)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="696f8b49" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Комбинированные (механика + электронный расцепитель)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="696f8b49" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="отличие-вах-от-время-токовой-характеристики-втх">Отличие ВАХ от время-токовой характеристики (ВТХ)</h2>
+
+<p>Часто путают вольт-амперную характеристику (ВАХ) и время-токовую (ВТХ), но это принципиально разные параметры. Разберём ключевые отличия:
+
+<table>
+  <thead>
+    <tr>
+      <th>Параметр</th>
+      <th>Вольт-амперная характеристика (ВАХ)</th>
+      <th>Время-токовая характеристика (ВТХ)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Что показывает</strong></td>
+      <td>Зависимость тока срабатывания от напряжения</td>
+      <td>Зависимость времени срабатывания от тока перегрузки</td>
+    </tr>
+    <tr>
+      <td><strong>Применение</strong></td>
+      <td>Анализ работы при нестабильном напряжении</td>
+      <td>Выбор автомата по типу нагрузки (например, <em>B</em> для освещения, <em>D</em> для двигателей)</td>
+    </tr>
+    <tr>
+      <td><strong>Типичный вид</strong></td>
+      <td>График: напряжение (В) → ток срабатывания (А)</td>
+      <td>График: кратность тока (I/In) → время срабатывания (с)</td>
+    </tr>
+    <tr>
+      <td><strong>Влияние на выбор</strong></td>
+      <td>Критично для сетей с скачками напряжения</td>
+      <td>Критично для защиты от перегрузок и КЗ</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Например, время-токовая характеристика <em>C</em> означает, что автомат сработает при токе 5–10×In за 0.1–10 секунд. А ВАХ покажет, что при напряжении 180В ток срабатывания может снизиться на 20%, и автомат не отключит КЗ с током 8×In, так как реальный ток окажется ниже порога.
+
+<p><strong>Практический вывод</strong>: ВТХ помогает выбрать автомат по нагрузке, а ВАХ — оценить его работу при нестабильном напряжении. Для полной защиты нужно учитывать оба параметра.
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если в вашей сети часто бывают просадки напряжения (например, в сельской местности), выбирайте автоматы с <strong>механическими расцепителями</strong> — их ВАХ менее зависима от напряжения, чем у электронных.</p></div>
+
+<h2 id="как-считывать-вольт-амперную-характеристику-с-графика">Как считывать вольт-амперную характеристику с графика</h2>
+
+<p>Рассмотрим типичный график ВАХ для автоматического выключателя с электронным расцепителем (например, <em>ABB S800</em>). По оси X отложено напряжение (от 0 до 400В), по оси Y — ток срабатывания (в долях от номинального <code>I<sub>n</sub></code>).
+
+<p>Ключевые точки на графике:
+<ul>
+  <li>📉 <strong>Зона низких напряжений (50–150В)</strong>: ток срабатывания резко падает. Автомат может не отключить КЗ при глубокой просадке.</li>
+  <li>📈 <strong>Номинальное напряжение (230В для 1ф, 400В для 3ф)</strong>: ток срабатывания соответствует паспортным данным (например, 5×In для характеристики <em>C</em>).</li>
+  <li>⚡ <strong>Зона перенапряжений (250В+)</strong>: ток срабатывания растёт, возможны ложные отключения.</li>
+</ul>
+
+<p>Пример расшифровки:
+<p>- Для автомата <em>C16</em> при напряжении 230В ток срабатывания при КЗ составит ~80А (5×16А).</p>
+<p>- При просадке до 180В ток срабатывания может упасть до 60А. Если реальный ток КЗ окажется 65А, автомат не сработает!</p>
+<p>- При скачке до 260В ток срабатывания вырастет до 90А, и автомат может отключиться при пуске двигателя, хотя перегрузки нет.</p>
+
+<p>Для механических расцепителей график ВАХ почти линейный: ток срабатывания меняется пропорционально напряжению. А для электронных — возможны «ступеньки» из-за алгоритмов защиты.
+
+<details class="faq-item"><summary>Почему в паспорте автомата нет графика ВАХ?</summary><div class="faq-answer"><p>Большинство производителей указывают ВАХ только для профессиональных серий (например, <em>ABB Tmax</em> или <em>Schneider Masterpact</em>). Для бытовых автоматов (типа <em>IEK BA47</em> или <em>Legrand DX3</em>) ВАХ не приводят, так как она почти линейная и слабо влияет на защиту в стандартных условиях.</p></div></details>
+
+<h2 id="вах-для-бытовых-и-промышленных-автоматов-сравнение">ВАХ для бытовых и промышленных автоматов: сравнение</h2>
+
+<p>В бытовых сетях (220В/380В) и промышленных установках требования к ВАХ различаются. Разберём ключевые отличия:
+
+<p><strong>Бытовые автоматы (механические расцепители)</strong>:
+<p>- ВАХ близка к линейной: ток срабатывания меняется пропорционально напряжению.</p>
+<p>- При просадке до 180В ток срабатывания снижается на ~20%, но это редко критично для домашних сетей.</p>
+<p>- Примеры: <em>IEK BA47-29</em>, <em>Legrand TX3</em>, <em>Schneider Easy9</em>.</p>
+
+<p><strong>Промышленные автоматы (электронные расцепители)</strong>:
+<p>- ВАХ нелинейная: могут быть «мёртвые зоны» при низком напряжении или ускоренное срабатывание при перенапряжении.</p>
+<p>- Чувствительны к несимметрии фаз в 380В: если на одной фазе напряжение 350В, а на другой 420В, ток срабатывания будет разным.</p>
+<p>- Примеры: <em>ABB Tmax T7</em>, <em>Siemens 3VA</em>, <em>Eaton PX</em>.</p>
+
+<p>Для иллюстрации сравним два автомата:
+<table>
+  <thead>
+    <tr>
+      <th>Параметр</th>
+      <th>Бытовые (механика)</th>
+      <th>Промышленные (электроника)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Тип ВАХ</strong></td>
+      <td>Линейная</td>
+      <td>Нелинейная, с «ступеньками»</td>
+    </tr>
+    <tr>
+      <td><strong>Чувствительность к просадкам</strong></td>
+      <td>Низкая (сработает при токе 1.2×In даже при 180В)</td>
+      <td>Высокая (может не сработать при токе 1.5×In при 150В)</td>
+    </tr>
+    <tr>
+      <td><strong>Регулировка</strong></td>
+      <td>Нет</td>
+      <td>Есть (настройка порогов по напряжению)</td>
+    </tr>
+    <tr>
+      <td><strong>Пример модели</strong></td>
+      <td><em>Legrand DX3 C16</em></td>
+      <td><em>ABB Tmax T7N 160A</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><mark>Критическая особенность промышленных автоматов: при напряжении ниже 150В многие электронные расцепители переходят в «аварийный режим» и отключают нагрузку независимо от тока. Это может привести к ложным срабатываниям в сетях с частыми просадками.</mark>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для бытовых сетей с стабильным напряжением ВАХ некритична — достаточно выбрать автомат по номиналу и ВТХ. Для промышленных объектов или сетей с нестабильным напряжением анализ ВАХ обязателен!</p></div>
+
+<h2 id="практический-пример-выбор-автомата-по-вах-для-сети-с-просадками-напряжения">Практический пример: выбор автомата по ВАХ для сети с просадками напряжения</h2>
+
+<p>Допустим, у вас частный дом с нестабильным напряжением (180–240В) и нагрузкой 10 кВт (380В). Нужно выбрать автомат, который надёжно защитит от КЗ даже при просадках. Рассмотрим два варианта:
+
+<p><strong>Вариант 1: Механический автомат <em>C25</em> (например, <em>IEK BA47-29</strong>)</strong>
+<p>- При 230В ток срабатывания при КЗ: ~125А (5×25А).</p>
+<p>- При 180В ток срабатывания снизится до ~95А (125А × 180В/230В).</p>
+<p>- Если реальный ток КЗ составит 100А, автомат <strong>не сработает</strong>!</p>
+
+<p><strong>Вариант 2: Электронный автомат <em>ABB S801C 25A</strong> с настройкой ВАХ</strong>
+<p>- Можно задать порог срабатывания по напряжению: например, при U < 200В ток срабатывания фиксируется на уровне 100А.</p>
+<p>- Даже при 180В автомат отключит КЗ с током 100А.</p>
+<p>- Минус: стоимость в 3–5 раз выше механического.</p>
+
+<p>Решение для бюджетного варианта:
+<ul>
+  <li>🔧 Установить <strong>стабилизатор напряжения</em> на вводе (например, <em>Ресанта ACH-10000/1</em>).</li>
+  <li>🔌 Выбрать автомат с <strong>характеристикой <em>B</strong></em> (например, <em>Legrand TX3 B25</em>), который сработает при меньшем токе.</li>
+  <li>⚡ Использовать <strong>УЗО с защитой от перенапряжения</strong> (например, <em>Hager AD120</em>).</li>
+</ul>
+
+
+<p>Измерить минимальное/максимальное напряжение в сети мультиметром|Сверить ток КЗ в сети с ВАХ автомата при минимальном напряжении|Проверить, есть ли в автомате электронный расцепитель (читать паспорт)|Учесть пусковые токи нагрузки (например, для насосов или станков)|При необходимости добавить реле напряжения (например, <em>УЗМ-51М</em>)</p>
+<p>--></p>
+
+<h2 id="ошибки-при-игнорировании-вах-и-как-их-избежать">Ошибки при игнорировании ВАХ и как их избежать</h2>
+
+<p>Пренебрежение вольт-амперной характеристикой приводит к двум типам проблем:
+<ol>
+  <li><strong>Ложные срабатывания</strong> при скачках напряжения (например, при пуске мощного двигателя).</li>
+  <li><strong>Несрабатывание при КЗ</strong> из-за просадки напряжения.</li>
+</ol>
+
+<p>Типичные ошибки и решения:
+<ul>
+  <li>❌ <strong>Ошибка</strong>: Установка электронного автомата в сети с просадками до 160В без настройки ВАХ.
+    <br>✅ <strong>Решение</strong>: Использовать механический автомат или настроить пороги срабатывания по напряжению.</li>
+  <li>❌ <strong>Ошибка</strong>: Выбор автомата по номиналу без учёта реального тока КЗ в сети.
+    <br>✅ <strong>Решение</strong>: Измерить ток КЗ (например, прибором <em>Sonel MPI-530</em>) и сверить с ВАХ.</li>
+  <li>❌ <strong>Ошибка</strong>: Игнорирование несимметрии фаз в 380В.
+    <br>✅ <strong>Решение</strong>: Установить реле контроля фаз (например, <em>Eastron SDM220</em>).</li>
+</ul>
+
+<p><blockquote>⚠️ <strong>Внимание</strong>: В сетях с генераторами (например, в загородных домах) напряжение может «плавать» в широком диапазоне. В этом случае даже механические автоматы могут вести себя непредсказуемо. Обязательно используйте <strong>реле напряжения</strong> (например, <em>Зубр РН-113</em>) или <strong>стабилизатор</strong>.</blockquote>
+
+<p>Ещё одна распространённая проблема — <strong>несовместимость ВАХ автомата и УЗО</strong>. Например, если автомат при просадке напряжения не срабатывает на КЗ, а УЗО (например, <em>ABB FH202</em>) имеет собственную защиту от перенапряжения, оно может отключиться раньше. Это приведёт к «зависанию» сети в аварийном состоянии.
+
+<h2 id="как-измерить-вах-автомата-самостоятельно">Как измерить ВАХ автомата самостоятельно</h2>
+
+<p>Если в паспорте автомата нет графика ВАХ, его можно приблизительно построить самостоятельно. Для этого понадобится:
+<p>- <strong>Регулируемый автотрансформатор</strong> (ЛАТР) или источник питания с регулировкой напряжения.</p>
+<p>- <strong>Нагрузочный реостат</strong> или мощный переменный резистор.</p>
+<p>- <strong>Мультиметр</strong> (например, <em>Fluke 17B</em>) и <strong>токовые клещи</strong> (например, <em>UNI-T UT210E</em>).</p>
+
+<p>Порядок действий:
+<ol>
+  <li>Подключите автомат последовательно с нагрузкой (реостатом).</li>
+  <li>Установите напряжение 230В и постепенно увеличивайте ток, пока автомат не сработает. Зафиксируйте ток срабатывания (<code>I<sub>1</sub></code>).</li>
+  <li>Повторите измерения при напряжениях 180В, 200В, 250В, 270В, записывая токи срабатывания (<code>I<sub>2</sub>, I<sub>3</sub></code> и т.д.).</li>
+  <li>Постройте график: по оси X — напряжение, по оси Y — ток срабатывания.</li>
+</ol>
+
+<p><blockquote>⚠️ <strong>Внимание</strong>: Самостоятельные испытания автоматов под напряжением опасны! Проводите их только с соблюдением техники безопасности (изолированный инструмент, диэлектрические перчатки) или доверьте специалистам. Для бытовых автоматов достаточно данных из паспорта или типовых графиков производителя.</blockquote>
+
+<p>Пример результата для механического автомата <em>C16</em>:
+<table>
+  <thead>
+    <tr>
+      <th>Напряжение (В)</th>
+      <th>Ток срабатывания (А)</th>
+      <th>Кратность (I/In)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>180</td>
+      <td>64</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <td>200</td>
+      <td>72</td>
+      <td>4.5</td>
+    </tr>
+    <tr>
+      <td>230</td>
+      <td>80</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <td>250</td>
+      <td>87</td>
+      <td>5.4</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Как видно, при понижении напряжения ток срабатывания падает, что может быть критично для защиты.
+
+<h2 id="faq-частые-вопросы-о-вах-автоматических-выключателей">FAQ: Частые вопросы о ВАХ автоматических выключателей</h2>
+
+<details>
+  <summary>Влияет ли ВАХ на выбор автомата для дома?</summary>
+  <p>Для большинства бытовых сетей с стабильным напряжением (210–240В) ВАХ некритична — достаточно выбрать автомат по номиналу и время-токовой характеристике (<em>B, C, D</em>). Однако если в вашей сети бывают просадки ниже 190В или скачки выше 250В, стоит проверить ВАХ (особенно для электронных автоматов). Например, в сельской местности или при питании от генератора.</p>
+</details>
+
+<details>
+  <summary>Можно ли по ВАХ определить качество автомата?</summary>
+  <p>Косвенно — да. Автоматы с «рваной» нелинейной ВАХ (особенно в зоне низких напряжений) часто имеют упрощённые электронные расцепители. Качественные модели (например, <em>ABB S800</em> или <em>Schneider Acti9</em>) обычно имеют плавную ВАХ с минимальными отклонениями. Для механических автоматов ВАХ почти всегда линейная — это норма.</p>
+</details>
+
+<details>
+  <summary>Что делать, если автомат не срабатывает при КЗ из-за просадки напряжения?</summary>
+  <p>Варианты решений:
+  <ol>
+    <li>Заменить автомат на модель с <strong>характеристикой <em>B</strong></strong> (более чувствительная к токам КЗ).</li>
+    <li>Установить <strong>реле напряжения</em> (например, <em>УЗМ-51М</em>), которое отключит питание при просадке ниже 170В.</li>
+    <li>Добавить <strong>стабилизатор напряжения</strong> на вводе.</li>
+    <li>Для промышленных сетей: использовать автоматы с <strong>настраиваемой ВАХ</strong> (например, <em>ABB Tmax</em> с модулем <em>PR222DS</em>).</li>
+  </ol>
+  </p>
+</details>
+
+<details>
+  <summary>Как ВАХ связана с селективностью автоматов?</summary>
+  <p>Селективность (избирательность срабатывания) зависит не только от номиналов автоматов, но и от их ВАХ. Например, если в цепи установлены два автомата <em>C25</em> (верхний уровень) и <em>C16</em> (нижний уровень), но сеть имеет просадки напряжения, то при КЗ может сработать верхний автомат, так как его ток срабатывания при низком напряжении снизится сильнее. Чтобы обеспечить селективность, нужно:</p>
+  <ul>
+    <li>Использовать автоматы с одинаковой ВАХ (например, одной серии).</li>
+    <li>Проверять токи срабатывания при минимальном напряжении в сети.</li>
+    <li>Для критичных объектов применять автоматы с <strong>зональной селективностью</strong> (например, <em>Schneider Multi9</em> с функцией <em>Si</em>).</li>
+  </ul>
+</details>
+
+<details>
+  <summary>Где найти ВАХ для конкретной модели автомата?</summary>
+  <p>Информацию о ВАХ можно найти в следующих источниках:
+  <ul>
+    <li><strong>Технический паспорт</strong> (раздел «Характеристики срабатывания» или «Вольт-амперные зависимости»).</li>
+    <li><strong>Сайт производителя</strong>: ищите документы типа «Technical Data» или «Instruction Manual». Например, для <em>ABB S800</em> ВАХ приведена в <em>Product Handbook</em>.</li>
+    <li><strong>Программное обеспечение</strong>: некоторые бренды (например, <em>Schneider Electric</em>) предлагают ПО для расчёта характеристик (например, <em>EcoStruxure Power Design</em>).</li>
+    <li><strong>Запрос у дилера</strong>: для профессиональных серий (например, <em>Eaton PX</em>) ВАХ могут предоставить по запросу.</li>
+  </ul>
+  <p>Для бытовых автоматов (например, <em>IEK</em> или <em>TDM</em>) ВАХ обычно не публикуют — в этом случае можно ориентироваться на типовые графики для механических расцепителей.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-вольт-амперная-характеристика-вах-автомата-и-зачем-она-нужна">Что такое вольт-амперная характеристика (ВАХ) автомата и зачем она нужна</a></li><li><a href="#отличие-вах-от-время-токовой-характеристики-втх">Отличие ВАХ от время-токовой характеристики (ВТХ)</a></li><li><a href="#как-считывать-вольт-амперную-характеристику-с-графика">Как считывать вольт-амперную характеристику с графика</a></li><li><a href="#вах-для-бытовых-и-промышленных-автоматов-сравнение">ВАХ для бытовых и промышленных автоматов: сравнение</a></li><li><a href="#практический-пример-выбор-автомата-по-вах-для-сети-с-просадками-напряжения">Практический пример: выбор автомата по ВАХ для сети с просадками напряжения</a></li><li><a href="#ошибки-при-игнорировании-вах-и-как-их-избежать">Ошибки при игнорировании ВАХ и как их избежать</a></li><li><a href="#как-измерить-вах-автомата-самостоятельно">Как измерить ВАХ автомата самостоятельно</a></li><li><a href="#faq-частые-вопросы-о-вах-автоматических-выключателей">FAQ: Частые вопросы о ВАХ автоматических выключателей</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sk/skhema-podklyucheniya-difavtomata-v-odnofaznoj.html" class="related-card">Схема подключения дифавтомата в однофазной сети: пошаговая инструкция 2026</a></li><li><a href="/articles/c/ch/chto-delat-esli-vyrubilo-probki-v-kvartire-kak-vklyuchit.html" class="related-card">Выбило пробки в квартире — как включить свет самостоятельно</a></li><li><a href="/articles/k/ka/kak-soedinit-uzo-i-avtomaty.html" class="related-card">Как правильно подключить УЗО и автоматы: схема + пошаговая инструкция</a></li><li><a href="/articles/c/ch/chem-soedinit-avtomaty-mezhdu-soboj.html" class="related-card">Как соединить автоматы в щитке: 5 проверенных способов (2026)</a></li><li><a href="/articles/s/sk/skhema-podklyucheniya-dif-avtomata.html" class="related-card">Схема подключения дифавтомата: пошаговая инструкция 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sk/skhema-podklyucheniya-difavtomata-v-odnofaznoj.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения дифавтомата в однофазной сети: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно подключить дифавтомат в однофазной сети: схемы, ошибки, выбор номинала и пошаговые фот</span></a><a href="/articles/c/ch/chto-delat-esli-vyrubilo-probki-v-kvartire-kak-vklyuchit.html" class="related-bottom-card"><span class="related-bottom-title">Выбило пробки в квартире — как включить свет самостоятельно</span><span class="related-bottom-desc">Пошаговая инструкция: что делать, если отключилось электричество в квартире. Как найти и включить ав</span></a><a href="/articles/k/ka/kak-soedinit-uzo-i-avtomaty.html" class="related-bottom-card"><span class="related-bottom-title">Как правильно подключить УЗО и автоматы: схема + пошаговая инструкция</span><span class="related-bottom-desc">Подробное руководство по соединению УЗО с автоматами в щитке: схемы, ошибки, выбор оборудования и но</span></a><a href="/articles/c/ch/chem-soedinit-avtomaty-mezhdu-soboj.html" class="related-bottom-card"><span class="related-bottom-title">Как соединить автоматы в щитке: 5 проверенных способов (2026)</span><span class="related-bottom-desc">Правильное соединение автоматов между собой: гребенчатая шина, перемычки, клеммы. Схемы, ошибки, нор</span></a><a href="/articles/s/sk/skhema-podklyucheniya-dif-avtomata.html" class="related-bottom-card"><span class="related-bottom-title">Схема подключения дифавтомата: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как правильно подключить дифференциальный автомат: схемы, ошибки, выбор кабеля и нюансы монтажа. Пош</span></a><a href="/articles/k/ka/kakoj-avtomat-stavit-na-rozetki-v-kvartire.html" class="related-bottom-card"><span class="related-bottom-title">Какой автомат ставить на розетки в квартире: выбор и расчет</span><span class="related-bottom-desc">Подробный гайд по выбору автоматического выключателя для розеток в квартире: номиналы, типы, расчет </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">⚡ Электро Гид</div>
+                    <p class="footer-about">Полный справочник по электромонтажу, выбору оборудования и безопасности электрики в доме.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/rozetki-i-vyklyuchateli/">🔌 Розетки и выключатели</a></li>
+<li><a href="/category/elektroshchit-i-avtomaty/">🛡️ Электрощит и автоматы</a></li>
+<li><a href="/category/provodka-i-kabeli/">🧵 Проводка и кабели</a></li>
+<li><a href="/category/instrumenty-i-zamery/">🔧 Инструменты и замеры</a></li>
+<li><a href="/category/bezopasnost-i-zazemlenie/">⚠️ Безопасность и заземление</a></li>
+<li><a href="/category/stabilizatory-i-ibp/">🔋 Стабилизаторы и ИБП</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Электро Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>
